@@ -1,0 +1,29 @@
+[(#REM) <!-- Pipeline de debut pour inserer des noisettes perso --> ]
+[(#PIPELINE{colonne_navigation_debut,
+	[(#ARRAY{args, [(#ENV*|unserialize)], data, ''})]}
+)]
+
+<INCLURE{fond=aside/inc-nav-base,env} />
+
+[(#ENV{composition}|match{galerie|forums}|non)
+	<INCLURE{fond=noisettes/rubrique/navigation}{id_rubrique}{ajax}>
+]
+[(#ENV{composition}|=={galerie}|oui)
+	<INCLURE{fond=noisettes/galerie/nav-filtre}{ajax}{id_rubrique}{categorie}>
+]
+[(#REM) <!-- affichage du bloc de navigation d'une page groupe de forum --> ]
+[(#ENV{composition}|=={forums}|et{#ENV{id_rubrique}|!={#RACINE_SPECIALISEE{forum}}}|oui)
+	<INCLURE{fond=noisettes/forum/groupe_navigation}{id_secteur}{id_rubrique}>
+]
+
+<INCLURE{fond=aside/inc-plugins,env} />
+
+[(#REM) <!-- affichage du panneau d'annonce --> ]
+[(#CONFIG{sarkaspip/noisettes/position_annonce, 0}|=={1}|oui)
+	<INCLURE{fond=noisettes/inc_annonce}>
+]
+
+[(#REM) <!-- Pipeline de fin pour inserer des noisettes perso --> ]
+[(#PIPELINE{colonne_navigation_fin,
+	[(#ARRAY{args, [(#ENV*|unserialize)], data, ''})]}
+)]

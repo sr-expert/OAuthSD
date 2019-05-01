@@ -1,0 +1,18 @@
+[(#REM) <!-- Noisette des dernieres publications
+Recoit en argument:
+-->]
+[(#SET{bulle,<:sarkaspip:navigation_bulle_vers_article:>})]
+<B_parution_existe>
+	<div id="noisette_publications" class="noisette noisette_publications">
+		<BOUCLE_parution_existe(ARTICLES) {id_secteur!==#RACINE_SPECIALISEE}{0,1}><B_articles_recents>
+			<div class="liste short">
+				<h2><:sarkaspip:dernieres_publications:> <small><:sarkaspip:derniers_articles_publies:></small></h2>
+				<ul class="liste-items">
+					<BOUCLE_articles_recents(ARTICLES){id_secteur!==#RACINE_SPECIALISEE}{par date}{inverse}{0,#CONFIG{sarkaspip/noisettes/max_publications, 5}}>
+					<li class="item">[(#URL_ARTICLE|lien_ou_expose{#TITRE,#EXPOSE{a},'',#GET{bulle}})]</li>
+					</BOUCLE_articles_recents>
+				</ul>
+			</div>
+		</B_articles_recents></BOUCLE_parution_existe>
+	</div>
+</B_parution_existe>

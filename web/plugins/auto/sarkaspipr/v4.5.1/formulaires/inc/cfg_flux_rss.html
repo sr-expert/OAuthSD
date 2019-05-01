@@ -1,0 +1,32 @@
+#SET{name,rss#ENV{suffixe}}#SET{defaut,oui}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+	<label>#ENV{explication}</label>[
+	<span class='erreur_message'>(#GET{erreurs})</span>
+	]
+	#SET{val,oui}
+	<div class="choix">
+		<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+		<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_oui:></label>
+	</div>
+	#SET{val,non}
+	<div class="choix">
+		<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+		<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_non:></label>
+	</div>
+</li>
+<li class="fieldset suite" id="bloc_rss#ENV{suffixe}"><fieldset>
+	<ul class="editer-groupe">
+	#SET{name,nb#ENV{suffixe}}#SET{defaut,10}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+	<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+		<label for="#GET{name}"><:sarkaspip_config:cfg_lbl_rss_nombre:></label>[
+		<span class='erreur_message'>(#GET{erreurs})</span>
+		]<input type="text" name="#GET{name}" class="text" value="#ENV*{#GET{name},#GET{defaut}}" id="#GET{name}" [(#HTML5|et{#GET{obli}})required='required']/>
+	</li>
+	#SET{name,age#ENV{suffixe}}#SET{defaut,5}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+	<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+		<label for="#GET{name}"><:sarkaspip_config:cfg_lbl_rss_age:></label>[
+		<span class='erreur_message'>(#GET{erreurs})</span>
+		]<input type="text" name="#GET{name}" class="text" value="#ENV*{#GET{name},#GET{defaut}}" id="#GET{name}" [(#HTML5|et{#GET{obli}})required='required']/>
+	</li>
+	</ul></fieldset>
+</li>

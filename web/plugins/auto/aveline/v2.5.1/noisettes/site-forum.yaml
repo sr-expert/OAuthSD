@@ -1,0 +1,7 @@
+nom: '<:aveline:nom_site-forum:>'
+icon: 'forum-24.png'
+necessite:
+  - 'sites'
+  - 'forum'
+parametres:
+  - 'inclure:inc-yaml/options-comment.yaml'

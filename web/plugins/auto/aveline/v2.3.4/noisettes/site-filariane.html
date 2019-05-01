@@ -1,0 +1,12 @@
+[(#SET{ariane_separateur, #ENV{ariane_separateur}|is_null|non|?{#ENV{ariane_separateur},'&gt;'}})]
+[(#SET{ariane_separateur, [<span class="sep">(#GET{ariane_separateur})</span>]})]
+[(#SET{longueur_max_titres, #ENV{longueur_max_titres}|sinon{80}})]
+<BOUCLE_site(SITES){id_syndic}>
+<p id="hierarchie">
+	[(#ENV{afficher_lien_accueil}|oui)<a href="#URL_SITE_SPIP/"><:accueil_site:></a>]
+	<BOUCLE_ariane(HIERARCHIE){id_syndic}>
+	[(#COMPTEUR_BOUCLE|>{1}|ou{#ENV{afficher_secteur}})[(#GET{ariane_separateur})] <a href="#URL_RUBRIQUE">[(#TITRE|couper{#GET{longueur_max_titres}})]</a>]
+	</BOUCLE_ariane>
+	[(#ENV{afficher_titre_site}|oui) [(#GET{ariane_separateur})] <strong class="on">[(#NOM_SITE|couper{#GET{longueur_max_titres}})]</strong>]
+</p>
+</BOUCLE_site>

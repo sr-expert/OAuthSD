@@ -1,0 +1,9 @@
+[(#SET{taille_max_logo, #ENV{taille_max_logo}|is_null|non|?{#ENV{taille_max_logo},200}})]
+<div class="contenu-principal">
+	<div class="cartouche[(#ENV{afficher_nom_site}|ou{#ENV{afficher_logo}}|ou{#ENV{afficher_slogan_site}}|non)invisible]">
+		[(#ENV{afficher_logo}|oui)[(#LOGO_SITE_SPIP||image_reduire{#GET{taille_max_logo}})]]
+		<h1 class="h1[(#ENV{afficher_nom_site}|non)invisible]">#NOM_SITE_SPIP</h1>
+		[(#ENV{afficher_slogan_site}|oui)[<p class="#EDIT{soustitre} soustitre">(#SLOGAN_SITE_SPIP)</p>]]
+	</div>
+	[(#ENV{afficher_descriptif_site}|oui)[<div id="descriptif_site_spip">(#DESCRIPTIF_SITE_SPIP)</div>]]
+</div>

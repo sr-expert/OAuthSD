@@ -1,0 +1,12 @@
+<plugin>
+	<nom>Amelia</nom>
+	<version>2.1.1</version>
+	<etat>test</etat>
+	<auteur>Cedric</auteur>
+	<licence>GPL</licence>
+	<prefix>theme_bsamelia</prefix>
+	<description>Sweet and cheery</description>
+	<icon>vignette.png</icon>
+	<utilise id="spipr" version="[0.1.0-dev;]" />
+	<categorie>theme</categorie>
+</plugin>

@@ -1,0 +1,21 @@
+[(#SET{titre,[(#ENV{titre_liste}|=={titre_perso}|?{[(#ENV**{titre_liste_perso}|typo)],[(#ENV{titre_liste}|_T)]})]})]
+[(#SET{url_json,#URL_PAGE{aveline_calendrier_mini_articles.json}
+	|parametre_url{id_evenement,#ENV{id_evenement}}
+	|parametre_url{id_article,#ENV{id_article}}
+	|parametre_url{id_rubrique,#ENV{id_rubrique}}
+	|parametre_url{id_secteur,#ENV{id_secteur}}
+	|parametre_url{branche,#ENV{branche}}
+	|parametre_url{rubrique_specifique,#ENV{rubrique_specifique}}
+	|parametre_url{branche_specifique,#ENV{branche_specifique}}
+	|parametre_url{secteur_specifique,#ENV{secteur_specifique}}
+	|parametre_url{exclure_objet_en_cours,#ENV{exclure_objet_en_cours}}
+})]
+
+<div class="liste articles">
+[(#ENV{afficher_titre_liste}|oui)[<h2 class="h2">(#GET{titre})</h2>]]
+[(#CALENDRIER_MINI{#ENV{date},
+	archives,
+	#URL_PAGE{#ENV{url_minical,agenda}},
+	#GET{url_json}})]
+<style type="text/css">#calendar h2 {display:none;}</style>
+</div>

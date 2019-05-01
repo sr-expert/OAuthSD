@@ -1,0 +1,12 @@
+<plugin>
+	<nom>Cyborg</nom>
+	<version>2.2.2</version>
+	<etat>stable</etat>
+	<auteur>Cedric</auteur>
+	<licence>GPL</licence>
+	<prefix>theme_bscyborg</prefix>
+	<description>Jet black and electric blue</description>
+	<icon>vignette.png</icon>
+	<utilise id="spipr" version="[0.1.0-dev;]" />
+	<categorie>theme</categorie>
+</plugin>

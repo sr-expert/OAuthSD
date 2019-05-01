@@ -1,0 +1,37 @@
+<div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_oauth_user,nouveau}'>
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+	[(#ENV{editable})
+	<form method="post" action="#ENV{action}"><div>
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<input type="hidden" name="id_oauth_user" value="#ENV{id_oauth_user}" />
+		<div class="editer-groupe">
+ 
+			[(#SAISIE{input, username, obligatoire=oui,
+				label=<:oauth_user:champ_username_label:>,
+				explication=<:oauth_user:champ_username_explication:> })]
+ 
+			[(#SAISIE{input, password, obligatoire=oui,
+				label=<:oauth_user:champ_password_label:>,
+				explication=<:oauth_user:champ_password_explication:> })]
+ 
+			[(#SAISIE{input, first_name, obligatoire=oui,
+				label=<:oauth_user:champ_first_name_label:>,
+				explication=<:oauth_user:champ_first_name_explication:> })]
+ 
+			[(#SAISIE{input, last_name, obligatoire=oui,
+				label=<:oauth_user:champ_last_name_label:>,
+				explication=<:oauth_user:champ_last_name_explication:> })]
+ 
+			[(#SAISIE{input, email, obligatoire=oui,
+				label=<:oauth_user:champ_email_label:>,
+				explication=<:oauth_user:champ_email_explication:> })]
+
+		</div>
+		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+		<!--extra-->
+		<p class="boutons"><input type="submit" class="submit" value="<:bouton_enregistrer:>" /></p>
+	</div></form>
+	]
+</div>

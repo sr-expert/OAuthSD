@@ -1,0 +1,42 @@
+<div class="formulaire_spip formulaire_multi_mots">
+	[<div class="avertissement">(#ENV{message_erreur})</div>]
+	<form method="post" action="#ENV{action}"><div>
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<ul class="editer-groupe">
+			<li class="editer multi_critere">
+				<INCLURE{fond=noisettes/mot/inc-select}
+					{groupes=#CONFIG{sarkaspip/recherche/groupes_recherche}}
+					{mot=#ENV{mot_1}}
+					{suffixe=1}
+					{label=<:sarkaspip:liste_mot_1:>}>
+			</li>
+			<li class="editer multi_critere">
+				<INCLURE{fond=noisettes/mot/inc-select}
+					{groupes=#CONFIG{sarkaspip/recherche/groupes_recherche}}
+					{mot=#ENV{mot_2}}
+					{suffixe=2}
+					{label=<:sarkaspip:liste_mot_2:>}>
+			</li>
+			<li class="editer multi_critere">
+				<INCLURE{fond=noisettes/mot/inc-select}
+					{groupes=#CONFIG{sarkaspip/recherche/groupes_recherche}}
+					{mot=#ENV{mot_3}}
+					{suffixe=3}
+					{label=<:sarkaspip:liste_mot_3:>}>
+			</li>
+		</ul>
+	
+		<p class="boutons"><input type="submit" value="<:sarkaspip:bouton_rechercher:>" /></p>
+	</div></form>
+</div>
+
+<h2 class="tags">
+<BOUCLE_mots(MOTS){id_mot IN #LISTE{#ENV{mot_1},#ENV{mot_2},#ENV{mot_3}}}>
+[<span class="label"><i class="icon-tag"></i> (#TITRE)</span>]
+</BOUCLE_mots>
+</h2>
+
+[(#REM) <!-- les resultats de la recherche multi-mots -->]
+<BOUCLE_resultats(POUR){tableau #LISTE{articles,albums,evenements,breves,rubriques,sites}}{si #ENV{message_ok}|oui}>
+	<INCLURE{fond=noisettes/mot/liste-#VALEUR,ajax,id1=#ENV{mot_1},id2=#ENV{mot_2},id3=#ENV{mot_3},liste_type=short,class_resultats=resultats}>
+</BOUCLE_resultats>

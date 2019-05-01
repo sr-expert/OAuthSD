@@ -1,0 +1,36 @@
+/*
+Autorisation avec OAuth Server by DnC
+OpenID Connect : Introspection  
+Auteur : Bertrand degoy
+Copyright (c) 2016 DnC
+*/
+
+function oauth_authorize($idtoken) {
+
+    $Ok = false;
+
+    if ( !empty( $idtoken) ) {
+
+        // Interroger l'introspection de OAuth Server by DnC
+        include_spip('inc/distant');
+        $url = "http://oa.dnc.global/introspect?token=" . $idtoken;
+        $response = recuperer_url($url);  
+        
+        if ( (int)$response['status'] === 200 ) {
+            $jwt = json_decode($response['page'], true);
+            if ( $jwt['active'] == 'true' ) {
+                if ( isset($_SERVER["HTTP_ORIGIN"]) ) {
+                    // Accès HTTP (CORS) : autoriser l'origine
+                    include_spip('inc/headers');
+                    $issuer = trim(strtr($_SERVER["HTTP_ORIGIN"], '<>"\'', '[]##'));    
+                    header('Access-Control-Allow-Origin', $issuer);
+                }
+                $Ok = true;
+            }
+        }
+
+    }
+
+    return $Ok;
+
+}

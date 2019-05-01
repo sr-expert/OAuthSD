@@ -1,0 +1,36 @@
+[(#REM) <!-- affichage du panneau d'annonce --> ]
+[(#CONFIG{sarkaspip/noisettes/position_annonce, 0}|=={2}|oui)
+	<INCLURE{fond=noisettes/inc_annonce}>
+]
+
+[(#REM) <!-- Bloc des publications recentes --> ]
+[(#SI_PAGE{sommaire}|non|et{#CONFIG{sarkaspip/noisettes/position_publications, 0}|in_any{#LISTE{1,2}}|oui})
+	<INCLURE{fond=noisettes/inc_dernieres_publications, ajax}>
+]
+
+[(#REM) <!-- affichage du panneau derniers commentaires sauf sur la page articles ou album --> ]
+[(#CONFIG{sarkaspip/noisettes/position_commentaires, 0}|in_any{#LISTE{1,2}}|oui)
+	[(#ENV{type-page}|match{article}|non)
+		<INCLURE{fond=noisettes/inc_commentaires, id_secteur, ajax}>
+	]
+]
+
+[(#REM) <!-- affichage du panneau derniers messages de forum sauf sur les pages du forum --> ]
+[(#CONFIG{sarkaspip/noisettes/position_messages, 0}|in_any{#LISTE{1,2}}|oui)
+		<INCLURE{fond=noisettes/inc_messages, id_secteur, ajax}>
+]
+
+[(#REM) <!-- affichage des X dernieres breves, sites et articles syndiques en fonction du contexte --> ]
+[(#ENV{type-page}|!={herbier}|oui)
+	[(#CONFIG{sarkaspip/noisettes/position_herbier, 0}|in_any{#LISTE{1,2}}|oui)
+		<INCLURE{fond=noisettes/herbier/liste-recents, id_secteur}>
+	]
+]
+[(#ENV{type-page}|!={breve}|et{#CONFIG{sarkaspip/noisettes/position_breves, 2}|in_any{#LISTE{1,2}}}|oui)
+	<INCLURE{fond=noisettes/breve/nav-recentes, id_secteur}>
+]
+[(#ENV{type-page}|!={site}|oui)
+	[(#CONFIG{sarkaspip/noisettes/position_sites_syndic, 1}|in_any{#LISTE{1,2}}|oui)
+		<INCLURE{fond=noisettes/site/liste-recents_#CONFIG{sarkaspip/noisettes/liste_sites, 2}, id_secteur}>
+	]
+]

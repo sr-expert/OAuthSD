@@ -1,0 +1,6 @@
+[(#SET{ariane_separateur, #ENV{ariane_separateur}|is_null|non|?{#ENV{ariane_separateur},'&gt;'}})]
+[(#SET{longueur_max_titres, #ENV{longueur_max_titres}|sinon{80}})]
+[(#ENV{afficher_lien_accueil}|oui)<:accueil_site:>]
+[(#ENV{afficher_secteur}|oui) [(#GET{ariane_separateur})] <:aveline:secteur:>]
+[(#GET{ariane_separateur})] <:rubriques:> [(#ENV{afficher_secteur}|non) (<:aveline:secteur_exclu:>)]
+[(#ENV{afficher_titre_article}|oui) [(#GET{ariane_separateur})] <:article:>]

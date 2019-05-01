@@ -1,0 +1,37 @@
+#CACHE{0}
+
+<div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_public_key,new}'>
+    [<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+    [<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+    [(#ENV{editable})
+    <form method="post" action="#ENV{action}"><div>
+
+            #ACTION_FORMULAIRE{#ENV{action}}
+
+            <input type="hidden" name="id_client" value="#ENV{id_client}" />
+            <input type="hidden" name="client_id" value="#ENV{client_id}" />
+            <input type="hidden" name="id_public_key" value="#ENV{id_public_key,new}" />
+
+            <div class="editer-groupe">
+
+                [(#SAISIE{textarea, private_key, rows=6, obligatoire=oui,
+                label=<:client:champ_private_key_label:>,
+                explication=<:client:champ_private_key_explication:> })]
+
+                [(#SAISIE{textarea, public_key, rows=6, obligatoire=oui,
+                label=<:client:champ_public_key_label:>,
+                explication=<:client:champ_public_key_explication:> })]
+
+                [(#SAISIE{input, encryption_algorithm,
+                label=<:client:champ_encryption_algorithm_label:>,
+                explication=<:client:champ_encryption_algorithm_explication:> })]
+
+            </div>
+            [(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+            <!--extra-->
+            
+            <p class="boutons"><input type="submit" class="submit" value="<:bouton_enregistrer:>" /></p>
+        </div></form>
+    ]
+</div>

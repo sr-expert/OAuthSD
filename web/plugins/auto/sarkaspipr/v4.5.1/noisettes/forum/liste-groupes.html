@@ -1,0 +1,76 @@
+[(#REM) 
+<!-- Affichage d'un groupe de forum
+	Recoit en argument :
+		- id_rubrique: id de rubrique correspondant au groupe de forums ou vide si tous les groupes
+-->
+]
+<BOUCLE_groupe_forum(RUBRIQUES){id_parent?}{id_rubrique?}{par num titre}>
+<div class="groupe">
+	[(#EXPOSE|non)
+	<h2><span class="#EDIT{titre}">[(#TITRE)]</span>
+		<a[ href="(#URL_RUBRIQUE)"]>
+		<small>Voir ce groupe</small>
+		</a>
+	</h2>
+	]
+	[(#REM) <!-- Afficher table par rubrique ou toute si racine --> ]
+	<B_forums>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th class="etat"></th>
+				<th class="description"><:sarkaspip:colonne_forum:></th>
+				<th class="sujets center"><i class="icon-question-sign" title="<:sarkaspip:colonne_nombre_sujets|attribut_html:>"></i></th>
+				<th class="messages center"><i class="icon-comment" title="<:sarkaspip:colonne_nombre_reponses|attribut_html:>"></i></th>
+				<th class="dernier_message"><:sarkaspip:colonne_dernier_message:></th>
+			</tr>
+		</thead>
+	
+		<tbody>
+		<BOUCLE_forums(ARTICLES){id_rubrique}{par num titre}>
+			<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+				[(#REM) <!-- Etat et description du forum --> ]
+				[(#SET{statut_forum, [(#ID_ARTICLE|statut_forum)]})]
+				<td class="etat[(#GET{statut_forum}|!={ouvert}|oui)forumferme]">
+					[(#GET{statut_forum}|!={ouvert}|oui)<i class="icon-remove" title="<:sarkaspip:bulle_forum_ferme|attribut_html:>"></i>]
+				</td>
+				<td class="description">
+					[<strong class="[(#EDIT{titre}) ]titre">
+						<a href="[(#URL_ARTICLE)]"[(#GET{statut_forum}|!={ouvert}|oui)title="<:sarkaspip:bulle_forum_ferme|attribut_html:>"]>
+							(#TITRE)
+						</a>
+					</strong>]
+					[<div class="texte">(#INTRODUCTION)</div>]
+				</td>
+
+				[(#REM) <!-- Nombre de sujets du forum --> ]
+				<BOUCLE_discussions(FORUMS){id_article}></BOUCLE_discussions>
+				<td class="sujets">#TOTAL_BOUCLE</td>
+				<//B_discussions>
+
+				[(#REM) <!-- Nombre de réponses du forum --> ]
+				<BOUCLE_messages(FORUMS){id_article}{plat}{id_parent!=0}></BOUCLE_messages>
+				<td class="messages">#TOTAL_BOUCLE</td>
+				<//B_messages>
+
+				[(#REM) <!-- Informations sur le dernier message du forum --> ]
+				<td class="dernier_message">
+				<BOUCLE_dernier_message(FORUMS){id_article}{plat}{!par date}{0,1}>
+					<BOUCLE_papa(FORUMS){id_thread}>
+						#SET{id_forum_sujet,#ID_FORUM}
+						#SET{titre_sujet,#TITRE}
+					</BOUCLE_papa>
+					[<a href="[(#URL_ARTICLE{#ID_ARTICLE}|parametre_url{id_forum,#GET{id_forum_sujet}}|ancre_url{forum#ID_FORUM})]" class="titre" title="<:sarkaspip:bulle_lien_dernier_message:>">
+					<span>(#GET{titre_sujet}|nettoyer_titre_sujet|couper{25,...})</span></a>]
+					[<time datetime="[(#DATE|date_iso)]"><i class="icon-calendar"></i> (#DATE|affdate_heure)</time>][<span class="auteurs"><span class="sep">, </span><i class="icon-user"></i> <:par_auteur:> (#NOM)</span>]
+				</BOUCLE_dernier_message>
+						- 
+				<//B_dernier_message>		
+				</td>
+			</tr>
+		</BOUCLE_forums>
+		</tbody>
+	</table>
+	</B_forums>
+</div>
+</BOUCLE_groupe_forum>

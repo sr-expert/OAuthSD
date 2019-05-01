@@ -1,0 +1,28 @@
+<BOUCLE_oauth_user(OA_USERS){id_oauth_user}{statut?}>
+
+[<div class="champ contenu_username[ (#USERNAME*|strlen|?{'',vide})]">
+	<label><:oauth_user:champ_username_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{username} username">(#USERNAME)</span>
+</div>]
+
+[<div class="champ contenu_password[ (#PASSWORD*|strlen|?{'',vide})]">
+	<label><:oauth_user:champ_password_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{password} password">(#PASSWORD)</span>
+</div>]
+
+[<div class="champ contenu_first_name[ (#FIRST_NAME*|strlen|?{'',vide})]">
+	<label><:oauth_user:champ_first_name_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{first_name} first_name">(#FIRST_NAME)</span>
+</div>]
+
+[<div class="champ contenu_last_name[ (#LAST_NAME*|strlen|?{'',vide})]">
+	<label><:oauth_user:champ_last_name_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{last_name} last_name">(#LAST_NAME)</span>
+</div>]
+
+[<div class="champ contenu_email[ (#EMAIL*|strlen|?{'',vide})]">
+	<label><:oauth_user:champ_email_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{email} email">(#EMAIL)</span>
+</div>]
+
+</BOUCLE_oauth_user>

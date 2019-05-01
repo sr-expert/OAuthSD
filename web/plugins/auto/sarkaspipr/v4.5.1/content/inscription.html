@@ -1,0 +1,12 @@
+<section class="inscription">
+	<header class="cartouche">
+		[<h1>(#CONFIG{sarkaspip/formulaires/titre_inscription, <:sarkaspip:inscrire_au_site:>})</h1>]
+	</header>
+	<div class="main">
+		[<div class="chapo">(#CONFIG{sarkaspip/formulaires/descriptif_inscription}|propre)</div>]
+		[(#PLUGIN{INSCRIPTION2}|oui)
+			[(#FORMULAIRE_INSCRIPTION2)]]
+		[(#PLUGIN{INSCRIPTION2}|non)
+			[(#FORMULAIRE_INSCRIPTION)]]
+	</div>
+</section>

@@ -1,0 +1,24 @@
+<plugin>
+	<nom><multi>
+		[en]Arclite Blue
+		[fr]Arclite Bleu
+	</multi></nom>
+	<auteur>[digitalnature->http://digitalnature.ro/projects/arclite], [adapt&#233; pour Zpip par Denis Chenu (GsiLL)->http://www.gsill.net]</auteur>
+   <version>0.9.2</version>
+	<licence>GPL</licence>
+	<slogan><multi>
+		[en]Clean/light style Z theme. Blue version
+		[fr]Th&#232;me Z propre et l&#233;ger. Version en bleu
+	</multi></slogan>
+	<description><multi>
+		[en]A simple theme in 2 columns. With menu and logo. Width fluid between 780 and 1200 px. The main menu can contain up to four sub-menus. Blue version.
+		[fr]Un th&#232;me simple sur 2 colonnes. Avec menu d&#233;roulant et logo. Largeur fluide entre 780 et 1200 px. Le menu principal peut contenir jusque 4 sous menus. Version en bleu.
+	</multi></description>
+	<icon>vignette.png</icon>
+  	<etat>stable</etat>
+  	<prefix>theme_arclite_blue</prefix>
+	<lien>http://www.spip-contrib.net/Arclite</lien>
+	<necessite id="SPIP" version="[2.0.10;3.0.99]" />
+	<utilise id="Z" version="[1.2.0;]" />
+	<categorie>theme</categorie>
+</plugin>

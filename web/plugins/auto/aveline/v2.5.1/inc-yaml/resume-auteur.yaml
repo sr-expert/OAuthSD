@@ -1,0 +1,114 @@
+-
+  saisie: 'selection'
+  options:
+    nom: 'style_liste'
+    label: '<:aveline:label_style_liste:>'
+    defaut: 'liste'
+    cacher_option_intro: 'oui'
+    datas:
+      liste: '<:aveline:item_liste:>'
+      resume: '<:aveline:item_resume:>'
+      vignettes: '<:aveline:item_vignettes:>'
+-
+  saisie: 'fieldset'
+  options:
+    nom: 'si_liste_simple'
+    label: '<:aveline:label_si_liste_simple:>'
+    afficher_si: '@style_liste@ == "liste"'
+  saisies:
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'liste_afficher_nb_articles'
+        label: '<:aveline:label_afficher_nb_articles:>'
+        defaut: ''
+-
+  saisie: 'fieldset'
+  options:
+    nom: 'si_resume'
+    label: '<:aveline:label_si_resume:>'
+    afficher_si: '@style_liste@ == "resume"'
+  saisies:
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_bio'
+        label: '<:aveline:label_afficher_bio:>'
+        defaut: 'on'
+        defaut: ''
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_logo'
+        label: '<:aveline:label_afficher_logo:>'
+        defaut: 'on'
+    -
+      saisie: 'input'
+      options:
+        nom: 'taille_max_logo'
+        label: '<:aveline:label_taille_max_logo:>'
+        defaut: 150
+        afficher_si: '@afficher_logo@ == "on"'
+      verifier:
+        type: 'entier'
+        min: 10
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_lire_la_suite'
+        label: '<:aveline:label_afficher_lire_la_suite:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'rappeler_nom'
+        label: '<:aveline:label_rappeler_nom:>'
+        defaut: ''
+        afficher_si: '@afficher_lire_la_suite@ == "on"'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_nb_articles'
+        label: '<:aveline:label_afficher_nb_articles:>
+        defaut: ''
+-
+  saisie: 'fieldset'
+  options:
+    nom: 'si_vignettes'
+    label: '<:aveline:label_si_vignettes:>'
+    afficher_si: '@style_liste@ == "vignettes"'
+  saisies:
+    -
+      saisie: 'input'
+      options:
+        nom: 'vignette_longueur_max_noms'
+        label: '<:aveline:label_longueur_max_noms:>'
+        defaut: 30
+      verifier:
+        type: 'entier'
+      min: 10
+    -
+      saisie: 'input'
+      options:
+        nom: 'vignette_taille_max_logo'
+        label: '<:aveline:label_taille_max_logo:>'
+        defaut: 50
+      verifier:
+        type: 'entier'
+        min: 10
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'vignette_afficher_nb_articles'
+        label: '<:aveline:label_afficher_nb_articles:>'
+        defaut: ''
+    -
+      saisie: 'input'
+      options:
+        nom: 'vignette_hauteur_vignette'
+        label: '<:aveline:label_hauteur_vignette:>'
+        defaut: 150
+        afficher_si: '@vignette_ajout_css@ == "on"'
+      verifier:
+        type: 'entier'
+        min: 10

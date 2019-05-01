@@ -1,0 +1,71 @@
+[(#REM) <!-- Header inclus dans chaque page du squelette
+	Propose par defaut une serie de metatags, les feuilles de style et la syndication.
+
+	Cette noisette utilise quelques variables de config:
+		- recurrence_robot : nombre de jours entre deux visite (metatag revisit-after)
+		- auteur_site : nom de l'auteur du site (metatag author)
+		- licence_site : le type de copyright choisi pour le site, idem que le footer (metatag copyright)
+		- keywords_site : la liste des mots-cles caracterisant le site (metatag keywords)
+--> ]
+
+[(#REM) <!-- Metatags proposes en standard par le squelette --> ]
+<meta http-equiv="content-type" content="text/html; charset=#CHARSET" />
+[<meta name="revisit-after" content="(#CONFIG{sarkaspip/header/recurrence_robot, 30}) days" />]
+<meta name="robots" content="index,follow" />
+<meta name="generator" content="SPIP[ (#SPIP_VERSION)] - Sarka-SPIP[ (#VERSION_SQUELETTE|textebrut)]" />
+[<meta name="author" content="(#CONFIG{sarkaspip/header/auteur_site,<:sarkaspip:realisation_squelette:>})" />]
+<meta name="copyright" content="[(#NOM_SITE_SPIP|textebrut)][ - (#CONFIG{sarkaspip/header/licence_site}|textebrut)]" />
+<meta name="distribution" content="global" />
+[<meta name="keywords" content="(#CONFIG{sarkaspip/header/keywords_site}|textebrut)" />]
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+[(#REM) <!-- Feuilles de styles par défaut du framework et de SPIP --> ]
+[<link rel="stylesheet" href="(#CSS{css/bootstrap.css})" type="text/css" />]
+[<link rel="stylesheet" href="(#CSS{css/responsive.css})" type="text/css" />]
+[<link rel="stylesheet" href="(#CSS{css/box.css})" type="text/css" />]
+[<link rel="stylesheet" href="(#CSS{css/box_skins.css})" type="text/css" />]
+
+[<link rel="stylesheet" href="(#CSS{css/spip.css})" type="text/css" />]
+[<link rel="stylesheet" href="(#CSS{css/spip.comment.css})" type="text/css" />]
+[<link rel="stylesheet" href="(#CSS{css/spip.list.css})" type="text/css" />]
+[<link rel="stylesheet" href="(#CSS{css/spip.petition.css})" type="text/css" />]
+[<link rel="stylesheet" href="(#CSS{css/spip.agenda.css})" type="text/css" />]
+[<link rel="stylesheet" href="(#CSS{css/spip.pagination.css})" type="text/css" />]
+[(#REM)
+[<link rel="stylesheet" href="(#CSS{css/spip.portfolio.css})" type="text/css" />]
+]
+[(#REM) <!-- Balise permettant aux plugins d'inserer des fichiers CSS --> ]
+#INSERT_HEAD_CSS
+
+[(#REM) <!-- Feuille de style par defaut du squelette --> ]
+[<link rel="stylesheet" href="(#CSS{css/sarkaspip.css})" type="text/css" />]
+[(#REM) <!-- Feuille de style du theme -->]
+[<link rel="stylesheet" href="(#CSS{css/theme.css})" type="text/css" />]
+[(#REM) <!-- Feuille de style CSS pour l'impression, n'existe pas par defaut --> ]
+[<link rel="stylesheet" href="(#CSS{css/print.css})" type="text/css" media="print" />]
+
+[(#CHEMIN{inc-theme-head.html}|oui)
+#INCLURE{fond=inc-theme-head,env}
+]
+
+[(#REM) <!-- Feuille de style personnalisee pour surcharger les precedentes
+	A noter par defaut cette css n'existe pas
+ -->]
+[<link rel="stylesheet" href="(#CSS{css/perso.css})" type="text/css" />]
+
+[(#REM) <!-- Syndication du contenu du site. En option la syndication des rubriques --> ]
+[<link rel="alternate" type="application/rss+xml" title="<:sarkaspip:syndiquer_site:>" href="(#URL_PAGE{backend})" />]
+
+[(#REM) <!-- Balise permettant aux plugins d'inserer des appels javascript ou css --> ]
+#INSERT_HEAD
+
+[<script type="text/javascript" src="(#CHEMIN{js/bootstrap-transition.js})"></script>]
+[<script type="text/javascript" src="(#CHEMIN{js/bootstrap-dropdown.js})"></script>]
+[<script type="text/javascript" src="(#CHEMIN{js/menu.dropdown.js})"></script>]
+[<script type="text/javascript" src="(#CHEMIN{js/bootstrap-carousel.js})"></script>]
+[<script type="text/javascript" src="(#CHEMIN{js/bootstrap-collapse.js})"></script>]
+
+[(#REM) <!-- Favicon du site --> ]
+[<link rel="icon" type="image/x-icon" href="(#CHEMIN{images/favicon.ico})" />
+[<link rel="shortcut icon" type="image/x-icon" href="(#CHEMIN{images/favicon.ico})" />]]
+

@@ -1,0 +1,31 @@
+<paquet
+	prefix="zvide"
+	categorie="squelette"
+	version="2.1.0"
+	etat="stable"
+	compatibilite="[3.0.0-beta;3.0.99]"
+	logo="prive/themes/spip/images/zvide-32.png"
+	documentation="http://contrib.spip.net/?article4265"
+>	
+
+	<nom>Zpip-vide</nom>
+	<!-- Squelette Z vide de contenu à remplir avec des noisettes -->
+
+	<auteur lien="http://contrib.spip.net/Joseph">Joseph</auteur>
+
+	<licence lien="http://www.gnu.org/licenses/gpl-3.0.html">GPL 3</licence>
+
+	<traduire module="zvide" reference="fr" gestionnaire="salvatore" />
+
+	<pipeline nom="recuperer_fond" inclure="zvide_pipelines.php" />
+	<pipeline nom="ieconfig_metas" inclure="zvide_ieconfig_metas.php" />
+
+	<necessite nom="Z" compatibilite="[1.7.0;1.99.99]" />
+
+	<utilise nom="noizetier" compatibilite="[2.0.0;2.99.99]" />
+	<utilise nom="menus" />
+	<utilise nom="agenda" />
+	<utilise nom="rssconfig" compatibilite="[1.4.0;1.99.99]" />
+
+	<menu nom="zvide" titre="zvide:configurer_zvide" parent="menu_squelette" icone="images/entete-16.png" action="configurer_zvide" />
+</paquet>

@@ -1,0 +1,44 @@
+@import "bootstrap/css/layouts.less";
+@import "css/layoutgala/33";
+@import "css/layoutgala/27";
+
+// on passe en grille etroite par defaut
+body {text-align: center;}
+#grid > .core(@gridColumnWidth768, @gridGutterWidth768);
+#layoutgala33 > .core(8,3,3,@gridColumnWidth768,@gridGutterWidth768);
+.page {
+  margin: 0 auto;
+  width: (@gridColumnWidth768 * 12) + (@gridGutterWidth768 * (12 + 1));
+  max-width: 100%;
+  text-align: left;
+}
+
+@media (min-width: 1200px) {
+  .page {
+    width: (@gridColumnWidth * 12) + (@gridGutterWidth * (12 + 1));
+    #grid > .core(@gridColumnWidth, @gridGutterWidth);
+    #layoutgala33 > .core(8,3,3,@gridColumnWidth,@gridGutterWidth);
+  }
+}
+
+@media (max-width: 767px) {
+  #layoutgala27 > .core(100%,47.5%,47.5%,@gridColumnWidth768,@gridGutterWidth768);
+  html>body {padding: 0}
+  .page {padding: 0 @gridGutterWidth768;width:auto;}
+}
+
+@media (max-width: 450px) {
+  #aside {float:none;width:100%;}
+  #extra {float:none;width:100%;}
+}
+
+#footer {
+  .clearfix;
+  margin-top:4em;
+  margin-bottom:0;
+}
+
+@media print {
+.page #content {display:block;float:none;width:90%;}
+.secondary {display:none;}
+}

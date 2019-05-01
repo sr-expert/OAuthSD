@@ -1,0 +1,4 @@
+#SET{id_article,#ENV{id_article,#ENV{objet}|=={article}|?{#ENV{id_objet},0}}}
+<BOUCLE_principale_article(ARTICLES){id_article=#GET{id_article}}>
+<INCLURE{fond=structure,env,id_rubrique=#ENV{id_rubrique,#ID_RUBRIQUE},id_article=#GET{id_article},id_secteur=#ID_SECTEUR,type-page=article,composition=forum} />
+</BOUCLE_principale_article>

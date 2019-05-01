@@ -1,0 +1,12 @@
+[(#SET{ariane_separateur, #ENV{ariane_separateur}|is_null|non|?{#ENV{ariane_separateur},'&gt;'}})]
+[(#SET{ariane_separateur, [<span class="sep">(#GET{ariane_separateur})</span>]})]
+[(#SET{longueur_max_titres, #ENV{longueur_max_titres}|sinon{80}})]
+<BOUCLE_breve(BREVES){id_breve}>
+<p id="hierarchie">
+	[(#ENV{afficher_lien_accueil}|oui)<a href="#URL_SITE_SPIP/"><:accueil_site:></a>]
+	<BOUCLE_ariane(RUBRIQUES){id_rubrique}>
+	[(#ENV{afficher_secteur}|oui)[(#GET{ariane_separateur})] <a href="#URL_RUBRIQUE">[(#TITRE|couper{#GET{longueur_max_titres}})]</a>]
+	</BOUCLE_ariane>
+	[(#ENV{afficher_titre_breve}|oui) [(#GET{ariane_separateur})] <strong class="on">[(#TITRE|couper{#GET{longueur_max_titres}})]</strong>]
+</p>
+</BOUCLE_breve>

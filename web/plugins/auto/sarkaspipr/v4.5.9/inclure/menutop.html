@@ -1,0 +1,18 @@
+<div class="navbar-inner">
+	<div class="container">
+		<BOUCLE_navbar(MENUS?){identifiant=menutop}{si #PLUGIN{menus}}{si #CONFIG{sarkaspip/menus/top, 1}|=={1}}>
+		#INCLURE{fond=inclure/menu, env, identifiant=menutop}
+		</BOUCLE_navbar>
+		[(#CONFIG{sarkaspip/menus/top, 1}|=={1}|oui)
+		<ul class="nav"><INCLURE{fond=noisettes/menu/session,id_rubrique=#ENV{id_rubrique,0},type-page,page,composition} /></ul>
+		]
+		<//B_navbar>
+
+		[(#CONFIG{sarkaspip/menus/position_langues, 4}|=={4}|oui)
+		<ul class="nav nav-pills pull-right">
+			<!-- Navigation dans les langues -->
+				<INCLURE{fond=noisettes/menu/langues} />
+		</ul>
+		]
+	</div>
+</div>

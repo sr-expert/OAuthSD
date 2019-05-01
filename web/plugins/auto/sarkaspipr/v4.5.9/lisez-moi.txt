@@ -1,0 +1,33 @@
+<!--
+Squelette Sarka-SPIP
+Copyright (C) 2005-2009 - Collectif Sarka-SPIP - http://www.sarka-spip.net
+
+Ce programme est libre, vous pouvez le redistribuer et/ou le modifier selon les termes
+de la Licence Publique Générale GNU publiée par la Free Software Foundation (version 3
+ou bien toute autre version ultérieure choisie par vous).
+
+Ce programme est distribué car potentiellement utile, mais SANS AUCUNE GARANTIE, ni
+explicite ni implicite, y compris les garanties de commercialisation ou d'adaptation
+dans un but spécifique. Reportez-vous à la Licence Publique Générale GNU pour plus de détails.
+
+Vous devez avoir reçu une copie de la Licence Publique Générale GNU en même temps que ce programme
+; si ce n'est pas le cas, écrivez à la Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+Boston, MA 02111-1307, États-Unis.
+-->
+
+<!--
+CREDITS
+
+Le squelette Sarka-SPIP est réalisé par un collectif dont les membres sont les suivants:
+
+- Toufik Stouky    alias  SarkAFeeK
+- Sylvain Bellégo  alias  SarkALeoN
+- Xavier Le Ho     alias  SarkARchimeD
+- Eric Lupinacci   alias  SarkASmeL
+- Pascal Ossola    alias  SarkANosS
+
+Nous tenons aussi à remercier tous les utilisateurs qui nous ont fait confiance depuis les 
+premiers pas du squelette et qui continuent aujourd'hui à nous apporter leur soutien et leurs idées.
+Un grand merci, donc, à celles et ceux qui ont contribué (et qui vont contribuer) à l'amélioration
+de ce squelette.
+-->

@@ -1,0 +1,103 @@
+#SET{niveau_titre_article,#ENV{afficher_titre_liste}|non|et{#ENV{afficher_texte_article}|=={complet}}|?{h2,h3}}
+[(#SET{lien_sur_titre,[(#ENV{lien_sur_titre}|is_null|?{'on',#ENV{lien_sur_titre}})]})]
+<BOUCLE_article(ARTICLES) {id_article} {statut?}{compteur_publie forum}>
+[(#ENV{style_liste}|=={liste}|oui)
+	<li class="item"[(#ENV{forcer_width_100}|oui)style="width:100%;"]>
+		[<a name="tri_alphabetique_(#ENV{initiale})"></a>]
+		[(#ENV{liste_afficher_date_en_surtitre}|et{#ENV{liste_afficher_date}})[(#DATE|affdate_jourcourt)]]
+		[(#ENV{liste_afficher_surtitre}|oui)[<span class="#EDIT{surtitre}">(#SURTITRE)</span>] ]<a href="#URL_ARTICLE"[(#ENV{id_article_expose}|=={#ID_ARTICLE}|oui) class="on"]><span class="#EDIT{titre}">#TITRE</span></a>[(#ENV{liste_afficher_soustitre}|oui) [<span class="#EDIT{soustitre}">(#SOUSTITRE)</span>]][(#ENV{liste_afficher_source_rss}|et{#ENV{liste_afficher_source_rss_soustitre}}|et{#PLUGIN{rssarticle}}|oui)[<span class="source_rss">((#INCLURE{fond=inclure/source_rss,id_article=#ID_ARTICLE}))</span>]]
+		[(#ENV{liste_afficher_note}|et{#PLUGIN{notation}})#NOTATION_ETOILE{#NOTE}<br />]
+		[(#ENV{liste_afficher_date}|et{#ENV{liste_afficher_date_en_surtitre}|non}|ou{#ENV{liste_afficher_date_modif}}|ou{#ENV{liste_afficher_auteurs}}|ou{#ENV{liste_afficher_nb_commentaires}}|ou{#ENV{liste_afficher_rubrique}}|ou{#ENV{liste_afficher_mots_cles}}|ou{#ENV{liste_afficher_popularite}}|ou{#ENV{liste_afficher_traductions}})<div class="info-publi">]
+			[(#ENV{liste_afficher_date}|et{#ENV{liste_afficher_date_en_surtitre}|non})[<abbr class="published" title="[(#DATE|date_iso)]">(#DATE|affdate_jourcourt)</abbr>][(#ENV{liste_afficher_auteurs}|et{#LESAUTEURS}|?{',','.'})]]
+			[(#ENV{liste_afficher_auteurs}|oui)[<:par_auteur:> (#LESAUTEURS).]]
+			[(#ENV{liste_afficher_date_modif}|oui)<:avelinepublic:mis_a_jour_le:> [(#DATE_MODIF|affdate)].]
+			[(#ENV{liste_afficher_source_rss}|et{#ENV{liste_afficher_source_rss_soustitre}|non}|et{#PLUGIN{rssarticle}}|oui)[<span class="source_rss"><strong><:avelinepublic:source_deux_points:></strong> (#INCLURE{fond=inclure/source_rss,id_article=#ID_ARTICLE})</span>.]]
+			[(#ENV{liste_afficher_rubrique}oui)[(#ENV{liste_texte_devant_rubrique}|_T) ]<a href="#INFO_URL{rubrique,#ID_RUBRIQUE}">#INFO_TITRE{rubrique,#ID_RUBRIQUE}</a>.]
+			[(#ENV{liste_afficher_mots_cles}oui)#INCLURE{fond=inclure/objet-mots_cles,id_article,id_rubrique='',texte_devant_mots_cles=#ENV{liste_texte_devant_mots_cles},ajoute_point='on'}]
+			[(#ENV{liste_afficher_nb_commentaires}|et{#AVELINE_COMPTEUR_FORUM|>{0}}|oui)
+				[<a href="[(#URL_ARTICLE|ancre_url{forum})]" class="nb_commentaires">(#AVELINE_COMPTEUR_FORUM)[&nbsp;(#AVELINE_COMPTEUR_FORUM|=={1}|?{<:zpip:commentaire:>,<:zpip:commentaires:>})]</a>.]
+			]
+			[(#ENV{liste_afficher_popularite}|oui)#POPULARITE_ABSOLUE <:avelinepublic:visiteurs_quotidiens:>.]
+			[(#ENV{liste_afficher_visites}|oui)<:spip:lien_visites{visites=#VISITES}:>.]
+			[(#ENV{liste_afficher_traductions}|oui)#MODELE{article_traductions}]
+		[(#ENV{liste_afficher_date}|et{#ENV{liste_afficher_date_en_surtitre}|non}|ou{#ENV{liste_afficher_date_modif}}|ou{#ENV{liste_afficher_auteurs}}|ou{#ENV{liste_afficher_nb_commentaires}}|ou{#ENV{liste_afficher_rubrique}}|ou{#ENV{liste_afficher_mots_cles}}|ou{#ENV{liste_afficher_popularite}}|ou{#ENV{liste_afficher_visites}}|ou{#ENV{liste_afficher_traductions}})</div>]
+	</li>
+]
+[(#ENV{style_liste}|=={resume}|oui)
+	<li class="item hentry"[(#ENV{forcer_width_100}|oui)style="width:100%;"]>
+		[<a name="tri_alphabetique_(#ENV{initiale})"></a>]
+		<[(#GET{niveau_titre_article}) ]class="[(#GET{niveau_titre_article}) ]entry-title">
+			[(#ENV{afficher_date_en_surtitre}|et{#ENV{afficher_date}})[(#DATE|affdate_jourcourt)]]
+			[(#ENV{afficher_surtitre}|oui)[<span class="#EDIT{surtitre}">(#SURTITRE)</span>] ]
+         
+      	[(#GET{lien_sur_titre}|oui)
+				<a href="#URL_ARTICLE" rel="bookmark"[(#ENV{id_article_expose}|=={#ID_ARTICLE}) class="on"]>]
+				[(#ENV{afficher_logo}|oui)
+					[(#ENV{utiliser_logo_article_rubrique}|oui)[(#LOGO_ARTICLE_RUBRIQUE||image_reduire{[(#ENV{taille_max_logo}|sinon{150})]}|sinon{#INCLURE{fond=inclure/article-resume-image}{env}})]]
+					[(#ENV{utiliser_logo_article_rubrique}|non)[(#LOGO_ARTICLE||image_reduire{[(#ENV{taille_max_logo}|sinon{150})]}|sinon{#INCLURE{fond=inclure/article-resume-image}{env}})]]
+				]
+				<span class="#EDIT{titre}">#TITRE</span>
+      	[(#GET{lien_sur_titre}|oui)</a>]
+			[(#ENV{afficher_soustitre}|oui) [<span class="#EDIT{soustitre}">(#SOUSTITRE)</span>]]
+			[(#ENV{afficher_source_rss}|et{#ENV{afficher_source_rss_soustitre}}|et{#PLUGIN{rssarticle}}|oui)[<span class="source_rss">((#INCLURE{fond=inclure/source_rss,id_article=#ID_ARTICLE}))</span>]]
+		</#GET{niveau_titre_article}>
+		[(#ENV{afficher_date}|et{#ENV{afficher_date_en_surtitre}|non}|ou{#ENV{afficher_auteurs}}|ou{#ENV{afficher_date_modif}}|ou{#ENV{afficher_note}})<div class="info-publi">]
+			[(#ENV{afficher_note}|et{#PLUGIN{notation}})#NOTATION_ETOILE{#NOTE}<br />]
+			[(#ENV{afficher_date}|et{#ENV{afficher_date_en_surtitre}|non})[<abbr class="published" title="[(#DATE|date_iso)]">(#DATE|affdate_jourcourt)</abbr>]][(#ENV{afficher_date}|et{#ENV{afficher_auteurs}|et{#LESAUTEURS}}?{'<span class="sep">,</span>'})]
+			[(#ENV{afficher_auteurs}|oui)[<span class="auteurs"><:par_auteur:> (#LESAUTEURS)</span>]]
+			[(#ENV{afficher_date_modif}|oui)[(#ENV{afficher_date}|ou{#ENV{afficher_auteurs}})<br />]<:avelinepublic:mis_a_jour_le:> [(#DATE_MODIF|nom_jour) ][(#DATE_MODIF|affdate)]]
+		[(#ENV{afficher_date}|et{#ENV{afficher_date_en_surtitre}|non}|ou{#ENV{afficher_auteurs}}|ou{#ENV{afficher_date_modif}}|ou{#ENV{afficher_note}})</div>]
+		[(#ENV{afficher_texte_article}|=={introduction}|oui)
+			[<div class="[(#EDIT{intro}) ]introduction entry-content">(#INTRODUCTION{[(#ENV{longueur_max_introduction}|sinon{600})]})</div>]
+		]
+		[(#ENV{afficher_texte_article}|=={complet}|oui)
+			[(#ENV{afficher_descriptif}|oui) [<div class="[(#EDIT{descriptif}) ]chapo">(#DESCRIPTIF|image_reduire{#GET{taille_max_images_texte},0})</div>]]
+			[<div class="[(#EDIT{chapo}) ]chapo">(#CHAPO|image_reduire{#GET{taille_max_images_texte},0})</div>]
+			[<div class="[(#EDIT{texte}) ]texte">(#TEXTE|image_reduire{#GET{taille_max_images_texte},0})</div>]
+			[(#ENV{afficher_lienhypertexte}|oui)
+				[<p class="[(#EDIT{hyperlien}) ]hyperlien"><:voir_en_ligne:> : <a href="(#URL_SITE)" class="spip_out">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
+			]
+			[<div class="ps">
+				<h3 class="h3 spip"><:info_ps:></h2>
+				<div class="#EDIT{ps}">(#PS|image_reduire{#GET{taille_max_images_texte},0})</div>
+			</div>]
+			[<div class="notes"><h3 class="h3 spip"><:info_notes:></h3>(#NOTES)</div>]
+		]
+		[(#ENV{afficher_source_rss}|et{#ENV{afficher_source_rss_soustitre}|non}|et{#PLUGIN{rssarticle}}|oui)[<p class="source_rss"><strong><:avelinepublic:source_deux_points:></strong> (#INCLURE{fond=inclure/source_rss,id_article=#ID_ARTICLE})</p>]]
+		[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_nb_commentaires}}|ou{#ENV{afficher_rubrique}}|ou{#ENV{afficher_mots_cles}}|ou{#ENV{afficher_popularite}}|ou{#ENV{afficher_traductions}})<div class="meta-publi">]
+			[(#ENV{afficher_lire_la_suite}|oui)<a class="lire-la-suite" href="#URL_ARTICLE"><:zpip:lire_la_suite:>[(#ENV{rappeler_titre}|oui)<span class="lire-la-suite-titre"><:zpip:lire_la_suite_de:> <em>#TITRE</em></span>]</a>]
+			[(#ENV{afficher_lien_permanent}|oui)
+				[(#ENV{afficher_lire_la_suite}|oui)<span class="sep">|</span> ]<a class="lire-la-suite" href="#URL_ARTICLE"><:avelinepublic:lien_permanent:></a>
+			]
+			[(#ENV{afficher_rubrique}oui)
+				[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|et{#ENV{texte_devant_rubrique}|!={avelinepublic:gt}}|et{#ENV{texte_devant_rubrique}|!={avelinepublic:colon2}})<span class="sep">|</span> ][(#ENV{texte_devant_rubrique}|_T)]
+			<a href="#INFO_URL{rubrique,#ID_RUBRIQUE}">#INFO_TITRE{rubrique,#ID_RUBRIQUE}</a>]
+			[(#ENV{afficher_mots_cles}oui)[(#INCLURE{fond=inclure/objet-mots_cles,id_article,id_rubrique='',texte_devant_mots_cles=#ENV{texte_devant_mots_cles},affiche_sep=[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_rubrique}}|?{'on',''})]})]]
+			[(#ENV{afficher_nb_commentaires}|et{#AVELINE_COMPTEUR_FORUM|>{0}}|oui)
+				[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_rubrique}}|ou{#ENV{afficher_mots_cles}}|oui)<span class="sep">|</span>]
+				[<a href="[(#URL_ARTICLE|ancre_url{forum})]" class="nb_commentaires">(#AVELINE_COMPTEUR_FORUM)[&nbsp;(#AVELINE_COMPTEUR_FORUM|=={1}|?{<:zpip:commentaire:>,<:zpip:commentaires:>})]</a>]
+			]
+			[(#ENV{afficher_popularite}|oui)[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_rubrique}}|ou{#ENV{afficher_mots_cles}}|ou{#ENV{afficher_nb_commentaires}})<span class="sep">|</span> ]#POPULARITE_ABSOLUE <:avelinepublic:visiteurs_quotidiens:>]
+			[(#ENV{afficher_visites}|oui)[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_rubrique}}|ou{#ENV{afficher_mots_cles}}|ou{#ENV{afficher_nb_commentaires}}|ou{#ENV{afficher_popularite}})<span class="sep">|</span> ]<:spip:lien_visites{visites=#VISITES}:>]
+			[(#ENV{afficher_traductions}|oui)#MODELE{article_traductions}]
+		[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_nb_commentaires}}|ou{#ENV{afficher_rubrique}}|ou{#ENV{afficher_mots_cles}}|ou{#ENV{afficher_popularite}}|ou{#ENV{afficher_traductions}})</div>]
+	</li>
+]
+[(#ENV{style_liste}|=={vignettes}|oui)
+	<li class="item hentry" [(#ENV{vignette_ajout_css}|oui) style="float: left; clear:none; width: [(#ENV{vignette_taille_max_logo,50}|plus{30})]px; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; height:[(#ENV{vignette_hauteur_vignette,150})]px"]>
+		[<a name="tri_alphabetique_(#ENV{initiale})"></a>]
+		<dl class="article" [(#ENV{vignette_ajout_css}|oui) style="text-align: center; padding:0px; width:[(#ENV{vignette_taille_max_logo,50}|plus{30})]px;"]>
+			<dt [(#ENV{vignette_ajout_css}|oui) style="text-align: center; padding:0px; width:[(#ENV{vignette_taille_max_logo,50}|plus{30})]px;"]><a href="#URL_ARTICLE" [(#ENV{id_article_expose}|=={#ID_ARTICLE}) class="on"]>
+				[(#ENV{vignette_utiliser_logo_article_rubrique}|oui)[(#LOGO_ARTICLE_RUBRIQUE||image_reduire{[(#ENV{vignette_taille_max_logo}|sinon{50})]}|sinon{#INCLURE{fond=inclure/article-resume-image}{env}}|inserer_attribut{style,#ENV{vignette_ajout_css}|?{'float:none;',''}})<br />]]
+				[(#ENV{vignette_utiliser_logo_article_rubrique}|non)[(#LOGO_ARTICLE||image_reduire{[(#ENV{vignette_taille_max_logo}|sinon{50})]}|sinon{#INCLURE{fond=inclure/article-resume-image}{env}}|inserer_attribut{style,#ENV{vignette_ajout_css}|?{'float:none;',''}})<br />]]
+			[<span class="#EDIT{titre}">(#TITRE|couper{#ENV{vignette_longueur_max_titres,30}})</span>]
+			</a>
+			[(#ENV{vignette_afficher_date}|oui)
+         	[<span class="date">(#DATE|aveline_affdate{#ENV{format_date,affdate}})</span>]]
+			[(#ENV{vignette_nb_documents}|oui)
+         	[<span class="nb_docs">(#INCLURE{fond=inclure/article-compteur-documents,id_article}|singulier_ou_pluriel{avelinepublic:document_un, avelinepublic:documents_plusieurs})</span>]]
+         </dt>
+		</dl>
+	</li>
+]
+</BOUCLE_article>

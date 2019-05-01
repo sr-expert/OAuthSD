@@ -1,0 +1,13 @@
+<traduction module="aveline" gestionnaire="salvatore" url="http://trad.spip.net" source="svn://zone.spip.org/spip-zone/_squelettes_/aveline/trunk/lang/" reference="fr">
+	<langue code="ca" url="http://trad.spip.net/tradlang_module/aveline?lang_cible=ca">
+		<traducteur nom="merce" lien="http://trad.spip.net/auteur/merce" />
+	</langue>
+	<langue code="en" url="http://trad.spip.net/tradlang_module/aveline?lang_cible=en">
+		<traducteur nom="Benitron" lien="http://trad.spip.net/auteur/benitron" />
+		<traducteur nom="kent1" lien="http://trad.spip.net/auteur/kent1" />
+	</langue>
+	<langue code="fr" />
+	<langue code="sk" url="http://trad.spip.net/tradlang_module/aveline?lang_cible=sk">
+		<traducteur nom="jaro" lien="http://trad.spip.net/auteur/jaro" />
+	</langue>
+</traduction>

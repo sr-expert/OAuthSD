@@ -1,0 +1,35 @@
+nom: '<:aveline:nom_filariane_generique:>'
+description: '<:aveline:description_page-filariane:>'
+icon: 'ariane-24.png'
+ajax: 'non'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_lien_accueil'
+      label: '<:aveline:label_afficher_lien_accueil:>'
+      defaut: 'on'
+  -
+    saisie: 'input'
+    options:
+      nom: 'ariane_separateur'
+      label: '<:aveline:label_ariane_separateur:>'
+      obligatoire: 'oui'
+      defaut: '&gt;'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'ariane_texte'
+      label: '<:aveline:label_ariane_texte:>'
+      defaut: nom_page
+      cacher_option_intro: 'oui'
+      datas:
+        nom_page: '<:aveline:item_nom_page:>'
+        titre_perso: '<:aveline:item_titre_perso:>'
+  -
+    saisie: 'input'
+    options:
+      nom: 'ariane_texte_perso'
+      label: '<:aveline:label_ariane_texte_perso:>'
+      explication: '<:aveline:explication_raccourcis_typo:>'
+      afficher_si: '@ariane_texte@ == "titre_perso"'

@@ -1,0 +1,68 @@
+[(#SET{titre,[(#ENV{titre_noisette}|=={titre_perso}|?{[(#ENV**{titre_noisette_perso}|typo)],[(#ENV{titre_noisette}|_T)]})]})]
+
+<BOUCLE_pas(CONDITION){si (#ENV{pas_selecteur_archives}|=={annee})}>
+	<BOUCLE_select(CONDITION){si (#ENV{style_selecteur}|=={select})}>
+		<B_articles_selecteur_annee>
+		[(#ENV{afficher_titre_noisette}|oui)[<h2 class="h2">(#GET{titre})</h2>]]
+		<form action="#SELF" class="bouton_action_post" method="get">
+			[(#SELF|parametre_url{archives, ''}|form_hidden)]
+			<select name="archives" class="select" id="archives" onchange="submit()">
+				<option value=""><:avelinepublic:voir_tous:></option>
+			<BOUCLE_articles_selecteur_annee(ARTICLES){aveline_selecteur_archives_annee}{aveline_branche}{aveline_lang}{aveline_exclure_objet_encours}{!par date}>
+				<option value="[(#DATE|affdate{'Y'})]"[(#ENV{archives}|=={[(#DATE|affdate{'Y'})]}|oui)selected="selected" ] >
+					[(#DATE|annee)] [(#ENV{compteur_articles_selecteur_archives}|?{([(#NB_ARCHIVES)]),''})]
+				</option>
+			</BOUCLE_articles_selecteur_annee>
+			</select>
+		</form>
+		</B_articles_selecteur_annee>
+		</BOUCLE_select>
+
+		<B_articles_liste_annee>
+		<div class="liste archives">
+		[(#ENV{afficher_titre_noisette}|oui)[<h2 class="h2">(#GET{titre})</h2>]]
+		<ul class="liste-items">
+			<BOUCLE_articles_liste_annee(ARTICLES){aveline_selecteur_archives_annee}{aveline_branche}{aveline_lang}{aveline_exclure_objet_encours}{!par date}>
+				<li class="item">
+					[(#SELF|parametre_url{archives,[(#DATE|annee)]}|lien_ou_expose{[(#DATE|annee)] [(#ENV{compteur_articles_selecteur_archives}|?{([(#NB_ARCHIVES)]),''})],[(#ENV{archives}|=={[(#DATE|affdate{'Y'})]}|oui)]})]
+				</li>
+			</BOUCLE_articles_liste_annee>
+			</select>
+		</ul>
+		</div>
+		</B_articles_liste_annee>
+	<//B_select>
+</BOUCLE_pas>
+
+	<BOUCLE_select2(CONDITION){si (#ENV{style_selecteur}|=={select})}>
+		<B_articles_selecteur_mois>
+		[(#ENV{afficher_titre_noisette}|oui)[<h2 class="h2">(#GET{titre})</h2>]]
+		<form action="#SELF" class="bouton_action_post" method="get">
+			[(#SELF|parametre_url{archives, ''}|form_hidden)]
+			<select name="archives" class="select" id="archives" onchange="submit()">
+				<option value=""><:avelinepublic:voir_tous:></option>
+			<BOUCLE_articles_selecteur_mois(ARTICLES){aveline_selecteur_archives_mois}{aveline_branche}{aveline_lang}{aveline_exclure_objet_encours}{!par date}>
+				<option value="[(#DATE|affdate{'Y-m'})]"[(#ENV{archives}|=={[(#DATE|affdate{'Y-m'})]}|oui)selected="selected" ] >
+					[(#DATE|affdate_mois_annee)] [(#ENV{compteur_articles_selecteur_archives}|?{([(#NB_ARCHIVES)]),''})]
+				</option>
+			</BOUCLE_articles_selecteur_mois>
+			</select>
+		</form>
+		</B_articles_selecteur_mois>
+		</BOUCLE_select2>
+
+		<B_articles_liste_mois>
+		<div class="liste archives">
+		[(#ENV{afficher_titre_noisette}|oui)[<h2 class="h2">(#GET{titre})</h2>]]
+		<ul class="liste-items">
+			<BOUCLE_articles_liste_mois(ARTICLES){aveline_selecteur_archives_mois}{aveline_branche}{aveline_lang}{aveline_exclure_objet_encours}{!par date}>
+				<li class="item">
+					[(#SELF|parametre_url{archives,[(#DATE|affdate{'Y-m'})]}|lien_ou_expose{[(#DATE|affdate_mois_annee)] [(#ENV{compteur_articles_selecteur_archives}|?{([(#NB_ARCHIVES)]),''})],[(#ENV{archives}|=={[(#DATE|affdate{'Y-m'})]}|oui)]})]
+				</li>
+			</BOUCLE_articles_liste_mois>
+			</select>
+		</ul>
+		</div>
+		</B_articles_liste_mois>
+	<//B_select2>
+<//B_pas>

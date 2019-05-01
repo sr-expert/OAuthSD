@@ -1,0 +1,18 @@
+[(#REM) <!-- Modele pour l'affichage des mots cles dans la page agenda
+Recoit en argument :
+- id_rubrique : l'id de la rubrique specialisee
+- annee, mois, categorie suivant le contexte
+--> ]
+<B_filtre_motscles>
+#ANCRE_PAGINATION
+<div id="noisette_filtre" class="noisette noisette_filtre agenda-filtre-mots">
+	<h2 class="intitule"><:sarkaspip:filtre_titre:></h2>
+	<ul class="nav nav-pills nav-stacked">
+		<li[ class="(#ENV{id_mot,-1}|=={-1}|?{on active})"]>[(#SELF|parametre_url{id_mot,''}|lien_ou_expose{<:sarkaspip:filtre_soustitre_evenement_tout:>,#ENV{id_mot,-1}|=={-1}|?{a}})]</li>
+		<li class="nav-header"><:sarkaspip:filtre_soustitre_motcle:></li>
+		<BOUCLE_filtre_motscles(MOTS evenements){evenements.id_article!=0}{fusion mots.titre}{par mots.titre}{pagination #CONFIG{sarkaspip/noisettes/pas_pagination_filtre, 10}}>
+			<li[ class="(#ENV{id_mot,-1}|=={#ID_MOT}|?{on active})"]>[(#SELF|parametre_url{id_mot,#ID_MOT}|lien_ou_expose{<i class="icon-tag"></i> #TITRE,#ENV{id_mot,-1}|=={#ID_MOT}|?{a},'',<:sarkaspip:filtre_bulle_evenement_1_motcle:>})]</li>
+		</BOUCLE_filtre_motscles>
+	</ul>
+</div>
+</B_filtre_motscles>

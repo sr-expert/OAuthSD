@@ -1,0 +1,52 @@
+nom: '<:aveline:nom_rubrique-miniplan:>'
+description: '<:aveline:description_rubrique-miniplan:>'
+icon: 'boussole-24.png'
+ajax: 'non'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_si_pas_article'
+      label: '<:aveline:label_afficher_si_pas_article:>'
+      defaut: 'on'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_titre_noisette'
+      label: '<:aveline:label_afficher_titre_noisette:>'
+      defaut: 'on'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'titre_noisette'
+      label: '<:aveline:label_titre_noisette:>'
+      defaut: 'public:sous_rubriques'
+      cacher_option_intro: 'oui'
+      datas:
+        'public:sous_rubriques': '<:public:sous_rubriques:>'
+        'public:rubriques': '<:public:rubriques:>'
+        'public:navigation': '<:public:navigation:>'
+        'public:hierarchie_site': '<:public:hierarchie_site:>'
+        'avelinepublic:categories': '<:avelinepublic:categories:>'
+        'avelinepublic:themes': '<:avelinepublic:themes:>'
+        'avelinepublic:sujets': '<:avelinepublic:sujets:>'
+        titre_perso: '<:aveline:item_titre_perso:>'
+      afficher_si: '@afficher_titre_noisette@ == "on"'
+  -
+    saisie: 'input'
+    options:
+      nom: 'titre_noisette_perso'
+      label: '<:aveline:label_titre_noisette_perso:>'
+      explication: '<:aveline:explication_raccourcis_typo:>'
+      afficher_si: '@afficher_titre_noisette@ == "on" && @titre_noisette@ == "titre_perso"'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_articles'
+      label: '<:aveline:label_afficher_articles:>'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'articles_un_niveau'
+      label: '<:aveline:label_articles_un_niveau:>'
+      afficher_si: '@afficher_articles@ == "on"'

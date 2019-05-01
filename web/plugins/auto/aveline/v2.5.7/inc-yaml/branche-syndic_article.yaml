@@ -1,0 +1,50 @@
+-
+  saisie: 'selection_selon_plugin'
+  options:
+    nom: 'branche'
+    label: '<:aveline:label_liste_syndic_articles:>'
+    defaut: 'tous'
+    cacher_option_intro: 'oui'
+    datas:
+      tous: '<:aveline:item_syndic_articles_tous:>'
+      meme_site: '<:aveline:item_meme_site:>'
+      site_specifique: '<:aveline:item_site_specifique:>'
+      meme_rubrique: '<:aveline:item_meme_rubrique:>'
+      meme_rubrique_indirects: '<:aveline:item_meme_rubrique_indirects:>'
+      meme_rubrique_complete: '<:aveline:item_meme_rubrique_complete:>'
+      rubrique_specifique: '<:aveline:item_rubrique_specifique:>'
+      rubrique_specifique_indirects: '<:aveline:item_rubrique_specifique_indirects:>'
+      rubrique_specifique_complete: '<:aveline:item_rubrique_specifique_complete:>'
+      branche_actuelle: '<:aveline:item_branche_actuelle:>'
+      branche_complete: '<:aveline:item_branche_complete:>'
+      branche_specifique: '<:aveline:item_branche_specifique:>'
+      branche_specifique_complete: '<:aveline:item_branche_specifique_complete:>'
+    datas-necessite:
+      meme_rubrique_indirects: 'polyhier'
+      meme_rubrique_complete: 'polyhier'
+      rubrique_specifique_indirects: 'polyhier'
+      rubrique_specifique_complete: 'polyhier'
+      branche_complete: 'polyhier'
+      branche_specifique_complete: 'polyhier'
+-
+  saisie: 'selecteur_site'
+  options:
+    nom: 'site_specifique'
+    label: '<:aveline:label_site_specifique:>'
+    multiple: 'oui'
+    syndication: 'oui'
+    afficher_si: '@branche@ == "site_specifique"'
+-
+  saisie: 'selecteur_rubrique'
+  options:
+    nom: 'rubrique_specifique'
+    label: '<:aveline:label_rubrique_specifique:>'
+    multiple: 'oui'
+    afficher_si: '@branche@ == "rubrique_specifique" | @branche@ == "rubrique_specifique_complete" | @branche@ == "rubrique_specifique_indirects"'
+-
+  saisie: 'selecteur_rubrique'
+  options:
+    nom: 'branche_specifique'
+    label: '<:aveline:label_branche_specifique:>'
+    multiple: 'oui'
+    afficher_si: '@branche@ == "branche_specifique" | @branche@ == "branche_specifique_complete"'

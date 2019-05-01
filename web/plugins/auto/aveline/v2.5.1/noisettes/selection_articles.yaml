@@ -1,0 +1,33 @@
+nom: '<:aveline:nom_selection_articles:>'
+description: '<:aveline:description_selection_articles:>'
+icon: 'imgs/emblem-favorite.png'
+necessite:
+  - 'pb_selection'
+contexte:
+  - 'id_rubrique'
+  - 'id_secteur'
+  - 'id_article'
+  - 'lang'
+parametres:
+  -
+    saisie: 'selection'
+    options:
+      nom: 'branche'
+      label: '<:aveline:label_liste_selection_articles:>'
+      defaut: 'racine'
+      cacher_option_intro: 'oui'
+      datas:
+        racine: '<:aveline:item_racine:>'
+        meme_rubrique: '<:aveline:item_meme_rubrique:>'
+        rubrique_specifique: '<:aveline:item_rubrique_specifique_unique:>'
+  -
+    saisie: 'selecteur_rubrique'
+    options:
+      nom: 'rubrique_specifique'
+      label: '<:aveline:label_rubrique_specifique_unique:>'
+      afficher_si: '@branche@ == "rubrique_specifique"'
+  - 'inclure:inc-yaml/restreindre_langue.yaml'
+  - 'inclure:inc-yaml/exclure_objet_en_cours-article.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-article.yaml'
+  - 'inclure:inc-yaml/resume-article.yaml'

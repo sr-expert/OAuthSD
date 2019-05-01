@@ -1,0 +1,7 @@
+[(#SET{titre_noisette, #ENV{titre_noisette}|sinon{avelinepublic:nous_contacter}})]
+[(#SET{titre,[(#GET{titre_noisette}|=={titre_perso}|?{[(#ENV**{titre_noisette_perso}|typo)],[(#GET{titre_noisette}|_T)]})]})]
+
+<BOUCLE_auteur(AUTEURS){id_auteur}>
+[(#ENV{afficher_titre_noisette}|oui)[<h2 class="h2">(#GET{titre})</h2>]]
+#FORMULAIRE_ECRIRE_AUTEUR
+</BOUCLE_auteur>

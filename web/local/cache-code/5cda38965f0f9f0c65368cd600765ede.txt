@@ -1,0 +1,23 @@
+<?php
+
+/**
+* Initialise la connexion avec le principal de l'administrateur du domaine $realm et retourne les informations sur un utilisateur $user.
+* $user : nom de l'utilisateur,
+* $admin_server : nom du serveur Kerberos sur le réseau local,
+* $realm : Domaine d'identification,
+* $admin_principal : Principal de l'administrateur du serveur Kerberos,
+* $password : Mot de passe de l'administrateur du serveur Kerberos.
+*/
+
+function kerberos_getinfos( $user, $admin_server, $realm, $principal, $password ) {
+    
+    $handle = kadm5_init_with_password($admin_server, $realm, $admin_principal, $admin_password);
+
+    $options = kadm5_get_principal($handle, $user . '@' . $realm);
+ 
+    kadm5_destroy($handle); 
+
+    return $keys = array_keys($options);
+
+}
+?>

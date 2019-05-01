@@ -1,0 +1,23 @@
+[(#SET{titre,[(#ENV{titre_liste}|=={titre_perso}|?{[(#ENV**{titre_liste_perso}|typo)],[(#ENV{titre_liste}|_T)]})]})]
+<BOUCLE_secteur_langue(RUBRIQUES){racine}{lang}{0,1}>
+<B_liste_rubriques>
+<div class="liste rubriques">
+	#ANCRE_PAGINATION
+	[(#ENV{afficher_titre_liste}|oui)[<h2 class="h2">(#GET{titre})[(#ENV{afficher_nb_resultats}|oui)&#40;#GRAND_TOTAL&#41;]</h2>]]
+	[<p class="pagination choix_tri">(#AVELINE_CHOIX_TRI{'rubrique','debut'})</p>]
+	[<p class="pagination">(#AVELINE_PAGINATION{'debut'})</p>]
+	<ul class="liste-items">
+	<BOUCLE_liste_rubriques(RUBRIQUES) {compteur_publie forum}{notation}{tri #ENV{tri},#ENV{senstri}}{aveline_pagination}{id_parent}>
+	[(#ENV{style_liste}|=={resume}|non)
+		#INCLURE{fond=inclure/rubrique-liste,id_rubrique=#ID_RUBRIQUE,env}
+	]
+	[(#ENV{style_liste}|=={resume}|oui)
+		#INCLURE{fond=inclure/rubrique-resume,id_rubrique=#ID_RUBRIQUE,env}
+	]
+	</BOUCLE_liste_rubriques>
+	</ul>
+	[<p class="pagination">(#AVELINE_PAGINATION{'fin'})</p>]
+	[<p class="pagination choix_tri">(#AVELINE_CHOIX_TRI{'rubrique','fin'})</p>]
+</div>
+</B_liste_rubriques>
+</BOUCLE_secteur_langue>

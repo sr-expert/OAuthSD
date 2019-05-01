@@ -1,0 +1,148 @@
+#CACHE{0}
+[(#REM)
+username est utilisé par OAuth comme clé unique.
+Dans cette version en service l'unicité de username est assurée au niveau de editer_user_ext.php.
+Il est imposé un format simple car username doit également pouvoir servir dans les chemins d'URL. 
+]
+
+[(#ENV{id_user}|=={oui}|non)
+    <h2>Editer l'utilisateur #ENV{id_user}</h2>
+]
+[(#ENV{id_user}|=={oui}|oui)
+    <h2>Créer un nouvel utilisateur</h2>
+]
+
+<div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_user,nouveau}'>
+    [<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+    [<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+
+    [(#ENV{editable})
+    <form method="post" action="#ENV{action}"><div>
+
+            #ACTION_FORMULAIRE{#ENV{action}}
+            <input type="hidden" name="id_user" value="#ENV{id_user}" />
+
+            <div class="editer-groupe">
+
+                <h3>Identifiants</h3>
+
+                [(#SAISIE{input, email, obligatoire=oui, size=48, 
+                label=<:user:champ_email_label:>,
+                explication=<:user:champ_email_explication:> })]
+                
+                [(#SAISIE{input, username, obligatoire=oui,
+                label=<:user:champ_username_label:>,
+                explication=<:user:champ_username_explication:> })]
+                
+
+                    <h3>Profil</h3>
+
+                    [(#SAISIE{radio, gender,
+                    label=<:user:champ_gender_label:>,
+                    explication=<:user:champ_gender_explication:>, 
+                    datas=#ARRAY{
+                    male,M.,
+                    female,Mme}
+                    })]
+
+                    [(#SAISIE{input, given_name, obligatoire=oui,
+                    label=<:user:champ_given_name_label:>,
+                    explication=<:user:champ_given_name_explication:> })]
+
+                    [(#SAISIE{input, middle_name,
+                    label=<:user:champ_middle_name_label:>,
+                    explication=<:user:champ_middle_name_explication:> })]
+
+                    [(#SAISIE{input, family_name, obligatoire=oui,
+                    label=<:user:champ_family_name_label:>,
+                    explication=<:user:champ_family_name_explication:> })]
+
+                    [(#SAISIE{input, nickname,
+                    label=<:user:champ_nickname_label:>,
+                    explication=<:user:champ_nickname_explication:> })]
+
+                    [(#SAISIE{input, profil,
+                    label=<:user:champ_profil_label:>,
+                    explication=<:user:champ_profil_explication:> })]
+
+                    [(#SAISIE{input, picture,
+                    label=<:user:champ_picture_label:>,
+                    explication=<:user:champ_picture_explication:> })]
+
+                    [(#SAISIE{input, website,
+                    label=<:user:champ_website_label:>,
+                    explication=<:user:champ_website_explication:> })]
+
+                    [(#SAISIE{date, birthday,
+                    label=<:user:champ_birthday_label:>,
+                    explication=<:user:champ_birthday_explication:> })]
+
+                    [(#SAISIE{input, zoneinfo,
+                    label=<:user:champ_zoneinfo_label:>,
+                    explication=<:user:champ_zoneinfo_explication:> })]
+
+                    [(#SAISIE{input, locale,
+                    label=<:user:champ_locale_label:>,
+                    explication=<:user:champ_locale_explication:> })]
+
+               
+
+                    <h3>Adresse</h3>
+
+                    [(#SAISIE{input, street_address,
+                    label=<:user:champ_street_address_label:>,
+                    explication=<:user:champ_street_address_explication:> })]
+
+                    [(#SAISIE{input, region,
+                    label=<:user:champ_region_label:>,
+                    explication=<:user:champ_region_explication:> })] 
+
+                    [(#SAISIE{input, postal_code,
+                    label=<:user:champ_postal_code_label:>,
+                    explication=<:user:champ_postal_code_explication:> })] 
+
+                    [(#SAISIE{input, locality,
+                    label=<:user:champ_locality_label:>,
+                    explication=<:user:champ_locality_explication:> })]
+
+                    [(#SAISIE{input, country,
+                    label=<:user:champ_country_label:>,
+                    explication=<:user:champ_country_explication:> })]
+
+               
+
+                    <h3>Téléphone</h3> 
+
+                    [(#SAISIE{input, phone_number,
+                    label=<:user:champ_phone_number_label:>,
+                    explication=<:user:champ_phone_number_explication:> })]
+
+               
+                
+                [(#SESSION{statut}|=={0minirezo}|oui)
+                    <br />
+                    <h3>Administration</h3> 
+                    
+                    [(#SAISIE{input, scope,
+                    label=<:user:champ_scope_label:>,
+                    explication=<:user:champ_scope_explication:> })]
+
+                    [(#SAISIE{textarea, profile,
+                    label=<:user:champ_profile_label:>,
+                    explication=<:user:champ_profile_explication:> })]
+
+                    [(#SAISIE{textarea, comment,
+                    label=<:user:champ_comment_label:>,
+                    explication=<:user:champ_comment_explication:> })]
+                
+                ]
+
+
+            </div>
+            [(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+            <!--extra-->
+            <p class="boutons"><input type="submit" class="submit" value="<:bouton_enregistrer:>" /></p>
+        </div></form>
+    ]
+</div>

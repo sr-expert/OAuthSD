@@ -1,0 +1,98 @@
+[(#REM) Cette balise (invisible) provoque le recalcul du forum
+la premiere fois qu'un message est poste (cf. inc/invalideur). ]
+[(#PARAMETRES_FORUM|?{''})]
+[(#SET{titre_noisette, #ENV{titre_noisette}|sinon{nb_messages}})]
+[(#SET{titre,[(#GET{titre_noisette}|=={titre_perso}|?{[(#ENV**{titre_noisette_perso}|typo)],[(#GET{titre_noisette}|_T)]})]})]
+[(#SET{thread, #ENV{thread}|sinon{complet}})]
+
+<a href="#forum" name="forum" id="forum"></a>
+<div class="comments" id="comments">
+	<BOUCLE_test_titre(CONDITION){si (#GET{titre_noisette}|=={nb_messages}|et{#ENV{afficher_titre_noisette}})}>
+		[(#REM) Nombre total de messages ]
+		<BOUCLE_decompte(FORUMS) {id_rubrique ?}{id_article ?}{id_breve ?}{id_syndic ?} {plat} />[<h2 class="h2">(#TOTAL_BOUCLE|>{0}|?{#TOTAL_BOUCLE,''})
+		[(#TOTAL_BOUCLE|=={1}|?{<:message:>,<:messages_forum:>})]</h2>]<//B_decompte>
+	</BOUCLE_test_titre>
+		<BOUCLE_decompte2(FORUMS) {id_rubrique ?}{id_article ?}{id_breve ?}{id_syndic ?} {plat} {0,1}>[(#ENV{afficher_titre_noisette}|oui)[<h2 class="h2">(#GET{titre})</h2>]]</BOUCLE_decompte2>
+	<//B_test_titre>
+	
+	<BOUCLE_test_thread_complet(CONDITION){si (#GET{thread}|=={complet})}>
+	<B_comments-pieds>
+    #ANCRE_PAGINATION
+    [<p class="pagination">(#AVELINE_PAGINATION{'debut'})</p>]
+	<ul class="forum comments-ul thread-complet">
+		<BOUCLE_comments-pieds(FORUMS) {statut IN publie} {id_rubrique ?}{id_article ?}{id_breve ?}{id_syndic ?}{aveline_pagination} {par date}{inverse #ENV{senstri}}>
+		<li class="forum-fil comment-li[ (#COMPTEUR_BOUCLE|alterner{'odd','even'})][ (#COMPTEUR_BOUCLE|=={1}|oui)first][ (#EXPOSE)] #ME">
+			[(#MODELE{comment}{id_forum}{afficher_logo_auteur}{afficher_titre_message}{taille_max_logo}{repondre=oui}{thread=oui}{formulaire_reponse_volant})]
+			<B_comments-fils>
+			<ul class="comments-ul comments-fils">
+				<BOUCLE_comments-fils(FORUMS){id_parent}{par date}>
+				<li class="forum-fil comment-li[ (#COMPTEUR_BOUCLE|alterner{'odd','even'})][ (#COMPTEUR_BOUCLE|=={1}|oui)first][ (#EXPOSE)] #ME">
+					[(#MODELE{comment}{id_forum}{afficher_logo_auteur}{afficher_titre_message}{taille_max_logo}{repondre=oui}{thread=oui}{formulaire_reponse_volant})]
+					<BOUCLE_comments-fils-etc(boucle_comments-fils)></BOUCLE_comments-fils-etc>
+				</li>
+				</BOUCLE_comments-fils>
+			</ul>
+			</B_comments-fils>
+		</li>
+		</BOUCLE_comments-pieds>
+	</ul>
+    [<p class="pagination">(#AVELINE_PAGINATION{'fin'})</p>]
+	</B_comments-pieds>
+	</BOUCLE_test_thread_complet>
+
+	<BOUCLE_test_thread_simple(CONDITION){si (#GET{thread}|=={simple})}>
+	<B_comments-pieds2>
+    #ANCRE_PAGINATION
+    [<p class="pagination">(#AVELINE_PAGINATION{'debut'})</p>]
+	<ul class="forum comments-ul thread-simple">
+		<BOUCLE_comments-pieds2(FORUMS) {statut IN publie} {id_rubrique ?}{id_article ?}{id_breve ?}{id_syndic ?}{aveline_pagination} {par date}{inverse #ENV{senstri}}>
+		<li class="forum-fil comment-li[ (#COMPTEUR_BOUCLE|alterner{'odd','even'})][ (#COMPTEUR_BOUCLE|=={1}|oui)first][ (#EXPOSE)] #ME">
+			<B_comments-fils2>
+			[(#MODELE{comment}{id_forum}{afficher_logo_auteur}{afficher_titre_message}{taille_max_logo}{thread=oui}{formulaire_reponse_volant})]
+			<ul class="comments-ul comments-fils">
+				<BOUCLE_comments-fils2(FORUMS){id_thread}{id_forum!=#ID_FORUM}{plat}{par date}>
+				<li class="forum-fil comment-li[ (#COMPTEUR_BOUCLE|alterner{'odd','even'})][ (#COMPTEUR_BOUCLE|=={1}|oui)first][ (#EXPOSE)] #ME">
+					[(#SET{repondre,#COMPTEUR_BOUCLE|=={#TOTAL_BOUCLE}})]
+					[(#MODELE{comment}{id_forum}{afficher_logo_auteur}{afficher_titre_message}{taille_max_logo}{repondre=#GET{repondre}}{thread=oui}{formulaire_reponse_volant})]
+				</li>
+				</BOUCLE_comments-fils2>
+			</ul>
+			</B_comments-fils2>
+			[(#MODELE{comment}{id_forum}{afficher_logo_auteur}{afficher_titre_message}{taille_max_logo}{thread=oui}{formulaire_reponse_volant}{repondre='on'})]
+			<//B_comments-fils2>
+		</li>
+		</BOUCLE_comments-pieds2>
+	</ul>
+    [<p class="pagination">(#AVELINE_PAGINATION{'fin'})</p>]
+	</B_comments-pieds2>
+	</BOUCLE_test_thread_simple>
+	
+	<B_comments-list>
+    #ANCRE_PAGINATION
+    [<p class="pagination">(#AVELINE_PAGINATION{'debut'})</p>]
+	<ul class="forum comments-ul plat">
+		<BOUCLE_comments-list(FORUMS) {statut IN publie} {id_rubrique ?}{id_article ?}{id_breve ?}{id_syndic ?}{aveline_pagination} {plat} {par date}{inverse #ENV{senstri}}>
+		<li class="forum-fil comment-li[ (#COMPTEUR_BOUCLE|alterner{'odd','even'})][ (#COMPTEUR_BOUCLE|=={1}|oui)first][ (#EXPOSE)] #ME">
+			[(#MODELE{comment}{id_forum}{afficher_logo_auteur}{afficher_titre_message}{taille_max_logo}{formulaire_reponse_volant})]
+		</li>
+		</BOUCLE_comments-list>
+	</ul>
+    [<p class="pagination">(#AVELINE_PAGINATION{'fin'})</p>]
+	</B_comments-list>
+	
+	<//B_test_thread_simple>
+	<//B_test_thread_complet>
+</div>
+
+[(#ENV{formulaire_reponse_volant}|non)
+	[<p class="repondre"><a href="(#PARAMETRES_FORUM|url_reponse_forum)" rel="noindex nofollow">[(#ENV{repondre_objet}|_T)]</a></p>]
+]
+
+[(#ENV{formulaire_reponse_volant}|oui)
+[<div class="comment-form">
+		<a href="#forum-formulaire-principal" name="forum-formulaire-principal" id="forum-formulaire-principal"></a>
+		<h2 class="h2">[(#ENV{repondre_objet}|_T)]</h2>
+		(#FORMULAIRE_FORUM)
+	</div>
+	#INCLURE{fond=inclure/js_formulaire_reponse_volant}
+]]

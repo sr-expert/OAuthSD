@@ -1,0 +1,32 @@
+@import "css/variables.less";
+@import "css/spip.variables.less";
+@import "css/mixins.less";
+
+.header {position: relative;}
+.header .accueil a {color: inherit;}
+.header .spip_logos {float:left;margin: @paddingLarge;margin-left: 0;margin-top:0;}
+#slogan_site_spip {display: block; margin-top:.6em}   /*dgy*/
+#logo_site_spip {margin-top: 1em;} /*dgy*/
+
+.header .formulaire_menu_lang {width: 100%;}
+.header .formulaire_menu_lang select {width: 100%;}
+
+body {background-color: @wellBackground;}
+.page {background-color: @white;}
+.footer {
+  background-color: @wellBackground;
+  border-top: 1px solid darken(@wellBackground, 7%);
+  .box-shadow(inset 0 1px 1px rgba(0,0,0,.05));
+  margin-top:10em;padding-bottom: 10em;padding-top: 5em;
+  font-size: @fontSizeSmall;
+  text-align: right;
+  .inner {
+    position: relative;padding-top: 3em;
+    .generator {top:3em;}
+  }
+}
+
+.cartouche {
+margin-bottom: @emVertMargin;}
+.content-principal {.clearfix}
+

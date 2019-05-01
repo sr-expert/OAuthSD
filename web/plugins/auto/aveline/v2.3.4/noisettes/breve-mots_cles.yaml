@@ -1,0 +1,14 @@
+nom: '<:aveline:nom_breve-mots_cles:>'
+description: '<:aveline:description_breve-mots_cles:>'
+icon: 'mot-24.png'
+necessite:
+  - 'breves'
+  - 'mots'
+contexte:
+  - 'id_breve'
+  - 'lang'
+parametres:
+  - 'inclure:inc-yaml/liste-mot.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-mot.yaml'
+  - 'inclure:inc-yaml/resume-mot.yaml'

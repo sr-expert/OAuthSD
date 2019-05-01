@@ -1,0 +1,33 @@
+#SET{taille_max_logo,#ENV{taille_max_logo}|sinon{60}}
+
+<BOUCLE_comment(FORUMS){id_forum}>
+<div class="comment hreview[ (#ID_PARENT|?{reply})] forum-message">
+<a href="#comment#ID_FORUM" name="comment#ID_FORUM" id="comment#ID_FORUM"></a>
+<a href="#forum#ID_FORUM" name="forum#ID_FORUM" id="forum#ID_FORUM"></a>
+	<p class="comment-meta forum-chapo">
+		<a rel="self bookmark" href="#forum#ID_FORUM" title="<:avelinepublic:permalink_to:> #ID_FORUM" class="permalink">#</a>
+		[(#ENV{thread}|oui)[<a rel="in-reply-to" class="permalink in-reply-to" href="#forum(#ID_PARENT|?{#ID_PARENT})">^</a>]]
+		[(#ENV{afficher_titre_message}|oui)[<strong class="#EDIT{titre} forum-titre"><a href="#forum#ID_FORUM">(#TITRE)</a></strong>]]
+		<BOUCLE_auteur(AUTEURS){tout}{id_auteur}>
+		[<abbr class="dtreviewed"[ title="(#DATE|date_iso)"]><:avelinepublic:date_jour_le:> (#DATE|affdate_jourcourt)[ <:avelinepublic:date_heure_a:>&nbsp;(#DATE|heures)][:(#DATE|minutes)]</abbr>][<span class="item reviewer vcard"><span class="sep">, </span><:par_auteur:> <a rel="nofollow" href="#URL_AUTEUR" class="url spip_in"><strong class="fn n">(#NOM)</strong></a>[(#ENV{afficher_logo_auteur}|oui)[(#LOGO_AUTEUR|image_reduire{#GET{taille_max_logo}})]]</span>]
+		</BOUCLE_auteur>
+		[<abbr class="dtreviewed"[ title="(#DATE|date_iso)"]><:avelinepublic:date_jour_le:> (#DATE|affdate_jourcourt)[ <:avelinepublic:date_heure_a:>&nbsp;(#DATE|heures)][:(#DATE|minutes)]</abbr>][<span class="item reviewer vcard"><span class="sep">, </span><:par_auteur:> [<a rel="external nofollow" href="(#URL_SITE)"[ title="(#NOM_SITE*|attribut_html)"] class="#EDIT{hyperlien} url spip_out">]<strong class="#EDIT{qui} fn n">(#NOM|sinon{[(#PLUGIN{gravatar}|oui)?]})</strong>[</a>(#URL_SITE|oui)][(#PLUGIN{gravatar}|et{#ENV{afficher_logo_auteur}}|oui)[ (#MODELE{gravatar}{email=#EMAIL}|image_reduire{#GET{taille_max_logo}})]]</span>]
+		<//B_auteur>
+	</p>
+	<div class="comment-content description forum-texte">
+		[<div class="comment-texte #EDIT{texte}">(#TEXTE|lignes_longues)</div>]
+		[<div class="comment-notes">(#NOTES|safehtml|lignes_longues)</div>]
+		[<p class="#EDIT{hyperlien} comment-external-link hyperlien"><:voir_en_ligne:> : <a href="(#URL_SITE)" class="spip_out">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
+		<B_doc><div class="comment-doc"><BOUCLE_doc(DOCUMENTS){id_forum}>
+		[(#EXTENSION|match{'^(gif|jpg|png)$'}|?{
+			[(#MODELE{emb, lien=#URL_DOCUMENT}|image_reduire{300})]
+		,
+			#LOGO_DOCUMENT{#URL_DOCUMENT}
+		})]
+		</BOUCLE_doc></div></B_doc>
+		[(#ENV{repondre}|oui)[<p class="comment-reply repondre"><a href="(#PARAMETRES_FORUM|url_reponse_forum)" [(#ENV{formulaire_reponse_volant}|oui)onclick="jQuery(this).add_reply_to[((#ID_FORUM))];return false;" ]rel="nofollow"><:forum:repondre_message:></a></p>]]
+	</div>
+	[(#REM) ces boutons nécessitent Comments][(#BOUTONS_ADMIN_FORUM)]
+</div><!--.comment-->
+[(#ENV{formulaire_reponse_volant}|oui)<div class='form_response'></div>]
+</BOUCLE_comment> 

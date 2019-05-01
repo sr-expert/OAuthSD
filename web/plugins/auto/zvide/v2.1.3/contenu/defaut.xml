@@ -1,0 +1,11 @@
+<page>
+	<nom><:zvide:nom_pagedefaut:></nom>
+	<description><:zvide:description_pagedefaut:></description>
+	<icon>page-24.png</icon>
+	<bloc id="pre_contenu" nom="zvide:nom_bloc_pre_contenu"  description="zvide:description_bloc_pre_contenu"  icon="bloc-contenu-24.png" />
+	<bloc id="post_contenu" nom="zvide:nom_bloc_post_contenu"  description="zvide:description_bloc_post_contenu"  icon="bloc-contenu-24.png" />
+	<bloc id="pre_navigation" nom="zvide:nom_bloc_pre_navigation"  description="zvide:description_bloc_pre_navigation"  icon="bloc-navigation-24.png" />
+	<bloc id="post_navigation" nom="zvide:nom_bloc_post_navigation"  description="zvide:description_bloc_post_navigation"  icon="bloc-navigation-24.png" />
+	<bloc id="pre_extra" nom="zvide:nom_bloc_pre_extra"  description="zvide:description_bloc_pre_extra"  icon="bloc-extra-24.png" />
+	<bloc id="post_extra" nom="zvide:nom_bloc_post_extra"  description="zvide:description_bloc_post_extra"  icon="bloc-extra-24.png" />
+</page>

@@ -1,0 +1,13 @@
+nom: '<:aveline:nom_rubrique-mots_cles:>'
+description: '<:aveline:description_rubrique-mots_cles:>'
+icon: 'mot-24.png'
+necessite:
+  - 'mots'
+contexte:
+  - 'id_rubrique'
+  - 'lang'
+parametres:
+  - 'inclure:inc-yaml/liste-mot.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-mot.yaml'
+  - 'inclure:inc-yaml/resume-mot.yaml'

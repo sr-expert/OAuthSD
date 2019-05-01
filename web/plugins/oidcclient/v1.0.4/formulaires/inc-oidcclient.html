@@ -1,0 +1,11 @@
+<!-- formulaire de saisie du login OpenID Connect dans la fiche auteur -->
+<style type='text/css'><!--
+    .editer_oidc { background-color: #FBBD77;}
+    input#oidc {width:10em;background-image : url("<?php echo find_in_path('images/oidc-16.png');?>"); background-repeat:no-repeat;background-position:center left;padding-left:18px !important;}\n"
+--></style>
+<div class="editer editer_oidc[ (#ENV**{erreurs}|table_valeur{oidc}|oui)erreur]">
+    <label for="openid"><:oidcclient:login_oidc:></label>
+    [<span class='erreur_message'>(#ENV*{erreurs}|table_valeur{oidc})</span>]
+    <input type='text' name='oidc' id='oidc' class='text' value="[(#ENV*{oidc})]" />
+    &nbsp;<:oidcclient:information_oidcc:>
+</div>

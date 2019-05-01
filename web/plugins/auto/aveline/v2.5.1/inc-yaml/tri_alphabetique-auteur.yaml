@@ -1,0 +1,23 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'afficher_tri_alphabetique'
+    label: '<:aveline:label_afficher_tri_alphabetique_nom:>'
+    explication: '<:aveline:explication_afficher_tri_alphabetique_nom:>'
+-
+  saisie: 'fieldset'
+  options:
+    nom: 'si_tri_alphabetique'
+    label: '<:aveline:label_si_tri_alphabetique:>'
+    afficher_si: '@afficher_tri_alphabetique@ == "on"'
+  saisies:
+    -
+      saisie: 'selection'
+      options:
+        nom: 'position_tri_alphabetique'
+        label: '<:aveline:label_position_tri_alphabetique:>'
+        defaut: 'debut'
+        cacher_option_intro: 'oui'
+        datas:
+          debut: '<:aveline:item_debut:>'
+          fin: '<:aveline:item_fin:>'

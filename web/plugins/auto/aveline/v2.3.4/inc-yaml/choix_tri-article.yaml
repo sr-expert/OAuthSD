@@ -1,0 +1,79 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'choix_tri'
+    label: '<:aveline:label_choix_tri:>'
+    explication: '<:aveline:explication_choix_tri:>'
+-
+  saisie: 'fieldset'
+  options:
+    nom: 'si_choix_tri'
+    label: '<:aveline:label_si_choix_tri:>'
+    afficher_si: '@choix_tri@ == "on"'
+  saisies:
+    -
+      saisie: 'selection'
+      options:
+        nom: 'position_choix_tri'
+        label: '<:aveline:label_position_choix_tri:>'
+        defaut: 'debut'
+        cacher_option_intro: 'oui'
+        datas:
+          debut: '<:aveline:item_debut:>'
+          fin: '<:aveline:item_fin:>'
+          deux: '<:aveline:item_deux:>'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_tri_titre'
+        label: '<:avelinepublic:par_titre:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_tri_rang'
+        label: '<:avelinepublic:par_rang:>'
+        defaut: ''
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_tri_popularite'
+        label: '<:avelinepublic:les_plus_populaires:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_tri_date'
+        label: '<:avelinepublic:les_plus_recents:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_tri_anciens'
+        label: '<:avelinepublic:les_plus_anciens:>'
+        defaut: ''
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_tri_date_modif'
+        label: '<:avelinepublic:modifies_recemment:>'
+        defaut: ''
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_tri_commentes'
+        label: '<:avelinepublic:les_plus_commentes:>'
+        defaut: ''
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_tri_visites'
+        label: '<:avelinepublic:les_plus_visites:>'
+        defaut: ''
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_tri_note'
+        label: '<:avelinepublic:les_mieux_notes:>'
+        defaut: ''
+        afficher_si: '@plugin:notation@'

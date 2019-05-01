@@ -1,0 +1,42 @@
+nom: '<:aveline:nom_anythingslider_liste_evenements:>'
+description: '<:aveline:description_anythingslider_liste_evenements:>'
+icon: 'evenement-24.png'
+necessite:
+  - 'anythingslider'
+  - 'agenda'
+contexte:
+  - 'id_rubrique'
+  - 'id_secteur'
+  - 'id_article'
+  - 'id_evenement'
+  - 'lang'
+parametres:
+  - 'inclure:inc-yaml/branche-evenement.yaml'
+  - 'inclure:inc-yaml/tri-evenement.yaml'
+  - 'inclure:inc-yaml/periode-evenement.yaml'
+  - 'inclure:inc-yaml/restreindre_langue.yaml'
+  -
+    saisie: 'hidden'
+    options:
+      nom: 'selection'
+      defaut: 'limite'
+  -
+    saisie: 'input'
+    options:
+      nom: 'limite'
+      label: '<:aveline:label_limite:>'
+      defaut: 10
+    verifier:
+      type: 'entier'
+      options:
+        min: 1
+  - 'inclure:inc-yaml/exclure_objet_en_cours-evenement.yaml'
+  - 'inclure:inc-yaml/titre-evenement.yaml'
+  -
+    saisie: 'fieldset'
+    options:
+      nom: 'options_anythingslider'
+      label: '<:aveline:label_options_anythingslider:>'
+    saisies:
+      - 'inclure:inc-yaml/anythingslider-options.yaml
+  - 'inclure:inc-yaml/resume-evenement.yaml'

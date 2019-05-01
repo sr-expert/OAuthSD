@@ -1,0 +1,51 @@
+nom: '<:public:lien_connecter:>'
+description: '<:aveline:description_formulaire_login:>'
+icon: 'cadenas-24.png'
+inclusion: 'dynamique'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_titre_noisette'
+      label: '<:noizetier:label_afficher_titre_noisette:>'
+      defaut: 'on'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'titre_noisette'
+      label: '<:noizetier:label_titre_noisette:>'
+      defaut: 'public:lien_connecter'
+      cacher_option_intro: 'oui'
+      datas-necessite:
+        'avelinepublic:articles_les_mieux_notes': 'notation'
+        'avelinepublic:les_mieux_notes': 'notation'
+      datas:
+        'public:lien_connecter': '<:public:lien_connecter:>'
+        titre_perso: '<:noizetier:item_titre_perso:>'
+      afficher_si: '@afficher_titre_noisette@ == "on"'
+  -
+    saisie: 'input'
+    options:
+      nom: 'titre_noisette_perso'
+      label: '<:aveline:label_titre_noisette_perso:>'
+      explication: '<:noizetier:explication_raccourcis_typo:>'
+      afficher_si: '@afficher_titre_noisette@ == "on" && @titre_noisette@ == "titre_perso"'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'niveau_titre'
+      label: '<:noizetier:label_niveau_titre:>'
+      defaut: 'h2'
+      cacher_option_intro: 'oui'
+      datas:
+        h1: 'h1'
+        h2: 'h2'
+        h3: 'h3'
+      afficher_si: '@afficher_titre_noisette@ == "on"'
+  -
+    saisie: 'textarea'
+    options:
+      nom: 'texte'
+      label: '<:noizetier:label_texte_introductif:>'
+      inserer_barre: 'edition'
+      previsualisation: 'oui'

@@ -1,0 +1,29 @@
+[(#REM) <!-- Contenu de la rubrique --> ]
+<section id="rubrique" class="rubrique">
+	[(#REM) <!-- Titre, logo, texte de la rubrique --> ]
+	<INCLURE{fond=noisettes/rubrique/description}
+		{id_rubrique}
+		{avec_filles=#CONFIG{sarkaspip/rubrique/avec_filles, non}}>
+
+	<aside>
+		[(#REM) <!-- Documents (sauf images) du portfolio de la rubrique --> ]
+		<INCLURE{fond=noisettes/document/liste-documents_joints}
+			{id_rubrique}
+			{avec_descriptif=#CONFIG{sarkaspip/rubrique/avec_descriptif, non}}>
+
+		[(#REM) <!-- Images du portfolio de la rubrique --> ]
+		<INCLURE{fond=noisettes/document/liste-images_jointes,id_rubrique}>
+
+		[(#REM) <!-- Articles de la rubrique --> ]
+		[(#CONFIG{sarkaspip/rubrique/position_articles, 1}|=={1}|oui)
+			<INCLURE{fond=noisettes/rubrique/liste-articles}{ajax}{id_rubrique}>
+		]
+
+		[(#CONFIG{activer_sites}|=={oui}|oui)
+			[(#REM) <!-- Autorisation niveau visiteur : tout visiteur connecte ou pas peut proposer un site (seul cas possible) -->]
+			[(#CONFIG{proposer_sites}|=={2}|oui)
+				<INCLURE{fond=noisettes/rubrique/referencer,id_rubrique} />
+			]
+		]
+	</aside>
+</section>

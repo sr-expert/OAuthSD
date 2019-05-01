@@ -1,0 +1,14 @@
+nom: '<:aveline:nom_mot-rubriques:>'
+icon: 'rubrique-24.png'
+necessite:
+  - 'mots'
+contexte:
+  - 'id_mot'
+  - 'lang'
+parametres:
+  - 'inclure:inc-yaml/tri-rubrique.yaml'
+  - 'inclure:inc-yaml/restreindre_langue.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-rubrique.yaml'
+  - 'inclure:inc-yaml/choix_tri-rubrique.yaml'
+  - 'inclure:inc-yaml/resume-rubrique.yaml'

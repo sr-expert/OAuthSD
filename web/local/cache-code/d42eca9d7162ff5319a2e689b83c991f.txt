@@ -1,0 +1,126 @@
+<?php
+
+/*
+Autorisation avec OAuth Server by DnC
+
+Retour de OAuth authorize.
+
+Ce fichier doit être installé du côté de l'application cliente.
+Il correspond au Point d’extrémité de redirection, ou URI de 
+retour à l’application cliente (Redirection Endpoint).
+
+Auteur : Bertrand degoy
+Copyright (c) 2016 DnC
+*/
+
+
+//*
+$session_name = session_name();
+if ( empty($session_name) ) {
+    session_name('PHPSESSID');
+} 
+if ( isset($_GET['state']) ) session_id($_GET['state']);
+session_start();   
+//*/
+
+// Code d'autorisation (Authorization code) retourné par le serveur
+$authcode = $_GET['code'];
+$sanitized_authcode = preg_replace('/[^a-f0-9"\']/', '', $authcode);  
+
+if ( $sanitized_authcode === $authcode ) {   
+
+    // Demander un jeton d'accès pour l'application
+    $jeton = '';
+
+    $url = 'http://oa.dnc.global/oauth/token.php';
+
+    $datas =  array( 
+        'grant_type' => 'authorization_code',
+        'code' => $sanitized_authcode,
+        'client_id' => 'XXXXXXX',                         
+        'client_secret' => 'XXXXXXXXXXXXXX',   
+    );        
+
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $datas);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+    $result_json = curl_exec($ch);
+    $result = json_decode($result_json, true);
+
+    $http_code = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
+
+    curl_close($ch);
+
+    switch( (int)$http_code ) { 
+        case 200 :
+
+            if ( $result['access_token'] ) {
+                $token = $result['access_token'];
+                $sanitized_token = preg_replace('/[^a-f0-9"\']/', '', $token); 
+                if ( $sanitized_token === $token ) { 
+                    $jeton = $token;      
+                } else {
+                    // Jeton d'accès corrompu
+                }       
+            } else {
+                // Application non autorisée
+            }
+            if ( $result['refresh_token'] ) {
+                $refresh_token = $result['refresh_token'];
+                $sanitized_rtoken = preg_replace('/[^a-f0-9"\']/', '', $refresh_token); 
+                if ( $sanitized_rtoken === $refresh_token ) { 
+                    $rejeton = $refresh_token;      
+                } else {
+                    // Jeton de rafraîchissement corrompu
+                }       
+            } else {
+                // Application non autorisée
+            }
+
+            if ( !empty($jeton) AND !empty($rejeton) ) {
+
+                // Ici, il serait bon de vérifier le jeton, par introspection par exemple.                
+                ...
+                // Succès, mémoriser les jetons dans la session de l'application
+                $_SESSION['oauth_access_token'] = $jeton;
+                $_SESSION['oauth_refresh_token'] = $rejeton;
+
+                if ( $oauth_again = $_SESSION['oauth_again'] ) {
+                    // Reprendre où nous en étions avant l'interruption
+                    header('Location: ' . $oauth_again );
+                    exit;
+                }
+            }
+            break;
+
+        case 401 :
+            // Accès non autorisé : problème avec CORS ?
+            break;
+        case 405 :
+            // Requête invalide
+            break;
+        case 400 :
+            // URL non trouvée ou Accès non autorisé
+        default:
+            break;
+    }
+
+    if ( empty($jeton) ) { 
+        // Lire l'erreur
+        if ( !is_null( $result ) ) {
+            $msg = json_decode( $res, true );
+            echo $msg['error'];         //DEBUG
+        }
+    }
+
+} else {
+    // Code d'autorisation corrompu
+}
+?> 

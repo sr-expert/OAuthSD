@@ -1,0 +1,15 @@
+[(#SET{taille_max_logo, #ENV{taille_max_logo}|is_null|non|?{#ENV{taille_max_logo},200}})]
+[(#SET{taille_max_images_texte, #ENV{taille_max_images_texte}|is_null|non|?{#ENV{taille_max_images_texte},500}})]
+
+[(#ENV{afficher_logo}|oui)[(#ENV{utiliser_logo_article_rubrique}|?{<:aveline:logo_objet_rubrique:>,<:medias:logo:>}), ]<:aveline:taille_max:> [(#GET{taille_max_logo})] px.<br />]
+[(#ENV{afficher_date}|et{#ENV{afficher_date_en_surtitre}})<:public:date:>, ]<:ecrire:texte_sur_titre:>, <:aveline:titre:>, <:ecrire:texte_sous_titre:>[, (#ENV{afficher_source_rss}|et{#ENV{afficher_source_rss_soustitre}}|et{#PLUGIN{rssarticle}})<:aveline:source_rss:>].<br />
+#SET{infos,#ARRAY}
+[(#ENV{afficher_date}|et{#ENV{afficher_date_en_surtitre}|non})[(#SET_PUSH{infos,[(#VAL{public:date}|_T)]})]]
+[(#ENV{afficher_auteurs}|oui)[(#SET_PUSH{infos,[(#VAL{ecrire:info_auteurs}|_T)]})]]
+[(#ENV{afficher_date_modif}|oui)[(#SET_PUSH{infos,[(#VAL{aveline:date_modif}|_T)]})]]
+[(#ENV{afficher_formulaire_note}|et{#PLUGIN{notation}})[(#SET_PUSH{infos,[(#VAL{paquet-notation:notation_nom}|_T)]})]]
+[(#ENV{afficher_traductions}|oui)[(#SET_PUSH{infos,[(#VAL{ecrire:info_traductions}|_T)]})]]
+[(#ENV{afficher_source_rss}|et{#ENV{afficher_source_rss_soustitre}|non}|et{#PLUGIN{rssarticle}})[(#SET_PUSH{infos,[(#VAL{aveline:source_rss}|_T)]})]]
+[(#GET{infos}|implode{', '}).<br />]
+<:ecrire:info_chapeau:>, <:ecrire:info_texte:>, [(#ENV{afficher_lienhypertexte}|oui)<:forum:forum_lien_hyper:>, ]<:ecrire:info_post_scriptum:>, <:ecrire:info_notes:>.
+[<br /><:aveline:label_taille_max_images_texte:> (#GET{taille_max_images_texte}) px.]

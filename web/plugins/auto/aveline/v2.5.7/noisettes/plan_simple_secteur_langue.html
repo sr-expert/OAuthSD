@@ -1,0 +1,42 @@
+[(#SET{afficher_articles, #ENV{afficher_articles}|sinon{on}})]
+<BOUCLE_secteur(RUBRIQUES){racine}{lang}{0,1}>
+<BOUCLE_sous_secteurs(RUBRIQUES) {id_parent} {par num titre, titre}>
+
+	<h2 class="h2"><a href="#URL_RUBRIQUE">#TITRE</a></h2>
+
+	[(#REM) Articles et sous-rubriques ]
+	<BOUCLE_test(CONDITION){si #GET{afficher_articles}}>
+	<B_articles_racine>
+	<h3 class="h3"><:articles:></h3>
+	<ul class="plan">
+		<BOUCLE_articles_racine(ARTICLES) {id_rubrique} {par num titre, titre}>
+		<li><a href="#URL_ARTICLE">#TITRE</a></li>
+		</BOUCLE_articles_racine>
+	</ul>
+	</B_articles_racine>
+	</BOUCLE_test>
+
+	<B_rubriques>
+	<ul class="plan">
+		<BOUCLE_rubriques(RUBRIQUES) {id_parent} {par num titre, titre}>
+		<li>
+			<strong><a href="#URL_RUBRIQUE">#TITRE</a></strong>
+			
+			<BOUCLE_test2(CONDITION){si #GET{afficher_articles}}>
+			<B_articles>
+			<ul>
+				<BOUCLE_articles(ARTICLES) {id_rubrique} {par num titre, titre}>
+				<li><a href="#URL_ARTICLE">#TITRE</a></li>
+				</BOUCLE_articles>
+			</ul>
+			</B_articles>
+			</BOUCLE_test2>
+			
+			<BOUCLE_sous_rubriques(BOUCLE_rubriques)></BOUCLE_sous_rubriques>
+		</li>
+		</BOUCLE_rubriques>
+	</ul>
+	</B_rubriques>
+
+</BOUCLE_sous_secteurs>
+</BOUCLE_secteur>

@@ -1,0 +1,23 @@
+/* formulaire_tagger */
+.formulaire_tagger {padding: 0;background: 0;display: inline;}
+.formulaire_tagger .editer {padding: 0;margin: 0;display: inline;}
+.formulaire_tagger form,.formulaire_tagger div,.formulaire_tagger ul,.formulaire_tagger li,.formulaire_tagger label {float: none;margin:0;display: inline;}
+.formulaire_tagger label {display: none;}
+
+.editer_tags .tags {padding:0;margin:0;display: inline;}
+.editer_tags .tag {display: inline;}
+.editer_tags .tag i {padding-right: 3px;}
+.editer_tags .tag a {color: inherit}
+.editer_tags .tags .tag img {padding: 2px 0px 2px 4px;vertical-align: middle;}
+.editer_tags .tags .tag img:hover {cursor: hand;cursor: pointer;}
+.editer_tags .tags .notag {display: block;float: left;margin-right:5px;font-style: italic;color:#bbb;}
+.editer_tags.ajoutable .notag {display: none;}
+
+.editer_tags input.text {
+    width: 10em;
+    padding:0 4px;
+    display: inline;
+    vertical-align: top;
+}
+
+.js .formulaire_tagger .none-js {display: none;}

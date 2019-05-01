@@ -1,0 +1,38 @@
+[(#SET{defaut_tri,#ARRAY{
+	date_publication,-1, 
+	id_oauth_user,1,
+	points,-1
+}})]<B_liste_oauth_users>
+#ANCRE_PAGINATION
+<div class="liste-objets oauth_users">
+<table class="spip liste">
+	[<caption><strong class="caption">(#ENV*{titre,#GRAND_TOTAL|singulier_ou_pluriel{oauth_user:info_1_oauth_user,oauth_user:info_nb_oauth_users}})</strong></caption>]
+	<thead>
+		<tr class="first_row">
+			<th class="picto" scope="col"></th>
+			<th class="statut" scope="col">[(#TRI{statut,<span title="<:lien_trier_statut|attribut_html:>">#</span>,ajax})]</th> 
+			<th class="" scope="col">[(#TRI{,<:oauth_user:champ__label:>,ajax})]</th>
+			<th class="date" scope="col">[(#TRI{date_publication,<:date:>,ajax})]</th> 
+			<th class="id" scope="col">[(#TRI{id_oauth_user,<:info_numero_abbreviation:>,ajax})]</th>
+		</tr>
+	</thead>
+	<tbody>
+	<BOUCLE_liste_oauth_users(OAUTH_USERS){id_mot?}{id_auteur?}{where?}{statut?}{recherche?}{tri #ENV{par,num },#GET{defaut_tri}}{par }{pagination #ENV{nb,10}}>
+		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+			<td class="picto">[(#CHEMIN_IMAGE{oauth_user-16.png}|balise_img)]</td>
+			<td class="statut">[(#STATUT|puce_statut{oauth_user,#ID_OAUTH_USER})]</td> 
+			<td class=" principale">[(#LOGO_OAUTH_USER|image_reduire{20,26})]<a href="[(#ID_OAUTH_USER|generer_url_entite{oauth_user})]" title="<:info_numero_abbreviation|attribut_html:> #ID_OAUTH_USER">[(#RANG). ]#</a></td>
+			<td class="date secondaire">[(#DATE_PUBLICATION|affdate_jourcourt)]</td> 
+			<td class="id">[(#AUTORISER{modifier,oauth_user,#ID_OAUTH_USER}|?{
+				<a href="[(#URL_ECRIRE{oauth_user_edit,id_oauth_user=#ID_OAUTH_USER})]">#ID_OAUTH_USER</a>,
+				#ID_OAUTH_USER
+			})]</td>
+		</tr>
+	</BOUCLE_liste_oauth_users>
+	</tbody>
+</table>
+[<p class="pagination">(#PAGINATION{prive})</p>]
+</div>
+</B_liste_oauth_users>[
+<div class="liste-objets oauth_users caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
+]<//B_liste_oauth_users>

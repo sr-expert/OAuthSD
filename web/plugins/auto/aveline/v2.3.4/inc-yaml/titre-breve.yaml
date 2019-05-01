@@ -1,0 +1,29 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'afficher_titre_liste'
+    label: '<:aveline:label_afficher_titre_liste:>'
+    defaut: 'on'
+-
+  saisie: 'selection'
+  options:
+    nom: 'titre_liste'
+    label: '<:aveline:label_titre_liste:>'
+    defaut: 'breves:breves'
+    cacher_option_intro: 'oui'
+    datas:
+      'breves:breves': '<:breves:breves:>'
+      'public:dernieres_breves': '<:public:dernieres_breves:>'
+      'public:autres_breves': '<:public:autres_breves:>'
+      'avelinepublic:breves_les_plus_recentes': '<:avelinepublic:breves_les_plus_recentes:>'
+      'avelinepublic:breves_les_plus_anciennes': '<:avelinepublic:breves_les_plus_anciennes:>'
+      'avelinepublic:breves_les_plus_commentees': '<:avelinepublic:breves_les_plus_commentees:>'
+      titre_perso: '<:aveline:item_titre_perso:>'
+    afficher_si: '@afficher_titre_liste@ == "on"'
+-
+  saisie: 'input'
+  options:
+    nom: 'titre_liste_perso'
+    label: '<:aveline:label_titre_liste_perso:>'
+    explication: '<:aveline:explication_raccourcis_typo:>'
+    afficher_si: '@afficher_titre_liste@ == "on" && @titre_liste@ == "titre_perso"'

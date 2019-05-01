@@ -1,0 +1,22 @@
+[(#SET{titre,[(#ENV{titre_liste}|=={titre_perso}|?{[(#ENV**{titre_liste_perso}|typo)],[(#ENV{titre_liste}|_T)]})]})]
+<B_liste_breves>
+<div class="liste breves">
+	#ANCRE_PAGINATION
+	[(#ENV{afficher_titre_liste}|oui)[<h2 class="h2">(#GET{titre}) [((#ENV{archives}|affdate|sinon{#ENV{archives}}))]</h2>]]
+	[(#ENV{afficher_selecteur_archives}|et{#ENV{position_selecteur_archives}|!={fin}})
+		#INCLURE{fond=inclure/mot-breves-selecteur_archives-#ENV{pas_selecteur_archives},env}
+	]
+	[<p class="pagination choix_tri">(#AVELINE_CHOIX_TRI{'breve','debut'})</p>]
+	[<p class="pagination">(#AVELINE_PAGINATION{'debut'})</p>]
+	<ul class="liste-items">
+	<BOUCLE_liste_breves(BREVES) {aveline_branche}{compteur_publie forum}{tri #ENV{tri},#ENV{senstri}}{archives?}{aveline_pagination}{aveline_lang}{id_mot}>
+		#INCLURE{fond=inclure/breve-resume,id_breve=#ID_BREVE,id_breve_expose=#ENV{id_breve},env}
+	</BOUCLE_liste_breves>
+	</ul>
+	[<p class="pagination">(#AVELINE_PAGINATION{'fin'})</p>]
+	[<p class="pagination choix_tri">(#AVELINE_CHOIX_TRI{'breve','fin'})</p>]
+	[(#ENV{afficher_selecteur_archives}|et{#ENV{position_selecteur_archives}|!={debut}})
+		#INCLURE{fond=inclure/mot-breves-selecteur_archives-#ENV{pas_selecteur_archives},env}
+	]
+</div>
+</B_liste_breves>

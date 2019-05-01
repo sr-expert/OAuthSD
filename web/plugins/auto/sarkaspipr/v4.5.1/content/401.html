@@ -1,0 +1,14 @@
+<section class="page401">
+	<header class="cartouche">
+		<h1><:sarkaspip:erreur|ucfirst:>&nbsp;-&nbsp;401</h1>
+	</header>
+	<div class="main">
+		<div class="chapo warning">
+			<p>
+				[(#SESSION{id_auteur}|?{<:sarkaspip:page_restreinte_connecte:>,<:sarkaspip:page_restreinte_deconnecte:>})]
+			</p>
+		</div>
+		[(#SESSION{id_auteur}|non)
+			#FORMULAIRE_LOGIN{#ENV{cible},'',0}]
+	</div>
+</div>

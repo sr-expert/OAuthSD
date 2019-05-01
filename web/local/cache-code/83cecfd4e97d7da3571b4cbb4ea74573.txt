@@ -1,0 +1,11 @@
+    $data2 = array(
+        'access_token' => $access_token,
+    );
+    $h = curl_init($userinfo_endpoint);
+    curl_setopt($h, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($h, CURLOPT_TIMEOUT, 10);
+    curl_setopt($h, CURLOPT_POST, true);
+    curl_setopt($h, CURLOPT_HTTPHEADER, 
+                array('Content-Type: application/x-www-form-urlencoded'));     
+    curl_setopt($h, CURLOPT_POSTFIELDS, http_build_query($data2));
+    $res = curl_exec($h); 

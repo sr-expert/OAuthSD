@@ -1,0 +1,16 @@
+[(#SET{titre,[(#ENV{titre_liste}|=={titre_perso}|?{[(#ENV**{titre_liste_perso}|typo)],[(#ENV{titre_liste}|_T)]})]})]
+<B_liste_rubriques>
+<div class="liste rubriques">
+	#ANCRE_PAGINATION
+	[(#ENV{afficher_titre_liste}|oui)[<h2 class="h2">(#GET{titre})</h2>]]
+	[<p class="pagination choix_tri">(#AVELINE_CHOIX_TRI{'rubrique','debut'})</p>]
+	[<p class="pagination">(#AVELINE_PAGINATION{'debut'})</p>]
+	<ul class="liste-items">
+	<BOUCLE_liste_rubriques(RUBRIQUES) {compteur_publie forum}{notation}{tri #ENV{tri},#ENV{senstri}}{aveline_pagination}{id_mot}{aveline_lang}>
+		#INCLURE{fond=inclure/rubrique-resume,id_rubrique=#ID_RUBRIQUE,env}
+	</BOUCLE_liste_rubriques>
+	</ul>
+	[<p class="pagination">(#AVELINE_PAGINATION{'fin'})</p>]
+	[<p class="pagination choix_tri">(#AVELINE_CHOIX_TRI{'rubrique','fin'})</p>]
+</div>
+</B_liste_rubriques>

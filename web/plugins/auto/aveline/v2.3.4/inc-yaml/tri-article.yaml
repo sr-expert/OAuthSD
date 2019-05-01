@@ -1,0 +1,32 @@
+-
+  saisie: 'selection_selon_plugin'
+  options:
+    nom: 'tri'
+    label: '<:aveline:label_tri:>'
+    defaut: 'date'
+    cacher_option_intro: 'oui'
+    datas-necessite:
+      moyenne: 'notation'
+    datas:
+      titre: '<:aveline:item_titre:>'
+      'num titre': '<:aveline:item_num_titre:>'
+      date: '<:aveline:item_date:>'
+      date_modif: '<:aveline:item_date_modif:>'
+      date_redac: '<:aveline:item_date_redac:>'
+      popularite: '<:aveline:item_popularite:>'
+      visites: '<:aveline:item_visites:>'
+      compteur_forum: '<:aveline:item_nbre_commentaires:>'
+      moyenne: '<:aveline:item_note:>'
+      surtitre: '<:aveline:item_surtitre:>'
+      soustitre: '<:aveline:item_soustitre:>'
+      hasard: '<:aveline:item_hasard:>'
+-
+  saisie: 'selection'
+  options:
+    nom: 'senstri'
+    label: '<:aveline:label_senstri:>'
+    defaut: 'inverse'
+    cacher_option_intro: 'oui'
+    datas:
+      '': '<:aveline:item_ascendant:>'
+      inverse: '<:aveline:item_descendant:>'

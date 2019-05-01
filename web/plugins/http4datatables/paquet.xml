@@ -1,0 +1,20 @@
+<paquet
+	prefix="http4datatables"
+	categorie="outil"
+	version="1.0.1"
+	etat="test"
+	compatibilite="[3.0.0;3.2.*]"
+	logo="img/dnc_relief.gif"
+>
+	<nom>API HTTP REST pour DataTables</nom>
+	
+	<auteur lien="https://oa.dnc.global">DnC</auteur>
+	<credit lien="https://datatables.net/manual/server-side">DataTables - Server-side processing</credit>
+	<copyright>2019 Bertrand Degoy DnC</copyright>
+	<licence>Tous droits réservés</licence>
+	
+	<necessite nom="http" compatibilite="[1.2.0;]" />
+    <necessite nom="collectionjsonoauthsd" compatibilite="[1.0.1;]" />
+	
+    
+</paquet>

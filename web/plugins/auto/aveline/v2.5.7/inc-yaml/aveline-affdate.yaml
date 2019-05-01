@@ -1,0 +1,8 @@
+'affdate': '<:aveline:item_format_date_affdate:>'
+'affdate_jourcourt': '<:aveline:item_format_date_affdate_jourcourt:>'
+'affdate_court': '<:aveline:item_format_date_affdate_court:>'
+'affdate_mois_annee': '<:aveline:item_format_date_affdate_mois_annee:>'
+'annee': '<:aveline:item_format_date_annee:>'
+'nom_jour_affdate': '<:aveline:item_format_date_nom_jour_affdate:>'
+'numerique_slash': '<:aveline:item_format_date_numerique_slash:>'
+'numerique_tiret': '<:aveline:item_format_date_numerique_tiret:>'

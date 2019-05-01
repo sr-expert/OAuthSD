@@ -1,0 +1,64 @@
+nom: '<:aveline:nom_anythingslider_liste_articles:>'
+description: '<:aveline:description_anythingslider_liste_articles:>'
+icon: 'article-24.png'
+necessite:
+  - 'anythingslider'
+contexte:
+  - 'id_rubrique'
+  - 'id_secteur'
+  - 'id_article'
+  - 'lang'
+parametres:
+  - 'inclure:inc-yaml/branche-article.yaml'
+  - 'inclure:inc-yaml/tri-article.yaml'
+  -
+    saisie: 'hidden'
+    options:
+      nom: 'selection'
+      defaut: 'limite'
+  -
+    saisie: 'input'
+    options:
+      nom: 'limite'
+      label: '<:aveline:label_limite:>'
+      defaut: 10
+    verifier:
+      type: 'entier'
+      options:
+        min: 1
+  - 'inclure:inc-yaml/restreindre_langue.yaml'
+  - 'inclure:inc-yaml/exclure_objet_en_cours-article.yaml'
+  - 'inclure:inc-yaml/titre-article.yaml'
+  -
+    saisie: 'fieldset'
+    options:
+      nom: 'options_anythingslider'
+      label: '<:aveline:label_options_anythingslider:>'
+    saisies:
+      - 'inclure:inc-yaml/anythingslider-options.yaml
+  -
+    saisie: 'selection'
+    options:
+      nom: 'style_liste'
+      label: '<:aveline:label_style_liste:>'
+      defaut: 'resume'
+      cacher_option_intro: 'oui'
+      datas:
+        liste: '<:aveline:item_liste:>'
+        resume: '<:aveline:item_resume:>'
+  -
+    saisie: 'fieldset'
+    options:
+      nom: 'si_liste_simple'
+      label: '<:aveline:label_si_liste_simple:>'
+      afficher_si: '@style_liste@ == "liste"'
+    saisies:
+      - 'inclure:inc-yaml/resume-article-liste.yaml'
+  -
+    saisie: 'fieldset'
+    options:
+      nom: 'si_resume'
+      label: '<:aveline:label_si_resume:>'
+      afficher_si: '@style_liste@ == "resume"'
+    saisies:
+      - 'inclure:inc-yaml/resume-article-resume.yaml

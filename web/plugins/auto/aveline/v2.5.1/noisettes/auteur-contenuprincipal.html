@@ -1,0 +1,18 @@
+[(#SET{taille_max_logo, #ENV{taille_max_logo}|is_null|non|?{#ENV{taille_max_logo},200}})]
+[(#SET{taille_max_images_texte, #ENV{taille_max_images_texte}|is_null|non|?{#ENV{taille_max_images_texte},500}})]
+
+<BOUCLE_auteur(AUTEURS){id_auteur}>
+<div class="contenu-principal">
+	<div class="vcard">[(#REM) microformat vcard]
+	<div class="cartouche">
+		[(#ENV{afficher_logo}|oui)[(#LOGO_AUTEUR||image_reduire{#GET{taille_max_logo}})]]
+		<h1 class="h1 #EDIT{qui} fn">#NOM</h1>
+	</div>
+
+	[<div class="#EDIT{bio} texte">(#BIO|image_reduire{#GET{taille_max_images_texte},0})</div>]
+	[(#ENV{afficher_site_web}|oui)[<p class="#EDIT{hyperlien} hyperlien"><:voir_en_ligne:> : <a href="(#URL_SITE)" class="url spip_out">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]]
+	</div>[(#REM) / vcard]
+</div>
+
+[<div class="notes surlignable"><h2 class="h2 pas_surlignable"><:info_notes:></h2>(#NOTES)</div>]
+</BOUCLE_auteur>

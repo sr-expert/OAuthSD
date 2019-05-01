@@ -1,0 +1,77 @@
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/formulaires/editer_client.html ../plugins/fabrique_auto/oauth/formulaires/editer_client.html
+9a10,34
+>
+> 			[(#SAISIE{input, client_secret, obligatoire=oui,
+> 				label=<:client:champ_client_secret_label:>,
+> 				explication=<:client:champ_client_secret_explication:> })]
+>
+> 			[(#SAISIE{input, redirect_uri, obligatoire=oui,
+> 				label=<:client:champ_redirect_uri_label:>,
+> 				explication=<:client:champ_redirect_uri_explication:> })]
+>
+> 			[(#SAISIE{selection, grant_types, obligatoire=oui,
+> 				label=<:client:champ_grant_types_label:>,
+> 				explication=<:client:champ_grant_types_explication:> ,
+> 				datas=[(#ARRAY{AuthorizationCode,Authorization Code,ClientCredentials,Client Credentials,JwtBearer,JWT bearer,UserCredentials,User Credentials})]})]
+>
+> 			[(#SAISIE{input, scope, obligatoire=oui,
+> 				label=<:client:champ_scope_label:>,
+> 				explication=<:client:champ_scope_explication:> })]
+>
+> 			[(#SAISIE{input, user_id,
+> 				label=<:client:champ_user_id_label:>,
+> 				explication=<:client:champ_user_id_explication:> })]
+>
+> 			[(#SAISIE{input, client_id, obligatoire=oui,
+> 				label=<:client:champ_client_id_label:>,
+> 				explication=<:client:champ_client_id_explication:> })]
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/formulaires/editer_client.php ../plugins/fabrique_auto/oauth/formulaires/editer_client.php
+92c92
+< 	$erreurs = formulaires_editer_objet_verifier('client', $id_client);
+---
+> 	$erreurs = formulaires_editer_objet_verifier('client', $id_client, array('client_secret', 'redirect_uri', 'grant_types', 'scope', 'client_id'));
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/formulaires/editer_user.html ../plugins/fabrique_auto/oauth/formulaires/editer_user.html
+9a10,29
+>
+> 			[(#SAISIE{input, username, obligatoire=oui,
+> 				label=<:user:champ_username_label:>,
+> 				explication=<:user:champ_username_explication:> })]
+>
+> 			[(#SAISIE{input, password, obligatoire=oui,
+> 				label=<:user:champ_password_label:>,
+> 				explication=<:user:champ_password_explication:> })]
+>
+> 			[(#SAISIE{input, first_name,
+> 				label=<:user:champ_first_name_label:>,
+> 				explication=<:user:champ_first_name_explication:> })]
+>
+> 			[(#SAISIE{input, last_name, obligatoire=oui,
+> 				label=<:user:champ_last_name_label:>,
+> 				explication=<:user:champ_last_name_explication:> })]
+>
+> 			[(#SAISIE{input, email, obligatoire=oui,
+> 				label=<:user:champ_email_label:>,
+> 				explication=<:user:champ_email_explication:> })]
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/formulaires/editer_user.php ../plugins/fabrique_auto/oauth/formulaires/editer_user.php
+92c92
+< 	$erreurs = formulaires_editer_objet_verifier('user', $id_user);
+---
+> 	$erreurs = formulaires_editer_objet_verifier('user', $id_user, array('username', 'password', 'last_name', 'email'));
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/paquet.xml ../plugins/fabrique_auto/oauth/paquet.xml
+12c12
+< 		Paquet généré le 2016-10-08 10:25:36
+---
+> 		Paquet généré le 2016-10-08 13:16:41
+Only in ../plugins/fabrique_auto/.backup/oauth/prive/themes/spip/images: client-12.png
+Only in ../plugins/fabrique_auto/.backup/oauth/prive/themes/spip/images: client-16.png
+Only in ../plugins/fabrique_auto/.backup/oauth/prive/themes/spip/images: client-24.png
+Only in ../plugins/fabrique_auto/.backup/oauth/prive/themes/spip/images: client-32.png
+Only in ../plugins/fabrique_auto/.backup/oauth/prive/themes/spip/images: client-new-16.png
+Only in ../plugins/fabrique_auto/.backup/oauth/prive/themes/spip/images: oauth-128.png
+Only in ../plugins/fabrique_auto/.backup/oauth/prive/themes/spip/images: oauth-32.png
+Only in ../plugins/fabrique_auto/.backup/oauth/prive/themes/spip/images: oauth-64.png
+Only in ../plugins/fabrique_auto/.backup/oauth/prive/themes/spip/images: user-12.png
+Only in ../plugins/fabrique_auto/.backup/oauth/prive/themes/spip/images: user-16.png
+Only in ../plugins/fabrique_auto/.backup/oauth/prive/themes/spip/images: user-24.png
+Only in ../plugins/fabrique_auto/.backup/oauth/prive/themes/spip/images: user-32.png
+Only in ../plugins/fabrique_auto/.backup/oauth/prive/themes/spip/images: user-new-16.png

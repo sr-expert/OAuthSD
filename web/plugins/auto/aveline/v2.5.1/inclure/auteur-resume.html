@@ -1,0 +1,42 @@
+<BOUCLE_auteur(AUTEURS){compteur_left articles}{id_auteur}{tout}{articles.statut = publie}>
+[(#ENV{style_liste}|=={liste}|oui)
+	<li class="item">[<a name="tri_alphabetique_(#ENV{initiale})"></a>]<a href="#URL_AUTEUR"[ class="(#EXPOSE)"]>[(#NOM|couper{80})]</a>
+	[(#ENV{liste_afficher_nb_articles}|oui)<div class="info-publi">[(#AVELINE_COMPTEUR_ARTICLES)]&nbsp;[(#AVELINE_COMPTEUR_ARTICLES|<{2}|?{<:ecrire:info_article:>,<:ecrire:info_article_2:>})].</div>]</li>
+]
+[(#ENV{style_liste}|=={resume}|oui)
+	<li class="item hentry">
+		[<a name="tri_alphabetique_(#ENV{initiale})"></a>]
+		<h3 class="h3 entry-title">
+			<a href="#URL_AUTEUR" [(#ENV{id_auteur_expose}|=={#ID_AUTEUR}) class="on"]>
+				[(#ENV{afficher_logo}|oui)
+					[(#LOGO_AUTEUR||image_reduire{[(#ENV{taille_max_logo}|sinon{150})]})]
+				]
+				#NOM
+			</a>
+		</h3>
+		[(#ENV{afficher_bio}|oui)
+			[<div class="#EDIT{bio} texte">(#BIO)</div>]
+			[<div class="notes"><h3 class="h3 spip"><:info_notes:></h3>(#NOTES)</div>]
+		]
+		[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_nb_articles}})<div class="meta-publi">]
+			[(#ENV{afficher_lire_la_suite}|oui)<a class="lire-la-suite" href="#URL_ARTICLE"><:zpip:lire_la_suite:>[(#ENV{rappeler_nom}|oui)<span class="lire-la-suite-titre"><:zpip:lire_la_suite_de:> <em>#NOM</em></span>]</a>]
+			[(#ENV{afficher_nb_articles}|oui)
+				[(#ENV{afficher_lire_la_suite}|oui)<span class="sep">|</span>]
+				[(#AVELINE_COMPTEUR_ARTICLES)]&nbsp;[(#AVELINE_COMPTEUR_ARTICLES|<{2}|?{<:ecrire:info_article:>,<:ecrire:info_article_2:>})]
+			]
+		[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_nb_articles}})</div>]
+	</li>
+]
+[(#ENV{style_liste}|=={vignettes}|oui)
+	<li class="item hentry" [(#ENV{vignette_ajout_css}|oui) style="float: left; clear:none; width: [(#ENV{vignette_taille_max_logo,50}|plus{30})]px; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; height:[(#ENV{vignette_hauteur_vignette,150})]px"]>
+		[<a name="tri_alphabetique_(#ENV{initiale})"></a>]
+		<dl class="auteur" [(#ENV{vignette_ajout_css}|oui) style="text-align: center; padding:0px; width:[(#ENV{vignette_taille_max_logo,50}|plus{30})]px;"]>
+			<dt [(#ENV{vignette_ajout_css}|oui) style="text-align: center; padding:0px; width:[(#ENV{vignette_taille_max_logo,50}|plus{30})]px;"]><a href="#URL_AUTEUR" [(#ENV{id_auteur_expose}|=={#ID_AUTEUR}) class="on"]>
+				[(#LOGO_AUTEUR||image_reduire{[(#ENV{vignette_taille_max_logo}|sinon{50})]}|inserer_attribut{style,#ENV{vignette_ajout_css}|?{'float:none;',''}})<br />]
+				[(#NOM|couper{#ENV{vignette_longueur_max_noms,30}})]
+			</a></dt>
+			[(#ENV{vignette_afficher_nb_articles}|oui)[<dd[(#ENV{vignette_ajout_css}|oui) style="margin:0; padding:0;"]>(#AVELINE_COMPTEUR_ARTICLES)&nbsp;[(#AVELINE_COMPTEUR_ARTICLES|<{2}|?{<:ecrire:info_article:>,<:ecrire:info_article_2:>})]</dd>]]
+		</dl>
+	</li>
+]
+</BOUCLE_auteur>

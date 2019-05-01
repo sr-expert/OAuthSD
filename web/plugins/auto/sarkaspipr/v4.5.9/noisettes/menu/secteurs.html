@@ -1,0 +1,4 @@
+[(#REM) menu par defaut de la barre de nav : liste les secteurs]
+<BOUCLE_secteurs(RUBRIQUES){racine}{id_rubrique!==#RACINE_SPECIALISEE}{par num titre}>
+	[<li[ class="(#EXPOSE{on active})"]><a href="#URL_RUBRIQUE">(#TITRE)</a></li>]
+</BOUCLE_secteurs>

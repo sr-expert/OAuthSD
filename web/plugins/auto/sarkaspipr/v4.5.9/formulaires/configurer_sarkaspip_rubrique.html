@@ -1,0 +1,132 @@
+<div class="formulaire_spip formulaire_configurer formulaire_#FORM">
+
+	<h3 class="titrem"><:sarkaspip_config:cfg_boite_rubrique:></h3>
+
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	<form method="post" action="#ENV{action}"><div>
+		<input type="hidden" name="_meta_casier" value="sarkaspip/rubrique" />
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_description:></legend>
+			<ul class="editer-groupe">
+			<INCLURE{fond=formulaires/inc/cfg_logo}
+				{explication=<:sarkaspip_config:cfg_inf_rubrique_logo:>}
+				{choix=taille_uniquement}
+				{suffixe=_rubrique}
+				{env}>
+				#SET{name,court_circuit}#SET{defaut,0}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer pleine_largeur editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+					[
+					<span class='erreur_message'>(#GET{erreurs})</span>
+					]
+					<input type="hidden" name="#GET{name}" value="0" />
+					#SET{val,1}
+					<div class="choix">
+						<input type="checkbox" name="#GET{name}" class="checkbox" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={1}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_rubrique_court_circuit_1:></label>
+					</div>
+					#SET{val,2}
+					<div class="choix">
+						<input type="checkbox" name="#GET{name}" class="checkbox" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={2}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_rubrique_court_circuit_2:></label>
+					</div>
+				</li>
+			</ul>
+		</fieldset>
+		<!--
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_documents_joints:></legend>
+			<ul class="editer-groupe">
+			<INCLURE{fond=formulaires/inc/cfg_descriptif_document}{env}>
+			</ul>
+		</fieldset>
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_images_jointes:></legend>
+			<ul class="editer-groupe">
+			<INCLURE{fond=formulaires/inc/cfg_effet_image}
+				{explication=<:sarkaspip_config:cfg_inf_effet_image:>}
+				{choix=portfolio}
+				{env}>
+			</ul>
+		</fieldset>
+		-->
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_rubriques_filles:></legend>
+			<ul class="editer-groupe">
+				#SET{name,avec_filles}#SET{defaut,non}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]" id="bloc_titre_edito">
+					<label><:sarkaspip_config:cfg_inf_rubrique_filles:></label>[
+					<span class='erreur_message'>(#GET{erreurs})</span>
+					]
+					#SET{val,oui}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_oui:></label>
+					</div>
+					#SET{val,non}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_non:></label>
+					</div>
+				</li>
+			</ul>
+		</fieldset>
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_articles_publies:></legend>
+			<ul class="editer-groupe">
+				#SET{name,position_articles}#SET{defaut,1}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]" id="bloc_titre_edito">
+					<label><:sarkaspip_config:cfg_inf_rubrique_articles:></label>[
+					<span class='erreur_message'>(#GET{erreurs})</span>
+					]
+					#SET{val,1}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_oui:></label>
+					</div>
+					#SET{val,0}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_non:></label>
+					</div>
+				</li>
+				<li class="fieldset suite" id="bloc_pas_articles"><fieldset>
+					<ul class="editer-groupe">
+					<INCLURE{fond=formulaires/inc/cfg_introduction}{env}>
+					<INCLURE{fond=formulaires/inc/cfg_logo}
+						{choix=taille_uniquement}
+						{suffixe=_articles}
+						{env}>
+					<INCLURE{fond=formulaires/inc/cfg_pagination}{defaut_pas=5}{defaut_position=3}{env}>
+					</ul></fieldset>
+				</li>
+			</ul>
+		</fieldset>
+
+		<INCLURE{fond=formulaires/inc/cfg_boutons}>
+	</div></form>
+</div>
+<script type="text/javascript">
+/*<![CDATA[*/
+	jQuery(document).ready(function() {
+		[(#ENV{position_articles, 1}|!={1}|oui)
+			jQuery("#bloc_pas_articles").hide();
+		]
+		jQuery("input[name='position_articles']").change(function() {
+			if (jQuery("input[name='position_articles']:checked").val() == 1) {
+				jQuery("#bloc_pas_articles").show('fast');
+			}
+			else {
+				jQuery("#bloc_pas_articles").hide('fast');
+			}
+			jQuery(this).blur();
+		});
+	});
+/*]]>*/
+</script>
+<style>li.fieldset.suite>fieldset {padding-left: 30px;border-top:0;}</style>

@@ -1,0 +1,40 @@
+nom: '<:aveline:nom_filariane:>'
+icon: 'ariane-24.png'
+necessite:
+  - 'mots'
+ajax: 'non'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_lien_accueil'
+      label: '<:aveline:label_afficher_lien_accueil:>'
+      defaut: 'on'
+  -
+    saisie: 'input'
+    options:
+      nom: 'ariane_separateur'
+      label: '<:aveline:label_ariane_separateur:>'
+      obligatoire: 'oui'
+      defaut: '&gt;'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'titre_racine'
+      label: '<:aveline:label_titre_racine:>'
+      defaut: 'public:mots_clefs'
+      cacher_option_intro: 'oui'
+      datas:
+        'public:mots_clefs': '<:public:mots_clefs:>'
+        'avelinepublic:tags': '<:avelinepublic:tags:>'
+        'avelinepublic:themes': '<:avelinepublic:themes:>'
+        'avelinepublic:sujets': '<:avelinepublic:sujets:>'
+        'avelinepublic:categories': '<:avelinepublic:categories:>'
+        titre_perso: '<:aveline:item_titre_perso:>'
+  -
+    saisie: 'input'
+    options:
+      nom: 'titre_racine_perso'
+      label: '<:aveline:label_titre_liste_perso:>'
+      explication: '<:aveline:explication_raccourcis_typo:>'
+      afficher_si: '@titre_racine@ == "titre_perso"'

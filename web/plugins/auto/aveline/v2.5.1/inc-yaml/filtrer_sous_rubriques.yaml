@@ -1,0 +1,38 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'filtrer_sous_rubriques'
+    label: '<:aveline:label_filtrer_sous_rubriques:>'
+    afficher_si: '@branche@ == "tous" || @branche@ == "branche_actuelle" || @branche@ == "branche_specifique" || @branche@ == "meme_secteur" || @branche@ == "secteur_specifique"'
+-
+  saisie: 'fieldset'
+  options:
+    nom: 'si_filtrer_sous_rubriques'
+    label: '<:aveline:label_si_filtrer_sous_rubriques:>'
+    afficher_si: '(@branche@ == "tous" || @branche@ == "branche_actuelle" || @branche@ == "branche_specifique" || @branche@ == "meme_secteur" || @branche@ == "secteur_specifique") && @filtrer_sous_rubriques@ == "on"'
+  saisies:
+    -
+      saisie: 'selection'
+      options:
+        nom: 'position_filtrer_sous_rubriques'
+        label: '<:aveline:label_position_filtrer_sous_rubriques:>'
+        defaut: 'debut'
+        cacher_option_intro: 'oui'
+        datas:
+          debut: '<:aveline:item_debut:>'
+          fin: '<:aveline:item_fin:>'
+          deux: '<:aveline:item_deux:>'
+    -
+      saisie: 'selection'
+      options:
+        nom: 'texte_devant_filtrer_sous_rubriques'
+        label: '<:aveline:label_texte_devant_filtrer_sous_rubriques:>'
+        defaut: ''
+        cacher_option_intro: 'oui'
+        datas:
+          '': '<:aveline:item_aucun:>'
+          'avelinepublic:rubrique_deux_points': '<:avelinepublic:rubrique_deux_points:>'
+          'avelinepublic:categorie_deux_points': '<:avelinepublic:categorie_deux_points:>'
+          'avelinepublic:theme_deux_points': '<:avelinepublic:theme_deux_points:>'
+          'avelinepublic:sujet_deux_points': '<:avelinepublic:sujet_deux_points:>'
+          'avelinepublic:dans': '<:avelinepublic:dans:>'

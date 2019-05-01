@@ -1,0 +1,12 @@
+<plugin>
+	<nom>Cosmo</nom>
+	<version>2.3.2</version>
+	<etat>stable</etat>
+	<auteur>MIL</auteur>
+	<licence>GPL</licence>
+	<prefix>theme_bscosmo</prefix>
+	<description>An ode to Metro</description>
+	<icon>vignette.png</icon>
+	<utilise id="spipr" version="[0.1.0-dev;]" />
+	<categorie>theme</categorie>
+</plugin>

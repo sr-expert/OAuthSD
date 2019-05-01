@@ -1,0 +1,20 @@
+<B_site>
+<div id="recherche_site" class="recherche_site[ (#ENV{class_resultats,''})] sites">
+	<a rel="nofollow" href="#header" title="<:sarkaspip:kezako_haut_page:>" class="fonction revenir_haut_page"></a>
+	<h3>[(#GRAND_TOTAL|singulier_ou_pluriel{info_1_site,info_nb_sites})]</h3>
+	#ANCRE_PAGINATION
+	[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{top})]
+	<div class="liste[ (#ENV{liste_type,''})]">
+    <ul class="liste-items">
+			<BOUCLE_site(SYNDIC){pagination #CONFIG{sarkaspip/recherche/pas_pagination_recherche_article, 5}}
+				{id_mot=#ENV{id1,#ENV{id2,#ENV{id3}}}}
+				{id_mot=#ENV{id2,#ENV{id3,#ENV{id1}}}}
+				{id_mot=#ENV{id3,#ENV{id1,#ENV{id2}}}}
+			>
+	    <li class="item">[(#INCLURE{fond=inclure/resume/site,id_syndic,coupe=100,url=#ID_SYNDIC|generer_url_entite{site}})]</li>
+			</BOUCLE_site>
+		</ul>
+		[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{bottom})]
+	</div>
+</div>
+</B_site>

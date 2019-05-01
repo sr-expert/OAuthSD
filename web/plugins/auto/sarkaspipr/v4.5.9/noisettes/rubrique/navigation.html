@@ -1,0 +1,42 @@
+[(#REM) <!-- affichage de la noisette de navigation des rubriques
+Recoit en argument:
+- id_rubriquee de la rubrique concernee
+-->]
+[(#REM) <!-- Liste des mots-cles de la rubrique --> ]
+[(#SET{titre_positionne,<div id="noisette_navigation" class="noisette noisette_navigation"><h2 class="intitule"><:sarkaspip:navigation_titre:></h2>})]
+<BOUCLE_mots_branche(MOTS){branche}{type!=squelette_habillage}{doublons mots}>
+</BOUCLE_mots_branche>
+<BOUCLE_articles(ARTICLES){branche}>
+	<BOUCLE_mots_articles(MOTS){id_article}{type!=squelette_habillage}{doublons mots}>
+	</BOUCLE_mots_articles>
+</BOUCLE_articles>
+
+<B_mots>
+	#ANCRE_PAGINATION
+	[(#GET{titre_positionne}|unique)]
+	<div class="liste short mots">
+		[[<div class="pagination pagination-small">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{top})]
+		<ul class="nav nav-list">
+			<li class="nav-header"><:sarkaspip:mots_clefs_rubrique:></li>
+			<BOUCLE_mots(MOTS){!doublons mots}{par titre}{pagination #CONFIG{sarkaspip/noisettes/pas_pagination_motcle, 10}}>
+			<li class="#EXPOSE{on active}"><a href="#URL_MOT" title="<:sarkaspip:navigation_bulle_recherche_motcle|attribut_html:>" rel="tag"><i class="icon-tag"></i> #TITRE</a></li>
+			</BOUCLE_mots>
+		</ul>
+		[[<div class="pagination pagination-small">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{bottom})]
+	</div>
+</B_mots>
+
+[(#REM) <!-- Liste des rubriques filles de la rubrique --> ]
+[(#SET{bulle, <:sarkaspip:navigation_bulle_vers_rubrique:>})]
+<B_rubriques_filles>
+	[(#GET{titre_positionne}|unique)]
+	<div class="liste short rubriques">
+		<ul class="nav nav-list">
+			<li class="nav-header"><:sarkaspip:sous_rubriques|ucfirst:></li>
+			<BOUCLE_rubriques_filles(RUBRIQUES){id_parent=#ENV{id_parent,#ENV{id_rubrique}}}{par num titre}{par titre}>
+			<li class="#EXPOSE{on active}">[(#URL_RUBRIQUE|lien_ou_expose{#TITRE,#EXPOSE{a},'',#GET{bulle}})]</li>
+			</BOUCLE_rubriques_filles>
+		</ul>
+	</div>
+</B_rubriques_filles>
+[(#GET{titre_positionne}|unique|non)</div>]

@@ -1,0 +1,12 @@
+<plugin>
+	<nom>Simplex</nom>
+	<version>2.2.2</version>
+	<etat>stable</etat>
+	<auteur>Cedric</auteur>
+	<licence>GPL</licence>
+	<prefix>theme_bssimplex</prefix>
+	<description>Mini and minimalist</description>
+	<icon>vignette.png</icon>
+	<utilise id="spipr" version="[0.1.0-dev;]" />
+	<categorie>theme</categorie>
+</plugin>

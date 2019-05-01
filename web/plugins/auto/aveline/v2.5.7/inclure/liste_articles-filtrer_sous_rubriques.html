@@ -1,0 +1,11 @@
+#SET{rub,#ARRAY}
+<BOUCLE_art(ARTICLES){fusion id_rubrique}{aveline_branche}{tri #ENV{tri},#ENV{senstri}}{archives?}{aveline_lang}{aveline_exclure_objet_encours}>#SET{rub, #GET{rub}|push{#ID_RUBRIQUE}}</BOUCLE_art>
+<B_sous_rubriques>
+	<p class='pagination filtre_sous_rubriques'>
+	[(#ENV{texte_devant_filtrer_sous_rubriques}|_T)]
+	[(#ENV{ssrub}|non|?{<strong class="on">,<a href="[(#SELF|parametre_url{filtre_rub,''})]">})]<:avelinepublic:voir_tous:>[(#ENV{ssrub}|non|?{</strong>,</a>})]
+	<BOUCLE_sous_rubriques(RUBRIQUES){id_rubrique IN #GET{rub}}{id_parent=#ENV{id_rubrique}}{par num titre, titre}>
+		<span class="sep separateur">|</span> [(#ENV{ssrub}|=={#ID_RUBRIQUE}|?{<strong class="on">,<a href="[(#SELF|parametre_url{filtre_rub,#ID_RUBRIQUE})]">})]#TITRE[(#ENV{ssrub}|=={#ID_RUBRIQUE}|?{</strong>,</a>})]
+	</BOUCLE_sous_rubriques>
+	</p>
+</B_sous_rubriques>

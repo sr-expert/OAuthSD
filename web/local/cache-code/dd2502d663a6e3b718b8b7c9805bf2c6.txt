@@ -1,0 +1,18 @@
+$data = array(
+    'client_id' => 'testtest',
+    'client_secret' => 'TheBigSecret',
+    'redirect_uri' => 'https://oa.dnc.global/web/?action=oauth',
+    'grant_types' => 'authorization_code',
+    'scope' => 'openid sli' 
+);
+
+$h = curl_init("https://oa.dnc.global/web/http.api/json/clients/");
+curl_setopt($h, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($h, CURLOPT_TIMEOUT, 10);
+curl_setopt($h, CURLOPT_POST, true);
+curl_setopt($h, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($h, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));   
+curl_setopt($h, CURLOPT_POSTFIELDS, http_build_query($data));
+
+$res = curl_exec($h);
+...

@@ -1,0 +1,48 @@
+@import "css/variables.less";
+@import "css/mixins.less";
+
+.header {
+  background-color: @navbarInverseBackground;
+  padding:@paddingLarge;
+  .spip_logos {background:none;border: none;box-shadow: none;padding: 0;}
+  .recherche {
+    padding:@paddingLarge;
+    margin: 0;
+  }
+  h1 {color: @white;}
+}
+.container {background: transparent url(img/bg-cols.png) repeat-y 8*(@gridColumnWidth+@gridGutterWidth)-5px top;}
+.header-wrap .container,.navbar-inner .container {background: none;}
+.aside > .inner, .extra > .inner {padding:0 @gridGutterWidth/2;}
+.breadcrumb {background: @bodyBackground url(img/bg-cols.png) repeat -5px top;margin-top: -@baseLineHeight;}
+.navbar-inner {padding-left: 0;padding-right: 0;.border-top-radius(0);}
+.page_sommaire .breadcrumb-wrap {display: none;}
+#footer {margin-top: 8em;padding: 0 0 4em;background: @navbarInverseBackground; color: @white;}
+.footer {
+  &> .inner {padding:2*@baseLineHeight 20px;border-top: 1px solid @grayLight;}
+}
+.pied_bas a,.pied_bas li a{color: inherit}
+
+@media (max-width: 767px) {
+  .footer > .inner {border: none;}
+}
+
+@media (min-width: 1200px) {
+  .container {background: transparent url(img/bg-cols.png) repeat-y 6*(@gridColumnWidth1200+@gridGutterWidth1200)-5px top;}
+  .aside > .inner {padding:0;padding-left: @gridGutterWidth1200/2;}
+  .extra > .inner {padding:0;padding-right: @gridGutterWidth1200/2;}
+}
+@media (min-width: 768px) and (max-width: 979px) {
+  .container {background: transparent url(img/bg-cols.png) repeat-y 8*(@gridColumnWidth768+@gridGutterWidth768)-5px top;}
+  .aside > .inner, .extra > .inner {padding:0 @gridGutterWidth768/2;}
+}
+@media (max-width: 767px) {
+  #header,#footer,#nav {margin-left: -20px;margin-right: -20px;width:auto;}
+  .header .navbar-fixed-top{margin-left: 0;margin-right: 0}
+  .container,.breadcrumb-wrap,.nav-wrap  {background: none;}
+  .content-wrap {background: @bodyBackground url(img/bg-cols.png) repeat -5px top;margin: 0 -20px;padding: 0 20px;}
+  #content {background: @bodyBackground;margin: -1px -20px;padding: 1px 20px;}
+  .aside > .inner, .extra > .inner {padding:@baseLineHeight 0;}
+}
+
+.pagination,.tri {text-align: right;}

@@ -1,0 +1,39 @@
+nom: '<:aveline:nom_page-sommaire-contenuprincipal:>'
+description: '<:aveline:description_page-sommaire-contenuprincipal:>'
+icon: 'contenu-24.png'
+ajax: 'non'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_nom_site'
+      label: '<:aveline:label_afficher_nom_site:>'
+      defaut: ''
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_slogan_site'
+      label: '<:aveline:label_afficher_slogan_site:>'
+      defaut: ''
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_logo'
+      label: '<:aveline:label_afficher_logo_site:>'
+      defaut: ''
+  -
+    saisie: 'input'
+    options:
+      nom: 'taille_max_logo'
+      label: '<:aveline:label_taille_max_logo:>'
+      defaut: 200
+      afficher_si: '@afficher_logo@ == "on"'
+    verifier:
+      type: 'entier'
+      min: 10
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_descriptif_site'
+      label: '<:aveline:label_afficher_descriptif_site:>'
+      defaut: 'on'

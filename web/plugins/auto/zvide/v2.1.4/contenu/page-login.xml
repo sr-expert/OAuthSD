@@ -1,0 +1,5 @@
+<page>
+	<nom><:zvide:nom_page-login:></nom>
+	<description><:zvide:description_page-login:></description>
+	<icon>cadenas-24.png</icon>
+</page>

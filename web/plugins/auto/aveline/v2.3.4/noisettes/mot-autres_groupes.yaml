@@ -1,0 +1,40 @@
+nom: '<:aveline:nom_autres_groupes:>'
+icon: 'groupe_mots-24.png'
+necessite:
+  - 'mots'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_titre_liste'
+      label: '<:aveline:label_afficher_titre_liste:>'
+      defaut: 'on'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'titre_liste'
+      label: '<:aveline:label_titre_liste:>'
+      defaut: 'public:autres_groupes_mots_clefs'
+      cacher_option_intro: 'oui'
+      datas:
+        'public:autres_groupes_mots_clefs': '<:public:autres_groupes_mots_clefs:>'
+        'avelinepublic:groupes_mots': '<:avelinepublic:groupes_mots:>'
+        titre_perso: '<:aveline:item_titre_perso:>'
+      afficher_si: '@afficher_titre_liste@ == "on"'
+  -
+    saisie: 'input'
+    options:
+      nom: 'titre_liste_perso'
+      label: '<:aveline:label_titre_liste_perso:>'
+      explication: '<:aveline:explication_raccourcis_typo:>'
+      afficher_si: '@afficher_titre_liste@ == "on" && @titre_liste@ == "titre_perso"'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'lien_groupe'
+      label: '<:aveline:label_lien_groupe:>'
+      defaut: 'lien_mot'
+      cacher_option_intro: 'oui'
+      datas:
+        lien_mot: '<:aveline:item_lien_mot:>'
+        lien_groupe: '<:aveline:item_lien_groupe:>'

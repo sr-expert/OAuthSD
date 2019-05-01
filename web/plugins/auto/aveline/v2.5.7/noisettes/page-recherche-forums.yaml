@@ -1,0 +1,16 @@
+nom: '<:aveline:nom_page-recherche-forums:>'
+description: '<:aveline:description_resultats_recherche:>'
+icon: 'forum-24.png'
+necessite:
+  - 'forum'
+contexte:
+  - 'archives'
+  - 'lang'
+  - 'recherche'
+parametres:
+  - 'inclure:inc-yaml/tri-recherche.yaml'
+  - 'inclure:inc-yaml/options-recherche.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-forum.yaml'
+  - 'inclure:inc-yaml/selecteur_archives.yaml'
+  - 'inclure:inc-yaml/resume-forum.yaml'

@@ -1,0 +1,16 @@
+[(#SET{langues,[(#CONFIG{langues_multilingue}|explode{','}|serialize)]})]
+<B_langues>
+<div class="formulaire_spip formulaire_menu_lang" id="formulaire_menu_lang">
+	<form method="post" action="#URL_SITE_SPIP/spip.php?action=converser&amp;redirect=.%2F"><div>
+		<input name="action" value="converser" type="hidden" />
+		<input name="redirect" value="./" type="hidden" />
+		<label for="var_lang"><:info_langues:></label>
+		<select name="var_lang" id="var_lang" onchange="this.parentNode.parentNode.submit()">
+			<BOUCLE_langues(POUR){tableau #GET{langues}}>
+				<option class='maj-debut' value='#VALEUR'[(#ENV{lang}|=={#VALEUR}|oui)selected='selected']>[(#VALEUR|traduire_nom_langue)]</option>
+			</BOUCLE_langues>
+		</select>
+		<noscript><p class="boutons"><input type="submit" class="submit" value="&gt;&gt;" /></p></noscript>
+	</div></form>
+</div>
+</B_langues>

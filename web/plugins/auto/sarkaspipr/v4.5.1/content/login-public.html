@@ -1,0 +1,19 @@
+<section class="login_public">
+	<header class="cartouche">
+		[<h1>(#CONFIG{sarkaspip/formulaires/titre_login1, <:sarkaspip:acceder_espace_membre:>})</h1>]
+	</header>
+
+	<div class="main">
+		<?php if (!isset($GLOBALS['visiteur_session']['statut'])){ ?>
+		[<div class="chapo">(#CONFIG{sarkaspip/formulaires/descriptif_login1}|propre)</div>]
+		[
+			(#LOGIN_PUBLIC{#ENV{url,./}})
+		]
+		<?php } else { ?>
+		<div class="warning">
+			<p>Vous êtes déja connecté au site. <a href="#URL_LOGOUT{#URL_PAGE{login-public}}"><:sarkaspip:logout_membre:></a></p>
+		</div>
+		<?php } ?>
+	</div>
+
+</section>

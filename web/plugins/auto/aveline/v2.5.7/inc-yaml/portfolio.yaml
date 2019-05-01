@@ -1,0 +1,49 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'inclure_photos_vues'
+    label: '<:aveline:label_inclure_photos_vues:>'
+-
+  saisie: 'input'
+  options:
+    nom: 'hauteur_max_images'
+    label: '<:aveline:label_hauteur_max_images:>'
+    defaut: 100
+  verifier:
+    type: 'entier'
+    min: 10
+-
+  saisie: 'selection'
+  options:
+    nom: 'type_vignettes'
+    label: '<:aveline:label_type_vignettes:>'
+    defaut: ''
+    option_intro: '<:aveline:item_vignettes_rectangles:>'
+    datas:
+      'carrees_pleines': '<:aveline:item_vignettes_carrees_pleines:>'
+      'carrees_marges': '<:aveline:item_vignettes_carrees_marges:>'
+      'rondes': '<:aveline:item_vignettes_rondes:>'
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'afficher_titre_noisette'
+    label: '<:aveline:label_afficher_titre_noisette:>'
+    defaut: 'on'
+-
+  saisie: 'selection'
+  options:
+    nom: 'titre_noisette'
+    label: '<:aveline:label_titre_noisette:>'
+    defaut: 'medias:info_portfolio'
+    cacher_option_intro: 'oui'
+    datas:
+      'medias:info_portfolio': '<:medias:info_portfolio:>'
+      titre_perso: '<:aveline:item_titre_perso:>'
+    afficher_si: '@afficher_titre_noisette@ == "on"'
+-
+  saisie: 'input'
+  options:
+    nom: 'titre_noisette_perso'
+    label: '<:aveline:label_titre_noisette_perso:>'
+    explication: '<:aveline:explication_raccourcis_typo:>'
+    afficher_si: '@afficher_titre_noisette@ == "on" && @titre_noisette@ == "titre_perso"'

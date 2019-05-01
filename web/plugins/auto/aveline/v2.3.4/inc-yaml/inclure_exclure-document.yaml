@@ -1,0 +1,18 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'inclure_documents_vus'
+    label: '<:aveline:label_inclure_documents_vus:>'
+    defaut: ''
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'exclure_photos'
+    label: '<:aveline:label_exclure_photos:>'
+    defaut: 'on'
+-
+  saisie: 'input'
+  options:
+    nom: 'exclure_extensions'
+    label: '<:aveline:label_exclure_extensions:>'
+    defaut: ''

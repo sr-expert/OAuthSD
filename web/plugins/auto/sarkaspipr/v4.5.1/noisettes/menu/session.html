@@ -1,0 +1,21 @@
+[(#REM) menu top par defaut : Nom de l'utilisateur connecte et lien de connexion/deconnexion et inscription]
+[<li class="menu_formulaires auteur" title="<:sarkaspip:message_bonjour:> [(#VAL{sarkaspip:statut_}|concat{#SESSION{statut}}|_T)]"><span class="brand"><a href="[(#URL_PAGE{auteur,id_auteur=[(#SESSION{id_auteur})]})]">(#SESSION{nom}) <img src="[(#CHEMIN_IMAGE{[auteur-(#SESSION{statut})-16]})]" alt="<:sarkaspip:message_bonjour:> [(#VAL{sarkaspip:statut_}|concat{#SESSION{statut}}|_T)]" /></a></span></li>]
+
+[(#SESSION{id_auteur}|non)
+	[(#REM) <!-- Auteur non connecte -->]
+	<li class="menu_formulaires"><a href="[(#URL_PAGE{login-public}|parametre_url{url,''})]"><:sarkaspip:login_membre:></a></li>
+	[(#CONFIG{accepter_inscriptions}|=={oui}|?{ <li class="menu_formulaires"><a href="[(#URL_PAGE{inscription})]"><:sarkaspip:inscription:></a></li>})]
+]
+[(#SESSION{id_auteur}|oui)
+	[(#REM) <!-- Auteur connecte -->]
+	[(#ENV{id_rubrique}|appliquer_filtre{accesrestreint_rubrique_restreinte,0}|oui) #SET{retour_logout, #URL_PAGE{sommaire}}]
+	 <li class="menu_formulaires"><a href="#URL_LOGOUT{#GET{retour_logout}}"><:sarkaspip:logout_membre:></a></li>
+	[(#AUTORISER{ecrire})
+		 <li class="menu_formulaires"><a href="#URL_ECRIRE"><:sarkaspip:espace_prive:></a></li>
+	]
+	[(#AUTORISER{webmestre})
+		[(#EVAL{_SARKASPIP_DEBUG_CFG_BOUTON}|=={oui}|oui)
+			 <li class="menu_formulaires"><a href="#URL_ECRIRE{configurer_sarkaspip, cfg=accueil}"><:sarkaspip:bouton_configuration:></a></li>
+		]
+	]
+]

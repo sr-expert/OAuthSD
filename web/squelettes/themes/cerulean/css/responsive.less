@@ -1,0 +1,32 @@
+@import "bootstrap/css/responsive.less";
+
+@media (max-width: 767px) {
+
+  // Padding to set content in a bit
+  body {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .container {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .navbar .container {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  #content {
+    border-bottom: 1px solid darken(@wellBackground, 7%);
+    margin-bottom :2em;
+    float: none;
+  }
+
+  #aside {float:left;width:47.5%;}
+  #extra {float:right;width:47.5%;clear: none;}
+
+}
+@media (max-width: 450px) {
+  #aside {float:none;width:100%;}
+  #extra {float:none;width:100%;}
+}

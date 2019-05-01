@@ -1,0 +1,143 @@
+[(#REM)  //o
+Plugin DataTables
+Liste paginée de la table ENV{table} avec Data Tables.
+Attention : le nom de la table est passé sans "s" à la fin !
+Les lignes sont affichés dans l'ordre de la liste #ENV{champs}.
+ENV{rechsur} donne la liste des champs avec recherche par leur ID de colonne.
+ENV{link} donne le numéro de la colonne sur laquelle figure le lien, 1 par défaut.
+ENV{zmots} est un array des id de mots (voir plugin Critère mots). Ex : zmots=#ARRAY{0,1,1,8}
+
+Copyright(c) 2017 DnC
+Auteurs : Bertrand Degoy
+Licence : GPL 3
+
+]
+
+<div class="nettoyeur"> </div>
+
+<B_objet>
+    
+    <table id="tbl" class="display datatable">
+
+        <B_thead>
+            <thead>
+                <tr>
+        <BOUCLE_thead(DATA) {source table, #ENV{champs} } >
+                    [<th>(#VALEUR)</th>]
+        </BOUCLE_thead>
+                </tr>
+            </thead>
+        </B_thead>
+
+        <tbody>
+            
+            #SET{zid,0}
+            
+ <BOUCLE_objet(AUTEURS) {mots? 100% #ENV{zmots}} {statut IN 0minirezo,1comite} >           
+            
+                <BOUCLE_table(DATA){source sql, SELECT * FROM spip_#ENV{table}s WHERE id_auteur='#ID_AUTEUR'}>       
+                    
+                    #SET{zid,#VALEUR|table_valeur{id_#ENV{table}}}
+                    
+                    <B_cle> 
+                        <tr>
+                    <BOUCLE_cle(DATA) {source table, #ENV{champs}} >
+                    <td class="editable">
+                        [(#COMPTEUR_BOUCLE|=={#ENV{link,1}}|oui)
+                            <a href="/?page=#ENV{table}&id_#ENV{table}=#GET{zid}">
+                        ]
+                        [(#_table:VALEUR|table_valeur{#_cle:VALEUR})]
+                        [(#COMPTEUR_BOUCLE|=={#ENV{link,1}}|oui)
+                            </a>
+                        ]   
+                    </td>
+                    </BOUCLE_cle>
+                        </tr>
+                    </B_cle>
+
+                </BOUCLE_table> 
+                            
+</BOUCLE_objet>            
+        
+        </tbody>
+
+        <B_tfoot>
+            <tfoot>
+                <tr>
+        <BOUCLE_tfoot(DATA){source table, #ENV{champs}} >
+                    [<th>(#VALEUR)</th>]
+        </BOUCLE_tfoot>
+                </tr>
+            </tfoot>
+        </B_tfoot>
+
+    </table>
+
+</B_objet>
+    [<p>Aucun enregistrement dans (#ENV{table})</p>]
+<//B_objet>
+
+
+#SET{rechsur,#ENV{recherche}|implode}
+
+<script type="text/javascript">
+
+$(function() {
+    
+    var oTable = $('#tbl').DataTable( {
+            select: true,
+            responsive: true,
+            /*
+            "fnDrawCallback": function() {   //o1
+                $('table#tbl tbody td').editable('#CHEMIN{inclure/edit-table.php}', {
+                    "callback": function( sValue, y ) {
+                        var aPos = oTable.fnGetPosition( this );
+                        oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                    },
+                    "submitdata": function ( value, settings ) {
+                        return {
+                            "row_id": this.parentNode.getAttribute('id'),
+                            "column": oTable.fnGetPosition( this )[2],
+                            "table": '#ENV{table}s'
+                        };
+                    },
+                    "height": "25px"
+                });
+            },*/
+            language: {
+                url: '#CHEMIN{lib/French.json}',
+            } 
+        });
+
+        table.columns().flatten().each( function ( colIdx ) {
+
+            if( $.inArray(colIdx,[#GET{rechsur}]) > -1 ) {
+
+                // Create the select list and search operation
+                var select = $('<select />')
+                .appendTo(
+                    table.column(colIdx).header()
+                )
+                .on( 'change', function () {
+                    table
+                    .column( colIdx )
+                    .search( $(this).val() )
+                    .draw();
+                } );
+
+                // Get the search data for the first column and add to the select list
+                select.append( $('<option value="">--</option>') );
+                table
+                .column( colIdx )
+                .cache( 'search' )
+                .sort()
+                .unique()
+                .each( function ( d ) {
+                    select.append( $('<option value="'+d+'">'+d+'</option>') );
+                } );
+
+            }
+        } );
+
+    } );
+</script>

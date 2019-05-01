@@ -1,0 +1,34 @@
+<paquet
+	prefix="oidcclient"
+	categorie="auteur"
+	version="1.0.4"
+	etat="test"
+	compatibilite="[3.2.0;3.2.*]"
+	logo="images/oidc-100.png"
+	schema="0.1"
+	documentation="https://oa.dnc.global/61"
+>	
+
+	<nom>OpenID Connect client</nom>
+	<!-- Authentification des auteurs et visiteurs à l'aide de OpenID Connect-->
+
+    <auteur mail="mailto:edouard@lafargue.name">Edouard Lafargue</auteur>
+    <auteur>Mathieu Marcillaud</auteur>
+    <auteur lien="yterium.net">Cedric Morin</auteur>
+    <auteur>Fil</auteur>
+    <auteur mail="mailto:consultants@degoy.com">Bertrand Degoy</auteur>
+
+	<copyright>2017-2019</copyright>
+
+	<licence lien="http://www.gnu.org/licenses/gpl-3.0.html">GPL 3</licence>
+
+	<pipeline nom="declarer_tables_principales" inclure="base/oidcclient.php" />
+    <pipeline nom="afficher_contenu_objet" inclure="oidcclient_pipelines.php" />
+    <pipeline nom="editer_contenu_objet" inclure="oidcclient_pipelines.php" />
+    <pipeline nom="formulaire_charger" inclure="oidcclient_pipelines.php" />
+    <pipeline nom="formulaire_verifier" inclure="oidcclient_pipelines.php" />
+    <pipeline nom="pre_edition" inclure="oidcclient_pipelines.php" />
+	<pipeline nom="recuperer_fond" />
+    <pipeline nom="jqueryui_plugins" inclure="oidcclient_pipelines.php" />
+  
+</paquet>

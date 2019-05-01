@@ -1,0 +1,22 @@
+<!-- titre=<:arclite:cfg:> -->
+
+<form method="post" class="formulaire_spip">[(#ENV{_cfg_}|form_hidden)]
+<h2 style="text-align:center;"><:arclite:cfg:></h2>
+<fieldset>
+
+<fieldset>
+<legend><:arclite:cfg_variation:></legend>
+<ul>
+
+	[(#SAISIE{selection,colorvar,
+		label=<:arclite:cfg_color_variation:>,
+		option_intro=<:arclite:cfg_color_brown:>,
+		datas=#ARRAY{
+			green,<:arclite:cfg_color_green:>,
+			red,<:arclite:cfg_color_red:>,
+			blue,<:arclite:cfg_color_blue:>}})]         
+</ul>
+</fieldset>
+
+<p align="right"><input class="fondo"  type="submit" name="_cfg_ok" value="<:valider:>" /></p>
+</form>

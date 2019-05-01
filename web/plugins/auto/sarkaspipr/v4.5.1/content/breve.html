@@ -1,0 +1,12 @@
+<section>
+	<BOUCLE_breve_principal(BREVES){id_breve}>
+		[(#REM) <!-- affichage de la breve courante --> ]
+		[(#INCLURE{fond=noisettes/breve/description}{id_breve}{editable=oui})]
+	</BOUCLE_breve_principal>
+
+	<aside>
+		[(#REM) <!-- affichage de toutes les autres breves du site --> ]
+		[(#INCLURE{fond=noisettes/breve/liste-toutes}{ajax}{id_breve})]
+	</aside>
+
+</section>

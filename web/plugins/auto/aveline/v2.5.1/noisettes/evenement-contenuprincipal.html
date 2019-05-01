@@ -1,0 +1,34 @@
+[(#SET{taille_max_logo, #ENV{taille_max_logo}|is_null|non|?{#ENV{taille_max_logo},200}})]
+[(#SET{taille_max_images_texte, #ENV{taille_max_images_texte}|is_null|non|?{#ENV{taille_max_images_texte},500}})]
+
+<BOUCLE_evenement(EVENEMENTS){id_evenement}>
+<div class="contenu-principal vevent id_#ID_EVENEMENT">
+	<div class="cartouche">
+		[(#ENV{afficher_logo}|oui)
+			[(#LOGO_EVENEMENT||image_reduire{#GET{taille_max_logo}})]
+			[(#LOGO_EVENEMENT|non|et{#ENV{utiliser_logo_evenement_article_rubrique}})
+				[(#LOGO_ARTICLE_RUBRIQUE||image_reduire{#GET{taille_max_logo}})]
+			]
+		]
+		[(#ENV{afficher_date_en_surtitre}|oui)[<p class="surtitre">(#DATE_DEBUT|agenda_affdate_debut_fin{#DATE_FIN,#HORAIRE,'hcal'})</p>]]
+		<h1 class="h1 #EDIT{titre} summary">#TITRE</h1>
+		[(#ENV{afficher_date_en_surtitre}|non)[<p class="info-publi">(#DATE_DEBUT|agenda_affdate_debut_fin{#DATE_FIN,#HORAIRE,'hcal'})</p>]]
+	</div>
+	<BOUCLE_article_parent(ARTICLES){id_article}>
+	[(#ENV{afficher_introduction_article_chapo}|oui) [<div class="#EDIT{intro} chapo">(#INTRODUCTION|image_reduire{#GET{taille_max_images_texte},0})</div>]]
+	</BOUCLE_article_parent>
+	[<div class="#EDIT{descriptif} texte surlignable description">(#DESCRIPTIF|image_reduire{#GET{taille_max_images_texte},0})</div>]
+	[(#ENV{afficher_lieu}|oui)
+		[<p class="lieu"><strong><:avelinepublic:lieu_deux_points:></strong> <span class="location #EDIT{lieu}">(#LIEU**|typo)</span></p>]
+	]
+	[(#ENV{afficher_adresse}|oui)
+		[<p class="adresse #EDIT{adresse}"><strong><:avelinepublic:adresse_deux_points:></strong><br />(#ADRESSE**|post_autobr|propre|PtoBR)</p>]
+	]
+	[(#ENV{afficher_nb_participants}|et{#INSCRIPTION})
+		<p class="inscrits"><strong><:avelinepublic:inscriptions_deux_points:></strong> #NB_INSCRITS[/(#PLACES)]</p>
+	]
+	<B_mots><p class='category' style='display:none;'><BOUCLE_mots(MOTS){id_evenement}{par num titre,titre}{', '}>#TITRE</BOUCLE_mots></p></B_mots>
+</div>
+
+[<div class="notes surlignable"><h2 class="h2 pas_surlignable"><:info_notes:></h2>(#NOTES)</div>]
+</BOUCLE_evenement>

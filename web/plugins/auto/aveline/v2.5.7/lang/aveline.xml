@@ -1,0 +1,16 @@
+<traduction module="aveline" gestionnaire="salvatore" url="http://trad.spip.net" source="svn://zone.spip.org/spip-zone/_squelettes_/aveline/trunk/lang/" reference="fr">
+	<langue code="ca" url="http://trad.spip.net/tradlang_module/aveline?lang_cible=ca" total="517" traduits="426" relire="0" modifs="8" nouveaux="83" pourcent="82.40">
+		<traducteur nom="merce" lien="http://trad.spip.net/auteur/merce" />
+	</langue>
+	<langue code="en" url="http://trad.spip.net/tradlang_module/aveline?lang_cible=en" total="517" traduits="517" relire="0" modifs="0" nouveaux="0" pourcent="100.00">
+		<traducteur nom="b_b" lien="http://trad.spip.net/auteur/b_b" />
+		<traducteur nom="Benitron" lien="http://trad.spip.net/auteur/benitron" />
+		<traducteur nom="Hanjo" lien="http://trad.spip.net/auteur/hanjo" />
+		<traducteur nom="kent1" lien="http://trad.spip.net/auteur/kent1" />
+	</langue>
+	<langue code="fr" url="http://trad.spip.net/tradlang_module/aveline?lang_cible=fr" total="517" traduits="517" relire="0" modifs="0" nouveaux="0" pourcent="100.00">
+	</langue>
+	<langue code="sk" url="http://trad.spip.net/tradlang_module/aveline?lang_cible=sk" total="517" traduits="509" relire="0" modifs="0" nouveaux="8" pourcent="98.45">
+		<traducteur nom="jaro" lien="http://trad.spip.net/auteur/jaro" />
+	</langue>
+</traduction>

@@ -1,0 +1,74 @@
+[(#REM) 
+<!-- Presentation du carrousel des photos de l'album en mode pagine
+	Recoit en argument :
+		- id_article: id de l'album concerne
+		- nb_photos: nombre total de photos dans l'album (non utilise dans ce modele)
+-->
+]
+<script type='text/javascript'>
+//<![CDATA[ 
+	jQuery(document).ready(function() {
+		// Click sur la vignette et affichage de l'image agrandie
+		jQuery(".carrousel .contenu li.vignette a").click(function() {
+			// On recharge la noisette de l'image agrandie comme une page
+			var href = $(this).attr("href") + " #conteneur_photo,#titre_photo,#descriptif_photo,#exif_photo";
+			jQuery(".zoom").load(href,[],function(){
+				var lpadding = Math.round((jQuery("#conteneur_photo").outerWidth() - jQuery("#image_agrandie").width()) / 2);
+				// On la centre en changeant le padding left de son conteneur
+				jQuery("#conteneur_photo").css("padding-left", lpadding);
+			});
+			return false;
+		});
+		// Survol de la vignette et affichage de la vignette de survol
+		jQuery(".carrousel .contenu li.vignette a").hover(
+			function() {
+				jQuery("a .survol .actif").removeClass("actif").css("display", "none");
+				var ancreSurvol = $(this).next("a.survol");
+				var margeG = (-1)*Math.round((ancreSurvol.width()-$(this).children("img").outerWidth())/2);
+				var margeT = (-1)*(ancreSurvol.outerHeight() + $(this).children("img").outerWidth() + 5);
+				ancreSurvol.css({marginLeft: margeG+"px", marginTop: margeT+"px"});
+				ancreSurvol.addClass("actif");
+				ancreSurvol.css("display", "block");
+			},
+       		function() {$(this).next("a.survol").css("display", "none").removeClass("actif");}
+			);
+	});
+//]]>
+
+</script>
+
+[(#ENV{avec_zoom}|=={non}|oui)
+	#SET{classe, #ENV{effet_galerie}}
+]
+<B_carrousel>
+	<div id="a_pagination" class="carrousel">
+		[(#REM) <!-- Affichage des vignettes -->]
+		<div class="contenu">
+			[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{top})]
+			<ul[ class="(#ENV{avec_diaporama}|=={oui}|?{galerie})"]>
+<BOUCLE_carrousel(DOCUMENTS){id_album}{media=image}{par num titre, id_document}{pagination #CONFIG{sarkaspip/album/pas_pagination_carrousel, 20}}>
+				#SET{ratio_x,#LARGEUR|div{#EVAL{_SARKASPIP_CONFIG_TAILLE_MAX_VIGNETTE_2}}}
+				#SET{ratio_y,#HAUTEUR|div{#EVAL{_SARKASPIP_CONFIG_TAILLE_MAX_VIGNETTE_2}}}
+				#SET{ratio,#GET{ratio_x}|<={#GET{ratio_y}}|?{#GET{ratio_x},#GET{ratio_y}}}
+				[(#SET{titre, [(#TITRE|texte_backend|couper{#EVAL{_SARKASPIP_CONFIG_TAILLE_TITRE_IMAGE}}|sinon{[(#TYPE_DOCUMENT) - ][(#TAILLE|taille_en_octets)]})]})]
+
+				[(#SET{url, [(#URL_PAGE{album_zoom_1}|parametre_url{id_document,#ID_DOCUMENT}|parametre_url{effet_galerie,#ENV{effet_galerie}}|parametre_url{avec_diaporama,#ENV{avec_diaporama}}|parametre_url{avec_exif,#ENV{avec_exif}})]})]
+				[(#ENV{avec_zoom}|=={non}|oui)
+					[(#SET{url, #FICHIER})]
+				]
+				[<li class="vignette">
+					<a[ class="(#GET{classe})"][ href="(#GET{url})"][ title="(#GET{titre})"]>
+						(#FICHIER|copie_locale|image_reduire_par{#GET{ratio}}|image_recadre{#EVAL{_SARKASPIP_CONFIG_TAILLE_MAX_VIGNETTE_2},#EVAL{_SARKASPIP_CONFIG_TAILLE_MAX_VIGNETTE_2},center}|inserer_attribut{alt, #GET{titre}})
+					</a>
+					[(#CONFIG{sarkaspip/album/survol_carrousel}|=={oui}|oui)
+					[<a class="survol"[ href="(#GET{url})"][ title="(#GET{titre})"]>
+						(#FICHIER|copie_locale|image_reduire{#EVAL{_SARKASPIP_CONFIG_TAILLE_MAX_VIGNETTE_3}}|inserer_attribut{alt, #GET{titre}})
+					</a>]
+					]
+				</li>]
+</BOUCLE_carrousel>
+			</ul>
+			[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{bottom})]
+		</div> <!-- fin contenu -->
+	</div> <!-- fin carrousel -->
+</B_carrousel>

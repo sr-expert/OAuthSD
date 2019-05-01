@@ -1,0 +1,7 @@
+nom: '<:aveline:nom_breve-forum:>'
+icon: 'forum-24.png'
+necessite:
+  - 'forum'
+  - 'breves'
+parametres:
+  - 'inclure:inc-yaml/options-comment.yaml'

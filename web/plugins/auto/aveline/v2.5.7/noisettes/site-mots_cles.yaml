@@ -1,0 +1,14 @@
+nom: '<:aveline:nom_site-mots_cles:>'
+description: '<:aveline:description_site-mots_cles:>'
+icon: 'mot-24.png'
+necessite:
+  - 'sites'
+  - 'mots'
+contexte:
+  - 'id_syndic'
+  - 'lang'
+parametres:
+  - 'inclure:inc-yaml/liste-mot.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-mot.yaml'
+  - 'inclure:inc-yaml/resume-mot.yaml'

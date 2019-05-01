@@ -1,0 +1,59 @@
+<section class="home">
+#SET{page_vide, 1}
+
+	[<header class="cartouche">
+		(#CONFIG{sarkaspip/sommaire/texte_accueil}|propre)
+		#SET{page_vide, 0}
+	</header>]
+	<div class="main">
+
+		[(#REM) <!-- Article a la Une --> ]
+		<B_une>
+		<article id="une" class="hero-unit article une">
+			<BOUCLE_une(ARTICLES) {id_secteur!==#RACINE_SPECIALISEE}{type_mot=squelette_habillage}{titre_mot=article_une}{doublons}{par date}{inverse}{0,1}>
+			<INCLURE{fond=noisettes/article/description}
+				{id_article}
+				{afficher_commentaires=non}
+				{logo_rubrique=#CONFIG{sarkaspip/article/logo_rubrique, oui}}
+				{taille_logo=#CONFIG{sarkaspip/article/taille_logo, 150}}
+				{page=une}
+				{id_rubrique=#ID_RUBRIQUE}>
+			#SET{page_vide, 0}
+			</BOUCLE_une>
+		</article>
+		</B_une>
+
+		<BOUCLE_0_article(ARTICLES) {id_secteur!==#RACINE_SPECIALISEE}{0,1}>
+			[(#REM) <!-- Rubriques de niveau zero (secteurs) --> ]
+			[(#CONFIG{sarkaspip/sommaire/position_secteurs, 0}|=={1}|oui)
+				<INCLURE{fond=noisettes/sommaire/liste-secteurs}{lang}>
+				#SET{page_vide, 0}
+			]
+
+			[(#REM) <!-- Derniers articles publies --> ]
+			[(#CONFIG{sarkaspip/sommaire/position_articles_recents, 1}|=={1}|oui)
+				<INCLURE{fond=noisettes/sommaire/liste-articles_recents}{doublons}{lang}>
+				#SET{page_vide, 0}
+			]
+		</BOUCLE_0_article>
+
+		<BOUCLE_0_album(ALBUMS?) {0,1} {si #CONFIG{sarkaspip/sommaire/position_albums_recents, 1}|=={1}}{si #PLUGIN{albums}}>
+			[(#REM) <!-- Derniers albums publies --> ]
+			<INCLURE{fond=noisettes/sommaire/liste-albums_recents}{lang}>
+			#SET{page_vide, 0}
+		</BOUCLE_0_album>
+
+
+	</div>
+
+	[(#GET{page_vide}|oui)
+		<header>
+			<h1><:sarkaspip:erreur|ucfirst:>&nbsp;-&nbsp;<:sarkaspip:accueil_site:></h1>
+		</header>
+		<div class="main">
+			<div class="chapo warning">
+				<p><:sarkaspip:msg_page_vide:></p>
+			</div>
+		</div>
+	]
+</section>

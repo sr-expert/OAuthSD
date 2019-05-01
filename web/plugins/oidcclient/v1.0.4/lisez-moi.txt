@@ -1,0 +1,2 @@
+2019/02/13 - //[3.2] inc/securiser_action.php : version pour SPIP 3.2.??? => v1.0.4
+

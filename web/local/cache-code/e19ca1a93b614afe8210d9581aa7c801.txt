@@ -1,0 +1,242 @@
+<?php
+/*
+testopenid4.php
+
+Verbose Test of OpenID Connect JWT Introspection
+
+This code is meant for testing, not for production !
+
+For the authentification step, if you don't want to create an account 
+on OAuthSD, use this credentials : 
+login = bebert 
+password = 012345678
+
+Author : 
+Bertrand Degoy https://degoy.com
+Credits :
+bschaffer https://github.com/bshaffer/oauth2-server-php
+
+Licence : MIT licence
+Copyright (c) 2016 - DnC
+
+*/
+
+$client_id = 'testopenid4';
+$client_secret = 'thesecret';
+
+$authorization_endpoint = 'https://oa.dnc.global/authorize';
+$token_endpoint = 'https://oa.dnc.global/token';
+$introspection_endpoint = 'https://oa.dnc.global/introspect'; 
+$userinfo_endpoint = 'https://oa.dnc.global/userinfo';
+
+//*** End of configuration ***
+
+ini_set('display_errors', 1);
+
+// Set session
+session_save_path('/home/oadnc/sessions_oauthsd');          
+session_name('oauthsd'); 
+session_start();  
+
+
+if ( !isset($_GET['error']) ) {
+
+    if ( isset($_GET['code']) ) {
+
+        if ( isset($_GET['state']) ) {
+
+            // Check state
+            if ( $_GET['state'] == $_SESSION['state'] ) {
+
+                // Step 2. Token request
+
+                $code = $_GET['code'];
+
+                $data = array(
+                    'grant_type' => 'authorization_code',
+                    'code' => $code,
+                );
+                $h = curl_init($token_endpoint);
+                curl_setopt($h, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($h, CURLOPT_TIMEOUT, 10);
+                curl_setopt($h, CURLOPT_USERPWD, "{$client_id}:{$client_secret}");
+                curl_setopt($h, CURLOPT_POST, true);
+                curl_setopt($h, CURLOPT_HTTPHEADER, array('Content-Type: 
+                            application/x-www-form-urlencoded'));
+                curl_setopt($h, CURLOPT_POSTFIELDS, http_build_query($data));
+                //curl_setopt($h, CURLOPT_SSL_VERIFYPEER, false);
+
+                $res = curl_exec($h);
+
+                if ( is_array(json_decode($res, true) ) ) {
+
+                    curl_close($h);
+                    $res = json_decode($res, true);
+                    
+                    $access_token = $res['access_token'];
+
+                    if  ( empty($res['error'] ) ) {
+
+                        // Validate signed JWT token using introspection
+                        //* Post Methode  
+                        $data1 = array(
+                            'token' => $res['id_token'],
+                        );
+                        $h = curl_init($introspection_endpoint);
+                        curl_setopt($h, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($h, CURLOPT_TIMEOUT, 10);
+                        curl_setopt($h, CURLOPT_POST, true);
+                        curl_setopt($h, CURLOPT_HTTPHEADER, array('Content-Type: 
+                                  application/x-www-form-urlencoded'));   
+                        curl_setopt($h, CURLOPT_POSTFIELDS, http_build_query($data1));
+                        //*/
+
+                        $res = curl_exec($h);
+
+                        if ( is_array(json_decode($res, true) ) ) {
+
+                            curl_close($h);
+                            $jwt = json_decode($res, true);
+
+                            if  ( empty($jwt['error'] ) ) {
+
+                                if ( $jwt['active'] == 'true' ) {
+
+                                    // If Token Response is valid goto step 3
+                                    // Step 3. Get UserInfo
+
+                                    /* Auth Header Methode
+                                    $headr = array();
+                                    $headr[] = 'Authorization: Bearer ' . $access_token;
+                                    $h = curl_init();
+                                    curl_setopt($h, CURLOPT_URL, $userinfo_endpoint); 
+                                    curl_setopt($h, CURLOPT_RETURNTRANSFER, true);
+                                    curl_setopt($h, CURLOPT_TIMEOUT, 10);
+                                    curl_setopt($h, CURLOPT_HTTPHEADER, $headr);
+                                    //curl_setopt($h, CURLOPT_SSL_VERIFYPEER, false);
+                                    //*/
+
+                                    //* Post Methode  
+                                    $data2 = array(
+                                        'access_token' => $access_token,
+                                    );
+                                    $h = curl_init($userinfo_endpoint);
+                                    curl_setopt($h, CURLOPT_RETURNTRANSFER, true);
+                                    curl_setopt($h, CURLOPT_TIMEOUT, 10);
+                                    curl_setopt($h, CURLOPT_POST, true);
+                                    curl_setopt($h, CURLOPT_HTTPHEADER, array('Content-Type:
+                                                application/x-www-form-urlencoded'));    
+                                    curl_setopt($h, CURLOPT_POSTFIELDS, 
+                                                     http_build_query($data2));
+                                    //*/
+
+                                    $res = curl_exec($h);
+
+                                    if ( is_array(json_decode($res, true) ) ) {
+
+                                        curl_close($h);
+                                        $res = json_decode($res, true);
+
+                                        if  ( empty($res['error'] ) ) {
+
+                                            // Check User ID
+                                            if ( $jwt['sub'] == $res['sub'] ) {
+
+                                                // Everithing Ok !
+                                                echo "UserInfo Response:\n";
+                                                print_r($res);
+
+                                            } else  
+                                                // User of ID Token doesn't match UserInfo's one
+                                                exit('User mismatch, got : ' . $res['sub']);
+
+                                        } else
+                                            // Token request error
+                                            exit ('UserInfo Request error : ' . $res['error'] . ' : '
+                                                            . $res['error_description']);
+
+                                    } else { 
+                                        if ( !empty($res) ) {
+                                            // script error ?
+                                            exit ('UserInfo script error : ' . $res); 
+                                        } else {
+                                            // Curl error during UserInfo request
+                                            $error = curl_error($h);
+                                            curl_close($h);
+                                            exit ('UserInfo request Curl error : ' . $error );
+                                        }
+                                    } 
+
+                                } else
+                                    // JWT is inactive
+                                    exit('Error : Invactive ID Token'); 
+
+                            } else
+                                // Invalid id_token 
+                                exit('Error : Invalid ID Token');
+
+                        } else { 
+                            if ( !empty($res) ) {
+                                // script error ?
+                                exit ('Introspection script error : ' . $res); 
+                            } else {
+                                // Curl error during Introspection request
+                                $error = curl_error($h);
+                                curl_close($h);
+                                exit ('Introspection request Curl error : ' . $error );
+                            }
+                        }
+
+                    } else {
+                        // Token request error
+                        exit ('Token request error : ' . $res['error'] . ' : ' 
+                                         . $res['error_description']);
+                    }
+
+                } else { 
+                    if ( !empty($res) ) {
+                        // script error ?
+                        exit ('Token script error : ' . $res); 
+                    } else {
+                        // Curl error during Token request
+                        $error = curl_error($h);
+                        curl_close($h);
+                        exit ('Token request Curl error : ' . $error );
+                    }
+                }
+
+            } else 
+                // Wrong State
+                exit("Authorization error : incoherent State");
+
+        } else 
+            // Missing State
+            exit("Authorization error : missing State");
+
+    } else {
+
+        // Step 1. Authorization Code request
+
+        @session_regenerate_id();
+        $state = session_id();
+        $_SESSION['state'] = $state;
+
+        $data = array(
+            'response_type' => 'code',
+            'client_id' => $client_id,
+            'scope' => 'openid profile sli',
+            'state' => $state,    
+        );
+
+        $authorization_endpoint .= '?' . http_build_query($data);
+        header('Location: ' . $authorization_endpoint);
+        exit();
+    }
+
+} else {
+    // Authorization error 
+    exit("Authorization error : {$_GET['error']} : {$_GET['error_description']}");
+}
+
+
+?>

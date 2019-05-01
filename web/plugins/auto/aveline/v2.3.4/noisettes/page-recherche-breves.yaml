@@ -1,0 +1,22 @@
+nom: '<:aveline:nom_page-recherche-breves:>'
+description: '<:aveline:description_resultats_recherche:>'
+icon: 'breve-24.png'
+necessite:
+  - 'breves'
+contexte:
+  - 'id_rubrique'
+  - 'id_secteur'
+  - 'recherche'
+  - 'archives'
+  - 'lang'
+parametres:
+  - 'inclure:inc-yaml/branche-breve.yaml'
+  - 'inclure:inc-yaml/tri-recherche.yaml'
+  - 'inclure:inc-yaml/options-recherche.yaml'
+  - 'inclure:inc-yaml/restreindre_langue.yaml'
+  - 'inclure:inc-yaml/exclure_objet_en_cours-breve.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-breve.yaml'
+  - 'inclure:inc-yaml/choix_tri-breve.yaml'
+  - 'inclure:inc-yaml/selecteur_archives.yaml'
+  - 'inclure:inc-yaml/resume-breve.yaml'

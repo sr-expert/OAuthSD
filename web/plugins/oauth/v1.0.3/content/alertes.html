@@ -1,0 +1,285 @@
+#CACHE{15}
+
+<div class="breadcrumb"><a href="/">Accueil</a> - <a href="/web/?page=suivre">Suivi</a> - Alertes agrégées</div>
+
+#INCLURE{fond=inclure/identification,env}
+<BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
+
+    [(#REM)
+    Projet OauthSD
+    Copyright(c) 2019 DnC
+    Auteurs : Bertrand Degoy
+    Licence : GPL 3
+
+    Logs avec le Plugin DataTables.
+    Table spip_oidc_logs.
+
+    ]
+
+    [(#SET{mots,#ENV{mots,#SESSION{mots}|unserialize}})]
+    #SET{recherche,#ENV{recherche,#SESSION{recherche}}}
+
+    <div class="nettoyeur"></div>
+
+    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+
+    <div id="datatable_container">
+
+        <h2>Toutes les alertes agrégées</h2>
+
+
+        <B_table1>
+            <p><b>Alerte(s) agrégées par state : </b></p>
+            <table id="tbl1" class="display datatable">
+
+                <thead>
+                    <tr> 
+                        <th>datetime</th>
+                        <th>client_id</th> 
+                        <th>user_id</th>
+                        <th>total_weight</th>
+                        <th>level</th>
+                        <th>origin</th>
+                        <th>remote_addr</th>
+                        <th>state</th>
+                        <th>message</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <BOUCLE_table1(spip_oidc_states) {total_weight > 5}>
+                    <BOUCLE_alertes1(spip_oidc_logs) {client_id?} {user_id?} {level ?} {origin ?} {remote_addr ?} {state ?} {par id_oidc_log} {inverse} {0,1}>
+                    <tr>
+                        <td>#DATETIME</td>
+                        <td>#CLIENT_ID</td>
+                        <td>#USER_ID</td>
+                        <td>#TOTAL_WEIGHT</td>
+                        <td>#LEVEL</td>
+                        <td>#ORIGIN</td>
+                        <td>#REMOTE_ADDR</td>
+                        <td>#STATE</td>
+                        <td>[(#MESSAGE|purify)]
+                        </td>
+                    </tr>
+                    </BOUCLE_alertes1>   
+                    </BOUCLE_table1>
+
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <th>datetime</th>
+                        <th>client_id</th> 
+                        <th>user_id</th>
+                        <th>total_weight</th>
+                        <th>level</th>
+                        <th>origin</th>
+                        <th>remote_addr</th>
+                        <th>state</th>
+                        <th>message</th>
+                    </tr>
+                </tfoot>
+
+            </table>
+        </B_table1>
+        <p>Aucune alerte agrégée par state</p>
+        <//B_table1>
+
+        <B_table2>
+            <p><b>Alerte(s) agrégées par remote adress : </b></p>
+            <table id="tbl2" class="display datatable">
+
+                <thead>
+                    <tr> 
+                        <th>datetime</th>
+                        <th>client_id</th> 
+                        <th>user_id</th>
+                        <th>total_weight</th>
+                        <th>level</th>
+                        <th>origin</th>
+                        <th>remote_addr</th>
+                        <th>state</th>
+                        <th>message</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <BOUCLE_table2(spip_oidc_remote_addr) {total_weight > 5}>
+                    <BOUCLE_alertes2(spip_oidc_logs) {client_id?} {user_id?} {level ?} {origin ?} {remote_addr ?} {state ?} {par id_oidc_log} {inverse} {0,1}>
+                    <tr>
+                        <td>#DATETIME</td>
+                        <td>#CLIENT_ID</td>
+                        <td>#USER_ID</td>
+                        <td>#TOTAL_WEIGHT</td>
+                        <td>#LEVEL</td>
+                        <td>#ORIGIN</td>
+                        <td>#REMOTE_ADDR</td>
+                        <td>#STATE</td>
+                        <td>[(#MESSAGE|purify)]
+                        </td>
+                    </tr>
+                    </BOUCLE_alertes2>   
+                    </BOUCLE_table2>
+
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <th>datetime</th>
+                        <th>client_id</th> 
+                        <th>user_id</th>
+                        <th>total_weight</th>
+                        <th>level</th>
+                        <th>origin</th>
+                        <th>remote_addr</th>
+                        <th>state</th>
+                        <th>message</th>
+                    </tr>
+                </tfoot>
+
+            </table>
+        </B_table2>
+        <p>Aucune alerte agrégée par remote adress</p>
+        <//B_table2>
+
+    </div>
+
+    <script type="text/javascript">
+
+        var alertWeight = <?php echo ALERT_WEIGHT; ?>;
+
+        $(document).ready(function() {
+            /* Initialise the DataTable */
+
+            var oTable = $('#tbl1').dataTable( {
+                responsive: true,
+                language: {
+                    url: '#CHEMIN{lib/French.json}',
+                },
+                "aaSorting": [[ 0, "desc" ]],
+                "createdRow": function ( row, data, index ) {   //o4
+                    // coloration de la ligne
+                    var level;
+                    level = data[3];    // total_weight
+                    index +=1;
+                    str = ':nth-child(' + index + ')';
+                    if ( level  < alertWeight /10 ) {
+                        $('#tbl1 tbody tr' + str).css('background-color','#d4ffff');      // cyan
+                    } else if ( level  < alertWeight ) {
+                        $('#tbl1 tbody tr' + str).css('background-color','#ffffd4');      // yellow
+                    } else { // >= ALERTE_WEIGHT
+                        $('#tbl1 tbody tr' + str).css('background-color','#ffd4ff');      // red      
+                    }
+                },
+                "deferRender": true,
+                "columnDefs": [
+                    {   "targets": 1,
+                        "data": "client_id",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="/web/?page=evenements&client_id='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    },
+                    {   "targets": 2,
+                        "data": "user_id",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="/web/?page=evenements&user_id='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    },
+                    {   "targets": 6,
+                        "data": "remote_addr",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                var data2 = data;
+                                if ( data == '<?php echo $_SERVER['REMOTE_ADDR']; ?>' ) {
+                                    data2 = 'Own IP';
+                                }
+                                if ( data == '<?php echo $_SERVER['SERVER_ADDR']; ?>' ) {
+                                    data2 = 'Server IP';
+                                }
+                                return '<a href="/web/?page=remote-addr&remote_addr='+data+'">'+data2+'</a>';
+                            } else return data;
+                        }
+                    },
+                    {   "targets": 7,
+                        "data": "state",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="/web/?page=state&state='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    }
+                ],
+            });
+
+            var oTable = $('#tbl2').dataTable( {
+                responsive: true,
+                language: {
+                    url: '#CHEMIN{lib/French.json}',
+                },
+                "aaSorting": [[ 0, "desc" ]],
+                "createdRow": function ( row, data, index ) {   //o4
+                    // coloration de la ligne
+                    var level;
+                    level = data[3]; // total_weight
+                    index +=1;
+                    str = ':nth-child(' + index + ')';
+                    if ( level  < alertWeight / 10 ) {
+                        $('#tbl2 tbody tr' + str).css('background-color','#d4ffff');      // cyan
+                    } else if ( level  < alertWeight ) {
+                        $('#tbl2 tbody tr' + str).css('background-color','#ffffd4');      // yellow
+                    } else {
+                        $('#tbl2 tbody tr' + str).css('background-color','#ffd4ff');      // red      
+                    }
+                },
+                "deferRender": true,
+                "columnDefs": [
+                    {   "targets": 1,
+                        "data": "client_id",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="/web/?page=evenements&client_id='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    },
+                    {   "targets": 2,
+                        "data": "user_id",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="/web/?page=evenements&user_id='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    },
+                    {   "targets": 6,
+                        "data": "remote_addr",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="/web/?page=remote-addr&remote_addr='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    },
+                    {   "targets": 7,
+                        "data": "state",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="/web/?page=state&state='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    }
+                ],
+            });
+
+            $('#datatable_container').fadeIn(2000);
+
+
+        } ); 
+
+
+    </script>
+
+</BOUCLE_auteur>

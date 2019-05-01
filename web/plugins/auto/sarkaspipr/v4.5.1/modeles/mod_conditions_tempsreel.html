@@ -1,0 +1,28 @@
+[(#REM)<!-- 
+	Ce sous-modele est celui utilise par la noisette Rainette du squelette
+	pour presenter les conditions temps reel d'une ville
+ -->
+]
+<div class="item active">
+	<div class="entry meteo">
+		<strong class="h3-like entry-title">[(#ENV{code_icone}|rainette_icone_meteo{grand}|image_reduire{#EVAL{_SARKASPIP_CONFIG_LARGEUR_ICONE_METEO}}|inserer_attribut{class,spip_logos})]
+			[(#ENV{code_icone}|rainette_resume_meteo|PtoBR)<br />][(#ENV{temperature_reelle}|rainette_afficher_unite{temperature})]</strong>
+		<p class="publication">[<time pubdate="pubdate" datetime="[(#ENV{derniere_maj}|date_iso)]"><i class="icon-calendar"></i> <:sarkaspip:meteo_titre_conditions:>&nbsp;(#ENV{derniere_maj}|heures)h[(#ENV{derniere_maj}|minutes)]</time>]<span class="authors muted"><span class="sep">, </span> <:sarkaspip:fourni_par_weather_com:></span></p>
+		<div class="entry-content">
+			<ul class="spip">
+				<li>
+					<span><:rainette:vent|ucfirst:></span>
+					[ : (#ENV{vitesse_vent}|rainette_afficher_unite{vitesse})][ - (#ENV{direction_vent}|rainette_afficher_direction)]
+				</li>
+				<li>
+					<span><:rainette:pression|ucfirst:></span>
+					[ : (#ENV{pression}|rainette_afficher_unite{pression})][ (#ENV{tendance_pression}|rainette_afficher_tendance{symbole})]
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="control">
+		<a class="right pull-right" href="#slide_meteo" data-slide="next"><:sarkaspip:meteo_lien_previsions:> &rarr;</a>
+	</div>
+</div>
+

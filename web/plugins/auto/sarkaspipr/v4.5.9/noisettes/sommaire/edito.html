@@ -1,0 +1,21 @@
+[(#REM)
+<!-- Noisette d'affichage de l'edito de bienvenue 
+Recoit en argument :
+	- lang: pas encore utilise
+ -->
+]
+<B_edito>
+<article id="edito" class="edito article">
+	<BOUCLE_edito(ARTICLES) {id_article=#CONFIG{sarkaspip/sommaire/article_edito, 0}}{doublons}>
+	<INCLURE{fond=noisettes/article/description}
+		{id_article}
+		{afficher_commentaires=non}
+		{logo_rubrique=#CONFIG{sarkaspip/article/logo_rubrique, oui}}
+		{taille_logo=#CONFIG{sarkaspip/article/taille_logo, 150}}
+		{page=edito}>
+	</BOUCLE_edito>
+	[(#CONFIG{sarkaspip/sommaire/titre_edito,1}|non)
+	<style type="text/css">.edito .cartouche {display: none;}</style>
+	]
+</article>
+</B_edito>

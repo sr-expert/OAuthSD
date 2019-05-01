@@ -1,0 +1,15 @@
+[(#REM) 
+<!-- Affichage du cartouche d'une breve
+	Recoit en argument :
+		- id_breve: id de la breve concernee
+-->
+]
+<BOUCLE_cartouche(BREVES) {id_breve}>
+<div class="publication">
+	[<time pubdate="pubdate" datetime="[(#DATE|date_iso)]">[(#DATE|nom_jour|ucfirst) ](#DATE|affdate)</time>]
+
+</div>
+<div class="postmeta">
+	<span class="category"><i class="icon-folder-open"></i> <INCLURE{fond=noisettes/rubrique/lien}{id_rubrique}><span class="sep"> | </span></span>
+</div>
+</BOUCLE_cartouche>

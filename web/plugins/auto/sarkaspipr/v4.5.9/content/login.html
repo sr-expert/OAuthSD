@@ -1,0 +1,18 @@
+<section class="login_prive">
+	<header class="cartouche">
+		[<h1>(#CONFIG{sarkaspip/formulaires/titre_login2, <:sarkaspip:acceder_espace_prive:>})</h1>]
+	</header>
+
+	<div class="main">
+		[<div class="chapo">(#CONFIG{sarkaspip/formulaires/descriptif_login2}|propre)</div>]
+		[(#MENU_LANG_ECRIRE)]
+		[
+			(#LOGIN_PRIVE)
+		<div class="center">
+			[(#CONFIG{accepter_inscriptions}|=={oui}|?{<a href="[(#URL_PAGE{inscription})]"><:sarkaspip:login_sinscrire:></a>})
+			<span class="sep">|</span> ]
+			<a href="#URL_SITE_SPIP/"><:sarkaspip:login_retoursitepublic:></a>
+		</div>
+		]
+	</div>
+</section>

@@ -1,0 +1,57 @@
+API HTTP REST pour OAuthSD 
+        avec 
+    Collection+JSON
+
+S'appuie sur HTTPFoundation de Symphony
+L'authentification est assurée par OAuthSD
+
+Auteur : B.Degoy
+Copyright (c) 2016-2019 DnC
+Licence GPL v3
+
+***************************************************
+*  Adaptation du plugin collectionjson à OAuthSD  *
+***************************************************
+
+Cette adaptation poursuit quatre objectifs :
+- définir les types autorisés,
+- interdire de lister certains champs sensibles,
+- affiner les autorisations et authentifier avec OAuthSD,
+- servir OAuthSD : statistiques.
+
+*** Gestion de l'autorisation d'accès aux données avec OAuthSD.
+
+Les autorisations sont gérées selon les principes généraux de SPIP.
+
+Elles sont configurées dans le fichier collectionjsonoauthsd_autorisations.php
+
+On applique les règles définies ici : http://contrib.spip.net/Serveur-HTTP-abstrait
+
+Il est très important de noter que les autorisations du serveur HTTP Abstrait 
+définies dans le fichier http_autorisations.php doivent être toutes écrasées 
+dans les deux fichiers ci-dessus. 
+Ainsi, les requêtes ne peuvent être simplement passées par un navigateur ou en 
+ligne de commande, seule une application cliente configurée sur le serveur peut 
+accéder aux données.
+ 
+L'accès aux données est sécurisé par OAuth Server by DnC http://oa.dnc.global 
+auquel est délégué le contrôle de chaque accès à l'API. pour cela, un jeton d'accès 
+(Access Token) accompagne chaque requête à l'API.
+
+Du côté de l'application cliente :
+
+Si l'utilisateur final n'est pas authentifié, l'application cliente fait appel 
+au serveur pour gérer la demande de login et de mot de passe, dont le résultat 
+aboutit sur le fichier callback.html qui reçoit le Code d'Autorisation 
+(Authorization code) retourné par le serveur. Le Code d'Autorisation est mémorisé 
+dans la session de l'application cliente. 
+
+Puis callback.html demande un jeton d'accès (Access Token) pour l'application et 
+l'enregistre dans la session de l'application cliente. 
+
+L'application cliente utilise le jeton pour chaque requête faite à l'API.
+
+Du côté du serveur REST : 
+C'est la fonction autoriser de SPIP qui fait appel au 
+serveur OAuth pour vérifier la validité du jeton et autoriser ou non l'accès.
+

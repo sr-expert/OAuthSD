@@ -1,0 +1,33 @@
+<body>
+	<div class="page">
+		<div class="container">
+			<div class="header" id="header">
+				<INCLURE{fond=header/#ENV{type-page},env} />
+			</div>
+		</div>
+			<div class="navbar navbar-inverse row" id="nav">
+				<div class="navbar-wrap span12">
+				<INCLURE{fond=inclure/nav,env} />
+				</div>
+			</div>
+		<div class="container">
+			<div class="row wrapper">
+				<div class="content primary span8" id="content">
+					<INCLURE{fond=breadcrumb/#ENV{type-page},env} />
+					<INCLURE{fond=content/#ENV{type-page},env} />
+				</div>
+				<div class="aside secondary span3" id="aside">
+					<INCLURE{fond=aside/#ENV{type-page},env} />
+				</div>
+				<div class="extra secondary span3" id="extra">
+					<INCLURE{fond=extra/#ENV{type-page},env} />
+				</div>
+			</div>
+		</div>
+		<div class="footer" id="footer">
+			<div class="container inner">
+			<INCLURE{fond=footer/#ENV{type-page},env} />
+			</div>
+		</div>
+	</div>
+</body>

@@ -1,0 +1,42 @@
+[(#SET{titre,[(#ENV{titre_liste}|=={titre_perso}|?{[(#ENV**{titre_liste_perso}|typo)],[(#ENV{titre_liste}|_T)]})]})]
+#SET{periode,#ENV{periode_liste_evenements}|sinon{#ENV{periode}}}
+[(#ENV{archives}|et{#ENV{archives}|!={tout}})#SET{periode,''}]
+<B_liste_evenements>
+<div class="liste evenements">
+	#ANCRE_PAGINATION
+	[(#ENV{afficher_titre_liste}|oui)[<h2 class="h2">(#GET{titre})[ ((#ENV{archives}|affdate|sinon{#ENV{archives}|=={tout}|?{'',#ENV{archives}}}))]</h2>]]
+	[(#ENV{choix_periode}|et{#ENV{position_choix_periode}|!={fin}})
+		#INCLURE{fond=inclure/liste_evenements-choix_periode,env}
+	]
+	[(#ENV{afficher_selecteur_archives}|et{#ENV{position_selecteur_archives}|!={fin}})
+		#INCLURE{fond=inclure/liste_evenements-selecteur_archives-#ENV{pas_selecteur_archives},env}
+	]
+	[(#ENV{filtrer_articles}|et{#ENV{position_filtrer_articles}|!={fin}})
+		#INCLURE{fond=inclure/liste_evenements-filtrer_articles,env,filtre_art='',art=#ENV{filtre_art}}
+	]
+	[<p class="pagination choix_tri">(#AVELINE_CHOIX_TRI{'evenement','debut'})</p>]
+	[<p class="pagination">(#AVELINE_PAGINATION{'debut'})</p>]
+	<ul class="liste-items">
+	<BOUCLE_liste_evenements(EVENEMENTS) {aveline_branche}{tri #ENV{tri},#ENV{senstri}} {evenementrelatif #GET{periode}}{archives?}{aveline_pagination}{aveline_lang}{aveline_exclure_objet_encours}>
+		#INCLURE{fond=inclure/evenement-resume,id_evenement=#ID_EVENEMENT,id_evenement_expose=#ENV{id_evenement},env}
+	</BOUCLE_liste_evenements>
+	</ul>
+	[<p class="pagination">(#AVELINE_PAGINATION{'fin'})</p>]
+	[<p class="pagination choix_tri">(#AVELINE_CHOIX_TRI{'evenement','fin'})</p>]
+	[(#ENV{filtrer_articles}|et{#ENV{position_filtrer_articles}|!={debut}})
+		#INCLURE{fond=inclure/liste_evenements-filtrer_articles,env,filtre_art='',art=#ENV{filtre_art}}
+	]
+	[(#ENV{afficher_selecteur_archives}|et{#ENV{position_selecteur_archives}|!={debut}})
+		#INCLURE{fond=inclure/liste_evenements-selecteur_archives-#ENV{pas_selecteur_archives},env}
+	]
+	[(#ENV{choix_periode}|et{#ENV{position_choix_periode}|!={debut}})
+		#INCLURE{fond=inclure/liste_evenements-choix_periode,env}
+	]
+</div>
+</B_liste_evenements>
+	[(#ENV{afficher_passe_si_pas_a_venir}|oui)
+		[(#ENV{periode}|=={en_cours_a_venir}|ou{[(#ENV{periode}|=={a_venir})]}|ou{[(#ENV{periode}|=={en_cours})]})
+			#INCLURE{fond=noisettes/liste_evenements,env,periode_liste_evenements=passe_en_cours,sens_liste_evenements=-1}
+		]
+	]
+<//B_liste_evenements>

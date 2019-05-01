@@ -1,0 +1,18 @@
+[(#REM) <!-- Navigation dans les pages de configuration --> ]
+<div class="sous_navigation">
+<BOUCLE_nav(DATA){source table, #EVAL{_SARKASPIP_PAGES_CONFIG}|explode{|}}>
+	<div class="liste">
+	[(#VALEUR|explode{!}|count|>{1}|oui)
+		[<h3>(#VAL{sarkaspip_config:cfg_groupe_}|concat{#VALEUR|explode{!}|reset|trim}|_T)</h3>]
+	]
+		<ul class="liste-items">
+		<BOUCLE_navigation_cfg(DATA){source table, #VALEUR|explode{!}|end|explode{:}}>
+			[<li class="item[(#ENV{cfg, accueil}|=={#VALEUR|trim}|oui)on]">
+				(#URL_ECRIRE{#ENV{exec}}|parametre_url{cfg,#VALEUR|trim}
+					|lien_ou_expose{[(#VAL{sarkaspip_config:sarkaspip_}|concat{#VALEUR}|trim|_T)]})
+			</li>]
+		</BOUCLE_navigation_cfg>
+		</ul>
+	</div>
+</BOUCLE_nav>
+</div>

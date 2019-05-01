@@ -1,0 +1,30 @@
+[(#ID_OBJET|oui)
+	[(#AUTORISER{modifier,client_id,#CLIENT_ID}|sinon_interdire_acces)]
+][(#ID_OBJET|non)
+	[(#AUTORISER{creer,client_id}|sinon_interdire_acces)]
+]
+ 
+#SET{redirect,#ENV{redirect}|sinon{#CLIENT_ID|?{#CLIENT_ID|generer_url_entite{client_id},#URL_ECRIRE{oa_clients}}}}
+
+<div class="cadre-formulaire-editer">
+<div class="entete-formulaire">
+	[(#CLIENT_ID|oui)
+	[(#GET{redirect}|icone_verticale{Retour,client_id,'',left retour[(#ENV{retourajax,''}|oui)ajax preload]})]
+	]
+	[
+		[(#CLIENT_ID|?{<:client_id:icone_modifier_client_id:>,<:client_id:icone_creer_client_id:>})]
+		<h1>(#ENV{titre,#INFO_CLIENT_SECRET{client_id,#CLIENT_ID}|sinon{<:info_sans_titre:>}})</h1>
+	]
+</div>
+
+#SET{redirect,#ENV{redirect,#CLIENT_ID|generer_url_entite{client_id}}}
+[(#ENV{retourajax,''}|oui)
+	#SET{redirect,'javascript:if (window.jQuery) jQuery(".entete-formulaire .retour a").followLink();'}
+	<div class="ajax">
+]
+		[(#FORMULAIRE_EDITER_CLIENT_ID{#ENV{client_id,oui}, #GET{redirect}, #ENV{associer_objet}})]
+[(#ENV{retourajax,''}|oui)
+	</div>
+	<script type="text/javascript">/*<!\[CDATA\[*/reloadExecPage('#ENV{exec}');/*\]\]>*/</script>
+]
+</div>

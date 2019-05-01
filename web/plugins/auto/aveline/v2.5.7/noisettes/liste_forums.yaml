@@ -1,0 +1,14 @@
+nom: '<:aveline:nom_liste_forums:>'
+description: '<:aveline:description_liste_forums:>'
+icon: 'forum-24.png'
+necessite:
+  - 'forum'
+contexte:
+  - 'archives'
+  - 'lang'
+parametres:
+  - 'inclure:inc-yaml/tri-forum.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-forum.yaml'
+  - 'inclure:inc-yaml/selecteur_archives.yaml'
+  - 'inclure:inc-yaml/resume-forum.yaml'

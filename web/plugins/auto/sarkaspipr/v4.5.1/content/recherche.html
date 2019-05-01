@@ -1,0 +1,22 @@
+<section>
+	<header>
+		<h1><:sarkaspip:resultats_recherche:></h1>
+	</header>
+	<B_resultats>
+	<div class="main">
+		<div class="chapo">
+			<p><:sarkaspip:resultats_recherche_dans{recherche=#RECHERCHE}:></p>
+		</div>
+	</div>
+	<aside>
+		<BOUCLE_resultats(POUR){tableau #LISTE{articles,comments,albums,evenements,breves,rubriques,mots,sites}}>[(#INCLURE{fond=noisettes/recherche/liste-#VALEUR,recherche,ajax})]</BOUCLE_resultats>
+	</aside>
+	</B_resultats>
+		<div class="main">
+			<div class="chapo">
+				<p><:sarkaspip:aucun_resultat_recherche_pour{recherche=#RECHERCHE}:></p>
+			</div>
+		</div>
+
+	<//B_resultats>
+</section>

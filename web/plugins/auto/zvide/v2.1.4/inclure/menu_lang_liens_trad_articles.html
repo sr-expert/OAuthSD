@@ -1,0 +1,18 @@
+<BOUCLE_article(ARTICLES){id_article}>
+<B_langues>
+<div class="formulaire_spip formulaire_menu_lang" id="formulaire_menu_lang">
+	<form method="get" action="spip.php"><div>
+		<input name="action" value="redirect" type="hidden" />
+		<input type="hidden" name="type" value="article" />
+		<label for="id"><:info_langues:></label>
+		<select name="id" id="id" onchange="this.parentNode.parentNode.submit()">
+			<option class='maj-debut' value='#ID_ARTICLE' selected='selected'>[(#LANG|traduire_nom_langue)]</option>
+			<BOUCLE_langues(ARTICLES){traduction}{lang!=#LANG}>
+				<option class='maj-debut' value='#ID_ARTICLE'>[(#LANG|traduire_nom_langue)]</option>
+			</BOUCLE_langues>
+		</select>
+		<noscript><p class="boutons"><input type="submit" class="submit" value="&gt;&gt;" /></p></noscript>
+	</div></form>
+</div>
+</B_langues>
+</BOUCLE_article>

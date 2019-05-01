@@ -1,0 +1,8 @@
+PRTG pour OAuthSD /oidc
+2018/12/26 B. Degoy
+
+PRTG HTTP Data advanced sensor attend un fichier XML
+See: https://www.paessler.com/manuals/prtg/http_data_advanced_sensor
+
+
+ 

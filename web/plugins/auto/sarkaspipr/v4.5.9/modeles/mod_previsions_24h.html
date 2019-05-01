@@ -1,0 +1,65 @@
+[(#REM)<!-- 
+	Ce sous-modele est celui utilise par defaut par Rainette pour presenter les previsions d'un jour d'une ville
+	Il est appelee par le filtre rainette_croaaaaa_previsions
+	Cellule de gauche: 
+	- si aujourd'hui alors donnees du matin si l'heure est < 14:00 ou du soir sinon
+	- si autre jour alors donnees du matin -->
+]
+[(#ENV{index}|=={0}|non)
+	[(#SET{titre_max, <:rainette:temperature_max:>})]
+	[(#SET{code_icone, #ENV{code_icone_jour}})]
+	[(#SET{temperature_max, #ENV{temperature_jour}|rainette_afficher_unite{temperature}})]
+	[(#SET{temperature_min, #ENV{temperature_nuit}})]
+	[(#SET{vitesse_vent, #ENV{vitesse_vent_jour}})]
+	[(#SET{risque_precipitation, #ENV{risque_precipitation_jour}})]
+]
+[(#ENV{index}|=={0}|oui)
+	[(#ENV{temperature_jour}|=={N/D}|non)
+		[(#SET{titre_max, <:rainette:temperature_max:>})]
+		[(#SET{code_icone, #ENV{code_icone_jour}})]
+		[(#SET{temperature_max, #ENV{temperature_jour}|rainette_afficher_unite{temperature}})]
+		[(#SET{temperature_min, #ENV{temperature_nuit}})]
+		[(#SET{vitesse_vent, #ENV{vitesse_vent_jour}})]
+	]
+	[(#ENV{temperature_jour}|=={N/D}|oui)
+		[(#SET{titre_max, <:rainette:nuit:>})]
+		[(#SET{code_icone, #ENV{code_icone_nuit}})]
+		[(#SET{temperature_max, ''})]
+		[(#SET{temperature_min, #ENV{temperature_nuit}})]
+		[(#SET{vitesse_vent, #ENV{vitesse_vent_nuit}})]
+		[(#SET{risque_precipitation, #ENV{risque_precipitation_nuit}})]
+	]
+]
+
+<div class="item">
+	<div class="entry meteo">
+		<strong class="h3-like entry-title">[(#GET{code_icone}|rainette_icone_meteo{grand}|image_reduire{#EVAL{_SARKASPIP_CONFIG_LARGEUR_ICONE_METEO}}|inserer_attribut{class,spip_logos})]
+			[(#GET{code_icone}|rainette_resume_meteo|PtoBR)<br />]
+			[(#GET{titre_max}|ucfirst)][&nbsp;(#GET{temperature_max})]<br/>
+				<:rainette:temperature_min|ucfirst:>[&nbsp;(#GET{temperature_min}|rainette_afficher_unite{temperature})]</strong>
+		<p class="publication">[<time pubdate="pubdate" datetime="[(#ENV{date}|date_iso)]"><i class="icon-calendar"></i> <:sarkaspip:meteo_titre_previsions:>&nbsp;(#ENV{date}|affdate_jourcourt)</time>]<span class="authors muted"><span class="sep">, </span> <:sarkaspip:fourni_par_weather_com:></span></p>
+		<div class="entry-content">
+			<ul class="spip">
+				<li>
+					<span><:rainette:vent|ucfirst:></span>
+					[ : (#GET{vitesse_vent}|rainette_afficher_unite{vitesse})]
+				</li>
+				<li>
+					<span><:rainette:risque_precipitation|ucfirst:></span>
+					[ : (#GET{risque_precipitation}|rainette_afficher_unite{pourcentage})]
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="control">
+		[(#ENV{index}|=={0}|oui)
+		<a class="left pull-left" href="#slide_meteo" data-slide="prev">&larr; <:sarkaspip:meteo_lien_conditions:></a>
+		][(#ENV{index}|=={0}|non)
+		<a class="left pull-left" href="#slide_meteo" data-slide="prev">&larr; <:sarkaspip:jour_precedent:></a>
+		]
+		[(#ENV{index}|=={[(#CONFIG{sarkaspip/noisettes/rainette_prevision, 3}|moins{1})]}|non)
+		<a class="right pull-right" href="#slide_meteo" data-slide="next"><:sarkaspip:jour_suivant:> &rarr;</a>
+		]
+	</div>
+</div>
+

@@ -1,0 +1,7 @@
+nom: '<:aveline:nom_mot-portfolio:>'
+description: '<:aveline:description_portfolio:>'
+icon: 'portfolio-24.png'
+necessite:
+  - 'medias'
+parametres:
+  - 'inclure:inc-yaml/portfolio.yaml'

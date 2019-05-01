@@ -1,0 +1,22 @@
+nom: '<:aveline:nom_groupe_mots-contenuprincipal:>'
+description: '<:aveline:description_groupe_mots-contenuprincipal:>'
+icon: 'contenu-24.png'
+necessite:
+  - 'mots'
+ajax: 'non'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_descriptif'
+      label: '<:aveline:label_afficher_descriptif:>'
+      defaut: ''
+  -
+    saisie: 'input'
+    options:
+      nom: 'taille_max_images_texte'
+      label: '<:aveline:label_taille_max_images_texte:>'
+      defaut: 500
+    verifier:
+      type: 'entier'
+      min: 10

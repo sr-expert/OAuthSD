@@ -1,0 +1,20 @@
+<B_rubrique>
+<div id="recherche_rubrique" class="recherche_rubrique[ (#ENV{class_resultats,''})] rubriques">
+	<a rel="nofollow" href="#header" title="<:sarkaspip:kezako_haut_page:>" class="fonction revenir_haut_page"></a>
+	<div class="liste[ (#ENV{liste_type,''})]">
+	<h3>[(#GRAND_TOTAL|singulier_ou_pluriel{info_1_rubrique,info_nb_rubriques})]</h3>
+	#ANCRE_PAGINATION
+		[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{top})]
+		<ul class="liste-items">
+			<BOUCLE_rubrique(RUBRIQUES){pagination #CONFIG{sarkaspip/recherche/pas_pagination_recherche_rubrique, 5}}
+				{id_mot=#ENV{id1,#ENV{id2,#ENV{id3}}}}
+				{id_mot=#ENV{id2,#ENV{id3,#ENV{id1}}}}
+				{id_mot=#ENV{id3,#ENV{id1,#ENV{id2}}}}
+			>
+	      <li class="item">[(#INCLURE{fond=inclure/resume/rubrique,id_rubrique,coupe=100})]</li>
+			</BOUCLE_rubrique>
+		</ul>
+		[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{bottom})]
+	</div>
+</div>
+</B_rubrique>

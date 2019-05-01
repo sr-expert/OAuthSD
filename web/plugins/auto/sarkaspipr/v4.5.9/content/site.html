@@ -1,0 +1,27 @@
+#CACHE{7200}
+<BOUCLE_site(SITES) {id_syndic}>
+	[(#REM) <!-- affichage du titre de la page et de la description du site si id_syndic est non nul --> ]
+	<article class="site">
+		[(#INCLURE{fond=noisettes/site/description}{id_syndic}{editable=oui})<br />]
+
+		<aside>
+			[(#REM) <!-- affichage des syndications du site courant ou de tout le site --> ]
+			#SET{nb_jours, #CONFIG{sarkaspip/site/nbj_syndication_2, 60}}
+			<INCLURE{fond=noisettes/site/liste-articles_syndiques,id_syndic,nb_jours=#GET{nb_jours},ajax,env} />
+		</aside>
+	</article>
+
+</BOUCLE_site>
+	<section class="sites">
+		#SET{nb_jours, #CONFIG{sarkaspip/site/nbj_syndication_1, 30}}
+    <header class="cartouche">
+	    <h1><:sarkaspip:sur_web:>
+		    <small><:sarkaspip:articles_syndiques_n_jours{nb_jour=#GET{nb_jours}}:></small></h1>
+    </header>
+		<div class="main">
+			[(#REM) <!-- affichage des syndications du site courant ou de tout le site --> ]
+			#SET{nb_jours, #CONFIG{sarkaspip/site/nbj_syndication_2, 60}}
+			<INCLURE{fond=noisettes/site/liste-articles_syndiques,id_syndic,nb_jours=#GET{nb_jours},ajax,env} />
+		</div>
+	</section>
+<//B_site>

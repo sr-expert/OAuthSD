@@ -1,0 +1,114 @@
+nom: '<:aveline:nom_article-contenuprincipal:>'
+description: '<:aveline:description_article-contenuprincipal:>'
+icon: 'contenu-24.png'
+ajax: 'non'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_auteurs'
+      label: '<:aveline:label_afficher_auteurs:>'
+      defaut: 'on'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_date'
+      label: '<:aveline:label_afficher_date:>'
+      defaut: 'on'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_date_en_surtitre'
+      label: '<:aveline:label_afficher_date_en_surtitre:>'
+      defaut: ''
+      afficher_si: '@afficher_date@ == "on"'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_date_modif'
+      label: '<:aveline:label_afficher_date_modif:>'
+      defaut: ''
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_formulaire_note'
+      label: '<:aveline:label_afficher_formulaire_note:>'
+      defaut: ''
+      afficher_si: '@plugin:notation@'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'formulaire_notation'
+      label: '<:aveline:label_formulaire_notation:>'
+      defaut: 'notation'
+      cacher_option_intro: 'oui'
+      afficher_si: '@afficher_formulaire_note@ == "on" && @plugin:notation@'
+      datas:
+        notation: '<:aveline:item_notation:>'
+        jaime_jaimepas: '<:aveline:item_jaime_jaimepas:>'
+        jaime: '<:aveline:item_jaime:>'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_source_rss'
+      label: '<:aveline:label_afficher_source_rss:>'
+      explication: '<:aveline:explication_afficher_source_rss:>'
+      defaut: ''
+      afficher_si: '@plugin:rssarticle@'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_source_rss_soustitre'
+      label: '<:aveline:label_afficher_source_rss_soustitre:>'
+      defaut: ''
+      afficher_si: '@plugin:rssarticle@ && @afficher_source_rss@ == "on"'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_logo'
+      label: '<:aveline:label_afficher_logo:>'
+      defaut: 'on'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'utiliser_logo_article_rubrique'
+      label: '<:aveline:label_utiliser_logo_article_rubrique:>'
+      defaut: ''
+      afficher_si: '@afficher_logo@ == "on"'
+  -
+    saisie: 'input'
+    options:
+      nom: 'taille_max_logo'
+      label: '<:aveline:label_taille_max_logo:>'
+      defaut: 200
+      afficher_si: '@afficher_logo@ == "on"'
+    verifier:
+      type: 'entier'
+      min: 10
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_descriptif'
+      label: '<:aveline:label_afficher_descriptif:>'
+      defaut: ''
+  -
+    saisie: 'input'
+    options:
+      nom: 'taille_max_images_texte'
+      label: '<:aveline:label_taille_max_images_texte:>'
+      defaut: 500
+    verifier:
+      type: 'entier'
+      min: 10
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_lienhypertexte'
+      label: '<:aveline:label_afficher_lienhypertexte:>'
+      defaut: 'on'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_traductions'
+      label: '<:aveline:label_afficher_traductions:>'
+      defaut: 'on'

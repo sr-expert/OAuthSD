@@ -1,0 +1,22 @@
+[(#REM) 
+<!-- Articles de la rubrique, classes par numero s'ils sont numerotes, ou par date inverse sinon
+	Recoit en argument :
+		- id_rubrique: id de la rubrique concernee
+-->
+]
+[(#REM) <!-- Affichage si les articles sont numerotes --> ]
+#SET{tri,date}#SET{senstri,-1}
+<BOUCLE_test_numero(ARTICLES){id_rubrique}{titre==^[0-9]+[.)]}{0,1}>#SET{tri,num titre}#SET{senstri,1}</BOUCLE_test_numero>
+<B_article_numerotes>
+	<div id="articles_rubrique" class="articles_rubrique liste long">
+		#ANCRE_PAGINATION
+		<h2><:sarkaspip:articles_rubrique:></h2>
+		[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{top})]
+		<ul class="liste-items">
+		<BOUCLE_article_numerotes(ARTICLES) {id_rubrique}{tri #GET{tri},#GET{senstri}}{pagination #CONFIG{sarkaspip/rubrique/pas_pagination, 5}}>
+			<li class="item">#INCLURE{fond=inclure/resume/article,id_article,coupe=300}</li>
+		</BOUCLE_article_numerotes>
+		</ul>
+		[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{bottom})]
+	</div>
+</B_article_numerotes>

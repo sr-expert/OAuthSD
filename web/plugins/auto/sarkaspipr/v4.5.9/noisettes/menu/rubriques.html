@@ -1,0 +1,20 @@
+[(#REM) menu par defaut de navigation laterale : Arbo des rubriques]
+<BOUCLE_rubriques_0(RUBRIQUES){racine}{id_rubrique!==#RACINE_SPECIALISEE}{par num titre}{par titre}>
+		<li class="[(#EXPOSE{on active})]">[<a[ href="(#URL_RUBRIQUE)"]>(#TITRE|couper{80})</a>]
+	<B_rubriques_1>
+		<ul class="nav nav-list">
+	<BOUCLE_rubriques_1(RUBRIQUES){id_parent}{par num titre}{par titre}>
+			<li class="[(#EXPOSE{on active})]">[<a[ href="(#URL_RUBRIQUE)"]>(#TITRE|couper{80})</a>]
+		<B_rubriques_2>
+			<ul class="nav nav-list">
+		<BOUCLE_rubriques_2(RUBRIQUES){id_parent}{par num titre}{par titre}>
+				<li class="[(#EXPOSE{on active})]">[<a[ href="(#URL_RUBRIQUE)"]>(#TITRE|couper{80})</a>]</li>
+		</BOUCLE_rubriques_2>
+			</ul>
+		</B_rubriques_2>
+			</li>
+	</BOUCLE_rubriques_1>
+		</ul>
+	</B_rubriques_1>
+		</li>
+</BOUCLE_rubriques_0>

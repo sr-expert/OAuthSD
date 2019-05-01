@@ -1,0 +1,18 @@
+[(#SET{titre,[(#ENV{titre_liste}|=={titre_perso}|?{[(#ENV**{titre_liste_perso}|typo)],[(#ENV{titre_liste}|_T)]})]})]
+<B_liste_auteurs>
+<div class="liste resultats auteurs">
+	#ANCRE_PAGINATION
+	[(#ENV{afficher_titre_liste}|oui)[<h2 class="h2">(#GET{titre})[(#ENV{afficher_nb_resultats}|oui)&#40;#GRAND_TOTAL&#41;]</h2>]]
+	[<p class="pagination choix_tri">(#AVELINE_CHOIX_TRI{'auteur','debut'})</p>]
+	[<p class="pagination">(#AVELINE_PAGINATION{'debut'})</p>]
+	<ul class="liste-items">
+	<BOUCLE_liste_auteurs(AUTEURS) {compteur articles}{tri #ENV{tri},#ENV{senstri}}{aveline_pagination}{recherche}{articles.statut = publie}>
+		#INCLURE{fond=inclure/auteur-resume,id_auteur=#ID_AUTEUR,id_auteur_expose=#ENV{id_auteur},env}
+	</BOUCLE_liste_auteurs>
+	</ul>
+	[<p class="pagination">(#AVELINE_PAGINATION{'fin'})</p>]
+	[<p class="pagination choix_tri">(#AVELINE_CHOIX_TRI{'auteur','fin'})</p>]
+</div>
+</B_liste_auteurs>
+[(#ENV{message_aucun_resultat}|oui)<div class="texte"><:avelinepublic:aucun_auteur_trouve:></div>]
+<//B_liste_auteurs>

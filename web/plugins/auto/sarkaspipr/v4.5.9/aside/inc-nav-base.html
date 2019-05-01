@@ -1,0 +1,14 @@
+[(#CONFIG{sarkaspip/menus/side, 1}|=={1}|oui)
+<div class="nav-aside well">
+	<INCLURE{fond=inclure/menuside,env}>
+</div>
+]
+
+[(#REM) <!-- Bloc de recherche --> ]
+<INCLURE{fond=noisettes/recherche/form}>
+
+[(#CONFIG{sarkaspip/menus/shortcuts, 1}|=={1}|oui)
+<div class="nav-shortcuts">
+	<INCLURE{fond=inclure/menushortcuts,env}>
+</div>
+]

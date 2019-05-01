@@ -1,0 +1,155 @@
+[(#REM) 
+<!-- Exif de la photo affichee dans l'album
+	Recoit en argument :
+		- fichier: le nom du fichier concernee
+-->
+]
+
+
+[(#SET{logo,#CHEMIN{appareils/#ENV{fichier}|lire_exif{logoAppareil}}})]
+
+<div id="exif_photo" class="commentaires">
+<table cellspacing="2" cellpadding="0" summary="<:sarkaspip:resume_exif_photo:>">
+	<tr>
+		<td class="titre"><:sarkaspip:exif_image:></td>
+		<td class="titre minilogo">[<span><img src="(#CHEMIN{images/exif_image.gif})" width="16" height="16" alt="<:sarkaspip:exif_image:>" /></span>]</td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_largeur:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{Width})&nbsp;pixels]</td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_hauteur:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{Height})&nbsp;pixels]</td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_date_originale:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{DateTime})]</td>
+	</tr>	
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_date_numerise:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{dateTimeDigitized})]</td>
+	</tr>	
+	
+	
+	
+	<tr>
+		<td class="titre"><:sarkaspip:exif_fichier:></td>
+		<td class="titre minilogo">[<span><img src="(#CHEMIN{images/exif_fichier.gif})" width="16" height="16" alt="<:sarkaspip:exif_fichier:>" /></span>]</td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_nom_fichier:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{FileName})] </td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_taille_fichier:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{FileSize})] </td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_fichier_modifie:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{fileModifiedDate})]</td>
+	</tr>	
+	
+	
+	
+	<tr>
+		<td class="titre"><:sarkaspip:exif_lieu:></td>
+		<td class="titre minilogo">[<span><img src="(#CHEMIN{images/exif_lieu.gif})" width="16" height="16" alt="<:sarkaspip:exif_lieu:>" /></span>]</td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_latitude:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{GPSLatitude})] [(#ENV{fichier}|lire_exif{GPSLatitudeRef})]
+		
+	
+		</td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_longitude:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{GPSLongitude})] [(#ENV{fichier}|lire_exif{GPSLongitudeRef})]</td>
+	</tr>
+	
+	
+	<tr>
+		<td class="titre"><:sarkaspip:exif_appareil:></td>
+		<td class="titre minilogo">[<span><img src="(#CHEMIN{images/exif_appareil.gif})" width="16" height="16" alt="<:sarkaspip:exif_appareil:>" /></span>]</td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_fabricant:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{make})] </td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_modele:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{model})] </td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_logiciel:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{software})]</td>
+	</tr>	
+	
+	
+	<tr>
+		<td class="titre"><:sarkaspip:exif_exposition:></td>
+		<td class="titre minilogo">[<span><img src="(#CHEMIN{images/exif_exposition.gif})" width="16" height="16" alt="<:sarkaspip:exif_exposition:>" /></span>]</td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_obturateur:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{exposureTime}) s]</td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_ouverture:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{fnumber})] </td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_ouverture_max:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{maxAperture})]</td>
+	</tr>		
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_angle_exposition:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{exposureBias})]</td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_exposition:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{exposureMode})] </td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_index_exposition:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{ExposureIndex})]</td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_focale:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{focalLength})&nbsp;mm] </td>
+	</tr>		
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_distance:> :</td>
+		<td class="colonne2">[Distance : (#ENV{fichier}|lire_exif{focusDistance})[(#ENV{fichier}|lire_exif{focusDistance}|=={infini}|?{'','&nbsp;m'})]]</td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_source:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{LightSource})]</td>
+	</tr>	
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_flash:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{flashUsed})]</td>
+	</tr>		
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_contraste:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{contrast})]</td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_luminosite:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{brightness})]</td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_nettete:>  :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{sharpness})]</td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_saturation:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{saturation})]</td>
+	</tr>
+	<tr>
+		<td class="colonne1"><:sarkaspip:exif_iso:> :</td>
+		<td class="colonne2">[(#ENV{fichier}|lire_exif{isoEquiv})]</td>
+	</tr>	
+</table>
+</div>

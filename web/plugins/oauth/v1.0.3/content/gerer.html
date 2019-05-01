@@ -1,0 +1,44 @@
+#CACHE{0}
+
+<div class="breadcrumb"><a href="/">Accueil</a> - Auteurs</div>
+
+<p>
+L’Auteur est un utilisateur privilégié de OAuthSD. Il est notamment propriétaire d’une ou plusieurs applications clientes qu’il inscrit et gère sur ce serveur à l’aide des fonctions ci-dessous. 
+</p>
+
+#INCLURE{fond=inclure/identification,env}
+
+<BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
+
+    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+    
+    [(#AUTORISER{voir,auteur,#ID_AUTEUR})
+        <a href="./spip.php?page=auteur-details">Gérez vos informations d'auteur</a><br /><br />
+    ]
+
+    [(#AUTORISER{creer,client})
+        <h2>Gérez vos applications clientes</h2>
+        <a href="./spip.php?page=creer-client">Ajouter (Inscrire) une application cliente</a><br />
+        <a href="./spip.php?page=mes-clients">Toutes vos applications clientes</a><br />
+        <br />
+    
+        <h2>Gérez les Scopes de vos applications</h2>
+        <a href="./spip.php?page=creer-scope">Ajouter un Scope</a><br />
+        <a href="./spip.php?page=mes-scopes">Tous vos Scopes</a><br />
+        <br />
+    ]
+    
+    [(#AUTORISER{creer,user})
+        <h2>Gérez les Utilisateurs finaux</h2>
+        <a href="./spip.php?page=user">Ajouter (Inscrire) un utilisateur</a><br />
+        <a href="./spip.php?page=users">Tous les utilisateurs</a><br />
+    ]
+    
+    <br />
+
+</BOUCLE_auteur>
+
+
+
+
+

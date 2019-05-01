@@ -1,0 +1,108 @@
+#CACHE{0}
+
+<div class="breadcrumb"><a href="/">Accueil</a> - <a href="./spip.php?page=gerer">Gestion</a> - Applications</div>
+
+#INCLURE{fond=inclure/identification,env}
+
+<BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
+
+    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+
+    <h2>Toutes vos application clientes</h2>
+
+    <table id="tbl" class="display datable" style="table-layout: fixed">
+
+        <thead>
+            <tr>
+                <td><b>#</b></td><td><b>Client ID</b></td><td><b>Redirect URI</b></td><td><b>Grant Type</b></td><td><b>Statut</b></td><td><b>Action</b></td>
+            </tr>
+        </thead>
+
+        <BOUCLE_o (spip_auteurs_liens) {objet = client} {id_auteur=#SESSION{id_auteur}} >
+
+            <BOUCLE_ligne (CLIENTS) {id_client = #ID_OBJET} {statut IN prop,prepa,publie,refuse,poubelle} >
+                <tr>
+                <td>
+                    #ID_CLIENT
+                </td>
+                <td style="overflow:hidden; white-space: nowrap;">
+                    #CLIENT_ID
+                </td>
+                <td style="overflow:hidden; white-space: nowrap;">
+                    #REDIRECT_URI
+                </td>
+                <td style="overflow:hidden; white-space: nowrap; padding-right: 9px;">
+                    #GRANT_TYPES
+                </td>
+                <td style="overflow:hidden; white-space: nowrap;">   
+                    [(#STATUT|=={prepa}|oui)Attente] 
+                    [(#STATUT|=={prop}|oui)Attente]
+                    [(#STATUT|in_array{#ARRAY{refuse,poubelle}}|oui)Refusé] 
+                    [(#STATUT|=={publie}|oui)Actif]       
+                </td>
+                <td style="overflow:hidden; white-space: nowrap;">
+                    <a href="./spip.php?page=creer-client&id_client=#ID_CLIENT">éditer</a>
+                    <br />
+                    <a href="./spip.php?page=gerer-public_keys&id_client=#ID_CLIENT">clés</a>
+                    <br />
+                    <a href="./spip.php?page=supprimer-client&id_client=#ID_CLIENT">supprimer</a>       
+                </td>
+                </tr>
+            </BOUCLE_ligne>
+            </B_ligne>
+
+        </BOUCLE_o>
+
+        <thead>
+            <tr>
+                <td><b>#</b></td><td><b>Client ID</b></td><td><b>Redirect URI</b></td><td><b>Grant Type</b></td><td><b>Statut</b></td><td><b>Action</b></td>
+            </tr>
+        </thead>
+
+    </table>
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            /* Initialise the DataTable */
+
+            var oTable = $('#tbl').dataTable( {
+                //serverSide: true, //o2
+                //select: true,
+                responsive: true,
+                language: {
+                    url: '#CHEMIN{lib/French.json}',
+                },
+                "aaSorting": [[ 0, "desc" ]],
+                "deferRender": true,
+                "autoWidth": false,
+                "columnDefs": [
+                    {   "targets": 0,
+                        "width": "4%",
+                        "data": "id_client",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="./spip.php?page=creer-client&id_client='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    },
+                    {   "targets": [1,2],
+                        "width": "20%",
+                    },
+                ],
+
+            });
+
+            $('#datatable_container').fadeIn(2000);
+
+        } ); 
+    </script>
+
+    </B_o>
+    Vous n'avez pas d'application cliente ! <br />
+    <a href="./spip.php?page=creer-client">Ajouter (Inscrire) une application cliente</a><br />
+    <//B_o> 
+
+    <br/>   
+
+</BOUCLE_auteur>

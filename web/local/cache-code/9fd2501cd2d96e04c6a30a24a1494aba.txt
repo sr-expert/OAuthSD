@@ -1,0 +1,51 @@
+#CACHE{2}
+
+[(#REM)
+Liste de Tagazd en JSON.
+Nécessite les plugins geobase et gis.  
+
+Exemple d'appel:
+http://xxx.com/?page=gis.json&pt=nn
+où nn est l'id du point dans la table gis.
+
+Copyright (c) 2001-2016
+Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  
+Copyright(c) 2013-2016 DnC
+Auteur: B.Degoy DnC https://degoy.com/#dnc_conteneur_contact
+Licence GNU/GPL v3 
+
+]
+<?php
+
+function oauth_authorize($accesstoken) {
+    if ( !empty( $accesstoken ) ) {
+        // Interroger OAuth Server by DnC
+        include_spip('inc/distant');
+        // Vérifier le jeton d'accès (access token)
+        $url = "https://oa.dnc.global/oauth/resource.php?access_token=" . $accesstoken;
+        $res = recuperer_url($url);  
+        if ( (int)$res['status'] === 200 ) {
+            return true ;
+        }
+    } 
+    return false;
+}
+    
+if ( !(bool)@oauth_authorize(_request('token')) ) {
+    header("HTTP/1.0 401 Unauthorized");
+    die();  
+}
+
+?>
+#HTTP_HEADER{Content-Type: application/json; charset=#CHARSET}
+[<BOUCLE_docp(DOCUMENTS){gis}{', '}{distancefrom #ENV{pt}, <=, 100}{extension IN png,jpg,gif,html}{par distance}{0,#ENV{limit,100}}>
+    [(#ARRAY{
+        id,#ID_GIS,
+        titre,#TITRE,
+        distance,[(#DISTANCE|format_kmm)],
+        quadrant,[(#ENV{pt,1}|quadrant{#ID_GIS})],
+        lat,#LAT,
+        lon,#LON,
+        url,#URL_SITE_SPIP/?page=photo&id_document=#ID_DOCUMENT,
+    }|json_encode)]
+</BOUCLE_docp>]

@@ -1,0 +1,16 @@
+nom: '<:aveline:nom_page-recherche-rubriques:>'
+description: '<:aveline:description_resultats_recherche:>'
+icon: 'rubrique-24.png'
+contexte:
+  - 'id_rubrique'
+  - 'id_secteur'
+  - 'recherche'
+  - 'lang'
+parametres:
+  - 'inclure:inc-yaml/tri-recherche.yaml'
+  - 'inclure:inc-yaml/options-recherche.yaml'
+  - 'inclure:inc-yaml/restreindre_langue.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-rubrique.yaml'
+  - 'inclure:inc-yaml/choix_tri-rubrique.yaml'
+  - 'inclure:inc-yaml/resume-rubrique.yaml'

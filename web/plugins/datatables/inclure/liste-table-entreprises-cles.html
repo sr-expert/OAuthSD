@@ -1,0 +1,159 @@
+[(#REM)  //o   //ad   //ag
+Plugin DataTables
+liste-table-entreprises-cles.html
+
+Liste paginée de la table ENV{table} avec Data Tables.
+Attention : le nom de la table est passé sans "s" à la fin !
+Les lignes sont affichés dans l'ordre de la liste #ENV{champs}.
+ENV{link} donne le numéro de la colonne sur laquelle figure le lien, 1 par défaut.
+
+Recherche :
+ENV{recherche} : La chaine est cherchée par DataTable dans toutes les colonnes.
+ENV{mots} : Les mots clés sont intégrés dans une colonne "clés" et peuvent donc être recherchés
+selon la méthode de DataTables. Il faut définir clepos pour désigner la colonne où 
+se trouvent les clés, afin que DataTables les cherche selon le contenu de ENV{zemots}.
+
+ENV{mots} et ENV{recherche} fournissent les paramètres de la recherche, mais agissent différemment :
+- Les mots filtrent la boucle AUTEURS, ce qui permet de réduire les données intégrées à la page.
+Pour changer le filtrage par les mots, il faut recharger la page.
+- La recherche est appliquée par DataTables, on peut donc la modifier sans recharger la page.
+
+Nota : DataTables applique également la recherche par mots à la colonne désignée par ENV{clepos}.
+Cela fait double emploi, mais permettrait de ne pas faire la sélection au niveau de la boucle 
+pour de petites bases de données. A voir à l'expérience.  
+
+Copyright(c) 2017 DnC
+entreprises : Bertrand Degoy
+Licence : GPL 3
+
+TODO : à placer dans le plugin Entreprises !!!
+
+]
+
+<div class="nettoyeur"> </div>
+
+<div class="dtentreprises" style="display:none">
+
+<B_objet>
+    
+    <table id="tbl_entreprises" class="display datatable">
+
+        <B_thead>
+            <thead>
+                <tr>
+                    <th> </th>
+        <BOUCLE_thead(DATA) {source table, #ENV{champs} } >
+                    [<th>(#VALEUR)</th>]
+        </BOUCLE_thead>
+            <th>clés</th>
+                </tr>
+            </thead>
+        </B_thead>
+
+        <tbody>
+            
+            #SET{zid,0}
+            
+ <BOUCLE_objet(ENTREPRISES)  {mots?} {statut=publie}>           
+            
+                <BOUCLE_table(DATA){source sql, SELECT * FROM spip_#ENV{table}s WHERE id_entreprise='#ID_ENTREPRISE'}>       
+                    
+                    #SET{zid,#VALEUR|table_valeur{id_#ENV{table}}}
+                    
+                    <B_cle> 
+                    <tr>
+                        <td class="editable" width="128">
+                            [(#LOGO_ENTREPRISE|image_reduire{116,*})]
+                        </td>
+                    <BOUCLE_cle(DATA) {source table, #ENV{champs}} >
+                        <td class="editable">
+                            [(#COMPTEUR_BOUCLE|=={#ENV{link,1}}|oui)
+                                <a href="/?page=#ENV{table}&id_#ENV{table}=#GET{zid}">
+                            ]
+                            [(#_table:VALEUR|table_valeur{#_cle:VALEUR}|supprimer_numero|propre|trunchtml{300})]
+                            [(#COMPTEUR_BOUCLE|=={#ENV{link,1}}|oui)
+                                </a>
+                            ]   
+                        </td>
+                    </BOUCLE_cle>
+                        <td class="editable">
+                            <BOUCLE_mots(MOTS) {id_entreprise} >
+                                #TITRE
+                            </BOUCLE_mots>  
+                        </td>
+                    </tr>
+                    </B_cle>
+
+                </BOUCLE_table> 
+                            
+</BOUCLE_objet>            
+        
+        </tbody>
+
+        <B_tfoot>
+            <tfoot>
+                <tr>
+                    <th> </th>
+        <BOUCLE_tfoot(DATA){source table, #ENV{champs}} >
+                    [<th>(#VALEUR)</th>]
+                    </BOUCLE_tfoot>
+                    <th>clés</th>   
+                </tr>
+            </tfoot>
+        </B_tfoot>
+
+    </table>
+
+</B_objet>
+    
+        <:aucune_entreprise:>
+        <script type=text/javascript>
+         $(".dtentreprises").css("display","block"); 
+         </script>
+         
+    <//B_objet>
+
+</div>
+
+
+[(#REM)
+La variable d'environnement zemots est un tableau (idx,id_mot) dans lequel idx est 
+quelconque. Pour DataTable, nous devons le transformer en une string. ]
+#SET{zmots,""}
+<BOUCLE_zmots(DATA) {source table, #ENV{mots}} >
+    <BOUCLE_mot(MOTS) {id_mot=#VALEUR}>
+        #SET{zmots,#GET{zmots} #VAL{' '}|concat{#TITRE} }            
+    </BOUCLE_mot>
+</BOUCLE_zmots>
+
+
+<script type="text/javascript">
+
+$(function() {
+    
+    var oTable = $('#tbl_entreprises').DataTable( {
+            dom : '[(#ENV{dom,'ftipr'})]',     // Défaut : pas de longueur
+            select: true,
+            order: [1,'asc'],
+            responsive: true,
+            language: {
+                url: '#CHEMIN{lib/French.json}',
+            },
+            [search: {
+                "search": "(#ENV{recherche})"
+            }]
+        });
+        
+
+        [oTable.column( #ENV{clepos} )
+            .search("(#GET{zmots})")
+            .draw();]
+            
+        $('#tbl_entreprises').on( 'draw.dt', function () {
+            $(".dtentreprises").css("display","block");  
+        } );
+            
+
+
+    } );
+</script>

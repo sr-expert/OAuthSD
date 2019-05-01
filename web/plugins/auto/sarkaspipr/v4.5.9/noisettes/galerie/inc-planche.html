@@ -1,0 +1,18 @@
+<BOUCLE_categories(ALBUMS mots){mots.id_mot>0}{doublons exclus}{si #ENV{exclure_categorie,''}}> </BOUCLE_categories>
+<B_galerie>
+	<div id="planche" class="album">
+		[(#REM) <!-- Pagination de la page galerie --> ]
+		#ANCRE_PAGINATION
+		[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{top})]
+		<ul class="thumbnails">
+			<BOUCLE_galerie(ALBUMS)
+			{id_mot?}
+			{doublons exclus}
+			{par date}{inverse #CONFIG{sarkaspip/galerie/sens_tri_1, 1}}{pagination #CONFIG{sarkaspip/galerie/pas_pagination_1, 5}}>
+			<li class="item">#INCLURE{fond=inclure/resume/album,id_album,
+				coupe=#CONFIG{sarkaspip/galerie/cfg_lbl_intro_album,200}}</li>
+			</BOUCLE_galerie>
+		</ul>
+		[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{bottom})]
+	</div>
+</B_galerie>

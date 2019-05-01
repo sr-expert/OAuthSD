@@ -1,0 +1,13 @@
+nom: '<:aveline:nom_rubrique-sous_rubriques:>'
+description: '<:aveline:description_rubrique-sous_rubriques:>'
+icon: 'rubrique-24.png'
+contexte:
+  - 'id_rubrique'
+  - 'id_secteur'
+  - 'lang'
+parametres:
+  - 'inclure:inc-yaml/tri-rubrique.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-rubrique.yaml'
+  - 'inclure:inc-yaml/choix_tri-rubrique.yaml'
+  - 'inclure:inc-yaml/resume-rubrique.yaml'

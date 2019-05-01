@@ -1,0 +1,52 @@
+[(#SET{taille_max_logo, #ENV{taille_max_logo}|is_null|non|?{#ENV{taille_max_logo},200}})]
+[(#SET{taille_max_images_texte, #ENV{taille_max_images_texte}|is_null|non|?{#ENV{taille_max_images_texte},500}})]
+
+<BOUCLE_article(ARTICLES){id_article}>
+<div class="contenu-principal">
+	<div class="cartouche">
+		[(#ENV{afficher_logo}|oui)
+			[(#ENV{utiliser_logo_article_rubrique}|oui)
+				[(#LOGO_ARTICLE_RUBRIQUE||image_reduire{#GET{taille_max_logo}})]
+			]
+			[(#ENV{utiliser_logo_article_rubrique}|non)
+				[(#LOGO_ARTICLE||image_reduire{#GET{taille_max_logo}})]
+			]
+		]
+		[(#ENV{afficher_date}|et{#ENV{afficher_date_en_surtitre}}|oui)<p class="surtitre"><abbr class="published" title="[(#DATE|date_iso)]">[(#DATE|nom_jour) ][(#DATE|affdate)]</abbr></p>]
+		[<p class="#EDIT{surtitre} surtitre">(#SURTITRE)</p>]
+		<h1 class="h1 #EDIT{titre}">#TITRE</h1>
+		[<p class="#EDIT{soustitre} soustitre">(#SOUSTITRE)</p>]
+		[(#ENV{afficher_source_rss}|et{#ENV{afficher_source_rss_soustitre}}|et{#PLUGIN{rssarticle}}|oui)[<p class="soustitre source_rss">(#INCLURE{fond=inclure/source_rss,id_article=#ID_ARTICLE})</p>]]
+
+		[(#ENV{afficher_date}|et{#ENV{afficher_date_en_surtitre}|non}|ou{#ENV{afficher_auteurs}}|ou{#ENV{afficher_date_modif}})<p class="info-publi">]
+			[(#ENV{afficher_date}|et{#ENV{afficher_date_en_surtitre}|non}|oui)<abbr class="published" title="[(#DATE|date_iso)]">[(#DATE|nom_jour) ][(#DATE|affdate)]</abbr>][(#ENV{afficher_date}|et{#ENV{afficher_date_en_surtitre}|non}|et{#ENV{afficher_auteurs}|et{#LESAUTEURS}}?{'<span class="sep">,</span>'})]
+			[(#ENV{afficher_auteurs}|oui)[<span class="auteurs"><:par_auteur:> (#LESAUTEURS)</span>.]]
+			[(#ENV{afficher_date_modif}|oui)[(#ENV{afficher_date}|ou{#ENV{afficher_auteurs}})<br />]<:avelinepublic:mis_a_jour_le:> [(#DATE_MODIF|nom_jour) ][(#DATE_MODIF|affdate)]]
+			[(#ENV{afficher_formulaire_note}|et{#PLUGIN{notation}})
+				[(#ENV{formulaire_notation}|=={notation}|oui) #FORMULAIRE_NOTATION]
+				[(#ENV{formulaire_notation}|=={jaime_jaimepas}|oui) #FORMULAIRE_JAIME_JAIMEPAS]
+				[(#ENV{formulaire_notation}|=={jaime}|oui) #FORMULAIRE_JAIME]
+			]
+		[(#ENV{afficher_date}|et{#ENV{afficher_date_en_surtitre}|non}|ou{#ENV{afficher_auteurs}}|ou{#ENV{afficher_date_modif}})</p>]
+		[(#ENV{afficher_traductions}|oui)#MODELE{article_traductions}]
+		[(#ENV{afficher_source_rss}|et{#ENV{afficher_source_rss_soustitre}|non}|et{#PLUGIN{rssarticle}}|oui)[<p class="source_rss"><strong><:avelinepublic:source_deux_points:></strong> (#INCLURE{fond=inclure/source_rss,id_article=#ID_ARTICLE})</p>]]
+	</div>
+
+	<div class="surlignable">
+		[(#ENV{afficher_descriptif}|oui) [<div class="#EDIT{descriptif} chapo">(#DESCRIPTIF|image_reduire{#GET{taille_max_images_texte},0})</div>]]
+		[<div class="#EDIT{chapo} chapo">(#CHAPO|image_reduire{#GET{taille_max_images_texte},0})</div>]
+		[<div class="#EDIT{texte} texte">(#TEXTE|image_reduire{#GET{taille_max_images_texte},0})</div>]
+	</div>
+
+	[(#ENV{afficher_lienhypertexte}|oui)
+		[<p class="#EDIT{hyperlien} hyperlien"><:voir_en_ligne:> : <a href="(#URL_SITE)" class="spip_out">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
+	]
+
+	[<div class="ps">
+		<h2 class="h2"><:info_ps:></h2>
+		<div class="#EDIT{ps} surlignable">(#PS|image_reduire{#GET{taille_max_images_texte},0})</div>
+	</div>]
+</div>
+
+[<div class="notes surlignable"><h2 class="h2 pas_surlignable"><:info_notes:></h2>(#NOTES)</div>]
+</BOUCLE_article>

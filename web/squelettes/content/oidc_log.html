@@ -1,0 +1,216 @@
+#CACHE{15}
+
+#INCLURE{fond=inclure/identification,env}
+<BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
+
+[(#REM)  //18
+Utilise le plugin DataTables
+
+Copyright(c) 2017-2019 DnC
+Auteurs : Bertrand Degoy
+Licence : GPL 3
+
+]
+[(#SET{mots,#ENV{mots,#SESSION{mots}|unserialize}})]
+#SET{recherche,#ENV{recherche,#SESSION{recherche}}}
+
+<div class="nettoyeur"></div>
+
+<div id="datatable_container">
+
+<h2>Toutes les alertes</h2>
+
+<form name="alertes" method="get" action="/web/" >
+    <label for"client_id">Client </label><input type="text" id="client_id" name="client_id" value="#ENV{client_id}">
+    <label for"user_id">User </label><input type="text" id="user_id" name="user_id" value="#ENV{user_id}">
+    <label for"id">Origine </label><input type="text" id="origine" name="origine" value="#ENV{origine}">
+    <input id="page" type="hidden" name="page" value="oidc_log">
+    <input id=gogo" type="submit" value="Go">
+</form>
+
+#SET{recherche,#LISTE{1,2,3,4,6,7}}
+
+<B_table1>
+
+    <table id="tbl" class="display datatable">
+
+            <thead>
+                <tr>
+                    <th>datetime</th>
+                    <th>state</th> 
+                    <th>remote_addr</th>
+                    <th>level</th>
+                    <th>message</th>
+                    <th>origine</th> 
+                    <th>client_id</th>
+                    <th>user_id</th>
+                    
+                </tr>
+            </thead>
+
+        <tbody>
+
+             <BOUCLE_table1(spip_oidc_logs) {state?} {remote_addr?} {client_id?} {user_id?} {par datetime} {inverse} {0,1000}>
+                <tr>
+                    <td>#DATETIME</td>
+                    <td>#STATE</td>
+                    <td>#REMOTE_ADDR</td>
+                    <td>#LEVEL</td>
+                    <td>#MESSAGE]
+                    <td>#ORIGINE</td>
+                    <td>#CLIENT_ID</td>
+                    <td>#USER_ID
+                    <b>Détails : </b><a href="/web/?page=user_id&client_id=#CLIENT_ID">client_id</a>&nbsp;-&nbsp;
+                    </td>
+                </tr>   
+            </BOUCLE_table1>
+
+        </tbody>
+
+            <tfoot>
+                <tr>
+                    <th>datetime</th>
+                    <th>state</th> 
+                    <th>remote_addr</th>
+                    <th>level</th>
+                    <th>message</th>
+                    <th>origine</th> 
+                    <th>client_id</th>
+                    <th>user_id</th>
+                </tr>
+            </tfoot>
+
+    </table>
+</B_table1>
+<p>Aucun enregistrement</p>
+<//B_table1>
+
+</div>
+
+#SET{rechsur,#GET{recherche}|implode}
+
+<script type="text/javascript">
+
+    //o3 voir : https://legacy.datatables.net/release-datatables/examples/api/multi_filter_select.html
+
+    (function($) {
+        /*
+        * Function: fnGetColumnData
+        * Purpose:  Return an array of table values from a particular column.
+        * Returns:  array string: 1d data array
+        * Inputs:   object:oSettings - dataTable settings object. This is always the last argument past to the function
+        *           int:iColumn - the id of the column to extract the data from
+        *           bool:bUnique - optional - if set to false duplicated values are not filtered out
+        *           bool:bFiltered - optional - if set to false all the table data is used (not only the filtered)
+        *           bool:bIgnoreEmpty - optional - if set to false empty values are not filtered from the result array
+        * Author:   Benedikt Forchhammer <b.forchhammer /AT\ mind2.de>
+        */
+        $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique, bFiltered, bIgnoreEmpty ) {
+            // check that we have a column id
+            if ( typeof iColumn == "undefined" ) return new Array();
+
+            // by default we only want unique data
+            if ( typeof bUnique == "undefined" ) bUnique = true;
+
+            // by default we do want to only look at filtered data
+            if ( typeof bFiltered == "undefined" ) bFiltered = true;
+
+            // by default we do not want to include empty values
+            if ( typeof bIgnoreEmpty == "undefined" ) bIgnoreEmpty = true;
+
+            // list of rows which we're going to loop through
+            var aiRows;
+
+            // use only filtered rows
+            if (bFiltered == true) aiRows = oSettings.aiDisplay;
+            // use all rows
+            else aiRows = oSettings.aiDisplayMaster; // all row numbers
+
+            // set up data array   
+            var asResultData = new Array();
+
+            for (var i=0,c=aiRows.length; i<c; i++) {
+                iRow = aiRows[i];
+                var aData = this.fnGetData(iRow);
+                var sValue = aData[iColumn];
+
+                // ignore empty values?
+                if (bIgnoreEmpty == true && sValue.length == 0) continue;
+
+                // ignore unique values?
+                else if (bUnique == true && jQuery.inArray(sValue, asResultData) > -1) continue;
+
+                    // else push the value onto the result data array
+                    else asResultData.push(sValue);
+            }
+
+            return asResultData;
+        }}(jQuery));
+
+
+    function fnCreateSelect( aData, i )          //dgy : i
+    {
+        aData.sort(function(a, b){return a-b}); //dgy
+        var r='<select class="column' +i+ '"><option value=""></option>', i, iLen=aData.length;  //dgy : class
+        for ( i=0 ; i<iLen ; i++ )
+        {
+            r += '<option value="'+aData[i]+'">'+aData[i]+'</option>';
+        }
+        return r+'</select>';
+    }
+
+
+    $(document).ready(function() {
+        /* Initialise the DataTable */
+
+        var oTable = $('#tbl').dataTable( {
+            //serverSide: true, //o2
+            //select: true,
+            responsive: true,
+            language: {
+                url: '#CHEMIN{lib/French.json}',
+            },
+            "aaSorting": [[ 0, "desc" ]],
+            "createdRow": function ( row, data, index ) {   //o4
+                // coloration de la ligne
+                var level;
+                level = data[3];
+                index +=1;
+                str = ':nth-child(' + index + ')';
+                if ( level  < 7 ) {
+                    $('tbody tr' + str).css('background-color','#d4ffff');
+                } else if ( level  < 10 ) {
+                    $('tbody tr' + str).css('background-color','#ffffd4');
+                } else if ( level < 15 ) {
+                    $('tbody tr' + str).css('background-color','#ffd4ff');
+                } else {
+                    $('tbody tr' + str).css('background-color','#000').css('color','#fff');
+                }
+            },
+            stateSave: true,        // Pour garder certains paramètres au rechargement de la page => bug ???
+            "deferRender": true,
+        });
+
+        /* //o3 Add a select menu for each TH element in the table footer */
+        $("tfoot th").each( function ( i ) {
+            if( $.inArray(i,[#GET{rechsur}]) > -1 ) {
+                this.innerHTML = fnCreateSelect( oTable.fnGetColumnData(i), i );          //dgy
+                $('select', this).change( function () {
+                    oTable.fnFilter( $(this).val(), i );
+                } );
+            }
+        } );
+
+        $('#datatable_container').fadeIn(2000);
+
+
+    } ); 
+
+
+</script>
+
+</BOUCLE_auteur>
+
+
+    
+    

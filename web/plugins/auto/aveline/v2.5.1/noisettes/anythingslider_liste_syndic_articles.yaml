@@ -1,0 +1,40 @@
+nom: '<:aveline:nom_anythingslider_liste_syndic_articles:>'
+description: '<:aveline:description_anythingslider_liste_syndic_articles:>'
+icon: 'syndic_article-24.png'
+necessite:
+  - 'anythingslider'
+  - 'sites'
+contexte:
+  - 'id_rubrique'
+  - 'id_secteur'
+  - 'id_syndic'
+  - 'id_syndic_article'
+  - 'lang'
+parametres:
+  - 'inclure:inc-yaml/branche-syndic_article.yaml'
+  - 'inclure:inc-yaml/tri-syndic_article.yaml'
+  -
+    saisie: 'hidden'
+    options:
+      nom: 'selection'
+      defaut: 'limite'
+  -
+    saisie: 'input'
+    options:
+      nom: 'limite'
+      label: '<:aveline:label_limite:>'
+      defaut: 10
+    verifier:
+      type: 'entier'
+      options:
+        min: 1
+  - 'inclure:inc-yaml/restreindre_langue.yaml'
+  - 'inclure:inc-yaml/titre-syndic_article.yaml'
+  -
+    saisie: 'fieldset'
+    options:
+      nom: 'options_anythingslider'
+      label: '<:aveline:label_options_anythingslider:>'
+    saisies:
+      - 'inclure:inc-yaml/anythingslider-options.yaml
+  - 'inclure:inc-yaml/resume-syndic_article.yaml'

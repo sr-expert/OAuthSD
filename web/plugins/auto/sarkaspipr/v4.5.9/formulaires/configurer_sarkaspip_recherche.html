@@ -1,0 +1,71 @@
+<div class="formulaire_spip formulaire_configurer formulaire_#FORM">
+
+	<h3 class="titrem"><:sarkaspip_config:cfg_boite_recherche:></h3>
+
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	<form method="post" action="#ENV{action}"><div>
+		<input type="hidden" name="_meta_casier" value="sarkaspip/recherche" />
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<p class="explication"><:sarkaspip_config:cfg_inf_recherche_information:></p>
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_recherche_choix_groupe:></legend>
+			<ul class="editer-groupe">
+				#SET{name,activer_par_motcle}#SET{obli,''}#SET{defaut,'oui'}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer pleine_largeur editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">[
+					<span class='erreur_message'>(#GET{erreurs})</span>
+					]
+					#SET{val,non}
+					<input type="hidden" name="#GET{name}" value="#GET{val}" />
+					#SET{val,oui}
+					<div class="choix">
+						<input type="checkbox" name="#GET{name}" class="checkbox" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_activer_recherche_par_motcle:></label>
+					</div>
+				</li>
+				<li class="fieldset suite" id="select_groupes"><fieldset>
+					<ul class="editer-groupe">
+					<INCLURE{fond=formulaires/inc/cfg_groupes_mots}
+						{suffixe=_recherche}
+						{label= <:sarkaspip_config:cfg_lbl_groupes_mots_recherche:> }
+						{env}>
+					</ul></fieldset>
+				</li>
+			</ul>
+		</fieldset>
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_recherche_pagination:></legend>
+			<ul class="editer-groupe">
+				<INCLURE{fond=formulaires/inc/cfg_pagination}{explications=<b><:sarkaspip_config:cfg_inf_recherche_article:></b>}{defaut_pas=5}{defaut_position=3}{suffixe=_recherche_article}{env}>
+				<INCLURE{fond=formulaires/inc/cfg_pagination}{explications=<b><:sarkaspip_config:cfg_inf_recherche_commentaire:></b>}{defaut_pas=5}{defaut_position=3}{suffixe=_recherche_commentaire}{env}>
+				<INCLURE{fond=formulaires/inc/cfg_pagination}{explications=<b><:sarkaspip_config:cfg_inf_recherche_breve:></b>}{defaut_pas=5}{defaut_position=3}{suffixe=_recherche_breve}{env}>
+				<INCLURE{fond=formulaires/inc/cfg_pagination}{explications=<b><:sarkaspip_config:cfg_inf_recherche_rubrique:></b>}{defaut_pas=5}{defaut_position=3}{suffixe=_recherche_rubrique}{env}>
+				<INCLURE{fond=formulaires/inc/cfg_pagination}{explications=<b><:sarkaspip_config:cfg_inf_recherche_mot:></b>}{defaut_pas=5}{defaut_position=3}{suffixe=_recherche_mot}{env}>
+				<INCLURE{fond=formulaires/inc/cfg_pagination}{explications=<b><:sarkaspip_config:cfg_inf_recherche_site:></b>}{defaut_pas=5}{defaut_position=3}{suffixe=_recherche_site}{env}>
+			</ul>
+		</fieldset>
+
+		<INCLURE{fond=formulaires/inc/cfg_boutons}>
+	</div></form>
+</div>
+<script type="text/javascript">/*<![CDATA[*/
+	jQuery(document).ready(function() {
+		[(#ENV{activer_par_motcle,oui}|=={oui}|non)
+			jQuery("#select_groupes").hide();
+		]
+		[(#ENV{activer_par_motcle,oui}|=={oui}|oui)
+			jQuery("#select_groupes").show();
+		]
+		jQuery("input.checkbox[name='activer_par_motcle']").change(function() {
+			if (jQuery(this).prop("checked")) {
+				jQuery("#select_groupes").show('fast');
+			}
+			else {
+				jQuery("#select_groupes").hide('fast');
+			}
+		});
+	});
+/*]]>*/</script>
+<style>li.fieldset.suite>fieldset {padding-left: 30px;border-top:0;}</style>

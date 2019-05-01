@@ -1,0 +1,95 @@
+<div class="formulaire_spip formulaire_configurer formulaire_#FORM">
+
+	<h3 class="titrem"><:sarkaspip_config:cfg_boite_herbier:></h3>
+
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	<form method="post" action="#ENV{action}"><div>
+		<input type="hidden" name="_meta_casier" value="sarkaspip/herbier" />
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_herbier_page:></legend>
+			<p class="explication"><:sarkaspip_config:cfg_inf_herbier_page:></p>
+			<ul class="editer-groupe">
+			<INCLURE{fond=formulaires/inc/cfg_information_page}
+				{choix=titre_descriptif}
+				{label_titre=<:sarkaspip_config:cfg_lbl_herbier_titre:>}
+				{label_descriptif=<:sarkaspip_config:cfg_lbl_herbier_descriptif:>}
+				{defaut_titre=<:sarkaspip:herbier_sites:>}
+				{env}>
+			</ul>
+		</fieldset>
+<!--
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_herbier_modele:></legend>
+			<ul class="editer-groupe">
+				<li class="editer pleine_largeur">
+					<p class="explication"><:sarkaspip_config:cfg_inf_herbier_modele:></p>
+				</li>
+				#SET{name,modele}#SET{defaut,'liste'}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+					<label></label>[
+					<span class='erreur_message'>(#GET{erreurs})</span>
+					]
+					#SET{val,liste}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_herbier_modele_1:></label>
+					</div>
+					#SET{val,panorama}
+					<div class="choix">
+						<input type="radio" disabled="disabled" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_herbier_modele_2:></label>
+					</div>
+				</li>
+				<li class="fieldset suite">
+-->
+						<fieldset id="bloc_modele_1">
+							<legend><:sarkaspip_config:cfg_lgd_herbier_pagination_1:></legend>
+							<ul class="editer-groupe">
+							<INCLURE{fond=formulaires/inc/cfg_pagination}
+								{suffixe=_1}
+								{defaut_pas=5}
+								{defaut_position=3}
+								{env}>
+							</ul>
+						</fieldset>
+<!--
+						<fieldset id="bloc_modele_2">
+							<legend><:sarkaspip_config:cfg_lgd_herbier_pagination_2:></legend>
+							<ul class="editer-groupe">
+							<INCLURE{fond=formulaires/inc/cfg_pagination}
+								{suffixe=_2}
+								{defaut_pas=10}
+								{defaut_position=1}
+								{env}>
+							</ul>
+						</fieldset>
+				</li>
+-->
+			</ul>
+		</fieldset>
+		<INCLURE{fond=formulaires/inc/cfg_boutons}>
+	</div></form>
+</div>
+<!--
+<script type="text/javascript">/*<![CDATA[*/
+	jQuery(document).ready(function() {
+		[(#ENV{modele, liste}|=={liste}|?{jQuery("#bloc_modele_2").hide();})]
+		[(#ENV{modele, liste}|=={panorama}|?{jQuery("#bloc_modele_1").hide();})]
+
+		jQuery("input[name='modele']").change(function() {
+			if (jQuery("input[name='modele']:checked").val() != 'liste') {
+				jQuery("#bloc_modele_1").hide('fast');
+				jQuery("#bloc_modele_2").show('fast');
+			}
+			else {
+				jQuery("#bloc_modele_2").hide('fast');
+				jQuery("#bloc_modele_1").show('fast');
+			}
+			jQuery(this).blur();
+		});
+	});
+/*]]>*/</script>
+<style>li.fieldset.suite>fieldset {padding-left: 30px;border-top:0;}</style>
+-->

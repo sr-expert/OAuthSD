@@ -1,0 +1,37 @@
+<BOUCLE_article_principal(ARTICLES) {id_article}>
+	[(#REM) <!-- Contenu de l'article --> ]
+	<article class="article article_#ID_ARTICLE">
+		[(#REM) <!-- Titre, logo, texte de l'article --> ]
+		<INCLURE{fond=noisettes/article/description}
+			{id_article}
+			{id_evenement}
+			{page=article}
+			{afficher_commentaires=oui}
+			{avec_popularite=#CONFIG{sarkaspip/article/avec_popularite, oui}}
+			{avec_socialbar=#CONFIG{sarkaspip/article/position_socialbar, 0}}
+			{logo_rubrique=#CONFIG{sarkaspip/article/logo_rubrique, oui}}
+			{taille_logo=#CONFIG{sarkaspip/article/taille_logo, 150}}>
+
+		<aside>
+			[(#REM) <!-- Documents (sauf images) du portfolio de l'article --> ]
+			<INCLURE{fond=noisettes/document/liste-documents_joints,id_article} />
+
+			[(#REM) <!-- Images du portfolio de l'article --> ]
+			<INCLURE{fond=noisettes/document/liste-images_jointes,id_article} />
+
+			[(#REM) <!-- Commentaires --> ]
+			[(#PETITION|non)
+				[(#SET{statut, [(#ENV{id_article}|statut_forum)]})]
+				[(#GET{statut}|!={non_autorise}|oui)
+					<INCLURE{fond=comments,id_article,id_rubrique='',env} />
+          ]
+        ]
+
+			[(#REM) <!-- Signatures petition --> ]
+      [(#PETITION|oui)
+        <INCLURE{fond=noisettes/article/petition,id_article,env,ajax}>
+				<INCLURE{fond=noisettes/article/signer,id_article,env,ajax}>
+      ]
+		</aside>
+	</article>
+</BOUCLE_article_principal>

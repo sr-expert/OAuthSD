@@ -1,0 +1,10 @@
+<BOUCLE_article_head(ARTICLES){id_article}>
+<BOUCLE_forum(FORUMS){id_forum}>
+	<title>[(#TITRE|nettoyer_titre_sujet|textebrut) - ][(#NOM_SITE_SPIP|textebrut)]</title>
+	[<meta name="description" content="(#INTRODUCTION{#EVAL{_SARKASPIP_CONFIG_INTRO_META}}|attribut_html)" />]
+</BOUCLE_forum>
+	<title>[(#TITRE|textebrut) - ][(#NOM_SITE_SPIP|textebrut)]</title>
+	[<meta name="description" content="(#INTRODUCTION{#EVAL{_SARKASPIP_CONFIG_INTRO_META}}|attribut_html)" />]
+<//B_forum>
+[<link rel="canonical" href="(#URL_ARTICLE|url_absolue)" />]
+</BOUCLE_article_head>

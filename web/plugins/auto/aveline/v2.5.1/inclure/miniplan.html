@@ -1,0 +1,45 @@
+[(#REM) Affiche un mini plan de la rubrique ]
+[(#SET{titre_noisette, #ENV{titre_noisette}|sinon{public:sous_rubriques}})]
+[(#SET{titre,[(#GET{titre_noisette}|=={titre_perso}|?{[(#ENV**{titre_noisette_perso}|typo)],[(#GET{titre_noisette}|_T)]})]})]
+	<B_sous_rubriques>
+	<div class="menu rubriques">
+		[(#ENV{afficher_titre_noisette}|oui)[<h2 class="h2">(#GET{titre})</h2>]]
+		<ul class="menu-liste">
+			<BOUCLE_sous_rubriques(RUBRIQUES) {id_parent=#ENV{id_rubrique}} {par num titre, titre}>
+			<li class="menu-entree">
+				<a href="#URL_RUBRIQUE">[(#TITRE)]</a>
+
+				[(#REM) Une boucle recursive pour le mini plan]
+				<B_miniplan>
+				<ul class="menu-liste">
+					<BOUCLE_miniplan(RUBRIQUES) {id_parent} {par num titre, titre}>
+					<li class="menu-entree">
+						<a href="#URL_RUBRIQUE">[(#TITRE)]</a>
+						<BOUCLE_m2(BOUCLE_miniplan)></BOUCLE_m2>
+                  <BOUCLE_test_articles_1(CONDITION){si #ENV{afficher_articles}|et{#ENV{articles_un_niveau}|non}}>
+                     <B_articles_sous>
+                     <ul class="menu-liste">
+                        <BOUCLE_articles_sous(ARTICLES){id_rubrique}{par num titre, titre}>
+                           <li class="menu-entree"><a href="#URL_ARTICLE">[(#TITRE)]</a></li>
+                        </BOUCLE_articles_sous>
+                     </ul>
+                     </B_articles_sous>
+                  </BOUCLE_test_articles_1>
+					</li>
+					</BOUCLE_miniplan>
+				</ul>
+				</B_miniplan>
+            <BOUCLE_test_articles_2(CONDITION){si #ENV{afficher_articles}|oui}>
+               <B_articles>
+               <ul class="menu-liste">
+                  <BOUCLE_articles(ARTICLES){id_rubrique}{par num titre, titre}>
+                     <li class="menu-entree"><a href="#URL_ARTICLE">[(#TITRE)]</a></li>
+                  </BOUCLE_articles>
+               </ul>
+               </B_articles>
+            </BOUCLE_test_articles_2>
+			</li>
+			</BOUCLE_sous_rubriques>
+		</ul>
+		</div>
+	</B_sous_rubriques>

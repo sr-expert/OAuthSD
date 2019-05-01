@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<phpunit>
+  <listeners>
+    <listener class="PhpED_phpUnitListener" file="/home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/test/phpUnitListener.php">
+      <arguments>
+        <string>435417654539800001@localhost;d=0,c=0,u=1</string>
+      </arguments>
+    </listener>
+  </listeners>
+</phpunit>

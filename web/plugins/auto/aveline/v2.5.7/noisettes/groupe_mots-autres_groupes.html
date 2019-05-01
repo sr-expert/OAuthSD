@@ -1,0 +1,17 @@
+[(#SET{afficher_titre_liste, #ENV{afficher_titre_liste}|is_null|non|?{#ENV{afficher_titre_liste},'on'}})]
+[(#SET{titre_liste, #ENV{titre_liste}|sinon{public:autres_groupes_mots_clefs}})]
+[(#SET{titre,[(#GET{titre_liste}|=={titre_perso}|?{[(#ENV**{titre_liste_perso}|typo)],[(#GET{titre_liste}|_T)]})]})]
+<BOUCLE_groupe(GROUPES_MOTS){id_groupe}>
+<B_groupes_freres>
+<div class="liste groupes_mots">
+	[(#GET{afficher_titre_liste}|oui)[<h2 class="h2">(#GET{titre})</h2>]]
+	<ul class="liste-items">
+	<BOUCLE_groupes_freres(GROUPES_MOTS) {!id_groupe} {par titre} {doublons}>
+		<BOUCLE_mot_cousin(MOTS) {id_groupe} {par titre} {0,1}>
+		<li class="item"><a href="[(#ENV{lien_groupe}|=={lien_groupe}|?{#URL_PAGE{groupe_mots,id_groupe=#ID_GROUPE},#URL_MOT})]">#TYPE</a></li>
+		</BOUCLE_mot_cousin>
+	</BOUCLE_groupes_freres>
+	</ul>
+</div>
+</B_groupes_freres>
+</BOUCLE_groupe>

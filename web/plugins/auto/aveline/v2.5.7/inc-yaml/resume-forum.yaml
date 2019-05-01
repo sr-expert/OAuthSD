@@ -1,0 +1,105 @@
+-
+  saisie: 'selection'
+  options:
+    nom: 'style_liste'
+    label: '<:aveline:label_style_liste:>'
+    defaut: 'liste'
+    cacher_option_intro: 'oui'
+    datas:
+      liste: '<:aveline:item_liste:>'
+      resume: '<:aveline:item_resume:>'
+-
+  saisie: 'fieldset'
+  options:
+    nom: 'si_liste_simple'
+    label: '<:aveline:label_si_liste_simple:>'
+    afficher_si: '@style_liste@ == "liste"'
+  saisies:
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'liste_afficher_date'
+        label: '<:aveline:label_afficher_date:>'
+        defaut: 'on'
+    -
+      saisie: 'selection'
+      options:
+        nom: 'liste_afficher'
+        label: '<:aveline:label_afficher:>'
+        defaut: 'texte'
+        cacher_option_intro: 'oui'
+        datas:
+          titre: '<:aveline:item_titre_seul:>'
+          texte: '<:aveline:item_texte_seul:>',
+          titre_texte: '<:aveline:item_titre_texte:>'
+    -
+      saisie: 'input'
+      options:
+        nom: 'liste_longueur_max_texte'
+        label: '<:aveline:label_longueur_max_texte:>'
+        defaut: 80
+      verifier:
+        type: 'entier'
+        min: 10
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'liste_afficher_nom_auteur'
+        label: '<:aveline:label_afficher_nom_auteur:>'
+        defaut: ''
+-
+  saisie: 'fieldset'
+  options:
+    nom: 'si_resume'
+    label: '<:aveline:label_si_resume:>'
+    afficher_si: '@style_liste@ == "resume"'
+  saisies:
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_date'
+        label: '<:aveline:label_afficher_date:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_titre'
+        label: '<:aveline:label_afficher_titre:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_nom_auteur'
+        label: '<:aveline:label_afficher_nom_auteur:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_logo_auteur'
+        label: '<:aveline:label_afficher_logo_auteur:>'
+        defaut: 'on'
+    -
+      saisie: 'input'
+      options:
+        nom: 'taille_max_logo'
+        label: '<:aveline:label_taille_max_logo:>'
+        defaut: 150
+        afficher_si: '@afficher_logo_auteur@ == "on"'
+      verifier:
+        type: 'entier'
+        min: 10
+    -
+      saisie: 'input'
+      options:
+        nom: 'longueur_max_texte'
+        label: '<:aveline:label_longueur_max_texte:>'
+        defaut: 600
+      verifier:
+        type: 'entier'
+        min: 10
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_lire_la_suite'
+        label: '<:aveline:label_afficher_lire_la_suite:>'
+        defaut: ''

@@ -1,0 +1,46 @@
+Plugin DataTables
+
+Affichage du contenu d'une table, filtrage et recherches.
+
+Utilise :
+DataTables Table plug-in for jQuery https://datatables.net/
+Jeditable plug-in for jQuery http://www.appelsiini.net/projects/jeditable
+
+Auteur : B.Degoy DnC
+Copyright (c) 2017 DnC 
+Licence : GPL v3 
+//o 2017/02/21
+
+*** Développements et pages de tests :
+
+content/test.html, liste-table.html : 
+Une page de contenu affichant les données d'une table, limitée aux champs  
+indiquées dans l'appel.
+
+Exemple d'appel :
+[(#INCLURE{
+fond=inclure/liste-table,
+table=auteurs,
+champs=#LISTE{nom,statut,bio,email,nom_site,url_site,nom_famille,prenom,mobile},
+recherche=#LISTE{1,2}
+})]
+
+head_js/test.html : contient l'appel aux fichiers de DataTables.
+Le contenu du répertoire /lib est construit à l'aide du Download builder de 
+dataTables : https://datatables.net/download/index.
+
+Nota: utiliser Styling:DataTables, pas Bootstrap qui n'est pas compatible avec 
+spipr. 
+
+//o1 2017/03/04
+Edition sur place (Inplace edition) avec Jeditable
+(et non avec l'extension payante de DataTables).
+Voir : https://www.appelsiini.net/projects/jeditable
+ABANDON/TBC
+
+//2017/07/10 - Recherche, Mots clés
+La recherche combine :
+- une recherche en plein texte sur le contenu des champs, déterminée par la 
+    variable d'environnement "recherche".
+- une recherche sur mots clés déterminées par la variable d'environnement "mots".
+La colonne 'clé' ne doit pas apparaître dans la liste "champs".  

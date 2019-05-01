@@ -1,0 +1,20 @@
+[(#REM) <!-- Noisette splickrbox
+On passe au modele les parametres
+	- nombre de colonnes
+	- nombre de vignettes
+	- taille de la grande vignette
+	- classement
+	- sens inverse ou pas
+-->]
+
+<B_splickrbox>
+	<div id="noisette_splickrbox" class="noisette_splickrbox noisette">
+		<BOUCLE_splickrbox(ALBUMS){titre_mot=album_une} {par date} {inverse} {0,1}>
+		<h2><a href="#URL_ALBUM"><:sarkaspip:album_une:></a></h2>
+		<div class="contenu">
+			[(#REM) <!-- Bloc des vignettes du gadget splickrbox -->]
+			[(#MODELE{splickrbox}{colonnes=3}{taille=9}{masque=carre-118.png}{tri=hasard}{senstri=0})]
+		</div>
+		</BOUCLE_splickrbox>
+	</div>
+</B_splickrbox>

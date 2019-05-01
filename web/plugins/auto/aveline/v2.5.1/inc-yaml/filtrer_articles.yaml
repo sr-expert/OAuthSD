@@ -1,0 +1,37 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'filtrer_articles'
+    label: '<:aveline:label_filtrer_articles:>'
+-
+  saisie: 'fieldset'
+  options:
+    nom: 'si_filtrer_articles'
+    label: '<:aveline:label_si_filtrer_articles:>'
+    afficher_si: '@filtrer_articles@ == "on"'
+  saisies:
+    -
+      saisie: 'selection'
+      options:
+        nom: 'position_filtrer_articles'
+        label: '<:aveline:label_position_filtrer_articles:>'
+        defaut: 'debut'
+        cacher_option_intro: 'oui'
+        datas:
+          debut: '<:aveline:item_debut:>'
+          fin: '<:aveline:item_fin:>'
+          deux: '<:aveline:item_deux:>'
+    -
+      saisie: 'selection'
+      options:
+        nom: 'texte_devant_filtrer_articles'
+        label: '<:aveline:label_texte_devant_filtrer_articles:>'
+        defaut: ''
+        cacher_option_intro: 'oui'
+        datas:
+          '': '<:aveline:item_aucun:>'
+          'avelinepublic:article_deux_points': '<:avelinepublic:article_deux_points:>'
+          'avelinepublic:categorie_deux_points': '<:avelinepublic:categorie_deux_points:>'
+          'avelinepublic:theme_deux_points': '<:avelinepublic:theme_deux_points:>'
+          'avelinepublic:sujet_deux_points': '<:avelinepublic:sujet_deux_points:>'
+          'avelinepublic:dans': '<:avelinepublic:dans:>'

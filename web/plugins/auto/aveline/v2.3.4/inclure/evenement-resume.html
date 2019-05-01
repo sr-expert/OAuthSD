@@ -1,0 +1,56 @@
+<BOUCLE_evenement(EVENEMENTS) {id_evenement}>
+[(#ENV{style_liste}|=={liste}|oui)
+	<li class="item vevent id_#ID_EVENEMENT"[(#ENV{forcer_width_100}|oui)style="width:100%;"]>
+		[(#ENV{liste_afficher_date}|et{#ENV{liste_afficher_date_en_surtitre}})[<span class="date">(#DATE_DEBUT|agenda_affdate_debut_fin{#DATE_FIN,#HORAIRE,'hcal'})</span> ]]<span class="summary"><a href="#URL_EVENEMENT"[(#ENV{id_evenement_expose}|=={#ID_EVENEMENT}|oui)class="on"]>#TITRE</a></span>
+		[(#ENV{liste_afficher_date}|et{#ENV{liste_afficher_date_en_surtitre}|non}|ou{#ENV{liste_afficher_lieu}}|ou{#ENV{liste_afficher_adresse}}|ou{#ENV{liste_afficher_nb_participants}}|ou{#ENV{liste_afficher_article}}|ou{#ENV{liste_afficher_mots_cles}})<div class="info-publi">]
+			[(#ENV{liste_afficher_date}|et{#ENV{liste_afficher_date_en_surtitre}|non})[<span class="date">(#DATE_DEBUT|agenda_affdate_debut_fin{#DATE_FIN,#HORAIRE,'hcal'})</span>.]]
+			[(#ENV{liste_afficher_lieu}|oui)[<b><:avelinepublic:lieu_deux_points:></b> <span class="location">(#LIEU**|typo)</span>.]]
+			[(#ENV{liste_afficher_adresse}|oui)[<b><:avelinepublic:adresse_deux_points:></b> (#ADRESSE**|typo).]]
+			[(#ENV{liste_afficher_nb_participants}|et{#INSCRIPTION})#NB_INSCRITS[/(#PLACES) ]<:agenda:inscrits:>.]
+			[(#ENV{liste_afficher_article}oui)[(#ENV{liste_texte_devant_article}|_T) ]<a href="#INFO_URL{article,#ID_ARTICLE}">#INFO_TITRE{article,#ID_ARTICLE}</a>.]
+			[(#ENV{liste_afficher_mots_cles}oui)#INCLURE{fond=inclure/evenement-mots_cles,id_evenement,texte_devant_mots_cles=#ENV{liste_texte_devant_mots_cles},ajoute_point='on'}]
+		[(#ENV{liste_afficher_date}|et{#ENV{liste_afficher_date_en_surtitre}|non}|ou{#ENV{liste_afficher_lieu}}|ou{#ENV{liste_afficher_adresse}}|ou{#ENV{liste_afficher_nb_participants}}|ou{#ENV{liste_afficher_article}}|ou{#ENV{liste_afficher_mots_cles}})</div>]
+	</li>
+]
+[(#ENV{style_liste}|=={resume}|oui)
+	<li class="item"[(#ENV{forcer_width_100}|oui)style="width:100%;"]>
+		<h3 class="h3 vevent id_#ID_EVENEMENT">
+			[(#ENV{afficher_date}|et{#ENV{afficher_date_en_surtitre}})[<span class="date">(#DATE_DEBUT|agenda_affdate_debut_fin{#DATE_FIN,#HORAIRE,'hcal'})</span> ]]
+			<a href="#URL_EVENEMENT" rel="bookmark"[(#ENV{id_evenement_expose}|=={#ID_EVENEMENT}|oui)class="on"]>
+				[(#ENV{afficher_logo}|oui)
+					[(#LOGO_EVENEMENT||image_reduire{[(#ENV{taille_max_logo}|sinon{150})]})]
+					[(#LOGO_EVENEMENT|non|et{#ENV{utiliser_logo_evenement_article_rubrique}})
+						[(#LOGO_ARTICLE_RUBRIQUE||image_reduire{[(#ENV{taille_max_logo}|sinon{150})]})]
+					]
+				]
+				<span class="summary">#TITRE</span>
+			</a>
+		</h3>
+		[(#ENV{afficher_date}|et{#ENV{afficher_date_en_surtitre}|non})[<p class="date">(#DATE_DEBUT|agenda_affdate_debut_fin{#DATE_FIN,#HORAIRE,'hcal'})</p>]]
+		[(#ENV{afficher_descriptif_complet}|oui)
+			[<div class="introduction description">(#DESCRIPTIF)</div>]
+		]
+		[(#ENV{afficher_descriptif_complet}|non)
+			[<div class="introduction description">(#DESCRIPTIF|couper{[(#ENV{longueur_max_descriptif}|sinon{600})]})</div>]
+		]
+		[(#ENV{afficher_lieu}|oui)
+			[<div class="lieu"><strong><:avelinepublic:lieu_deux_points:></strong> <span class="location #EDIT{lieu}">(#LIEU**|typo)</span></div>]
+		]
+		[(#ENV{afficher_adresse}|oui)
+			[<div class="adresse #EDIT{adresse}"><strong><:avelinepublic:adresse_deux_points:></strong><br />(#ADRESSE**|post_autobr|propre|PtoBR)</div>]
+		]
+		[(#ENV{afficher_nb_participants}|et{#INSCRIPTION})
+			<div class="inscrits"><strong><:avelinepublic:inscriptions_deux_points:></strong> #NB_INSCRITS[/(#PLACES)]</div>
+		]
+		[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_article}}|ou{#ENV{afficher_mots_cles}})<div class="meta-publi">]
+			[(#ENV{afficher_lire_la_suite}|oui)<a class="lire-la-suite" href="#URL_EVENEMENT"><:zpip:lire_la_suite:>[(#ENV{rappeler_titre}|oui)<span class="lire-la-suite-titre"><:zpip:lire_la_suite_de:> <em>#TITRE</em></span>]</a>]
+			[(#ENV{afficher_lien_permanent}|oui)
+				[(#ENV{afficher_lire_la_suite}|oui)<span class="sep">|</span> ]<a class="lire-la-suite" href="#URL_EVENEMENT"><:avelinepublic:lien_permanent:></a>
+			]
+			[(#ENV{afficher_article}oui)
+				[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|et{#ENV{texte_devant_article}|!={avelinepublic:gt}}|et{#ENV{texte_devant_article}|!={avelinepublic:colon2}})<span class="sep">|</span> ][(#ENV{texte_devant_article}|_T)]<a href="#INFO_URL{article,#ID_ARTICLE}">#INFO_TITRE{article,#ID_ARTICLE}</a>]
+			[(#ENV{afficher_mots_cles}oui)[(#INCLURE{fond=inclure/evenement-mots_cles,id_evenement,texte_devant_mots_cles=#ENV{texte_devant_mots_cles},affiche_sep=[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_rubrique}}|?{'on',''})]})]]
+		[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_rubrique}}|ou{#ENV{afficher_mots_cles}})</div>]
+	</li>
+]
+</BOUCLE_evenement>

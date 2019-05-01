@@ -1,0 +1,25 @@
+<plugin>
+	<nom> <!-- Nom du plugin -->
+	Captcha3 mod dgy9
+	</nom>
+	<icon>img/dnc_relief.gif</icon>
+	<auteur>	<!-- Auteur du plugin -->
+	[B.Degoy->http://degoy.com]
+_ &#169; 2008-2017 DnC - Distribu&#233; sous licence GNU/GPL
+	Modification 9 par B.Degoy 2017-01-12
+	</auteur>
+	<version> <!-- Version du plugin -->
+	0.9
+	</version>
+	<etat> <!-- Etat du plugin, au choix : dev (developpement), test, stable, experimental -->
+	test
+	</etat>
+
+	<description>
+   Surcharge le formulaire du forum en lui ajoutant un [Captcha->http://fr.wikipedia.org/wiki/Captcha] pour limiter le spam.
+	</description>
+	<prefix>
+	dgy_captcha
+	</prefix>
+
+</plugin>

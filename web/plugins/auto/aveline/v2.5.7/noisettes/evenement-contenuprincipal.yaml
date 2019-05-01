@@ -1,0 +1,68 @@
+nom: '<:aveline:nom_evenement-contenuprincipal:>'
+description: '<:aveline:description_evenement-contenuprincipal:>'
+icon: 'agenda-24.png'
+ajax: 'non'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_date_en_surtitre'
+      label: '<:aveline:label_afficher_date_en_surtitre:>'
+      defaut: ''
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_logo'
+      label: '<:aveline:label_afficher_logo:>'
+      defaut: 'on'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'utiliser_logo_evenement_article_rubrique'
+      label: '<:aveline:label_utiliser_logo_evenement_article_rubrique:>'
+      explication: '<:aveline:explication_utiliser_logo_evenement_article_rubrique:>'
+      defaut: ''
+      afficher_si: '@afficher_logo@ == "on"'
+  -
+    saisie: 'input'
+    options:
+      nom: 'taille_max_logo'
+      label: '<:aveline:label_taille_max_logo:>'
+      defaut: 200
+      afficher_si: '@afficher_logo@ == "on"'
+    verifier:
+      type: 'entier'
+      min: 10
+  -
+    saisie: 'input'
+    options:
+      nom: 'taille_max_images_texte'
+      label: '<:aveline:label_taille_max_images_texte:>'
+      defaut: 500
+    verifier:
+      type: 'entier'
+      min: 10
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_lieu'
+      label: '<:aveline:label_afficher_lieu:>'
+      defaut: 'on'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_introduction_article_chapo'
+      label: '<:aveline:label_afficher_introduction_article_chapo:>'
+      defaut: ''
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_adresse'
+      label: '<:aveline:label_afficher_adresse:>'
+      defaut: 'on'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_nb_participants'
+      label: '<:aveline:label_afficher_nb_participants:>'
+      defaut: 'on'

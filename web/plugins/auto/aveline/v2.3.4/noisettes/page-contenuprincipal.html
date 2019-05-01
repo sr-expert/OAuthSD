@@ -1,0 +1,9 @@
+[(#SET{titre,[(#ENV{titre}|=={titre_perso}|?{[(#ENV**{titre_perso})],[(#NOIZETIER_LISTE_PAGES{#ENV{type}-#ENV{composition}}|table_valeur{nom})]})]})]
+[(#SET{description,[(#ENV{description}|=={description_perso}|?{[(#ENV**{description_perso})],[(#ENV{description}|?{[(#NOIZETIER_LISTE_PAGES{#ENV{type}-#ENV{composition}}|table_valeur{description})],''})]})]})]
+
+<div class="contenu-principal">
+	[<div class="cartouche">
+		<h1 class="h1">(#GET{titre}|typo)</h1>
+	</div>]
+	[<div class="texte">(#GET{description}|propre)</div>]
+</div>

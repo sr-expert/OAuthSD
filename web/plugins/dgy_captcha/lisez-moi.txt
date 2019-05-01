@@ -1,0 +1,31 @@
+Captcha3 mod dgy 9
+Copyright (c) 2009-2017 DnC
+Auteur : B.Degoy
+Licence GNU/GPL
+
+
+Attention! l'enregistrement en session de la valeur du captcha au moment de la 
+création de l'image peut être effacé. Il y a un problème de session quand 
+on est logé ou que l'on a été logé, il faut effacer les cookies sinon pas bonne
+session !
+[dgy9] 2016/11/23 - résolu en utilisant la session PHP ?
+
+
+Version pour SPIP 3
+
+[dgy8] 04/11/2016 - Supprimer le message d'erreur systématique dans la prévisu.
+
+[dgy7] 20/08/2013 - amélioration de la génération des 5 caractères aléatoires.
+
+[dgy6b] 2014/07/12 - bug : ne pas valider si null.
+
+[dgy6] 14/02/2011 - Nouvelle adaptation à SPIP 2.1.
+Version simplifiée : ne s'applique qu'aux forums et au message à un auteur.
+
+(Nota : Les filtrages sont maintenant faits par No-Spam + )
+
+[dgy1] Création d'un code brouillé à l'aide de create_image.php et insertion
+dans les formulaires à la place du code trivial.
+Modifié : formulaires/forum.html etc.
+
+

@@ -1,0 +1,20 @@
+[(#SET{titre,[(#ENV{titre_liste}|=={titre_perso}|?{[(#ENV**{titre_liste_perso}|typo)],[(#ENV{titre_liste}|_T)]})]})]
+<B_liste_syndic_articles>
+<div class="liste syndic_articles">
+	#ANCRE_PAGINATION
+	[(#ENV{afficher_titre_liste}|oui)[<h2 class="h2">(#GET{titre})[ ((#ENV{archives}|affdate|sinon{#ENV{archives}}))]</h2>]]
+	[(#ENV{afficher_selecteur_archives}|et{#ENV{position_selecteur_archives}|!={fin}})
+		#INCLURE{fond=inclure/site-syndic_articles-selecteur_archives-#ENV{pas_selecteur_archives},env}
+	]
+	[<p class="pagination">(#AVELINE_PAGINATION{'debut'})</p>]
+	<ul class="liste-items">
+	<BOUCLE_liste_syndic_articles(SYNDIC_ARTICLES){tri #ENV{tri},#ENV{senstri}}{archives?}{aveline_pagination}{aveline_lang}{id_syndic}>
+		#INCLURE{fond=inclure/syndic_article-resume,id_syndic_article=#ID_SYNDIC_ARTICLE,id_syndic_article_expose=#ENV{id_syndic_article},env}
+	</BOUCLE_liste_syndic_articles>
+	</ul>
+	[<p class="pagination">(#AVELINE_PAGINATION{'fin'})</p>]
+	[(#ENV{afficher_selecteur_archives}|et{#ENV{position_selecteur_archives}|!={debut}})
+		#INCLURE{fond=inclure/site-syndic_articles-selecteur_archives-#ENV{pas_selecteur_archives},env}
+	]
+</div>
+</B_liste_syndic_articles>

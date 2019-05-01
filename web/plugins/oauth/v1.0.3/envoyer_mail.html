@@ -1,0 +1,36 @@
+#CACHE{0}
+
+[(#REM)  Envoi de mails d'alerte.
+Boucler dans les tables states et remote_addr, passer les données à Facteur au moyen du filtre envmail.
+Tâche CRON : 
+wget -O /dev/null https://oidc.dnc.global/web/?page=envoyer_mail >/dev/null 2>&1
+ou bien appel par /cron/cron.php
+dnc26d
+Auteur : B.Degoy https://degoy.com
+Tous droits réservés
+Copyright (c) 2019 DnC
+]
+      
+<BOUCLE_envoyer_mail(spip_oidc_states) {status = 0} {total_weight >= <?php echo ALERT_WEIGHT; ?>} {par maj} {inverse} >
+    #SET{msg,#ARRAY}
+    <BOUCLE_evenement(spip_oidc_logs) {state}{par id_oidc_log}{inverse}>#SET{msg, #GET{msg}|push{#MESSAGE|strip_tags}}</BOUCLE_evenement>
+    [(#EMAIL_WEBMASTER|envmail{OAuth Server by DnC : Alerte poids #TOTAL_WEIGHT !, Time : #MAJ
+    State : https://oidc.dnc.global/web/?page=state&state=#STATE       
+    Poids : #TOTAL_WEIGHT
+    Message(s) : 
+    [(#GET{msg}|implode{','})]
+    ,#STATE, #TOTAL_WEIGHT })]
+</BOUCLE_envoyer_mail> 
+
+<BOUCLE_envoyer_mail2(spip_oidc_remote_addr) {status = 0} {total_weight >= <?php echo ALERT_WEIGHT; ?>} {par maj} {inverse}>
+    #SET{msg,#ARRAY}
+    <BOUCLE_evenement2(spip_oidc_logs) {remote_addr}{par id_oidc_log}{inverse}{level>2}{0,1}>#SET{msg, #GET{msg}|push{#MESSAGE|strip_tags}}</BOUCLE_evenement2>
+    [(#EMAIL_WEBMASTER|envmail2{OAuth Server by DnC : Alerte poids #TOTAL_WEIGHT !, Time : #MAJ
+    IP : https://oidc.dnc.global/web/?page=remote-addr&remote_addr=#REMOTE_ADDR       
+    Poids : #TOTAL_WEIGHT
+    Message(s) : 
+    [(#GET{msg}|implode{','})]
+    ,#REMOTE_ADDR, #TOTAL_WEIGHT })]
+</BOUCLE_envoyer_mail2>     
+  
+ 

@@ -1,0 +1,5 @@
+nom: '<:aveline:nom_rubrique-formulaire_site:>'
+description: '<:aveline:description_rubrique-formulaire_site:>'
+icon: 'site-24.png'
+necessite:
+  - 'sites'

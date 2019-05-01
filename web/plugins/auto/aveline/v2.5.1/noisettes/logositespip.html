@@ -1,0 +1,16 @@
+[(#SET{taille_max_logo, #ENV{taille_max_logo}|is_null|non|?{#ENV{taille_max_logo},200}})]
+#SET{recupart,#ENV{lien_objet}|picker_selected{article}}
+[(#GET{recupart}|oui)
+	#SET{url,#URL_ARTICLE{#GET{recupart}|table_valeur{0}}}
+]
+
+#SET{recuprub,#ENV{lien_objet}|picker_selected{rubrique}}
+[(#GET{recuprub}|oui)
+	#SET{url,#URL_RUBRIQUE{#GET{recuprub}|table_valeur{0}}}
+]
+[
+<div>
+[(#ENV{lien_sur_logo}|oui) <a href="#GET{url}">]
+(#LOGO_SITE_SPIP||image_reduire{#GET{taille_max_logo}})
+[(#ENV{lien_sur_logo}|oui) </a>]
+</div>]

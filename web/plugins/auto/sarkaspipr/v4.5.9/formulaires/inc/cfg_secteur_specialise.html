@@ -1,0 +1,20 @@
+#SET{name,rubrique_#ENV{secteur}}#SET{defaut,0}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+<li class="editer pleine_largeur">
+	[<p>(#ENV{explication})</p>]
+</li>
+<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+	<label for="#GET{name}"><:sarkaspip_config:cfg_lbl_liste_secteurs:></label>[
+	<span class='erreur_message'>(#GET{erreurs})</span>
+	]<select name="#GET{name}" class="select" id="#GET{name}">
+		#SET{val,0}
+		<option value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)selected="selected"]>--</option>
+		<BOUCLE_encours(RUBRIQUES){tout}{id_rubrique=#ENV{#GET{name},#GET{defaut}}}{doublons}>
+			#SET{val,#ID_RUBRIQUE}
+			<option value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)selected="selected"]>[(#TITRE|sinon{sans titre}|attribut_html)]</option>
+		</BOUCLE_encours>
+		<BOUCLE_secteurs(RUBRIQUES){tout}{racine}{id_rubrique!==#RACINE_SPECIALISEE}{par num titre}{par titre}{doublons}>
+			#SET{val,#ID_RUBRIQUE}
+			<option value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)selected="selected"]>[(#TITRE|sinon{sans titre}|attribut_html)]</option>
+		</BOUCLE_secteurs>
+	</select>
+</li>

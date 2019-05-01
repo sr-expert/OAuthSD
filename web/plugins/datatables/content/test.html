@@ -1,0 +1,14 @@
+[(#REM)  //o
+Plugin DataTables
+
+Copyright(c) 2017 DnC
+Auteurs : Bertrand Degoy
+Licence : GPL 3
+
+]
+[(#INCLURE{
+fond=inclure/liste-table,
+table=auteur,
+champs=#LISTE{nom,statut,bio,email,nom_site,url_site,nom_famille,prenom,mobile},
+recherche=#LISTE{1,2}
+})]

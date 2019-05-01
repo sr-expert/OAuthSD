@@ -1,0 +1,136 @@
+[(#REM) Retour de OAuth authorize.
+
+Ce fichier doit être installé du côté de l'application cliente.
+
+Il correspond au Point d’extrémité de redirection, ou URI de 
+retour à l’application cliente (Redirection Endpoint).
+
+Notes : 
+- Du fait que ceci est une page SPIP, la session SPIP est rétablie automatiquement 
+grâce au cookie spip_session.
+
+]
+
+#CACHE{0}
+
+<?php
+/*
+Autorisation avec OAuth Server by DnC
+Auteur : Bertrand degoy
+Copyright (c) 2016 DnC
+*/
+
+//* DEBUG
+define('VERBOSE', True); 
+//*/
+
+include_spip('inc/session');
+
+$state = session_get('oauth_state');
+echo 'state = ' . $state;
+echo '<br />get state = ' . $_GET['state'];
+echo '<br />';
+
+
+if ( $_GET['state'] == $state ) {   //SECURITE
+
+    // Code d'autorisation (Authorization code) retourné par le serveur
+    $authcode = $_GET['code'];
+    $sanitized_authcode = preg_replace('/[^a-f0-9"\']/', '', $authcode);  
+
+    if ( $sanitized_authcode === $authcode ) {   //SECURITE
+
+        session_set('oauth_code', $authcode);
+
+        // Demander un jeton d'accès pour l'application
+        $jeton = '';
+        $url = 'http://oa.dnc.global/oauth/token.php';
+        $options = array(
+            'method' => 'POST',
+            'datas' =>  array( 
+                'grant_type' => 'authorization_code',
+                'code' => $sanitized_authcode,
+                'client_id' => 'radar',                                // Comme indiqué lors de l'inscription de l'application
+                'client_secret' => '01fc4587ab1c23ff456e448dab18327a',  // cliente sur le serveur d'autorisation OAuthSD
+            )        
+        );
+        $res = recuperer_url($url, $options);    
+        
+        //* DEBUG
+         echo '<br />';
+        print_r($res); 
+        echo '<br />';
+        //*/
+
+        switch((int)$res['status']) { 
+
+            case 200 :
+                $page = json_decode($res['page'], true);
+
+                if ( !empty($page['access_token']) ) {
+                    $token = $page['access_token'];
+                    $sanitized_token = preg_replace('/[^a-f0-9"\']/', '', $token); 
+                    if ( $sanitized_token === $token ) {   //SECURITE
+                        $jeton = $token;    // Succès  
+                    } else {
+                        // Jeton d'accès corrompu
+                        if ( VERBOSE ) echo "200 : Corrupted Access Token "; 
+                    }       
+                } else {
+                    // Application non autorisée
+                    if ( VERBOSE ) echo "200 : Unauthorised client "; 
+                }
+                break;
+
+            case 401 :
+                // Accès non autorisé : problème avec CORS ?
+                if ( VERBOSE ) echo "401 "; 
+                break;
+
+            case 405 :
+                // Requête invalide
+                if ( VERBOSE ) echo "405 "; 
+                break;
+
+            case 400 :
+                // URL non trouvée ou Accès non autorisé
+                if ( VERBOSE ) echo "400 ";
+
+            default:
+                break;
+        }
+
+        if ( !empty($jeton) ) {   
+            // Succès de l'authentification, mémoriser le jeton en session
+            session_set('oauth_token', $jeton);      
+        } else { 
+            // Echec, effacer le jeton en session
+            session_set('oauth_token');
+            if ( VERBOSE ) echo "Authentication failed "; 
+        }
+
+
+    } else {
+        // Code d'autorisation corrompu
+        if ( VERBOSE ) echo "Corrupted code";
+    } 
+
+} else {
+    if ( VERBOSE ) echo "State error";
+}
+
+?>
+<br />
+code = #SESSION{oauth_code} <br />
+token = #SESSION{oauth_token} <br />
+
+<?php
+if ( $oauth_again = session_get('oauth_again') ) {
+    // Reprendre où nous en étions avant l'interruption pour authentification
+    include_spip('inc/headers'); 
+    redirige_par_entete($oauth_again);
+}
+?>
+
+
+

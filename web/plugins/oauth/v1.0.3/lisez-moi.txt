@@ -1,0 +1,19 @@
+Plugin oauth
+OAuth 2.0 OIDC Server
+Auteur B. Degoy
+Copyright (c) 2016-2019 DnC
+Licence GNU/GPL
+
+[dnc16] 2019/01/15 - extension de la table clients : champs texte1 et 2 (pour le formulaire de login par exemple).
+ALTER TABLE `spip_clients` ADD `texte1` VARCHAR(255) NULL AFTER `css`, ADD `texte2` VARCHAR(255) NULL AFTER `texte1`;
+
+
+Connexion à la base de données PgSQL:
+/config/pg.php :
+spip_connect_db('localhost','5432','dnc_user','oidcinteX9BVqA8','dnc_oauth2','pg', 'oauth','','utf8');
+ABANDONNE
+
+v1.0.3 
+[dnc27] 2019/03/02-... : Evénements et statsitiques. 
+[dnc27d] Server-side processing : utilise l'API HTTP plugin http4datatables .../web/http.api/datatables/oidc_logs/ 
+[dnc..] 2019/04/25-... : Utilitaires de monitoring local au serveur.  

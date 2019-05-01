@@ -1,0 +1,48 @@
+nom: '<:aveline:nom_calendrier_mini_articles:>'
+description: '<:aveline:description_calendrier_mini:>'
+icon: 'agenda-article-24.png'
+contexte:
+  - 'id_rubrique'
+  - 'id_secteur'
+  - 'id_article'
+  - 'date'
+parametres:
+  - 'inclure:inc-yaml/branche-article.yaml'
+  - 'inclure:inc-yaml/exclure_objet_en_cours-article.yaml'
+  -
+    saisie: 'page_spip'
+    options:
+      nom: 'url_minical'
+      label: '<:aveline:label_url_minical:>'
+      explication: '<:aveline:explication_url_minical:>'
+      defaut: 'jour'
+      cacher_option_intro: 'oui'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_titre_liste'
+      label: '<:aveline:label_afficher_titre_liste:>'
+      defaut: 'on'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'titre_liste'
+      label: '<:aveline:label_titre_liste:>'
+      defaut: 'ecrire:icone_calendrier'
+      cacher_option_intro: 'oui'
+      datas:
+        'agenda:agenda': '<:agenda:agenda:>'
+        'ecrire:icone_calendrier': '<:ecrire:icone_calendrier:>'
+        'public:articles': '<:public:articles:>'
+        'public:articles_rubrique': '<:public:articles_rubrique:>'
+        'public:meme_rubrique': '<:public:meme_rubrique:>'
+        'public:derniers_articles': '<:public:derniers_articles:>'
+        titre_perso: '<:aveline:item_titre_perso:>'
+      afficher_si: '@afficher_titre_liste@ == "on"'
+  -
+    saisie: 'input'
+    options:
+      nom: 'titre_liste_perso'
+      label: '<:aveline:label_titre_liste_perso:>'
+      explication: '<:aveline:explication_raccourcis_typo:>'
+      afficher_si: '@afficher_titre_liste@ == "on" && @titre_liste@ == "titre_perso"'

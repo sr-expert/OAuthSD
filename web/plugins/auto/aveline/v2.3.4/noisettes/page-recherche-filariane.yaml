@@ -1,0 +1,23 @@
+nom: '<:aveline:nom_filariane:>'
+icon: 'ariane-24.png'
+ajax: 'non'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_lien_accueil'
+      label: '<:aveline:label_afficher_lien_accueil:>'
+      defaut: 'on'
+  -
+    saisie: 'input'
+    options:
+      nom: 'ariane_separateur'
+      label: '<:aveline:label_ariane_separateur:>'
+      obligatoire: 'oui'
+      defaut: '&gt;'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_recherche'
+      label: '<:aveline:label_afficher_recherche:>'
+      defaut: 'on'

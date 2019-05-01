@@ -1,0 +1,29 @@
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/base/oauth.php ../plugins/fabrique_auto/oauth/base/oauth.php
+119a120
+> 			'css'                => 'text',
+130c131
+< 		'champs_editables'  => array('client_secret', 'redirect_uri', 'grant_types', 'scope', 'user_id', 'client_id'),
+---
+> 		'champs_editables'  => array('client_secret', 'redirect_uri', 'grant_types', 'scope', 'user_id', 'client_id', 'css'),
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/formulaires/editer_client.html ../plugins/fabrique_auto/oauth/formulaires/editer_client.html
+34a35,38
+>
+> 			[(#SAISIE{textarea, css,
+> 				label=<:client:champ_css_label:>,
+> 				explication=<:client:champ_css_explication:> })]
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/lang/client_fr.php ../plugins/fabrique_auto/oauth/lang/client_fr.php
+16a17,18
+> 	'champ_css_explication' => 'Code CSS pour le formulaire d\'authentification',
+> 	'champ_css_label' => 'CSS',
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/paquet.xml ../plugins/fabrique_auto/oauth/paquet.xml
+12c12
+< 		Paquet généré le 2018-10-30 16:52:25
+---
+> 		Paquet généré le 2018-10-30 16:54:25
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/prive/objets/contenu/client.html ../plugins/fabrique_auto/oauth/prive/objets/contenu/client.html
+32a33,37
+> [<div class="champ contenu_css[ (#CSS*|strlen|?{'',vide})]">
+> 	<label><:client:champ_css_label:> : </label>
+> 	<span dir="#LANG_DIR" class="#EDIT{css} css">(#CSS)</span>
+> </div>]
+>

@@ -1,0 +1,28 @@
+[(#REM)<!-- Plan du site par auteur -->]
+<B_auteurs>
+[(#CONFIG{sarkaspip/plan/position_pagination, 1}|match{^(1|3)$}|oui)
+	<INCLURE{fond=noisettes/plan/inc-boutons_tri}{tri=par_auteur}>
+]
+<ul class="nav nav-list">
+<BOUCLE_auteurs(AUTEURS){tout}{par nom}>	  
+	<B_articles_auteur>
+		<li><a class="noeud" href="#URL_AUTEUR" title="<:sarkaspip:navigation_bulle_vers_auteur:>">#NOM</a>
+			<ul class="nav nav-list">
+	<BOUCLE_articles_auteur(ARTICLES){id_auteur}{par date}{inverse #CONFIG{sarkaspip/plan/senstri_date, 1}}>
+				[(#SET{date, [<span class="date">&#91;(#DATE|affdate{'d-m-Y'})&#93;&nbsp;</span>&nbsp;]})]
+				[<li>
+					(#INCLURE{fond=noisettes/article/lien}
+						{id_article}
+						{classe=feuille}
+						{avant_titre=#GET{date}})
+				</li>]
+	</BOUCLE_articles_auteur>
+			</ul>
+		</li>
+	</B_articles_auteur>
+</BOUCLE_auteurs>
+</ul>
+	[(#CONFIG{sarkaspip/plan/position_pagination, 1}|match{^(2|3)$}|oui)
+	<INCLURE{fond=noisettes/plan/inc-boutons_tri}{tri=par_auteur}>
+]
+</B_auteurs>

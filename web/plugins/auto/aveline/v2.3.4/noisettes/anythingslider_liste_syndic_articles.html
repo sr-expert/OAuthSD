@@ -1,0 +1,12 @@
+[(#SET{titre,[(#ENV{titre_liste}|=={titre_perso}|?{[(#ENV**{titre_liste_perso}|typo)],[(#ENV{titre_liste}|_T)]})]})]
+<B_liste_syndic_articles>
+<div class="liste anythingslider syndic_articles">
+	[(#ENV{afficher_titre_liste}|oui)[<h2 class="h2">(#GET{titre})</h2>]]
+	<ul class="slider-anythingslider"
+	data-slider='{#INCLURE{fond=inclure/params_anythingslider,env}}'>
+	<BOUCLE_liste_syndic_articles(SYNDIC_ARTICLES){aveline_branche}{tri #ENV{tri},#ENV{senstri}}{archives?}{aveline_pagination}{aveline_lang}{aveline_exclure_objet_encours}>
+		#INCLURE{fond=inclure/syndic_article-resume,id_syndic_article=#ID_SYNDIC_ARTICLE,id_syndic_article_expose=#ENV{id_syndic_article},env,forcer_width_100=on}
+	</BOUCLE_liste_syndic_articles>
+	</ul>
+</div>
+</B_liste_syndic_articles>

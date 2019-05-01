@@ -1,0 +1,120 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2019-04-10 18:17+0100\n"
+"PO-Revision-Date: 2019-04-11 16:41+0100\n"
+"Last-Translator: B.Degoy <bertrand@degoy.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.6\n"
+"X-Poedit-Basepath: C:\\Users\\Bertrand\\AppData\\Roaming\\NuSphere"
+"\\PhpED\\projects\\oa.dnc.global\\\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: de\n"
+"X-Poedit-SearchPath-0: oidc\n"
+
+#: oidc/authorize.php:600
+msgid "Please retry"
+msgstr "Bitte erneut versuchen"
+
+#: oidc/identification/ghostkeys/login.php:21
+#: oidc/identification/grant/grant.php:46
+msgid "More about the application"
+msgstr "Mehr über die Anwendung"
+
+#: oidc/identification/ghostkeys/login.php:21
+#: oidc/identification/ghostkeys/login.php:45
+#: oidc/identification/grant/grant.php:46
+msgid " of "
+msgstr " von "
+
+#: oidc/identification/ghostkeys/login.php:25
+#, fuzzy
+msgid "E-mail"
+msgstr "Warten Sie, Bestätigungs-E-Mail vom Verkäufer. <br />"
+
+#: oidc/identification/ghostkeys/login.php:27
+msgid "E-mail or login"
+msgstr "E-mail oder Login"
+
+#: oidc/identification/ghostkeys/login.php:45
+msgid "Please log in "
+msgstr "Bitte melden Sie sich an"
+
+#: oidc/identification/ghostkeys/login.php:51
+#: oidc/identification/grant/grant.php:58
+#, php-format
+msgid ""
+"To protect your data, %s makes use of <a href=\"https://oa.dnc.global"
+"\">OAuth Server by DnC</a>."
+msgstr ""
+"Zum Schutz Ihrer Daten verwendet %s <a href=\"https://oa.dnc.global"
+"\">OAuth Server von DnC</a> ."
+
+#: oidc/identification/ghostkeys/login.php:182
+msgid "Please enter password for : "
+msgstr "Bitte gib dein Passwort ein für"
+
+#: oidc/identification/ghostkeys/login.php:198
+msgid "Password"
+msgstr "Passwort"
+
+#: oidc/identification/ghostkeys/login.php:224
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+#: oidc/identification/ghostkeys/login.php:225
+#: oidc/identification/grant/grant.php:159
+msgid "Submit"
+msgstr "Senden"
+
+#: oidc/identification/ghostkeys/login.php:231
+msgid "You do not have identifiers ?"
+msgstr "Sie haben keine Kennungen?"
+
+#: oidc/identification/ghostkeys/login.php:231
+msgid "Please sign on"
+msgstr "Bitte melden Sie sich an"
+
+#: oidc/identification/ghostkeys/login_return.php:119
+msgid "Wrong password length"
+msgstr "Falsche Passwortlänge"
+
+#: oidc/identification/ghostkeys/login_return.php:128
+msgid "Login session corrupted or expired"
+msgstr "Anmeldesitzung beschädigt oder abgelaufen"
+
+#: oidc/identification/ghostkeys/login_return.php:181
+msgid "Empty, too short or malformed_identifier"
+msgstr "Leere, zu kurze oder fehlerhafte Kennung"
+
+#: oidc/identification/ghostkeys/login_return.php:187
+msgid "Malformed_email"
+msgstr "Falsche E-Mail-Adresse"
+
+#: oidc/identification/ghostkeys/login_return.php:207
+msgid "Login error"
+msgstr "Login-Fehler"
+
+#: oidc/identification/ghostkeys/login_return.php:213
+msgid "Unknown or invalid User"
+msgstr "Unbekannter oder ungültiger Benutzer"
+
+#: oidc/identification/ghostkeys/login_return.php:220
+msgid "Login form too old"
+msgstr "Anmeldeformular zu alt"
+
+#: oidc/identification/grant/grant.php:39
+msgid "Requested scopes"
+msgstr "Angeforderte Bereiche"
+
+#: oidc/identification/grant/grant.php:52
+#, php-format
+msgid "The application %s of %s asks for your consent."
+msgstr "Die Anwendung%s von%s fragt nach Ihrer Einwilligung."
+
+#: oidc/identification/grant/grant.php:157
+msgid "I agree"
+msgstr "Ich stimme zu"

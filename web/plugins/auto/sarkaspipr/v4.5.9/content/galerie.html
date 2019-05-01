@@ -1,0 +1,23 @@
+[(#PLUGIN{albums}|sinon_interdire_acces)]
+<section class='galerie'>
+	<header class="cartouche">
+		<h1>[(#CONFIG{sarkaspip/galerie/titre, <:sarkaspip:albums_galerie:>})]</h1>
+	</header>
+	[<div class="main">
+		<div class="chapo">(#CONFIG{sarkaspip/galerie/descriptif}|propre)</div>
+	</div>]
+
+	<aside>
+		[(#ENV{categorie,-1}|=={-1}|oui)
+			<INCLURE{fond=noisettes/galerie/inc-planche}{ajax}>
+		]
+		[(#ENV{categorie,-1}|=={0}|oui)
+			<INCLURE{fond=noisettes/galerie/inc-planche}{ajax}{exclure_categorie=1}>
+		]
+		[(#ENV{categorie,-1}|>={1}|oui)
+			<INCLURE{fond=noisettes/galerie/inc-planche}{ajax}{id_mot=#ENV{categorie}}>
+		]
+		<script type="text/javascript" src="#CHEMIN{javascript/col_equalizer.js}"></script>
+		<script type="text/javascript">/*<![CDATA[*/activeColEqualization('#planche .thumbnails .thumbnail');/*]]>*/</script>
+	</aside>
+</section>

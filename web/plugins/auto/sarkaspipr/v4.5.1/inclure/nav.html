@@ -1,0 +1,9 @@
+<div class="navbar-inner">
+	<BOUCLE_navbar(MENUS?){identifiant=barrenav}{si #PLUGIN{menus}}>
+	#INCLURE{fond=inclure/menu, env, identifiant=barrenav}
+	</BOUCLE_navbar>
+	<ul class="nav">
+	<INCLURE{fond=noisettes/menu/secteurs,id_secteur,id_rubrique}>
+	</ul>
+	<//B_navbar>
+</div>

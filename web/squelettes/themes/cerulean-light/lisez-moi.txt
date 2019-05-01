@@ -1,0 +1,7 @@
+Cerulean light
+Simplification et mise au point du thème SPIPr sur base Cerulean.
+
+Auteur : B.Degoy
+Copyright (c) 2015 DnC
+
+2015/11/20 

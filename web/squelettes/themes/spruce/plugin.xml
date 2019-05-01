@@ -1,0 +1,12 @@
+<plugin>
+	<nom>Spruce</nom>
+	<version>2.1.1</version>
+	<etat>test</etat>
+	<auteur>Cedric</auteur>
+	<licence>GPL</licence>
+	<prefix>theme_bsspruce</prefix>
+	<description>Camping in the woods</description>
+	<icon>vignette.png</icon>
+	<utilise id="spipr" version="[0.1.0-dev;]" />
+	<categorie>theme</categorie>
+</plugin>

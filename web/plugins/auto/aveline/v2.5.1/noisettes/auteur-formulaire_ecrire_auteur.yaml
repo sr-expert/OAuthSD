@@ -1,0 +1,29 @@
+nom: '<:aveline:nom_auteur-formulaire_ecrire_auteur:>'
+icon: 'message-24.png'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_titre_noisette'
+      label: '<:aveline:label_afficher_titre_noisette:>'
+      defaut: ''
+  -
+    saisie: 'selection'
+    options:
+      nom: 'titre_noisette'
+      label: '<:aveline:label_titre_noisette:>'
+      defaut: 'public:envoyer_message'
+      cacher_option_intro: 'oui'
+      datas:
+        'public:envoyer_message': '<:public:envoyer_message:>'
+        'avelinepublic:envoyer_email': '<:avelinepublic:envoyer_email:>'
+        'spip:info_envoyer_message_prive': '<:spip:info_envoyer_message_prive:>'
+        titre_perso: '<:aveline:item_titre_perso:>'
+      afficher_si: '@afficher_titre_noisette@ == "on"'
+  -
+    saisie: 'input'
+    options:
+      nom: 'titre_noisette_perso'
+      label: '<:aveline:label_titre_noisette_perso:>'
+      explication: '<:aveline:explication_raccourcis_typo:>'
+      afficher_si: '@afficher_titre_noisette@ == "on" && @titre_noisette@ == "titre_perso"'

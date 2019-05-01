@@ -1,0 +1,8 @@
+#FORMULAIRE_RECHERCHE_ECRIRE{#SELF,ajax}
+<div class="nettoyeur"></div>
+
+<INCLURE{fond=prive/objets/liste/clients, env, ajax, sinon=<:client:info_aucun_client:>}>
+
+[(#AUTORISER{creer,client})
+	[(#URL_ECRIRE{client_edit,new=oui}|icone_verticale{<:client:icone_creer_client:>,client,new,right})]
+]

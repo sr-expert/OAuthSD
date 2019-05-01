@@ -1,0 +1,11 @@
+[(#REM) <!-- affichage du mini-agenda -->]
+[(#PLUGIN{agenda}|et{#CONFIG{sarkaspip/noisettes/position_miniagenda, 2}|in_any{#LISTE{1,2}}}|oui)
+	<INCLURE{fond=noisettes/agenda/nav-minical,env} />
+]
+
+[(#REM) <!-- affichage de la noisette Nuage --> ]
+[(#PLUGIN{NUAGE}|oui)
+	[(#CONFIG{sarkaspip/noisettes/position_nuage, 0}|in_any{#LISTE{1,2}}|oui)
+		<INCLURE{fond=noisettes/mot/nav-nuage}>
+	]
+]

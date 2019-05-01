@@ -1,0 +1,8 @@
+#FORMULAIRE_RECHERCHE_ECRIRE{#SELF,ajax}
+<div class="nettoyeur"></div>
+
+<INCLURE{fond=prive/objets/liste/users, env, ajax, sinon=<:user:info_aucun_user:>}>
+
+[(#AUTORISER{creer,user})
+	[(#URL_ECRIRE{user_edit,new=oui}|icone_verticale{<:user:icone_creer_user:>,user,new,right})]
+]

@@ -1,0 +1,8 @@
+cron.php
+
+La tâche cron.php est programmée avec cPanel pour une exécution toutes les minutes :
+wget -O /dev/null https://oidc.dnc.global/cron/cron.php >/dev/null 2>&1
+
+
+
+

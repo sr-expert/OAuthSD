@@ -1,0 +1,306 @@
+/*
+#@squelettes/themes/flatly_dnc/css/variables.less
+#@plugins/auto/bootstrap/v2.1.8/bootstrap2spip/css/spip.variables.less
+#@plugins/auto/bootstrap/v2.1.8/bootstrap/css/mixins.less
+*/
+/* ------------------------------------------
+/* Sous-navigation et autres menus
+/* ------------------------------------------ */
+/* Scaffolding
+// -------------------------
+@bodyBackground:        @white;
+@textColor:             @blueDark;
+
+
+// Links
+// -------------------------
+@linkColor:             #1ABC9C;
+@linkColorHover:        lighten(@linkColor, 5%);
+*/
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+.hide-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* Listes d'items */
+/*
+.liste[.long][.short][.thumb]
+  .liste-items
+    .item[.long][.short][.thumb]
+
+
+Un item est compose de :
+
+.entry
+  .entry-title
+    .spip_logos
+    .read-more
+  .publication
+    .pubdate
+    .authors
+  .entry-content
+  .postmeta
+    .comments
+    .signatures
+*/
+.liste {
+  margin-bottom: 1.33333333em;
+}
+.liste.long {
+  margin-bottom: 2.66666667em;
+}
+.liste-items {
+  margin-left: 0;
+  list-style: none;
+  border-top: 0;
+}
+.liste-items .item {
+  padding: 0.66666667em 0;
+  clear: both;
+  overflow: hidden;
+  border-top: 1px solid #eaeded;
+  margin-top: -1px;
+}
+.liste-items .item:last-child {
+  border-bottom: 1px solid #eaeded;
+}
+.liste-items .item .entry {
+  margin-bottom: 0;
+}
+.liste-items .item .entry-title:first-child {
+  margin-top: 0;
+}
+.entry div.spip,
+.entry p,
+.entry .p {
+  margin-bottom: 0.66666667em;
+}
+.entry .entry-title {
+  margin-bottom: 10px;
+}
+.entry .entry-content > :last-child {
+  margin-bottom: 0;
+}
+.entry .entry-content {
+  margin-bottom: 0.66666667em;
+}
+.liste-items .item-header {
+  padding: 0.66666667em 0;
+  clear: both;
+  overflow: hidden;
+  border-top: 1px solid #eaeded;
+  margin-top: -1px;
+  border: 0;
+  display: block;
+  font-weight: bold;
+  color: #b4bcc2;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+.item + .item-header {
+  padding-top: 0.66666667em;
+}
+.liste-items .publication,
+.liste-items .postmeta {
+  display: none;
+}
+.liste-items .postmeta .tags ul,
+.liste-items .postmeta .tags li {
+  display: inline;
+}
+/* Long */
+.long .publication {
+  display: block;
+}
+.long .postmeta {
+  display: block;
+}
+/* Short */
+.short .item,
+.item.short {
+  padding: 0.33333333em 0;
+}
+.short .item:first-child:last-child,
+.item.short:first-child:last-child {
+  border: 0;
+}
+.short .entry-title {
+  font-size: inherit;
+  line-height: inherit;
+  display: inline;
+}
+.short .publication,
+.short .spip_logos,
+.short .entry-content,
+.short .postmeta,
+.short .read-more {
+  display: none;
+}
+.short .entry > :not(.entry-title) {
+  display: none;
+}
+.short .entry,
+.short .entry-title {
+  display: inline;
+}
+/* thumb */
+.thumb .item:first-child:last-child,
+.item.thumb:first-child:last-child {
+  border: 0;
+}
+.thumb .entry-title {
+  padding-top: 140px;
+  display: block;
+}
+.thumb .spip_logos {
+  display: block;
+  float: left;
+  margin: 0;
+  margin-top: -140px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 120px;
+  width: 100% !important;
+  padding: 0;
+  text-align: center;
+  overflow: hidden;
+}
+.thumb .spip_logos img {
+  height: 100% !important;
+  width: 100%;
+}
+.thumb .entry-content {
+  max-height: 6.66666667em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+}
+/* on demand */
+.with-read-more .entry {
+  position: relative;
+  padding-bottom: 1.33333333em;
+}
+.with-read-more .postmeta {
+  min-height: 1.33333333em;
+  padding: 0.66666667em 0;
+  padding-left: 2em;
+  padding-bottom: 0;
+  margin-bottom: -1.33333333em;
+}
+.with-read-more .read-more {
+  display: block;
+  position: absolute;
+  z-index: 10;
+  bottom: 0;
+  left: 0;
+  text-align: right;
+  padding: 0.66666667em 0;
+  padding-left: 0;
+  padding-bottom: 0;
+  line-height: 1.33333333em;
+  font-size: 0.9375em;
+}
+.with-publication .entry .publication {
+  display: block;
+}
+.with-publication-inline .entry .publication {
+  display: inline;
+  padding-left: 0.25em;
+}
+.with-postmeta .entry .postmeta {
+  display: block;
+}
+.with-postmeta-inline .entry .postmeta {
+  display: inline;
+  padding-left: 0.25em;
+}
+.with-content .entry .entry-content {
+  display: block;
+}
+.with-content-inline .entry .entry-content {
+  display: inline;
+}
+/* dans un .secondary */
+.secondary .liste-items .item {
+  padding: 0.33333333em 0;
+}
+.secondary .liste-items .spip_logos {
+  max-width: 3.33333333em;
+}
+.secondary .liste-items .spip_logos img {
+  height: auto !important;
+}
+.secondary .liste-items .entry-content {
+  max-height: 6.66666667em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+}
+.secondary .short .item,
+.secondary .item.short {
+  padding: 0.16666667em 0;
+}
+.secondary .short .entry-title {
+  font-weight: normal;
+}
+.secondary .long .entry-content {
+  max-height: 13.33333333em;
+}
+/* liste de documents */
+.documents .item {
+  padding-right: 0;
+  padding-left: 4em;
+}
+.entry.document {
+  padding-bottom: 0;
+}
+.entry.document .entry-title {
+  font-size: inherit;
+  line-height: inherit;
+  margin-bottom: 0;
+}
+.entry.document .spip_logos {
+  float: left;
+  max-width: 2em;
+  margin: 2px 12px;
+  margin-left: -4em;
+  margin-top: 0;
+}
+.entry.document .publication {
+  display: block;
+  margin-bottom: 0;
+}
+.entry.document .read-more {
+  display: none;
+}
+.documents.short .item,
+.documents .item.short {
+  padding-left: 0;
+}
+.short .document .spip_logos {
+  display: none;
+}
+/*# sourceMappingURL=data:application/json,%7B%22version%22%3A3%2C%22sources%22%3A%5B%22plugins%5C%2Fauto%5C%2Fbootstrap%5C%2Fv2.1.8%5C%2Fbootstrap%5C%2Fcss%5C%2Fmixins.less%22%2C%22spip.list.less%22%5D%2C%22names%22%3A%5B%5D%2C%22mappings%22%3A%22%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3BAAWA%3BEACE%2CQAAA%3B%3BAACA%2CSAAC%3BAACD%2CSAAC%3BEACC%3BEACA%2CSAAS%2CEAAT%3BEAGA%3B%3BAAEF%2CSAAC%3BEACC%3B%3BAAmFJ%3BEACE%2CWAAA%3BEACA%3BEACA%3BEACA%3BEACA%3B%3BAA2CF%3BEACE%3BEACA%3BEACA%2CgBAAA%3BEA2LA%2C8BAAA%3BEACG%2C2BAAA%3BEACK%2CsBAAA%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3B%3BACzTV%3BEAAQ%2C2BAAA%3B%3BAACR%2CMAAM%3BEAAO%2C2BAAA%3B%3BAAEb%3BEAAc%3BEAAgB%3BEAAkB%3B%3BAAEhD%2CYAAa%3BEAAO%2CuBAAA%3BEAA4B%3BEAAY%3BEAAgB%2C6BAAA%3BEAAuC%3B%3BAACnH%2CYAAa%2CMAAK%3BEAAa%2CgCAAA%3B%3BAAC%5C%2FB%2CYAAa%2CMAAM%3BEAAQ%3B%3BAAC3B%2CYAAa%2CMAAM%2CaAAY%3BEAAc%3B%3BAAE7C%2CMACE%2CIAAG%3BAADL%2CMA1CA%2CCA2CW%3BAADX%2CMA1CA%2CCA2Ca%3BEAAI%2C2BAAA%3B%3BAADjB%2CMA1CA%2CCA2CmD%3BEAAc%2CmBAAA%3B%3BAADjE%2CMAEE%2CeAAiB%3BEAAa%3B%3BAAFhC%2CMAGE%3BEAAgB%2C2BAAA%3B%3BAAGlB%2CYAAa%3BEAXO%2CuBAAA%3BEAA4B%3BEAAY%3BEAAgB%2C6BAAA%3BEAAuC%3BEAYjH%3BEACA%3BEACA%3BEACA%2CcAAA%3BEACA%2C6CAAA%3BEACA%3B%3BAAGF%2CKAAQ%3BEACN%2CyBAAA%3B%3BAAGF%2CYACE%3BAADF%2CYA7DA%2CCA8De%3BEAAW%3B%3BAAD1B%2CYAEE%2CUAAU%2CMA%5C%2FDZ%2CCA%2BDmB%3BAAFnB%2CYAEE%2CUAAU%2CMA%5C%2FDZ%2CCA%2BDsB%3BEAAI%3B%3B%3BAAI1B%2CKACE%3BEAAc%3B%3BAADhB%2CKAGE%3BEAAW%3B%3B%3BAAIb%2CMAAO%3BAAAO%2CKAAK%3BEACjB%2CuBAAA%3B%3BAACA%2CMAFK%2CMAEJ%2CYAAY%3BAAAb%2CKAFiB%2CMAEhB%2CYAAY%3BEAAa%3B%3BAAG5B%2CMACE%3BEAAc%3BEAAmB%3BEAAqB%3B%3BAADxD%2CMAEE%3BAAFF%2CMA%5C%2FEA%2CCAiFe%3BAAFf%2CMA%5C%2FEA%2CCAiF2B%3BAAF3B%2CMA%5C%2FEA%2CCAiF0C%3BAAF1C%2CMA%5C%2FEA%2CCAiFoD%3BEAAY%3B%3BAAFhE%2CMAGE%2COAAS%2COAAI%3BEAAgB%3B%3BAAH%5C%2FB%2CMAIE%3BAAJF%2CMAIU%3BEAAc%3B%3B%3BAAMtB%2CMAFK%2CMAEJ%2CYAAY%3BAAAb%2CKAFiB%2CMAEhB%2CYAAY%3BEAAa%3B%3BAAE5B%2CMACE%3BEAAc%2CkBAAA%3BEAAmC%3B%3BAADnD%2CMAEE%3BEAAa%3BEAAe%3BEAAY%3BEAAS%2CkBAAA%3BED0PjD%2C8BAAA%3BEACG%2C2BAAA%3BEACK%2CsBAAA%3BEC5PwG%3BEAAa%3BEAAuB%3BEAAW%3BEAAmB%3B%3BAAFpL%2CMAGE%2CYAAY%3BEAAK%3BEAAuB%3B%3BAAH1C%2CMAIE%3BEAAgB%2CwBAAA%3BEAA4B%3BEAAiB%3BEAAwB%3B%3B%3BAAIvF%2CeACE%3BEAAQ%3BEAAmB%2C4BAAA%3B%3BAAD7B%2CeAGE%3BEAAW%2CwBAAA%3BEAA0B%2CuBAAA%3BEAA4B%3BEAAkB%3BEAAkB%2C4BAAA%3B%3BAAHvG%2CeAIE%3BEAAY%3BEAAe%3BEAAmB%3BEAAY%3BEAAS%3BEAAO%3BEAAkB%2CuBAAA%3BEAA4B%3BEAAe%3BEAAkB%2CyBAAA%3BEAA2B%2CmBAAA%3B%3BAAEtL%2CiBAAkB%2COAzGlB%2CCAyG0B%3BEAAc%3B%3BAACxC%2CwBAAyB%2COA1GzB%2CCA0GiC%3BEAAc%3BEAAgB%3B%3BAAC%5C%2FD%2CcAAe%2COA3Gf%2CCA2GuB%3BEAAW%3B%3BAAClC%2CqBAAsB%2COA5GtB%2CCA4G8B%3BEAAW%3BEAAgB%3B%3BAACzD%2CaAAc%2COA7Gd%2CCA6GsB%3BEAAgB%3B%3BAACtC%2CoBAAqB%2COA9GrB%2CCA8G6B%3BEAAgB%3B%3B%3BAAI7C%2CUAEE%2CaACE%3BEAAO%2CuBAAA%3B%3BAAHX%2CUAEE%2CaAEE%3BEAAa%2CuBAAA%3B%3BAAJjB%2CUAEE%2CaAGE%2CYAAY%3BEAAK%3B%3BAALrB%2CUAEE%2CaAIE%3BEAAgB%2CwBAAA%3BEAA4B%3BEAAiB%3BEAAwB%3B%3BAANzF%2CUAQE%2COAAO%3BAART%2CUAQgB%2CMAAK%3BEACjB%2CuBAAA%3B%3BAATJ%2CUAYE%2COACE%3BEAAc%3B%3BAAblB%2CUAeE%2CMACE%3BEAAgB%2CyBAAA%3B%3B%3BAAKpB%2CUACE%3BEAAO%3BEAAgB%2CiBAAA%3B%3BAAEzB%2CMAAM%3BEACJ%3B%3BAADF%2CMAAM%2CSAEJ%3BEAAc%3BEAAmB%3BEAAqB%3B%3BAAFxD%2CMAAM%2CSAGJ%3BEAAa%3BEAAY%2CcAAA%3BEAA6B%2CgBAAA%3BEAAqB%2CiBAAA%3BEAA8B%3B%3BAAH3G%2CMAAM%2CSAIJ%3BEAAc%3BEAAgB%3B%3BAAJhC%2CMAAM%2CSAKJ%3BEAAY%3B%3BAAEd%2CUAAU%2CMAAO%3BAAAM%2CUAAW%2CMAAK%3BEACrC%3B%3BAAEF%2CMAAO%2CUAAU%3BEAAa%22%7D */

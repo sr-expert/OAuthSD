@@ -1,0 +1,57 @@
+<div class="formulaire_spip formulaire_configurer formulaire_#FORM">
+
+	<h3 class="titrem"><:sarkaspip_config:cfg_boite_plan:></h3>
+
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	<form method="post" action="#ENV{action}"><div>
+		<input type="hidden" name="_meta_casier" value="sarkaspip/plan" />
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_plan_pagination:></legend>
+			<p class="explication"><:sarkaspip_config:cfg_inf_plan_pagination:></p>
+			<ul class="editer-groupe">
+			#SET{name,senstri_date}#SET{defaut,1}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+			<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+				<label><:sarkaspip_config:cfg_inf_plan_sens_tri:></label>[
+				<span class='erreur_message'>(#GET{erreurs})</span>
+				]
+				#SET{val,0}
+				<div class="choix">
+					<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+					<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_tri_chrono:></label>
+				</div>
+				#SET{val,1}
+				<div class="choix">
+					<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+					<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_tri_antichrono:></label>
+				</div>
+			</li>
+
+			#SET{name,position_pagination}#SET{defaut,1}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+			<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+				<label><:sarkaspip_config:cfg_inf_pagination_bande:></label>[
+				<span class='erreur_message'>(#GET{erreurs})</span>
+				]
+				#SET{val,1}
+				<div class="choix">
+					<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+					<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_bande_pos_1:></label>
+				</div>
+				#SET{val,2}
+				<div class="choix">
+					<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+					<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_bande_pos_2:></label>
+				</div>
+				#SET{val,3}
+				<div class="choix">
+					<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+					<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_bande_pos_3:></label>
+				</div>
+			</li>
+			</ul>
+		</fieldset>
+
+		<INCLURE{fond=formulaires/inc/cfg_boutons}>
+	</div></form>
+</div>

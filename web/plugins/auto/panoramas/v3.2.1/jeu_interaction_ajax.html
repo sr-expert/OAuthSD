@@ -1,0 +1,53 @@
+#CACHE{0}
+[(#HTTP_HEADER{Content-type: text/html[; charset=(#CHARSET)]})]
+<html>
+<head>
+<INCLURE{fond=inc-head}>
+</head>
+<body>
+
+<BOUCLE_interactions(VISITES_VIRTUELLES_INTERACTIONS){id_interaction}>
+<BOUCLE_jeux(JEUX){id_jeu=#ID_JEU_CIBLE}>
+	<p class="jeu-interaction">
+		#CONTENU
+		[(#CONTENU|contient{Bravo}|?{' ',''})
+			[(#REM|memoriser_resultat_jeu{#ID_JEU})]
+			
+		]
+		[(#REM) un objet doit-il etre donné en récompense ? ]
+		
+	
+
+</p>
+<script type="text/javascript">
+$(document).ready(function(){
+		<BOUCLE_objetrecompense(DOCUMENTS){id_document=#ID_OBJET_RECOMPENSE}>
+		[(#CONTENU|contient{Bravo}|?{' ',''})
+			[(#REM)tester si le jeu a déjà été réussi, dans ce cas, ne pas redonner la récompense]
+			if($.cookie('jeux_reussis')) {
+				var tableau_jeux_visites = $.cookie('jeux_reussis').split(','); 
+				if (tableau_jeux_visites.indexOf('#ID_JEU')<0) {
+					$.cookie('jeux_reussis', $.cookie('jeux_reussis')+',#ID_JEU') ;
+					if ($.cookie('objets_ramasses')) {
+					    $.cookie('objets_ramasses', $.cookie('objets_ramasses')+"<li><div class='objet#ID_DOCUMENT'><img src='#URL_DOCUMENT' style='max-height: 100px; margin-left: 10px;'/><span style='display: none;'>#ID_DOCUMENT</span></div></li>");
+					} else {
+					    $.cookie('objets_ramasses', "<li><div class='objet#ID_DOCUMENT'><img src='#URL_DOCUMENT' style='max-height: 100px; margin-left: 10px;'/><span style='display: none;'>#ID_DOCUMENT</span></div></li>");
+					}
+				}
+			} else {
+				$.cookie('jeux_reussis', '#ID_JEU') ;
+				if ($.cookie('objets_ramasses')) {
+					    $.cookie('objets_ramasses', $.cookie('objets_ramasses')+"<li><div class='objet#ID_DOCUMENT'><img src='#URL_DOCUMENT' style='max-height: 100px; margin-left: 10px;'/><span style='display: none;'>#ID_DOCUMENT</span></div></li>");
+				} else {
+					    $.cookie('objets_ramasses', "<li><div class='objet#ID_DOCUMENT'><img src='#URL_DOCUMENT' style='max-height: 100px; margin-left: 10px;'/><span style='display: none;'>#ID_DOCUMENT</span></div></li>");
+				}
+			}
+		]
+		</BOUCLE_objetrecompense>
+});
+</script>
+	</BOUCLE_jeux>
+
+</BOUCLE_interactions>
+</body>
+</html>

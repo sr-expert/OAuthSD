@@ -1,0 +1,13 @@
+#CACHE{7200}
+<section[ id="plan_(#ENV{tri})"] class="plan #ENV{tri}">
+	<header class='cartouche'>
+		<h1><:sarkaspip:plan_site:></h1>
+	</header>
+	<div class="main">
+		<BOUCLE_0_article(ARTICLES) {0,1}>
+		<INCLURE{fond=noisettes/plan/liste}{ajax}{tri=#ENV{tri,par_rubrique}}>
+		</BOUCLE_0_article>
+		<div class="warning"><:sarkaspip:msg_0_article_publie:></div>
+		<//B_0_article>
+	</div>
+</section>

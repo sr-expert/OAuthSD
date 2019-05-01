@@ -1,0 +1,18 @@
+<BOUCLE_rubrique(RUBRIQUES){id_rubrique}>
+<B_langues>
+<div class="formulaire_spip formulaire_menu_lang" id="formulaire_menu_lang">
+	<form method="get" action="spip.php"><div>
+		<input name="action" value="redirect" type="hidden" />
+		<input type="hidden" name="type" value="rubrique" />
+		<label for="id"><:info_langues:></label>
+		<select name="id" id="id" onchange="this.parentNode.parentNode.submit()">
+			<option class='maj-debut' value='#ID_RUBRIQUE' selected='selected'>[(#LANG|traduire_nom_langue)]</option>
+			<BOUCLE_langues(RUBRIQUES){traduction}{lang!=#LANG}>
+				<option class='maj-debut' value='#ID_RUBRIQUE'>[(#LANG|traduire_nom_langue)]</option>
+			</BOUCLE_langues>
+		</select>
+		<noscript><p class="boutons"><input type="submit" class="submit" value="&gt;&gt;" /></p></noscript>
+	</div></form>
+</div>
+</B_langues>
+</BOUCLE_rubrique>

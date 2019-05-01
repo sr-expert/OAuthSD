@@ -1,0 +1,16 @@
+#SET{name,avec_descriptif}#SET{defaut,oui}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+	<label><:sarkaspip_config:cfg_inf_descriptif_doc:></label>[
+	<span class='erreur_message'>(#GET{erreurs})</span>
+	]
+	#SET{val,oui}
+	<div class="choix">
+		<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+		<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_oui:></label>
+	</div>
+	#SET{val,non}
+	<div class="choix">
+		<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+		<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_non:></label>
+	</div>
+</li>

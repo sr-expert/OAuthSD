@@ -1,0 +1,7 @@
+<BOUCLE_menushortcuts(MENUS?){identifiant=menushortcuts}{si #PLUGIN{menus}}>
+#INCLURE{fond=inclure/menu, env, identifiant=menushortcuts, class='nav-tabs nav-stacked'}
+</BOUCLE_menushortcuts>
+<ul class="nav nav-tabs nav-stacked">
+<INCLURE{fond=noisettes/menu/shortcuts,id_rubrique}>
+</ul>
+<//B_menushortcuts>

@@ -1,0 +1,213 @@
+<div class="formulaire_spip formulaire_configurer formulaire_#FORM">
+
+	<h3 class="titrem"><:sarkaspip_config:cfg_boite_album:></h3>
+
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	<form method="post" action="#ENV{action}"><div>
+		<input type="hidden" name="_meta_casier" value="sarkaspip/album" />
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_description:></legend>
+			<ul class="editer-groupe">
+				<INCLURE{fond=formulaires/inc/cfg_logo}
+					{explication=<:sarkaspip_config:cfg_inf_album_sans_logo:>}
+					{env}>
+				<INCLURE{fond=formulaires/inc/cfg_cartouche}
+					{explication_popularite=<:sarkaspip_config:cfg_inf_album_popularite:>}
+					{explication_socialbar=<:sarkaspip_config:cfg_inf_album_socialbar:>}
+					{env}>
+			</ul>
+		</fieldset>
+<!--
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_documents_joints:></legend>
+			<ul class="editer-groupe">
+				<INCLURE{fond=formulaires/inc/cfg_descriptif_document}{env}>
+			</ul>
+		</fieldset>
+-->
+<!--
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_album_carrousel:></legend>
+			<ul class="editer-groupe">
+				#SET{name,position_carrousel}#SET{defaut,1}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+					<label><:sarkaspip_config:cfg_inf_album_carrousel_position:></label>[
+					<span class='erreur_message'>(#GET{erreurs})</span>
+					]
+					#SET{val,0}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_carrousel_position_0:></label>
+					</div>
+					#SET{val,1}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_carrousel_position_1:></label>
+					</div>
+					#SET{val,2}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_carrousel_position_2:></label>
+					</div>
+				</li>
+				<li class="fieldset suite" id="bloc_modele_1"><fieldset>
+					<ul class="editer-groupe">
+					#SET{name,modele_carrousel}#SET{defaut,1}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+					<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+						<label><:sarkaspip_config:cfg_inf_album_carrousel_position:></label>[
+						<span class='erreur_message'>(#GET{erreurs})</span>
+						]
+						#SET{val,1}
+						<div class="choix">
+							<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+							<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_carrousel_modele_1:></label>
+						</div>
+						#SET{val,2}
+						<div class="choix">
+							<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+							<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_carrousel_modele_2:></label>
+						</div>
+						#SET{val,3}
+						<div class="choix">
+							<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+							<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_carrousel_modele_3:></label>
+						</div>
+					</li>
+					#SET{name,taille_carrousel}#SET{defaut,10}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+					<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]" id="bloc_modele_2">
+						<label for="#GET{name}"><:sarkaspip_config:cfg_lbl_carrousel_taille:></label>[
+						<span class='erreur_message'>(#GET{erreurs})</span>
+						]<input type="text" name="#GET{name}" class="text" value="#ENV*{#GET{name},#GET{defaut}}" id="#GET{name}" [(#HTML5|et{#GET{obli}})required='required']/>
+					</li>
+					</ul></fieldset>
+				</li>
+				<li class="fieldset suite" id="bloc_modele_3"><fieldset>
+					<ul class="editer-groupe">
+						<INCLURE{fond=formulaires/inc/cfg_pagination}
+							{suffixe=_carrousel}
+							{defaut_pas=20}
+							{choix=sans_position}
+							{env}>
+						#SET{name,survol_carrousel}#SET{defaut,non}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+						<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+							<label><:sarkaspip_config:cfg_inf_album_carrousel_hover:></label>[
+							<span class='erreur_message'>(#GET{erreurs})</span>
+							]
+							#SET{val,oui}
+							<div class="choix">
+								<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+								<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_oui:></label>
+							</div>
+							#SET{val,non}
+							<div class="choix">
+								<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+								<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_non:></label>
+							</div>
+						</li>
+					</ul></fieldset>
+				</li>
+			</ul>
+		</fieldset>
+-->
+<!--
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_album_zoom:></legend>
+			<ul class="editer-groupe">
+				#SET{name,afficher_zoom}#SET{defaut,oui}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+					<label><:sarkaspip_config:cfg_inf_album_carrousel_hover:></label>[
+					<span class='erreur_message'>(#GET{erreurs})</span>
+					]
+					#SET{val,oui}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_oui:></label>
+					</div>
+					#SET{val,non}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_non:></label>
+					</div>
+				</li>
+				<INCLURE{fond=formulaires/inc/cfg_effet_image}
+					{explication=<:sarkaspip_config:cfg_inf_album_zoom_effet:>}
+					{choix=album}
+					{env}>
+			</ul>
+		</fieldset>
+-->
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_album_exif:></legend>
+			[(#PLUGIN{PHOTO_INFOS}|oui)
+			<ul class="editer-groupe">
+				#SET{name,afficher_exif}#SET{defaut,non}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+					<label><:sarkaspip_config:cfg_inf_album_carrousel_hover:></label>[
+					<span class='erreur_message'>(#GET{erreurs})</span>
+					]
+					#SET{val,oui}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_oui:></label>
+					</div>
+					#SET{val,non}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_non:></label>
+					</div>
+				</li>
+			</ul>
+			]
+			[(#PLUGIN{PHOTO_INFOS}|non)
+					#SET{plugin, Metadonn&eacute;es photo}
+					<p class="notice"><:sarkaspip_config:cfg_inf_plugin_inactif{lbl_plugin=#GET{plugin}}:></p>
+			]
+		</fieldset>
+
+		<INCLURE{fond=formulaires/inc/cfg_boutons}>
+	</div></form>
+</div>
+
+<script type="text/javascript">/*<![CDATA[*/
+	jQuery(document).ready(function() {
+		[(#ENV{modele_carrousel, 1}|=={1}|?{jQuery("#bloc_modele_3").hide();})]
+		[(#ENV{modele_carrousel, 1}|!={1}|?{jQuery("#bloc_modele_2").hide();})]
+		[(#ENV{position_carrousel, 1}|=={0}|?{jQuery("#bloc_modele_1,#bloc_modele_3").hide();})]
+		[(#ENV{afficher_zoom, oui}|=={oui}|?{jQuery("#effet_mediabox_diapo").hide();})]
+
+		jQuery("input[name='position_carrousel']").change(function() {
+			if (jQuery("input[name='position_carrousel']:checked").val() == 0) {
+				jQuery("#bloc_modele_1,#bloc_modele_3").hide('fast');
+			}
+			else {
+				jQuery("#bloc_modele_1,#bloc_modele_3").show('fast');
+			}
+			jQuery(this).blur();
+		});
+
+		jQuery("input[name='modele_carrousel']").change(function() {
+			if (jQuery("input[name='modele_carrousel']:checked").val() == 1) {
+				jQuery("#bloc_modele_3").hide('fast');
+				jQuery("#bloc_modele_2").show('fast');
+			}
+			else {
+				jQuery("#bloc_modele_2").hide('fast');
+				jQuery("#bloc_modele_3").show('fast');
+			}
+			jQuery(this).blur();
+		});
+
+		jQuery("input[name='afficher_zoom']").change(function() {
+			if (jQuery("input[name='afficher_zoom']:checked").val() == "oui") {
+				jQuery("#effet_mediabox_diapo").hide('fast');
+			}
+			else {
+				jQuery("#effet_mediabox_diapo").show('fast');
+			}
+			jQuery(this).blur();
+		});
+	});
+/*]]>*/</script>
+<style>li.fieldset.suite>fieldset {padding-left: 30px;border-top:0;}</style>

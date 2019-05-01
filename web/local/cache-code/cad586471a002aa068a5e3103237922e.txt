@@ -1,0 +1,11 @@
+function _autoriser_gis($faire, $quoi, $id, $qui, $options) {
+    if ( $qui['statut'] == '0minirezo' ) {
+        // Toujours autoriser un administrateur
+        return true;
+    } else {
+        if ( $accesstoken = $_GET['token'] ) { 
+            // Vérifier le jeton d'accès
+            return oauth_authorize($accesstoken);    
+        } else return false;
+    }
+}

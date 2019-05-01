@@ -1,0 +1,80 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'vignette_utiliser_logo_article_rubrique'
+    label: '<:aveline:label_utiliser_logo_article_rubrique:>'
+    defaut: 'on'
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'vignette_utiliser_image_article'
+    label: '<:aveline:label_utiliser_image_article:>'
+    defaut: ''
+-
+  saisie: 'input'
+  options:
+    nom: 'vignette_taille_max_logo'
+    label: '<:aveline:label_taille_max_logo:>'
+    defaut: 50
+  verifier:
+    type: 'entier'
+    min: 10
+-
+  saisie: 'selection'
+  options:
+    nom: 'vignette_type_vignettes'
+    label: '<:aveline:label_type_vignettes:>'
+    defaut: ''
+    option_intro: '<:aveline:item_vignettes_rectangles:>'
+    datas:
+      'carrees_pleines': '<:aveline:item_vignettes_carrees_pleines:>'
+      'carrees_marges': '<:aveline:item_vignettes_carrees_marges:>'
+      'rondes': '<:aveline:item_vignettes_rondes:>'
+-
+  saisie: 'input'
+  options:
+    nom: 'vignette_longueur_max_titres'
+    label: '<:aveline:label_longueur_max_titres:>'
+    defaut: 30
+  verifier:
+    type: 'entier'
+    min: 10
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'vignette_afficher_date'
+    label: '<:aveline:label_vignette_afficher_date:>'
+    defaut: ''
+-
+  saisie: 'selection'
+  options:
+    nom: 'format_date'
+    label: '<:aveline:label_format_date:>'
+    defaut: 'affdate_jourcourt'
+    cacher_option_intro: 'oui'
+    afficher_si: '@vignette_afficher_date@ == "on"'
+    datas:
+      - 'inclure:inc-yaml/aveline-affdate.yaml'
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'vignette_nb_documents'
+    label: '<:aveline:label_vignette_nb_documents:>'
+    defaut: ''
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'vignette_ajout_css'
+    label: '<:aveline:label_vignette_ajout_css:>'
+    explication: '<:aveline:explication_vignette_ajout_css:>'
+    defaut: 'on'
+-
+  saisie: 'input'
+  options:
+    nom: 'vignette_hauteur_vignette'
+    label: '<:aveline:label_hauteur_vignette:>'
+    defaut: 150
+    afficher_si: '@vignette_ajout_css@ == "on"'
+  verifier:
+    type: 'entier'
+    min: 10

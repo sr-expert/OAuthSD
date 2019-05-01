@@ -1,0 +1,804 @@
+// Flatness by Jenil (www.jgog.in)
+// Bootswatch 2.3.2
+// -----------------------------------------------------
+
+/* dgy:
+- virer Google !
+- les font-size en em
+- quelques mises au point.
+*/
+
+
+.doc-sidenav {      //dgy
+    background-color : @bodyBackground;
+}
+
+//g ui.widget  (accordeon ...)
+.ui-widget-content a {
+    color: @linkColor !important; 
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    border: 1px solid @theme !important;
+    background: none !important;
+    background-color: @theme !important;
+    color: @textColor-inverse !important ;
+}
+.ui-state-active a, .ui-state-active a:hover, .ui-state-active a:link, .ui-state-active a:visited {
+    background-color: @theme !important;
+    color: @textColor-inverse !important;
+}
+
+
+.primary {
+    margin-top: 36px !important;
+}
+/* 3 blocs articles du sommaire */
+.articles {
+    margin-top: 72px;
+}
+
+.liste-items-horz .item {
+    float: left;
+}
+.liste-items-horz h1 {
+    margin-top: 24px !important;
+}
+
+#logo {
+    height: 200px;    /* voir image_recadre */
+}
+
+
+
+/* Ajustements : */
+
+p {     //dgy   
+    text-align: justify;
+}
+
+.article-header .spip_logo {    //dgy   
+    float: left;
+    margin-right: 16px;
+    margin-top: 24px;
+}
+
+.page_sommaire .plan_site h1, .page_sommaire .forums h1  {
+    margin-top: 72px;
+    font-size: 1em !important;    //dgy    
+    }
+
+.ligne_resume h1  {
+    margin-top: 72px;
+    font-size: 1.5em !important;    //dgy    
+    }
+
+.ligne_resume h2 {
+    font-size: 0.9em !important;    //dgy    
+    }
+
+code {
+    font-size: 0.9em !important;    //dgy
+    }
+
+.reponse_formulaire, .erreur_message {
+    color : white !important;    //dgy
+    }
+
+#champ_redirect_uri, #champ_scope {
+    width: 300px !important;
+} 
+
+#content .lead, #descriptif_site_spip {
+    font-size: 1em !important; //dgy
+    }
+
+p br,
+.autobr {
+    margin-bottom : 0.3em; //dgy
+    }
+
+#header {
+    margin-top : 16px; //dgy
+    margin-top : 51px; // sinon le bandeau supérieur danse
+    }
+
+h1 {
+    margin-bottom : 16px;  //dgy
+    }
+
+.notes {
+    max-width: 100% !important;  //dgy
+    margin-bottom : 2em;
+}
+
+.notes h2 {
+    font-size: 1.5em;
+    line-height: 0.88888889em;
+    margin-bottom: 0.88888889em;
+}
+
+.page_sommaire #content {
+    text-align : left !important;
+}
+
+#footer {
+    border-top: 1px solid @green !important;
+    background-color: @grayLighter !important;
+}
+
+.comment-meta, .comment-content {
+    padding-left: 0 !important;
+}
+
+.twitter {
+    overflow: hidden;
+}
+
+
+// Les pages plan, agenda etc. n'ont pas de colonne de gauche
+
+.page_plan #aside, .page_agenda #aside, .page_agenda3 #aside, .page_contact #aside {
+    display: none;
+} 
+
+.page_plan #content, .page_agenda #content, .page_agenda3 #content, .page_contact #content {
+    width: 100%;
+}
+
+
+// Pour spipr-doc :
+
+.page_sommaire #header {
+    padding: 36px !important;
+}
+
+.page .navbar-fixed-top {      // .container div pour aligner le menu supérieur sur la page
+    background-color: @green;    
+}
+
+.article {
+    padding-top: 5em;
+}
+
+form input.text {
+    width: 145px;
+}
+
+.comment-reply {
+    visibility: visible !important;
+}
+
+// barrenav multi-niveaux, modification de menu.dropdown.js
+.dropdown-submenu {
+    position: relative;
+}
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 30%;
+    margin-top: -1px;
+}
+.menu-liste .menu-liste {  //dgy sinon le sous-menu fait danser
+    display: none;
+}
+
+
+
+// TYPOGRAPHY    dgy : Argh... Les font-size en px et pas en em !!!!!
+// ---------------------------------------------------------------------
+
+/*dgy @import url("http://fonts.googleapis.com/css?family=Lato:400,700,900,400italic");  */
+
+body {
+    font-family: "Century Gothic", Helvetica, Arial, sans-serif !important;       /*dgy*/
+}
+
+h1 {
+    font-size: 3em;
+    font-weight: 900;
+}
+
+h2 {
+    font-size: 2em;
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+h3.spip {              /*dgy*/
+    padding-top: 1.1em;
+    padding-bottom: 0.6em;
+    margin-bottom: 0 !important;
+}
+
+h4 { 
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+h5 {
+    font-size: 1em;
+    font-weight: 500;
+}
+
+h6 {
+    font-size: 1em;
+    font-weight: 500;
+    text-transform: none;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+div.comment-form {
+    margin-top: 5em;
+}
+
+.footer {    /*dgy*/
+    text-align: right !important;
+}
+
+// SCAFFOLDING
+// --------------------------------------------------
+
+.page-header {
+    border-bottom: none;
+}
+
+
+// NAVBAR
+// --------------------------------------------------
+
+.navbar {
+
+    .brand {
+
+        text-shadow: none;
+
+        &:hover {
+            color: @linkColorHover;
+        }
+    }
+
+    .navbar-inner {
+        .box-shadow(none);
+    }
+
+    .nav > li > a {
+        text-shadow: none;
+    }
+
+    .nav > .active > a,
+    .nav > .active > a:hover,
+    .nav > .active > a:focus {
+        .box-shadow(none);
+    }
+
+    .navbar-search .search-query {
+        border: none;
+        .box-shadow(none);
+        line-height: normal;
+    }
+
+    .btn-navbar {
+        background-image: none;
+        .box-shadow(none);
+    }
+
+    .btn, .btn-group {
+        margin-top: 6px;
+    }
+
+    &-inverse {
+
+        .brand:hover {
+            color: @blueDark;
+        }
+
+        .navbar-search .search-query {
+            border-color: transparent;
+            .box-shadow(none);
+            line-height: normal;
+            color: @textColor;
+
+            &:focus {        
+                padding: 4px 14px;
+                color: @textColor;
+            }
+        }
+    }
+}
+
+div.subnav {
+
+    border-color: transparent;
+    background-image: none;
+    background-color: @grayLighter;
+    .box-shadow(none);
+
+    &-fixed {
+        top: @navbarHeight;
+    }
+
+    .nav > li > a {
+        border-color: transparent;
+        .box-shadow(none);
+        color: @textColor;
+    }
+
+    .nav > .active > a,
+    .nav > .active > a:hover {
+        border-color: transparent;
+        background-color: darken(@grayLighter, 10%);
+        .box-shadow(none);
+        color: @textColor;
+    }
+}
+
+// NAVIGATION
+// --------------------------------------------------
+
+.nav-list {
+
+    & > li > a,
+    & > .active > a,
+    .nav-header {
+        text-shadow: none;
+    }
+
+    .divider {
+        background: none;
+        border-bottom: 2px solid @dropdownDividerBottom;
+    }
+}
+
+.nav-pills {
+
+    .open .dropdown-toggle {
+        background-color: @blueDark;
+    }
+}
+
+.pagination {
+
+    ul {
+
+        .box-shadow(none);
+
+        & > li > a {
+            background-color: @green;
+            border-color: transparent;
+            color: @white;
+
+            &:hover {
+                background-color: lighten(@green, 10%);
+            }
+        }
+
+        & > .active > a,
+        & > .active > a:hover {
+            background-color: @paginationActiveBackground;
+            color: @textColor;
+        }
+
+        & > .disabled > a,
+        & > .disabled > a:hover {
+            background-color: lighten(@green, 10%);
+            color: @white;
+        }
+    }
+}
+
+.pager {
+
+    li > a,
+    li > span {
+        background-color: @green;
+        border: none;
+        color: @white;
+
+        &:hover {
+            background-color: lighten(@green, 10%);
+        }
+    }
+
+    .disabled > a,
+    .disabled > span,
+    .disabled > a:hover,
+    .disabled > span:hover {
+        background-color: lighten(@green, 10%);
+        color: @white;
+    }
+}
+
+.breadcrumb {
+
+    & > li {
+        text-shadow: none;
+    }
+}
+
+// BUTTONS
+// --------------------------------------------------
+
+.btn {
+    padding: 9px 20px;
+    border: none;
+    background-image: none;
+    color: @white;
+    text-decoration: none;
+    text-shadow: none;
+    .box-shadow(none);
+    -webkit-transition: 0.25s;
+    -moz-transition: 0.25s;
+    transition: 0.25s;
+
+    &:hover,
+    &:focus {
+        color: white;
+        -webkit-transition: 0.25s;
+        -moz-transition: 0.25s;
+        transition: 0.25s;
+    }
+
+    &:active,
+    &.active {
+        .box-shadow(none);
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+    &.disabled,
+    &[disabled] {
+        color: white;
+    }
+
+    &-large {
+        padding: @paddingLarge;
+    }
+
+    &-small {
+        padding: @paddingSmall;
+    }
+
+    &-mini {
+        padding: @paddingMini;
+    }
+}
+
+// TABLES
+// -----------------------------------------------------
+
+.table tbody tr {
+    &.success > td,
+    &.error > td,
+    &.warning > td,
+    &.info > td {
+        color: @white;
+    }
+}
+
+// FORMS
+// --------------------------------------------------
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+    padding: 7px 6px;
+    border: 2px solid #dce4ec;
+    text-indent: 1px;
+    .border-radius(@inputBorderRadius);
+    .box-shadow(none);
+    .placeholder(#acb6c0);
+
+    &:focus {
+        border-color: #1abc9c;
+        .box-shadow(none);
+
+    }
+}
+
+.input-prepend {
+
+    .add-on:first-child,
+    .btn:first-child {
+        .border-radius(@inputBorderRadius 0 0 @inputBorderRadius);
+    }
+}
+
+.input-append {
+
+    input,
+    select,
+    .uneditable-input {
+
+        .border-radius(@inputBorderRadius 0 0 @inputBorderRadius);
+
+        + .btn-group .btn:last-child {
+            .border-radius(0 @inputBorderRadius @inputBorderRadius 0);
+        }
+    }
+
+    .add-on:last-child,
+    .btn:last-child,
+    .btn-group:last-child > .dropdown-toggle {
+        .border-radius(0 @inputBorderRadius @inputBorderRadius 0);
+    }
+}
+
+.input-prepend,
+.input-append {
+
+    input,
+    select,
+    .uneditable-input {
+        .border-radius(0);
+        + .btn-group .btn {
+            .border-radius(0 @inputBorderRadius @inputBorderRadius 0);
+        }
+    }
+
+    .add-on:first-child,
+    .btn:first-child {
+        .border-radius(@inputBorderRadius 0 0 @inputBorderRadius);
+    }
+
+    .add-on:last-child,
+    .btn:last-child {
+        .border-radius(0 @inputBorderRadius @inputBorderRadius 0);
+    }
+}
+
+.input-append,
+.input-prepend {
+
+    .add-on {
+        padding: 9px 5px;
+        text-shadow: none;
+        border: none;
+    }
+}
+
+.control-group.error,
+.control-group.error input:focus,
+.control-group.error textarea:focus {
+    border-color: #e74c3c;
+    .box-shadow(none);
+}
+
+.control-group.success,
+.control-group.success input:focus,
+.control-group.success textarea:focus {
+    border-color: #2ecc71;
+    .box-shadow(none);
+}
+
+.control-group.warning,
+.control-group.warning input:focus,
+.control-group.warning textarea:focus {
+    border-color: #f1c40f;
+    .box-shadow(none);
+}
+
+.control-group.info,
+.control-group.info input:focus,
+.control-group.info textarea:focus {
+    border-color: #3498db;
+    .box-shadow(none);
+}
+
+input[disabled],
+input[readonly],
+textarea[disabled],
+textarea[readonly] {
+    background-color: #eaeded;
+    border-color: transparent;
+    color: #cad2d3;
+    cursor: default;
+}
+
+input[type="file"]{
+    line-height: 16px;
+}
+
+legend {
+    border-bottom: none;
+    color: @textColor;
+}
+
+.form-actions {
+    border-top: none;
+    .border-radius(@baseBorderRadius);
+    background-color: darken(@grayLighter, 5%);
+}
+
+// DROPDOWNS
+// --------------------------------------------------
+
+
+// ALERTS, LABELS, BADGES
+// --------------------------------------------------
+
+.alert {
+    background-color: @orange;
+    color: @white;
+    text-shadow: none;
+
+    h1, h2, h3, h4, h5, h6 {
+        color: @white;
+    }
+
+    &-error {
+        background-color: @red;
+    }
+
+    &-success {
+        background-color: @green;
+    }
+
+    &-info {
+        background-color: @blue;
+    }
+}
+
+.label {
+    padding: 6px 10px;
+    text-shadow: none;
+}
+
+.badge {
+    padding: 6px 10px;
+    .border-radius(@borderRadiusLarge);
+    text-shadow: none;
+}
+
+
+// MISC
+// --------------------------------------------------
+
+.well {
+    border: none;
+    .box-shadow(none);
+
+}
+
+.progress {
+
+    background: @grayLighter;
+    border-radius: 32px;
+    height: 12px;
+    .box-shadow(none);
+
+    .bar {
+        background-color: @blueDark;
+        background-image: none;
+        .box-shadow(none);
+    }
+
+    .bar + .bar {
+        .box-shadow(none);
+    }
+
+    &-striped .bar {
+        #gradient > .striped(@blueDark);
+    }
+
+    &-success .bar,
+    &-success.progress-striped .bar,
+    .bar-success {
+        background-color: @green;
+    }
+
+    &-warning .bar,
+    &-warning.progress-striped .bar,
+    .bar-warning {
+        background-color: @yellow;
+    }
+
+    &-danger .bar,
+    &-danger.progress-striped .bar,
+    .bar-danger {
+        background-color: @red;
+    }
+
+    &-info .bar,
+    &-info.progress-striped .bar,
+    .bar-info {
+        background-color: @blue;
+    }
+}
+
+.tooltip {
+
+    &.in {
+        opacity: 1;
+    }
+}
+
+.popover {
+    color: @white;
+
+    &-title {
+        border-bottom: 2px solid @dropdownDividerBottom;
+    }
+}
+
+.modal {
+
+    &-header {
+        background-color: @navbarBackground;
+        border-bottom: none;
+        color: @white;
+    }
+
+    &-footer {
+        background-color: @grayLighter;
+        border-top: none;
+        .box-shadow(none);
+    }
+}
+
+.close {
+    text-shadow: none;
+}
+
+// MEDIA QUERIES
+// --------------------------------------------------
+
+@media (max-width: 767px) {
+
+    div.subnav {
+
+        .nav > li:first-child > a,
+        .nav > li + li > a {
+            border-color: transparent;
+
+            &:hover {
+                background-color: darken(@grayLighter, 10%);
+            }
+        }
+
+        .nav > li:last-child > a {
+            border-radius: 0 0 4px 4px;
+        }
+    }
+
+    .input-append,
+    .input-prepend {
+
+        .add-on,.btn {
+            padding: 5px;
+        }
+    }
+}
+
+@media (max-width: 979px) {
+
+    .navbar {
+
+        .nav-collapse .nav > li > a {
+            color: @white;
+
+            &:hover {
+                background-color: @green;
+            }
+        }
+
+    }
+}

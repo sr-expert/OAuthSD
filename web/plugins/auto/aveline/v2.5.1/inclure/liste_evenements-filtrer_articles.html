@@ -1,0 +1,13 @@
+#SET{articles,#ARRAY}
+#SET{periode,#ENV{periode_liste_evenements}|sinon{#ENV{periode}}}
+[(#ENV{archives}|et{#ENV{archives}|!={tout}})#SET{periode,''}]
+<BOUCLE_evt(EVENEMENTS){fusion evenements.id_article}{aveline_branche}{tri #ENV{tri},#ENV{senstri}}{evenementrelatif #GET{periode}}{archives?}{aveline_lang}{aveline_lang}{aveline_exclure_objet_encours}>#SET{articles, #GET{articles}|push{#ID_ARTICLE}}</BOUCLE_evt>
+<B_articles>
+	<p class='pagination filtre_articles'>
+	[(#ENV{texte_devant_filtrer_articles}|_T)]
+	[(#ENV{art}|non|?{<strong class="on">,<a href="[(#SELF|parametre_url{filtre_art,''})]">})]<:avelinepublic:voir_tous:>[(#ENV{art}|non|?{</strong>,</a>})]
+	<BOUCLE_articles(ARTICLES){id_article IN #GET{articles}}{par num titre, titre}>
+		<span class="sep separateur">|</span> [(#ENV{art}|=={#ID_ARTICLE}|?{<strong class="on">,<a href="[(#SELF|parametre_url{filtre_art,#ID_ARTICLE})]">})]#TITRE[(#ENV{art}|=={#ID_ARTICLE}|?{</strong>,</a>})]
+	</BOUCLE_articles>
+	</p>
+</B_articles>

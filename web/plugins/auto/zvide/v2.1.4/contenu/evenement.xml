@@ -1,0 +1,6 @@
+<page>
+	<nom><:zvide:nom_page_evenement:></nom>
+	<description><:zvide:description_page_evenement:></description>
+	<icon>evenement-24.png</icon>
+	<necessite id="agenda" />
+</page>

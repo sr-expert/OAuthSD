@@ -1,0 +1,26 @@
+[(#REM)
+Sommaire : présenter tous les articles le plus récent en tête.
+Rubrique : présenter les articles dans l'ordre voulu.
+2016/10/10 DnC B.Degoy
+]
+
+<BOUCLE_r (RUBRIQUES) {id_rubrique} ><B_articles_rub>
+        #ANCRE_PAGINATION
+        <ul class="liste-items">
+            <BOUCLE_articles_rub(ARTICLES) {id_rubrique} {par num titre}{!id_article IN #ENV{articles_exclus,#ARRAY}} {pagination #ENV{nb,10}}>
+            <li class="item">#INCLURE{fond=inclure/resume/article,id_article}</li>
+            </BOUCLE_articles_rub>
+        </ul>
+        [<div class="pagination">(#PAGINATION)</div>]</B_articles_rub>
+</BOUCLE_r> 
+    <B_articles>
+        #ANCRE_PAGINATION
+        <h2 class="h2">[(#ENV{titre,<:derniers_articles:>})]</h2>
+        <ul class="liste-items">
+            <BOUCLE_articles(ARTICLES){id_rubrique ?} {!par date}{!id_article IN #ENV{articles_exclus,#ARRAY}} {pagination #ENV{nb,10}}>
+            <li class="item">#INCLURE{fond=inclure/resume/article,id_article}</li>
+            </BOUCLE_articles>
+        </ul>
+        [<div class="pagination">(#PAGINATION)</div>]
+    </B_articles>
+<//B_r>

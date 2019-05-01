@@ -1,0 +1,28 @@
+[(#CONFIG{sarkaspip/formulaires/plugin_contact, 0}|=={0}|oui)
+	#SET{contact, #CONFIG{sarkaspip/formulaires/auteur_contact}}
+]
+[(#CONFIG{sarkaspip/formulaires/plugin_contact, 0}|=={1}|oui)
+	[(#PLUGIN{CONTACT}|oui)
+		[(#CONFIG{contact/choix_destinataires}|oui)
+			#SET{contact, #CONFIG{contact/choix_destinataires}|table_valeur{0}}
+		]
+	]
+]
+<BOUCLE_auteur_principal(AUTEURS){tout}{id_auteur=#GET{contact}|sinon{0}}>
+<section class="contact">
+	<header class="cartouche">
+		[<h1>(#CONFIG{sarkaspip/formulaires/titre_contact, <:sarkaspip:contacter_site:>})</h1>]
+	</header>
+	<div class="main">
+		[<div class="chapo">(#CONFIG{sarkaspip/formulaires/descriptif_contact}|propre)</div>]
+	</div>
+	[(#CONFIG{sarkaspip/formulaires/plugin_contact, 0}|=={0}|oui)
+		[(#FORMULAIRE_ECRIRE_AUTEUR)]
+	]
+	[(#CONFIG{sarkaspip/formulaires/plugin_contact, 0}|=={1}|oui)
+		[(#PLUGIN{CONTACT}|oui)
+			[<div class="ajax">(#FORMULAIRE_CONTACT)</div>]
+		]
+	]
+</section>
+</BOUCLE_auteur_principal>

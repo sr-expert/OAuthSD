@@ -1,0 +1,32 @@
+[(#REM) 
+<!-- Affichage des caracteristiques de l'objet trouve lors d'une recherche
+	Recoit en argument :
+		- titre : Le titre de l'objet (article, rubrique, breve, site)
+		  
+		- afficher_date : affiche ou pas la date
+		- date : si afficher_date=oui, affiche la date de publication
+		
+		- l'url : le lien pointant vers l'objet
+		  			
+		- afficher_logo : affiche ou pas un logo, une image
+		- logo : si afficher_logo=oui, image a afficher
+		
+		- afficher_auteur : affiche ou pas un auteur
+		- auteur : afficher_auteur=oui, nom de l'auteur
+-->
+]
+<li>
+	[(#ENV{afficher_logo}|=={oui}|oui)
+      [<div class="logo droite">(#ENV*{logo}|image_reduire{25})</div>]
+	]
+    [(#ENV{afficher_date}|=={oui}|oui)
+      <div class="cartouche">[(#ENV{date}|nom_jour)][&nbsp;(#ENV{date}|affdate)]</div>
+	]
+		
+	[<a class="titre" href="#ENV{url}">(#ENV{titre})</a>]
+
+	[(#ENV{afficher_auteur}|=={oui}|oui)
+		- <:sarkaspip:par_auteur:>[(#ENV{auteur})]
+	]
+	<br class="nettoyeur"/>
+</li>

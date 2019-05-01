@@ -1,0 +1,19 @@
+[(#REM) <!-- affichage des X messages de forum les plus recents du site --> ]
+<B_messages>
+<div id="noisette_forum" class="noisette noisette_forum forum">
+	<div class="liste short">
+		#ANCRE_PAGINATION
+	<BOUCLE_acces_forum(RUBRIQUES) {id_rubrique=#RACINE_SPECIALISEE{forum}}>
+		<h2><:sarkaspip:derniers_messages:><small> <a href="#URL_RUBRIQUE">dans les forums</a></small></h2>
+	</BOUCLE_acces_forum>
+		[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{top})]
+		<ul class="liste-items forum">
+<BOUCLE_messages(FORUMS){articles.id_rubrique==#BRANCHE_SPECIALISEE{forum}}{objet=article}{plat}{!par date_heure}{0,#CONFIG{sarkaspip/noisettes/max_messages, 50}}{pagination #CONFIG{sarkaspip/noisettes/pas_pagination_messages, 10}}>
+			[<li class="item item-header"><span class="">(#DATE|affdate_court|unique{date_messages})</span></li>]
+			[<li class="item"><i class="icon-comment"></i> [<span class="auteur muted">(#AUTEUR)&nbsp;: </span>]<a href="[(#URL_ARTICLE{#ID_OBJET}|parametre_url{id_forum, #ID_THREAD}|ancre_url{forum#ID_FORUM})]" title="[(#TITRE|attribut_html)]">(#INTRODUCTION{#CONFIG{sarkaspip/noisettes/intro_message, 100}}|PtoBR)</a><small></small></li>]
+</BOUCLE_messages>
+		</ul>
+		[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{bottom})]
+	</div>
+</div>
+</B_messages>

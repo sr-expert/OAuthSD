@@ -1,0 +1,24 @@
+#SET{name,intro_article}#SET{defaut,300}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+	<label for="#GET{name}"><:sarkaspip_config:cfg_lbl_intro_article:></label>[
+	<span class='erreur_message'>(#GET{erreurs})</span>
+	]<input type="text" name="#GET{name}" class="text" value="#ENV*{#GET{name},#GET{defaut}}" id="#GET{name}" [(#HTML5|et{#GET{obli}})required='required']/>
+</li>
+<!--
+#SET{name,avec_lire_suite}#SET{defaut,non}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+	<label><:sarkaspip_config:cfg_inf_lire_suite:></label>[
+	<span class='erreur_message'>(#GET{erreurs})</span>
+	]
+	#SET{val,oui}
+	<div class="choix">
+		<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+		<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_oui:></label>
+	</div>
+	#SET{val,non}
+	<div class="choix">
+		<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+		<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_non:></label>
+	</div>
+</li>
+-->

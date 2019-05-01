@@ -1,0 +1,23 @@
+[(#SET{titre,[(#ENV{titre_liste}|=={titre_perso}|?{[(#ENV**{titre_liste_perso}|typo)],[(#ENV{titre_liste}|_T)]})]})]
+[(#SET{initiale,''})]
+<B_liste_auteurs>
+<div class="liste auteurs">
+	#ANCRE_PAGINATION
+	[(#ENV{afficher_titre_liste}|oui)[<h2 class="h2">(#GET{titre})</h2>]]
+	[<p class="pagination choix_tri">(#AVELINE_CHOIX_TRI{'auteur','debut'})</p>]
+	[(#ENV{afficher_tri_alphabetique}|et{#ENV{position_tri_alphabetique}|!={fin}}|et{#ENV{tri_liste_auteurs}|sinon{#ENV{tri}}|=={'nom'}})
+		#INCLURE{fond=inclure/liste_auteurs-tri_alphabetique,env}
+	]
+	[<p class="pagination">(#AVELINE_PAGINATION{'debut'})</p>]
+	<ul class="liste-items">
+	<BOUCLE_liste_auteurs(AUTEURS) {compteur articles}{tri #ENV{tri},#ENV{senstri}}{aveline_pagination}{aveline_exclure_objet_encours}{articles.statut = publie}>
+		#INCLURE{fond=inclure/auteur-resume,id_auteur=#ID_AUTEUR,id_auteur_expose=#ENV{id_auteur},initiale=#GET{initiale},env}
+	</BOUCLE_liste_auteurs>
+	</ul>
+	[<p class="pagination">(#AVELINE_PAGINATION{'fin'})</p>]
+	[(#ENV{afficher_tri_alphabetique}|et{#ENV{position_tri_alphabetique}|!={debut}}|et{#ENV{tri_liste_auteurs}|sinon{#ENV{tri}}|=={'nom'}})
+		#INCLURE{fond=inclure/liste_auteurs-tri_alphabetique,env}
+	]
+	[<p class="pagination choix_tri">(#AVELINE_CHOIX_TRI{'auteur','fin'})</p>]
+</div>
+</B_liste_auteurs>

@@ -1,0 +1,12 @@
+[(#SET{ariane_separateur, #ENV{ariane_separateur}|is_null|non|?{#ENV{ariane_separateur},'&gt;'}})]
+[(#SET{ariane_separateur, [<span class="sep">(#GET{ariane_separateur})</span>]})]
+[(#SET{longueur_max_titres, #ENV{longueur_max_titres}|sinon{80}})]
+[(#SET{titre_racine,[(#ENV{titre_racine}|=={titre_perso}|?{[(#ENV**{titre_racine_perso}|typo)],[(#ENV{titre_racine,public:mots_clefs}|_T)]})]})]
+<BOUCLE_mot(MOTS){id_mot}>
+<p id="hierarchie">
+	[(#ENV{afficher_lien_accueil}|oui)<a href="#URL_SITE_SPIP/"><:accueil_site:></a>] [(#GET{ariane_separateur})] 
+	[(#ENV{lien_page_mots}|oui)<a href="#URL_PAGE{mots}">][(#GET{titre_racine})][(#ENV{lien_page_mots}|oui)</a>]
+	<BOUCLE_ariane(GROUPES_MOTS){id_groupe}{si #ENV{afficher_groupe}}>[(#GET{ariane_separateur})] [(#ENV{lien_groupe_mots}|oui)<a href="#URL_PAGE{groupe_mots,id_groupe=#ID_GROUPE}">][(#TITRE|couper{#GET{longueur_max_titres}})][(#ENV{lien_groupe_mots}|oui)</a>]</BOUCLE_ariane>
+	[(#ENV{afficher_titre_mot}|oui) [(#GET{ariane_separateur})] <strong class="on">[(#TITRE|couper{#GET{longueur_max_titres}})]</strong>]
+</p>
+</BOUCLE_mot>

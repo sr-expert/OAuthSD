@@ -1,0 +1,9 @@
+#SET{redirection,#ID_RUBRIQUE|sarkaspip_test_si_redirection_article_solitaire}
+<BOUCLE_principale_rubrique(RUBRIQUES){id_rubrique}>
+	<BOUCLE_art_orphelin(ARTICLES){id_article=#GET{redirection}}{si #CONFIG{sarkaspip/rubrique/court_circuit,0}|=={2}}{si #AGENDA|non}>
+		<INCLURE{fond=article,id_article,env} />
+	</BOUCLE_art_orphelin>
+		[(#GET{redirection}|non|sinon_interdire_acces{#URL_ARTICLE{#GET{redirection}}})]
+		<INCLURE{fond=structure,env,id_secteur=#ID_SECTEUR,type-page=rubrique,composition=#ENV{referencer}|=={oui}|?{referencer,#AGENDA|?{agenda,#COMPOSITION}}} />
+	<//B_art_orphelin>
+</BOUCLE_principale_rubrique>

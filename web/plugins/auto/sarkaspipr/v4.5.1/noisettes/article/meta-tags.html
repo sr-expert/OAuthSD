@@ -1,0 +1,11 @@
+[(#REM) <!-- Noisette mots-cles associes a l'article
+Recoit en argument:
+- id_article de l'article concerne
+-->]
+<B_mots>
+	<ul class="tags unstyled">
+		<BOUCLE_mots(MOTS){id_article?}{id_album?}{type!=squelette_habillage}{par titre}>
+		<li><span class="label"><i class="icon-tag"></i> <a href="#URL_MOT" title="<:sarkaspip:navigation_bulle_recherche_motcle:>">#TITRE</a></span><span class='sep'>| </span></li>
+		</BOUCLE_mots>
+	</ul>
+</B_mots>

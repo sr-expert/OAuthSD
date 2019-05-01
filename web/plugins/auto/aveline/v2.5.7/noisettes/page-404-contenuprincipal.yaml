@@ -1,0 +1,4 @@
+nom: '<:aveline:nom_page-404-contenuprincipal:>'
+icon: 'warning-24.png'
+contexte:
+  - 'erreur'

@@ -1,0 +1,120 @@
+-
+  saisie: 'selection'
+  options:
+    nom: 'style_liste'
+    label: '<:aveline:label_style_liste:>'
+    defaut: 'liste'
+    cacher_option_intro: 'oui'
+    datas:
+      liste: '<:aveline:item_liste:>'
+      resume: '<:aveline:item_resume:>'
+-
+  saisie: 'fieldset'
+  options:
+    nom: 'si_liste_simple'
+    label: '<:aveline:label_si_liste_simple:>'
+    afficher_si: '@style_liste@ == "liste"'
+  saisies:
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'liste_afficher_type'
+        label: '<:aveline:label_afficher_type:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'liste_afficher_taille'
+        label: '<:aveline:label_afficher_taille:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'liste_afficher_date'
+        label: '<:aveline:label_afficher_date:>'
+        defaut: ''
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'liste_afficher_date_modif'
+        label: '<:aveline:label_afficher_date_modif:>'
+        defaut: ''
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'liste_afficher_descriptif'
+        label: '<:aveline:label_afficher_descriptif:>'
+        defaut: 'on'
+-
+  saisie: 'fieldset'
+  options:
+    nom: 'si_resume'
+    label: '<:aveline:label_si_resume:>'
+    afficher_si: '@style_liste@ == "resume"'
+  saisies:
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_date'
+        label: '<:aveline:label_afficher_date:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_date_modif'
+        label: '<:aveline:label_afficher_date_modif:>'
+        defaut: ''
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_logo'
+        label: '<:aveline:label_afficher_logo:>'
+        defaut: 'on'
+    -
+      saisie: 'input'
+      options:
+        nom: 'taille_max_logo'
+        label: '<:aveline:label_taille_max_logo:>'
+        defaut: 52
+        afficher_si: '@afficher_logo@ == "on"'
+      verifier:
+        type: 'entier'
+        min: 10
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_descriptif'
+        label: '<:aveline:label_afficher_descriptif:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_credits'
+        label: '<:aveline:label_afficher_credits:>'
+        defaut: ''
+        afficher_si: '@plugin:medias@'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_telecharger'
+        label: '<:aveline:label_afficher_telecharger:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'rappeler_titre'
+        label: '<:aveline:label_rappeler_titre:>'
+        defaut: 'on'
+        afficher_si: '@afficher_telecharger@ == "on"'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_type'
+        label: '<:aveline:label_afficher_type:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_taille'
+        label: '<:aveline:label_afficher_taille:>'
+        defaut: ''

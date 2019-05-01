@@ -1,0 +1,40 @@
+[(#SET{titre,[(#ENV{select_articles_titre}|=={titre_perso}|?{[(#ENV**{titre_liste_perso}|typo)],[(#ENV{select_articles_titre}|_T)]})]})]
+<BOUCLE_secteurs(RUBRIQUES) {racine} {par num titre, titre}>
+
+	<h2 class="h2"><a href="#URL_RUBRIQUE">#TITRE</a></h2>
+
+	[(#REM) Articles et sous-rubriques ]
+	<BOUCLE_test(CONDITION){si #ENV{afficher_articles}}>
+	<B_articles_racine>
+	[(#ENV{afficher_articles_titre}|oui)<h3 class="h3">#GET{titre}</h3>]
+	<ul class="plan">
+		<BOUCLE_articles_racine(ARTICLES) {id_rubrique} {par num titre, titre}>
+		<li><a href="#URL_ARTICLE">#TITRE</a></li>
+		</BOUCLE_articles_racine>
+	</ul>
+	</B_articles_racine>
+	</BOUCLE_test>
+
+	<B_rubriques>
+	<ul class="plan">
+		<BOUCLE_rubriques(RUBRIQUES) {id_parent} {par num titre, titre}>
+		<li>
+			<strong><a href="#URL_RUBRIQUE">#TITRE</a></strong>
+			
+			<BOUCLE_test2(CONDITION){si #ENV{afficher_articles}}>
+			<B_articles>
+			<ul>
+				<BOUCLE_articles(ARTICLES) {id_rubrique} {par num titre, titre}>
+				<li><a href="#URL_ARTICLE">#TITRE</a></li>
+				</BOUCLE_articles>
+			</ul>
+			</B_articles>
+			</BOUCLE_test2>
+			
+			<BOUCLE_sous_rubriques(BOUCLE_rubriques)></BOUCLE_sous_rubriques>
+		</li>
+		</BOUCLE_rubriques>
+	</ul>
+	</B_rubriques>
+
+</BOUCLE_secteurs>

@@ -1,0 +1,30 @@
+[(#REM) Portfolio : album d'images ]
+[(#SET{hauteur_max_images, #ENV{hauteur_max_images}|sinon{100}})]
+[(#SET{titre_noisette, #ENV{titre_noisette}|sinon{medias:info_portfolio}})]
+[(#SET{titre,[(#GET{titre_noisette}|=={titre_perso}|?{[(#ENV**{titre_noisette_perso}|typo)],[(#GET{titre_noisette}|_T)]})]})]
+<B_documents_portfolio>
+<div id="documents_portfolio" class="documents documents_portfolio">
+	[(#ENV{afficher_titre_noisette}|oui)[<h2 class="h2">(#GET{titre})</h2>]]
+	<BOUCLE_documents_portfolio(DOCUMENTS) {id_objet?}{objet?} {mode=document}{extension IN png,jpg,gif} {par num titre, date}{vu?}>[
+	<a href="(#URL_DOCUMENT)" 
+		type="#MIME_TYPE" 
+		rel="documents_portfolio[-a(#ID_ARTICLE)][-r(#ID_RUBRIQUE)]" 
+		[ title="(#TITRE|attribut_html|couper{80})"]>
+		[(#ENV{vignettes_carrees}|non)
+			[(#FICHIER
+				|image_reduire{0,#GET{hauteur_max_images}}
+				|inserer_attribut{class,spip_logos}
+				|inserer_attribut{alt,[(#TITRE|attribut_html|couper{80})]})]
+		][(#ENV{vignettes_carrees}|oui)
+			[(#SET{ratio_x,#LARGEUR|div{#GET{hauteur_max_images}}})][(#SET{ratio_y,#HAUTEUR|div{#GET{hauteur_max_images}}})]
+			[(#SET{ratio,#GET{ratio_x}|<={#GET{ratio_y}}|?{#GET{ratio_x},#GET{ratio_y}}})]
+			[(#SET{taille_recadre,#LARGEUR|<={#HAUTEUR}|?{#LARGEUR,#HAUTEUR}})]
+			[(#FICHIER|image_recadre{#GET{taille_recadre},#GET{taille_recadre},center}|image_reduire_par{#GET{ratio}}
+				|inserer_attribut{class,spip_logos}
+				|inserer_attribut{alt,[(#TITRE|attribut_html|couper{80})]}
+			)]
+		]
+	</a>
+	]</BOUCLE_documents_portfolio>
+</div>
+</B_documents_portfolio>

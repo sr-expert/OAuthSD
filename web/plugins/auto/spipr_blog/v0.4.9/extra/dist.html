@@ -1,0 +1,29 @@
+[(#REM) Liens des forums ]
+[(#REM) <!-- affichage des X commentaires d'articles les plus recents du site ou du secteur concerne --> ]
+<B_commentaires>
+	<div class="liste short comments">
+		<h2><:derniers_commentaires:></h2>
+		<ul class="liste-items comments">
+			<BOUCLE_commentaires(FORUMS){objet=article}{plat}{!par date_heure}{0,10}>
+			[<li class="item item-header"><span class="">(#DATE|affdate_court|unique{date_commentaires})</span></li>]
+			[<li class="item"><i class="icon-comment"></i> [<span class="auteur muted">(#AUTEUR)&nbsp;: </span>]<a href="#URL_FORUM" title="[(#TITRE|attribut_html)]">(#INTRODUCTION{#CONFIG{sarkaspip_noisettes/intro_commentaire, 100}}|PtoBR)</a><small></small></li>]
+			</BOUCLE_commentaires>
+		</ul>
+	</div>
+</B_commentaires>
+
+
+[(#REM) Sur le Web ]
+<B_syndic>
+<div class="liste sites">
+	<h2 class="h2">Liens</h2>
+	<ul class="liste-items short">
+		<BOUCLE_syndic(SITES) {!par date}>
+		<li class="item"><i class="icon-globe"></i> #INCLURE{fond=inclure/resume/site,id_syndic}</li>
+		</BOUCLE_syndic>
+	</ul>
+</div>
+</B_syndic>
+
+[(#REM) Inscription au site ]
+#FORMULAIRE_INSCRIPTION

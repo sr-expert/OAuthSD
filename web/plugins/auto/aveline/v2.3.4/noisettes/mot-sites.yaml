@@ -1,0 +1,15 @@
+nom: '<:aveline:nom_mot-sites:>'
+icon: 'site-24.png'
+necessite:
+  - 'mots'
+  - 'sites'
+contexte:
+  - 'id_rubrique'
+  - 'id_secteur'
+  - 'id_mot'
+parametres:
+  - 'inclure:inc-yaml/branche-site.yaml'
+  - 'inclure:inc-yaml/tri-site.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-site.yaml'
+  - 'inclure:inc-yaml/resume-site.yaml'

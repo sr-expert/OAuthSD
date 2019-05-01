@@ -1,0 +1,60 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'choix_periode'
+    label: '<:aveline:label_choix_periode:>'
+    explication: '<:aveline:explication_choix_periode:>'
+-
+  saisie: 'fieldset'
+  options:
+    nom: 'si_choix_periode'
+    label: '<:aveline:label_si_choix_periode:>'
+    afficher_si: '@choix_periode@ == "on"'
+  saisies:
+    -
+      saisie: 'selection'
+      options:
+        nom: 'position_choix_periode'
+        label: '<:aveline:label_position_choix_periode:>'
+        defaut: 'debut'
+        cacher_option_intro: 'oui'
+        datas:
+          debut: '<:aveline:item_debut:>'
+          fin: '<:aveline:item_fin:>'
+          deux: '<:aveline:item_deux:>'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_periode_tout'
+        label: '<:avelinepublic:tout:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_periode_passe'
+        label: '<:avelinepublic:passe:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_periode_passe_en_cours'
+        label: '<:avelinepublic:passe_en_cours:>'
+        defaut: ''
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_periode_en_cours'
+        label: '<:avelinepublic:en_cours:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_periode_en_cours_a_venir'
+        label: '<:avelinepublic:en_cours_a_venir:>'
+        defaut: ''
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_periode_a_venir'
+        label: '<:avelinepublic:a_venir:>'
+        defaut: 'on'

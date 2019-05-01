@@ -1,0 +1,17 @@
+[(#REM) <!-- Noisette Rainette
+Recoit en argument:
+
+-->]
+<div id="noisette_rainette" class="noisette noisette_rainette meteo">
+	<h2 class="intitule"><:sarkaspip:meteo:></h2>
+	<span class="label">#RAINETTE_INFOS{#CONFIG{sarkaspip/noisettes/rainette_ville, FRXX0076}, ville}</span>
+	<div class="carousel slide" id="slide_meteo">
+		<div class="carousel-inner">
+			[(#MODELE{rainette_conditions, code=[(#CONFIG{sarkaspip/noisettes/rainette_ville, FRXX0076})], sous_modele=mod_conditions_tempsreel})]
+			[(#MODELE{rainette_previsions, code=[(#CONFIG{sarkaspip/noisettes/rainette_ville, FRXX0076})],type=x_jours,jour=[(#CONFIG{sarkaspip/noisettes/rainette_prevision, 7})], sous_modele=mod_previsions_24h})]
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	jQuery("#slide_meteo").carousel({pause:"hover"}).carousel('pause');
+</script>

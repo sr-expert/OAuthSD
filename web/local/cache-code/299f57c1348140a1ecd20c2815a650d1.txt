@@ -1,0 +1,6 @@
+[
+{"id_oidc_log":"3400","remote_addr":"173.208.157.186","state":"","client_id":"testopenid4","user_id":"Unk","datetime":"2019-03-06 03:04:09","origin":"Authorize","message":"2019-03-06 03:04:09 - 173.208.157.186 - Information : Authorize : Begin","level":"1","weight":"0","errnum":"1"}
+,
+{"id_oidc_log":"3401","remote_addr":"173.208.157.186","state":"fc06ce8d03c189c7af1167d2e16e4a9a","client_id":"testopenid4","user_id":"Unk","datetime":"2019-03-06 03:04:09","origin":"Authorize","message":"2019-03-06 03:04:09 - 173.208.157.186 - Information : Authorize : Begin authentification for client = testopenid4",
+"level":"1","weight":"1","errnum":"110"}
+]

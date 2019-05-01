@@ -1,0 +1,36 @@
+//
+// Hero unit
+// --------------------------------------------------
+
+
+.hero-unit {
+  font-size: 1em; 
+  padding: @emLineHeight * 2 / 1.25;
+  padding-top: @emLineHeight * 1 / 1.25;
+  padding-bottom: @emLineHeight * 1 / 1.25;
+  margin-bottom: @emLineHeight * 2 / 1.25;
+  line-height: @emLineHeight;
+  padding-left: 120px;
+
+  position: relative;
+
+  &:before {
+    width:10px;
+    position:absolute;
+    left:0px;
+    border-radius:5px;
+    top:0; bottom:0;
+    content:"";
+    #gradient > .horizontal(lighten(@heroUnitBorder, 20%), @heroUnitBorder)
+  }
+
+  h1 {
+    margin-bottom: 0;
+    color: @heroUnitHeadingColor;
+    letter-spacing: -1px;
+  }
+  p {
+    color: @heroUnitLeadColor;
+  }
+  & >:last-child {margin-bottom: 0;} 
+}

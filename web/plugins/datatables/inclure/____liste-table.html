@@ -1,0 +1,109 @@
+[(#REM)  //o
+Plugin DataTables
+Liste paginée de la table #ENV{table} avec Data Tables.
+Les lignes sont affichés dans l'ordre de la liste #ENV{champs}.
+#ENV{rechsur} donne la liste des champs avec recherche.
+
+Copyright(c) 2017 DnC
+Auteurs : Bertrand Degoy
+Licence : GPL 3
+
+]
+
+
+<h2>Recherche sur la table #ENV{table}</h2>
+
+<div class="nettoyeur"> </div>
+
+<B_table>
+    [<h3>(#GRAND_TOTAL) enregistrement(s) pour #ENV{table}</h3>]
+    <table id="tbl" class="display datatable">
+
+        <B_thead>
+            <thead>
+                <tr>
+                    <BOUCLE_thead(DATA) {source table, #ENV{champs} } >
+                    [<th>(#VALEUR)</th>]
+                    </BOUCLE_thead>
+                </tr>
+            </thead>
+        </B_thead>
+
+        <tbody>
+
+            <BOUCLE_table(DATA){source sql, SELECT * FROM spip_#ENV{table}} >       
+
+            <B_cle>
+                <tr>
+                    <BOUCLE_cle(DATA) {source table, #ENV{champs}} >
+                    <td>
+                        [(#_table:VALEUR|table_valeur{#_cle:VALEUR})]
+                    </td>
+                    </BOUCLE_cle>
+                </tr>
+            </B_cle>
+
+            </BOUCLE_table>
+
+        </tbody>
+
+        <B_tfoot>
+            <tfoot>
+                <tr>
+                    <BOUCLE_tfoot(DATA){source table, #ENV{champs}} >
+                    [<th>(#VALEUR)</th>]
+                    </BOUCLE_tfoot>
+                </tr>
+            </tfoot>
+        </B_tfoot>
+
+    </table>
+</B_table>
+[<p>Aucun enregistrement dans (#ENV{table})</p>]
+<//B_table>
+
+
+#SET{rechsur,#ENV{recherche}|implode}
+
+<script type="text/javascript">
+    $( function() {
+        $('#tbl').DataTable( {
+            select: true,
+            fixedColumns: true,
+            responsive: true 
+        } );
+
+        var table = $('#tbl').DataTable();
+
+        table.columns().flatten().each( function ( colIdx ) {
+            
+            if( $.inArray(colIdx,[#GET{rechsur}]) > -1 ) {
+            
+                // Create the select list and search operation
+                var select = $('<select />')
+                .appendTo(
+                    table.column(colIdx).header()
+                )
+                .on( 'change', function () {
+                    table
+                    .column( colIdx )
+                    .search( $(this).val() )
+                    .draw();
+                } );
+
+                // Get the search data for the first column and add to the select list
+                select.append( $('<option value="">--</option>') );
+                table
+                .column( colIdx )
+                .cache( 'search' )
+                .sort()
+                .unique()
+                .each( function ( d ) {
+                    select.append( $('<option value="'+d+'">'+d+'</option>') );
+                } );
+                
+            }
+        } );
+        
+    } );
+</script>

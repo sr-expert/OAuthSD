@@ -1,0 +1,29 @@
+// Demander un jeton d'accès pour l'application
+
+    $url = 'http://oa.dnc.global/token';
+
+    $datas =  array( 
+        'grant_type' => 'authorization_code',
+        'code' => $authcode,
+        'redirect_uri' => 'http://chemindeleau.com/callback_openid.php',
+        'client_id' => 'chemin_openid', 
+        'client_secret' => '01fc458',    
+    );        
+
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+    curl_setopt($ch, CURLOPT_POSTFIELDS,  http_build_query($datas));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+    $result_json = curl_exec($ch);
+    curl_close($ch);
+
+    $result = json_decode($result_json, true);
+    $access_token = $result['access_token'];  // Access Token
+    $id_token = $result['id_token'];                    // ID Token (JWT)

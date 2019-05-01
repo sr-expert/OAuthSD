@@ -1,0 +1,28 @@
+<BOUCLE_user(USERS){id_user=#ENV{id}}{statut?}>
+<div class="infos">
+[(#SET{texte_objet,<:user:titre_user:>})]
+<div class="numero"><:titre_cadre_numero_objet{objet=#GET{texte_objet}}:><p>#ID_USER</p></div>
+
+[(#FORMULAIRE_INSTITUER_OBJET{users,#ID_USER})]
+
+[(#REM)
+
+	Bouton voir en ligne
+
+]
+<BOUCLE_publie(USERS){id_user}>
+	[(#VAL{redirect}
+		|generer_url_action{type=users&id=#ID_USER}
+		|parametre_url{var_mode,calcul}
+		|icone_horizontale{<:icone_voir_en_ligne:>,racine})]
+</BOUCLE_publie>
+	[(#AUTORISER{previsualiser,users,#ID_USER,'',#ARRAY{statut,#STATUT}})
+		[(#VAL{redirect}
+			|generer_url_action{type=users&id=#ID_USER}
+			|parametre_url{var_mode,preview}
+			|icone_horizontale{<:previsualiser:>,preview})]
+	]
+<//B_publie>
+
+</div>
+</BOUCLE_user>

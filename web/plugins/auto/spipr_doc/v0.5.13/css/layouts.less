@@ -1,0 +1,38 @@
+@import "bootstrap/css/layouts.less";
+@import "css/layoutgala/34";
+@import "css/layoutgala/27";
+
+// on passe en grille etroite par defaut
+body {}
+.container {text-align: left;}
+
+#grid > .core(@gridColumnWidth, @gridGutterWidth);
+#layoutgala34 > .core(9,3,3,@gridColumnWidth,@gridGutterWidth);
+
+@media (min-width: 1200px) {
+  .page {
+    #grid > .core(@gridColumnWidth, @gridGutterWidth);
+    #layoutgala34 > .core(9,3,3,@gridColumnWidth,@gridGutterWidth);
+  }
+}
+.page_sommaire {
+  #layoutgala27 > .core(100%,47.5%,47.5%,@gridColumnWidth768,@gridGutterWidth768);
+  #aside {display: none;}
+}
+#footer {margin-top: 4em;padding: 4em 0;}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  #grid > .core(@gridColumnWidth768, @gridGutterWidth768);
+  #layoutgala34 > .core(9,3,3,@gridColumnWidth768,@gridGutterWidth768);
+}
+
+@media (max-width: 767px) {
+  #layoutgala27 > .core(100%,47.5%,47.5%,@gridColumnWidth768,@gridGutterWidth768);
+  #aside {float:none;width:100%;}
+  #header {margin-top: 0 !important;} /*la nav n'est plus en absolute, recoller le header en haut*/
+  html>body,#nav {padding-left: 0;padding-right: 0;margin-left: 0;margin-right: 0};
+  #header,#content,#aside,#footer {padding-left: 20px;padding-right: 20px;}
+  #aside .affix {position: relative !important;top:0 !important;margin-top: 4em;}
+}
+
+

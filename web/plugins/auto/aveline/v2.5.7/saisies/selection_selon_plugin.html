@@ -1,0 +1,28 @@
+[(#REM) 
+  Permet de spécifier que certains items ne doivent s'afficher que si un plugin est actif
+
+  ### /!\ boucle POUR (spip Bonux) ###
+
+  Parametres :
+  - ** datas : tableau de donnees cle=>valeur
+  - option_intro : chaine de langue de la premiere ligne vide ? (defaut:"")
+  - cacher_option_intro : pas de premier option vide  (defaut:"")
+  - class : classe(s) css ajoutes au select
+  - datas-necessite : tableau dont les clés sont les items de data et les valeurs le nom du plugin dont la présence est requise pour afficher l'item
+  
+]
+
+[(#REM) datas peut être une chaine qu'on sait décomposer ]
+#SET{datas, #ENV*{datas}}
+#SET{datas, #GET{datas}|is_string|?{(#GET{datas}|saisies_chaine2tableau), #GET{datas}}}
+
+<select name="#ENV{nom}" id="champ_#ENV{nom}"[ class="(#ENV{class})"][ disabled="(#ENV{disable})"][ readonly="(#ENV{readonly})"]>
+[(#ENV{cacher_option_intro}|non)<option value="">[(#ENV{option_intro})]</option>]
+<BOUCLE_selection(POUR){tableau #GET{datas}}>
+	[(#ENV*{datas-necessite}|table_valeur{#CLE}|non)
+		<option value="#CLE" [(#CLE|=={#ENV{valeur,#ENV{defaut}}}|oui) selected="selected"]>#VALEUR</option>
+	][(#ENV*{datas-necessite}|table_valeur{#CLE}|oui)
+		[(#PLUGIN{#ENV*{datas-necessite}|table_valeur{#CLE}}|oui)<option value="#CLE" [(#CLE|=={#ENV{valeur,#ENV{defaut}}}|oui) selected="selected"]>#VALEUR</option>)]
+	]
+</BOUCLE_selection>
+</select>

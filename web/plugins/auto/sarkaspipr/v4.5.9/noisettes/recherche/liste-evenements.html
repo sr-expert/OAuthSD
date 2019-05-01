@@ -1,0 +1,21 @@
+[(#REM) 
+<!-- Affichage de la liste des albums trouves lors d'une recherche
+	Recoit en argument :
+		- recherche : critere de recherche
+-->
+]<B_evenements_recherche>
+	<div id="recherche_evenement" class="recherche_evenement resultats evenements">
+		<a rel="nofollow" href="#header" title="<:sarkaspip:kezako_haut_page:>" class="fonction revenir_haut_page"></a>
+		<div class="liste short">
+			<strong class="label">[(#GRAND_TOTAL|objet_afficher_nb{evenement})]</strong>
+			#ANCRE_PAGINATION
+			[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{top})]
+			<ul class="liste-items">
+				<BOUCLE_evenements_recherche(EVENEMENTS articles) {recherche} {!par points} {pagination #CONFIG{sarkaspip/recherche/pas_pagination_recherche_article, 5}}>
+				<li class="item">#INCLURE{fond=inclure/resume/evenement,id_evenement}</li>
+				</BOUCLE_evenements_recherche>
+			</ul>
+			[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{bottom})]
+		</div>
+	</div>	
+</B_evenements_recherche>

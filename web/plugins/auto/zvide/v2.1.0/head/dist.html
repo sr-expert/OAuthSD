@@ -1,0 +1,10 @@
+[(#REM)
+  Cette inclusion est celle utilisee par defaut lorsqu'un head/xxx demande
+	n'existe pas
+
+	Si le noiZetier est activé, alors on utilise le nom de la page.
+]
+
+<title>[(#NOIZETIER_LISTE_PAGES|table_valeur{#ENV{type}[-(#ENV{composition})]}|table_valeur{nom}|textebrut) - ][(#NOM_SITE_SPIP|textebrut)]</title>
+[<meta name="description" content="(#DESCRIPTIF_SITE_SPIP|couper{150}|textebrut)" />]
+[(#PLUGIN{Z,version}|>={1.9.9}|oui)<INCLURE{fond=inclure/head}>]

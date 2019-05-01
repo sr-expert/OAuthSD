@@ -1,0 +1,65 @@
+nom: '<:aveline:nom_selecteur_archives:>'
+description: '<:aveline:description_selecteur_archives:>'
+icon: 'agenda-24.png'
+ajax: 'non'
+contexte:
+  - 'id_rubrique'
+  - 'id_secteur'
+  - 'id_article'
+  - 'archives'
+  - 'lang'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_titre_noisette'
+      label: '<:aveline:label_afficher_titre_noisette:>'
+      defaut: 'on'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'titre_noisette'
+      label: '<:aveline:label_titre_noisette:>'
+      defaut: 'avelinepublic:archives'
+      cacher_option_intro: 'oui'
+      datas:
+        'avelinepublic:archives': '<:avelinepublic:archives:>'
+        'avelinepublic:annees': '<:avelinepublic:annees:>'
+        'avelinepublic:mois': '<:avelinepublic:mois:>'
+        titre_perso: '<:aveline:item_titre_perso:>'
+      afficher_si: '@afficher_titre_noisette@ == "on"'
+  -
+    saisie: 'input'
+    options:
+      nom: 'titre_noisette_perso'
+      label: '<:aveline:label_titre_noisette_perso:>'
+      explication: '<:aveline:explication_raccourcis_typo:>'
+      afficher_si: '@afficher_titre_noisette@ == "on" && @titre_noisette@ == "titre_perso"'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'pas_selecteur_archives'
+      label: '<:aveline:label_pas_selecteur_archives:>'
+      defaut: 'annee'
+      cacher_option_intro: 'oui'
+      datas:
+        annee: '<:aveline:item_annee:>'
+        mois: '<:aveline:item_mois:>'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'style_selecteur'
+      label: '<:aveline:label_style_selecteur:>'
+      defaut: 'liste'
+      cacher_option_intro: 'oui'
+      datas:
+        liste: '<:aveline:item_liste:>'
+        select: '<:aveline:item_select:>'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'compteur_articles_selecteur_archives'
+      label: '<:aveline:label_compteur_articles_selecteur_archives:>'
+  - 'inclure:inc-yaml/branche-article.yaml'
+  - 'inclure:inc-yaml/restreindre_langue.yaml'
+  - 'inclure:inc-yaml/exclure_objet_en_cours-article.yaml'

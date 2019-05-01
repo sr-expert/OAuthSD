@@ -1,0 +1,18 @@
+<B_liste_articles_note>
+<div class="liste articles">
+	#ANCRE_PAGINATION
+	[(#ENV{afficher_titre_liste}|oui)[<h2 class="h2">(#ENV{titre})[ ((#ENV{archives}|affdate_mois|sinon{#ENV{archives}}))][(#ENV{afficher_nb_resultats}|oui)&#40;#GRAND_TOTAL&#41;]</h2>]]
+	
+	[(#GET{position_selecteur_archives_debut}|oui)#INCLURE{fond=inclure/liste_articles-selecteur_archives,archives,pas_selecteur_archives,texte_devant_selecteur_archives,id_auteur,compteur_articles_selecteur_archives}]
+	[(#ENV{position_choix_tri_debut}|oui)#INCLURE{fond=inclure/liste_articles-choix_tri,env,tri=#ENV{tri},senstri=#ENV{senstri}}]
+	[(#ENV{position_pagination_debut}|oui)[<p class="pagination">(#PAGINATION{#ENV{style_pagination}})</p>]]
+	<ul class="liste-items">
+	<BOUCLE_liste_articles_note(ARTICLES) {id_auteur} {notation}{par moyenne}{inverse #ENV{senstri}}{archives ?}{pagination #ENV{pas_pagination}}>
+	#INCLURE{fond=inclure/article-resume,id_article=#ID_ARTICLE,id_article_expose=#ENV{id_article},env}
+	</BOUCLE_liste_articles_note>
+	</ul>
+	[(#ENV{position_pagination_fin}|oui)[<p class="pagination">(#PAGINATION{#ENV{style_pagination}})</p>]]
+	[(#ENV{position_choix_tri_fin}|oui)#INCLURE{fond=inclure/liste_articles-choix_tri,env,tri=#ENV{tri},senstri=#ENV{senstri}}]
+	[(#GET{position_selecteur_archives_fin}|oui)#INCLURE{fond=inclure/liste_articles-selecteur_archives,archives,pas_selecteur_archives,texte_devant_selecteur_archives,id_auteur,compteur_articles_selecteur_archives}]
+</div>
+</B_liste_articles_note>

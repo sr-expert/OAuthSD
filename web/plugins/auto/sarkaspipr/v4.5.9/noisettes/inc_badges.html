@@ -1,0 +1,49 @@
+<div id="noisette_badges" class="noisette_badges">
+	<p class="badges">
+		[(#CONFIG{sarkaspip/pied/badge_xhtml}|=={on}|oui)
+			<a id="logo_xhtml" href="http://validator.w3.org/check?uri=referer" title="<:sarkaspip:verifier_xhtml|attribut_html:>"
+			style="background-image:url([(#CHEMIN{css/img/badge_xhtml.png}
+				|image_recadre{80,30,top,transparent}
+				|image_masque{#CHEMIN{css/img/badge_xhtml_hover.png}|image_recadre{80,30,bottom,transparent}|extraire_attribut{src},mode=normal}
+				|extraire_attribut{src}
+			)]);"
+			>&nbsp;</a>
+		]
+		[(#CONFIG{sarkaspip/pied/badge_rss}|=={on}|oui)
+			<a id="logo_rss" href="./spip.php?page=backend" title="<:sarkaspip:syndiquer_site:>"
+		   style="background-image:url([(#CHEMIN{css/img/badge_rss.png}
+		          |image_recadre{80,30,top,transparent}
+		          |image_masque{#CHEMIN{css/img/badge_rss_hover.png}|image_recadre{80,30,bottom,transparent}|extraire_attribut{src},mode=normal}
+		          |extraire_attribut{src}
+		        )]);"
+       >&nbsp;</a>
+		]
+		[(#CONFIG{sarkaspip/pied/badge_sarka}|=={on}|oui)
+			<a id="logo_sarkaspip" href="http://www.sarka-spip.net" title="<:sarkaspip:squelette|ucfirst:>"
+		   style="background-image:url([(#CHEMIN{css/img/badge_sarkaspip.png}
+		          |image_recadre{80,30,top,transparent}
+		          |image_masque{#CHEMIN{css/img/badge_sarkaspip_hover.png}|image_recadre{80,30,bottom,transparent}|extraire_attribut{src},mode=normal}
+		          |extraire_attribut{src}
+		        )]);"
+       >&nbsp;</a>
+		]
+		[(#CONFIG{sarkaspip/pied/badge_spip}|=={on}|oui)
+			<a id="logo_spip" href="http://spip.net" title="<:sarkaspip:site_realise_avec_spip:>"
+			   style="background-image:url([(#CHEMIN{css/img/badge_spip.png}
+			          |image_recadre{80,30,top,transparent}
+			          |image_masque{#CHEMIN{css/img/badge_spip_hover.png}|image_recadre{80,30,bottom,transparent}|extraire_attribut{src},mode=normal}
+			          |extraire_attribut{src}
+			        )]);"
+	       >&nbsp;</a>
+		]
+		[(#CONFIG{sarkaspip/pied/badge_perso}|=={on}|oui)
+			<a id="logo_perso"[ href="(#CONFIG{sarkaspip/noisettes/lien_badge_perso})"][ title="(#CONFIG{sarkaspip/noisettes/infobulle_badge_perso})"]
+				style="background-image:url([(#CHEMIN{css/img/badge_perso.png}
+		         |image_recadre{80,30,top,transparent}
+		         |image_masque{#CHEMIN{css/img/badge_perso_hover.png}|image_recadre{80,30,bottom,transparent}|extraire_attribut{src},mode=normal}
+		         |extraire_attribut{src}
+		       )]);"
+		    >&nbsp;</a>
+		]
+	</p>
+</div>

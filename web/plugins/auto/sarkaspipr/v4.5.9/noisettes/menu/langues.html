@@ -1,0 +1,8 @@
+[(#REM) <!-- Menu des langues du site --> ]
+<B_langues>
+<BOUCLE_langues(ARTICLES){!par lang}{fusion lang}>
+	<li class="lang[(#LANG|=={#ENV{lang}}|oui)on active]">
+		<a rel="start" href="[(#SELF|parametre_url{lang,#LANG})]" title="[(#LANG|traduire_nom_langue)]">#LANG</a>
+	</li>
+</BOUCLE_langues>
+</B_langues>

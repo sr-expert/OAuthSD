@@ -1,0 +1,20 @@
+[(#SET{taille_max_logo, #ENV{taille_max_logo}|is_null|non|?{#ENV{taille_max_logo},200}})]
+[(#SET{taille_max_images_texte, #ENV{taille_max_images_texte}|is_null|non|?{#ENV{taille_max_images_texte},500}})]
+
+<BOUCLE_site(SITES){id_syndic}>
+<div class="contenu-principal">
+	<div class="cartouche">
+		[(#ENV{afficher_logo}|oui)
+			[<a href="#URL_SITE">(#LOGO_SITE||image_reduire{#GET{taille_max_logo}})</a>]
+		]
+		<h1 class="h1 #EDIT{nom_site}">#NOM_SITE</h1>
+	</div>
+	
+	[<div class="#EDIT{descriptif} chapo">(#DESCRIPTIF|image_reduire{#GET{taille_max_images_texte},0})</div>]
+	[<p class="#EDIT{url_site} hyperlien"><a href="#URL_SITE" class="spip_out">(#URL_SITE|couper{80})</a></p>]
+	[(#ENV{afficher_url_syndic}|oui)[<p class="hyperlien"><:sites:entree_adresse_fichier_syndication:><br /><a href="#URL_SYNDIC" class="spip_out">(#URL_SYNDIC|couper{80})</a></p>]]
+	
+</div>
+
+[<div class="notes surlignable"><h2 class="h2 pas_surlignable"><:info_notes:></h2>(#NOTES)</div>]
+</BOUCLE_site>

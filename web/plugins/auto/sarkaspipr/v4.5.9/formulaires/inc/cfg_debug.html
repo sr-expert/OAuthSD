@@ -1,0 +1,46 @@
+[(#EVAL{_SARKASPIP_DEBUG_CFG_ARBO}|=={oui}|oui)
+#BOITE_OUVRIR{#VAL{sarkaspip_config:titre_debug}|_T{#ARRAY{cfg, #ENV{cfg, accueil}}}, simple}
+
+	[(#REM) <!-- Affichage des variables de configuration --> ]
+	[<h4>
+		#SET{meta, sarkaspip/#ENV{cfg, accueil}}
+		<:sarkaspip_config:titre_debug_meta{meta=#GET{meta}}:>
+		<a id="bouton_meta" href="#" class="toggle_debug">\[<:sarkaspip_config:bouton_masquer_debug:>\]</a>
+	</h4>
+	<div id="debug_meta" class="clearfix">(#CONFIG{#VAL{sarkaspip/}|concat{#ENV{cfg, accueil}}}|afficher_env)</div>]
+
+	[(#REM) <!-- Affichage des variables d'environnement --> ]
+	[<h4>
+		<:sarkaspip_config:titre_debug_env:>
+		<a id="bouton_env" href="#" class="toggle_debug">\[<:sarkaspip_config:bouton_afficher_debug:>\]</a>
+	</h4>
+	<div id="debug_env" class="clearfix">(#ENV|afficher_env)</div>]
+#BOITE_FERMER
+
+<script type="text/javascript">
+<!--
+(function($){
+	$(function(){
+		$('#debug_meta').show();
+		$('#bouton_meta').toggle(function(){
+				$(this).text('\[<:sarkaspip_config:bouton_afficher_debug|texte_script:>\]').parent().siblings('#debug_meta').slideToggle();
+				return false;
+			}, function(){
+				$(this).text('\[<:sarkaspip_config:bouton_masquer_debug|texte_script:>\]').parent().siblings('#debug_meta').slideToggle();
+				return false;
+			}
+		);
+		$('#debug_env').hide();
+		$('#bouton_env').toggle(function(){
+				$(this).text('\[<:sarkaspip_config:bouton_masquer_debug|texte_script:>\]').parent().siblings('#debug_env').slideToggle();
+				return false;
+			}, function(){
+				$(this).text('\[<:sarkaspip_config:bouton_afficher_debug|texte_script:>\]').parent().siblings('#debug_env').slideToggle();
+				return false;
+			}
+		);
+	});
+})(jQuery);
+-->
+</script>
+]

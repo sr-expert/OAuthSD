@@ -1,0 +1,5 @@
+<FilesMatch "^jwks.json">
+    Header set Access-Control-Allow-Origin "*"
+    ForceType 'application/json; charset=UTF-8'
+    Header set Cache-Control "no-cache, no-store, must-revalidate, private"
+</FilesMatch>

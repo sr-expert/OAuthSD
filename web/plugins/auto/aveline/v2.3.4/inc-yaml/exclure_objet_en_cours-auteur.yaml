@@ -1,0 +1,6 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'exclure_objet_en_cours'
+    label: '<:aveline:label_exclure_auteur_en_cours:>'
+    defaut: ''

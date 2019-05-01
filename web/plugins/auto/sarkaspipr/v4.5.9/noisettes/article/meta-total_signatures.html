@@ -1,0 +1,14 @@
+[(#REM) 
+<!-- Affichage du nombre de signatures dans les introductions d'articles
+	Recoit en argument :
+		- id_article: id de l'article ou album concerne
+-->
+]
+<BOUCLE_combien(SIGNATURES) {id_article}{plat} />
+	[(#TOTAL_BOUCLE|oui)
+		<span class="signatures">
+		<a[ href="(#ENV{self,#URL_ARTICLE}|ancre_url{petition})"] [title="(#TOTAL_BOUCLE|objet_afficher_nb{signature}|attribut_html)"]>[<i class="icon-ok-circle"></i> (#TOTAL_BOUCLE)]</a>
+		<span class="sep"> | </span>
+		</span>
+	]
+<//B_combien>

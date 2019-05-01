@@ -1,0 +1,208 @@
+<div class="formulaire_spip formulaire_configurer formulaire_#FORM">
+
+	<h3 class="titrem"><:sarkaspip_config:cfg_boite_sommaire:></h3>
+
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	<form method="post" action="#ENV{action}"><div>
+		<input type="hidden" name="_meta_casier" value="sarkaspip/sommaire" />
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<fieldset>
+			<ul class="editer-groupe">
+				#SET{name,texte_accueil}#SET{defaut,''}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer pleine_largeur editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+					<label for="#GET{name}"><:sarkaspip_config:cfg_inf_sommaire_texte_accueil:></label>[
+					<span class='erreur_message'>(#GET{erreurs})</span>
+					]<textarea name="#GET{name}" class="textarea" rows="5">
+#ENV*{#GET{name},#GET{defaut}}</textarea>
+				</li>
+			</ul>
+		</fieldset>
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_edito:></legend>
+			<ul class="editer-groupe">
+			<INCLURE{fond=formulaires/inc/cfg_article_specialise}
+				{explication=<:sarkaspip_config:cfg_inf_edito_id:>}
+				{article=edito}
+				{env}>
+
+			#SET{name,titre_edito}#SET{defaut,1}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+			<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]" id="bloc_titre_edito">
+				<label><:sarkaspip_config:cfg_inf_titre_edito:></label>[
+				<span class='erreur_message'>(#GET{erreurs})</span>
+				]
+				#SET{val,1}
+				<div class="choix">
+					<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+					<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_oui:></label>
+				</div>
+				#SET{val,0}
+				<div class="choix">
+					<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+					<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_non:></label>
+				</div>
+			</li>
+			</ul>
+		</fieldset>
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_sommaire_une:></legend>
+			<p class="explication"><:sarkaspip_config:cfg_inf_sommaire_une:></p>
+		</fieldset>
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_sommaire_secteurs:></legend>
+			<ul class="editer-groupe">
+				#SET{name,position_secteurs}#SET{defaut,0}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]" id="bloc_titre_edito">
+					<label><:sarkaspip_config:cfg_inf_sommaire_secteurs:></label>[
+					<span class='erreur_message'>(#GET{erreurs})</span>
+					]
+					#SET{val,1}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_oui:></label>
+					</div>
+					#SET{val,0}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_non:></label>
+					</div>
+				</li>
+			</ul>
+		</fieldset>
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_sommaire_articles:></legend>
+			<ul class="editer-groupe">
+				#SET{name,position_articles_recents}#SET{defaut,1}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]" id="bloc_titre_edito">
+					<label><:sarkaspip_config:cfg_inf_sommaire_articles:></label>[
+					<span class='erreur_message'>(#GET{erreurs})</span>
+					]
+					#SET{val,1}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_oui:></label>
+					</div>
+					#SET{val,0}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_non:></label>
+					</div>
+				</li>
+				<li class="fieldset suite" id="bloc_max_articles"><fieldset>
+					<ul class="editer-groupe">
+					#SET{name,max_articles_recents}#SET{defaut,5}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+					<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+						<label for="#GET{name}"><:sarkaspip_config:cfg_lbl_max_articles_recents:></label>[
+						<span class='erreur_message'>(#GET{erreurs})</span>
+						]<input type="text" name="#GET{name}" class="text" value="#ENV*{#GET{name},#GET{defaut}}" id="#GET{name}" [(#HTML5|et{#GET{obli}})required='required']/>
+					</li>
+					<INCLURE{fond=formulaires/inc/cfg_introduction}{env}>
+					<INCLURE{fond=formulaires/inc/cfg_logo}{explication=<:sarkaspip_config:cfg_inf_sommaire_sans_logo:>}{env}>
+					</ul></fieldset>
+				</li>
+			</ul>
+		</fieldset>
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_sommaire_albums:></legend>
+			<ul class="editer-groupe">
+				#SET{name,position_albums_recents}#SET{defaut,1}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]" id="bloc_titre_edito">
+					<label><:sarkaspip_config:cfg_inf_sommaire_albums:></label>[
+					<span class='erreur_message'>(#GET{erreurs})</span>
+					]
+					#SET{val,1}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_oui:></label>
+					</div>
+					#SET{val,0}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_non:></label>
+					</div>
+				</li>
+				<li class="fieldset suite" id="bloc_max_albums"><fieldset>
+					<ul class="editer-groupe">
+						#SET{name,max_albums_recents}#SET{defaut,5}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+						<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+							<label for="#GET{name}"><:sarkaspip_config:cfg_lbl_max_albums_recents:></label>[
+							<span class='erreur_message'>(#GET{erreurs})</span>
+							]<input type="text" name="#GET{name}" class="text" value="#ENV*{#GET{name},#GET{defaut}}" id="#GET{name}" [(#HTML5|et{#GET{obli}})required='required']/>
+						</li>
+						<!--
+						#SET{name,album_1_colonne}#SET{defaut,0}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+						<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]" id="bloc_titre_edito">
+							<label><:sarkaspip_config:cfg_inf_sommaire_albums_1_colonne:></label>[
+							<span class='erreur_message'>(#GET{erreurs})</span>
+							]
+							#SET{val,1}
+							<div class="choix">
+								<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+								<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_1_colonne:></label>
+							</div>
+							#SET{val,0}
+							<div class="choix">
+								<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+								<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_2_colonnes:></label>
+							</div>
+						</li>
+						-->
+						#SET{name,intro_album}#SET{defaut,200}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+						<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+							<label for="#GET{name}"><:sarkaspip_config:cfg_lbl_intro_album:></label>[
+							<span class='erreur_message'>(#GET{erreurs})</span>
+							]<input type="text" name="#GET{name}" class="text" value="#ENV*{#GET{name},#GET{defaut}}" id="#GET{name}" [(#HTML5|et{#GET{obli}})required='required']/>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</fieldset>
+
+		<INCLURE{fond=formulaires/inc/cfg_boutons}>
+	</div></form>
+</div>
+<script type="text/javascript">/*<![CDATA[*/
+	jQuery(document).ready(function() {
+		[(#ENV{position_articles_recents, 1}|!={1}|oui)
+			jQuery("#bloc_max_articles").hide();
+		]
+		[(#ENV{position_albums_recents, 1}|!={1}|oui)
+			jQuery("#bloc_max_albums").hide();
+		]
+		[(#ENV{article_edito, 0}|=={0}|oui)
+			jQuery("#bloc_titre_edito").hide();
+		]
+		jQuery("input[name='position_articles_recents']").change(function() {
+			if (jQuery("input[name='position_articles_recents']:checked").val() == 1) {
+				jQuery("#bloc_max_articles").show('fast');
+			}
+			else {
+				jQuery("#bloc_max_articles").hide('fast');
+			}
+			jQuery(this).blur();
+		});
+		jQuery("input[name='position_albums_recents']").change(function() {
+			if (jQuery("input[name='position_albums_recents']:checked").val() == 1) {
+				jQuery("#bloc_max_albums").show('fast');
+			}
+			else {
+				jQuery("#bloc_max_albums").hide('fast');
+			}
+			jQuery(this).blur();
+		});
+		jQuery("#select_article").change(function() {
+			if (jQuery("#select_article option:selected").val() == 0) {
+				jQuery("#bloc_titre_edito").hide('fast');
+			}
+			else {
+				jQuery("#bloc_titre_edito").show('fast');
+			}
+			jQuery(this).blur();
+		});
+	});
+/*]]>*/</script>
+<style>li.fieldset.suite>fieldset {padding-left: 30px;border-top:0;}</style>

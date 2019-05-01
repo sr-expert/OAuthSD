@@ -1,0 +1,219 @@
+-
+  saisie: 'selection'
+  options:
+    nom: 'style_liste'
+    label: '<:aveline:label_style_liste:>'
+    defaut: 'liste'
+    cacher_option_intro: 'oui'
+    datas:
+      liste: '<:aveline:item_liste:>'
+      resume: '<:aveline:item_resume:>'
+-
+  saisie: 'fieldset'
+  options:
+    nom: 'si_liste_simple'
+    label: '<:aveline:label_si_liste_simple:>'
+    afficher_si: '@style_liste@ == "liste"'
+  saisies:
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'liste_afficher_date'
+        label: '<:aveline:label_afficher_date:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'liste_afficher_date_en_surtitre'
+        label: '<:aveline:label_afficher_date_en_surtitre:>'
+        defaut: ''
+        afficher_si: '@liste_afficher_date@ == "on"'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'liste_afficher_lieu'
+        label: '<:aveline:label_afficher_lieu:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'liste_afficher_adresse'
+        label: '<:aveline:label_afficher_adresse:>'
+        defaut: ''
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'liste_afficher_nb_participants'
+        label: '<:aveline:label_afficher_nb_participants:>'
+        defaut: ''
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'liste_afficher_article'
+        label: '<:aveline:label_afficher_article:>'
+    -
+      saisie: 'selection'
+      options:
+        nom: 'liste_texte_devant_article'
+        label: '<:aveline:label_texte_devant_article:>'
+        defaut: 'avelinepublic:categorie_deux_points'
+        afficher_si: '@liste_afficher_article@ == "on"'
+        datas:
+          'avelinepublic:rubrique_deux_points': '<:avelinepublic:rubrique_deux_points:>'
+          'avelinepublic:categorie_deux_points': '<:avelinepublic:categorie_deux_points:>'
+          'avelinepublic:theme_deux_points': '<:avelinepublic:theme_deux_points:>'
+          'avelinepublic:sujet_deux_points': '<:avelinepublic:sujet_deux_points:>'
+          'avelinepublic:dans': '<:avelinepublic:dans:>'
+          'avelinepublic:colon2' : '<:avelinepublic:colon2:>'
+          'avelinepublic:gt' : '<:avelinepublic:gt:>'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'liste_afficher_mots_cles'
+        label: '<:aveline:label_afficher_mots_cles:>'
+        defaut: ''
+    -
+      saisie: 'selection'
+      options:
+        nom: 'liste_texte_devant_mots_cles'
+        label: '<:aveline:label_texte_devant_mots_cles:>'
+        defaut: 'avelinepublic:mots_cles_deux_points'
+        afficher_si: '@liste_afficher_mots_cles@ == "on"'
+        datas:
+          'avelinepublic:mots_cles_deux_points': '<:avelinepublic:mots_cles_deux_points:>'
+          'avelinepublic:tags_deux_points': '<:avelinepublic:tags_deux_points:>'
+          'avelinepublic:categories_deux_points': '<:avelinepublic:categories_deux_points:>'
+          'avelinepublic:themes_deux_points': '<:avelinepublic:themes_deux_points:>'
+          'avelinepublic:sujets_deux_points': '<:avelinepublic:sujets_deux_points:>'
+          'avelinepublic:colon2' : '<:avelinepublic:colon2:>'
+          'avelinepublic:gt' : '<:avelinepublic:gt:>'
+-
+  saisie: 'fieldset'
+  options:
+    nom: 'si_resume'
+    label: '<:aveline:label_si_resume:>'
+    afficher_si: '@style_liste@ == "resume"'
+  saisies:
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_date'
+        label: '<:aveline:label_afficher_date:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_date_en_surtitre'
+        label: '<:aveline:label_afficher_date_en_surtitre:>'
+        defaut: ''
+        afficher_si: '@afficher_date@ == "on"'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_logo'
+        label: '<:aveline:label_afficher_logo:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'utiliser_logo_evenement_article_rubrique'
+        label: '<:aveline:label_utiliser_logo_evenement_article_rubrique:>'
+        defaut: 'on'
+        afficher_si: '@afficher_logo@ == "on"'
+    -
+      saisie: 'input'
+      options:
+        nom: 'taille_max_logo'
+        label: '<:aveline:label_taille_max_logo:>'
+        defaut: 150
+        afficher_si: '@afficher_logo@ == "on"'
+      verifier:
+        type: 'entier'
+        min: 10
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_descriptif_complet'
+        label: '<:aveline:label_afficher_descriptif_complet:>'
+    -
+      saisie: 'input'
+      options:
+        nom: 'longueur_max_descriptif'
+        label: '<:aveline:label_longueur_max_descriptif:>'
+        defaut: 600
+        afficher_si: '@afficher_descriptif_complet@ == ""'
+      verifier:
+        type: 'entier'
+        min: 10
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_lieu'
+        label: '<:aveline:label_afficher_lieu:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_adresse'
+        label: '<:aveline:label_afficher_adresse:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_nb_participants'
+        label: '<:aveline:label_afficher_nb_participants:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_lire_la_suite'
+        label: '<:aveline:label_afficher_lire_la_suite:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'rappeler_titre'
+        label: '<:aveline:label_rappeler_titre:>'
+        defaut: 'on'
+        afficher_si: '@afficher_lire_la_suite@ == "on"'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_lien_permanent'
+        label: '<:aveline:label_afficher_lien_permanent:>'
+        defaut: ''
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_article'
+        label: '<:aveline:label_afficher_article:>'
+    -
+      saisie: 'selection'
+      options:
+        nom: 'texte_devant_article'
+        label: '<:aveline:label_texte_devant_article:>'
+        defaut: 'avelinepublic:categorie_deux_points'
+        afficher_si: '@afficher_article@ == "on"'
+        datas:
+          'avelinepublic:rubrique_deux_points': '<:avelinepublic:rubrique_deux_points:>'
+          'avelinepublic:categorie_deux_points': '<:avelinepublic:categorie_deux_points:>'
+          'avelinepublic:colon2' : '<:avelinepublic:colon2:>'
+          'avelinepublic:gt' : '<:avelinepublic:gt:>'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'afficher_mots_cles'
+        label: '<:aveline:label_afficher_mots_cles:>'
+        defaut: ''
+    -
+      saisie: 'selection'
+      options:
+        nom: 'texte_devant_mots_cles'
+        label: '<:aveline:label_texte_devant_mots_cles:>'
+        defaut: 'avelinepublic:mots_cles_deux_points'
+        afficher_si: '@afficher_mots_cles@ == "on"'
+        datas:
+          'avelinepublic:mots_cles_deux_points': '<:avelinepublic:mots_cles_deux_points:>'
+          'avelinepublic:tags_deux_points': '<:avelinepublic:tags_deux_points:>'
+          'avelinepublic:colon2' : '<:avelinepublic:colon2:>'
+          'avelinepublic:gt' : '<:avelinepublic:gt:>'

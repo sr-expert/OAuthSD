@@ -1,0 +1,5 @@
+<page>
+	<nom><:zvide:nom_page_rubrique:></nom>
+	<description><:zvide:description_page_rubrique:></description>
+	<icon>rubrique-24.png</icon>
+</page>

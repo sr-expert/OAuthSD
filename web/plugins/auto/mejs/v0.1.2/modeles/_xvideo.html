@@ -1,0 +1,62 @@
+[(#REM) 	
+Modele html video
+
+Parametre:
+- id:     id_document
+- skin:   habillage (facultatif) valeurs possibles: ted,wmp
+- volume
+- autoplay  bugguÃ© sur chrome ... pas documentÃ© officiellement
+
+
+http://www.alsacreations.com/xmedia/tuto/html5/video/exemples.html
+
+]
+
+<BOUCLE_mp4(DOCUMENTS types_documents){id_document=#ID}{extension=mp4}{tout}>
+
+[(#LARGEUR|oui)#SET{largeur,#LARGEUR}]
+[(#LARGEUR|non)#SET{largeur,#ENV{largeur,720}]
+[(#HAUTEUR|oui)#SET{hauteur,#HAUTEUR}]
+[(#HAUTEUR|non)#SET{hauteur,#ENV{hauteur,360}]
+
+<video id="mejs-#ID_DOCUMENT" src="#FICHIER"[ width="(#GET{largeur})"][ height="(#GET{hauteur})"]
+type="video/mp4"  
+preload="none"  controls="controls"
+[(#LOGO_DOCUMENT|extraire_attribut{src}|couper{23,''}|=={plugins-dist/medias}|non) [poster="(#LOGO_DOCUMENT|extraire_attribut{src})"]]
+[class="mejs-(#ENV{skin})"] 
+></video>	
+<script>
+    (function($) {   
+        var player#ID_DOCUMENT = new MediaElementPlayer('#mejs-#ID_DOCUMENT',{       
+            [(#ENV{volume}|oui)  [startVolume:(#ENV{volume}|floatval),]]   
+        });  
+        [(#ENV{autoplay}|oui) player#ID_DOCUMENT.play();]   
+    })(jQuery); 
+</script> 
+</BOUCLE_mp4>
+
+<BOUCLE_autres(DOCUMENTS types_documents){id_document=#ID}{extension IN webm,ogv}{tout}>
+[(#LARGEUR|oui)#SET{largeur,#LARGEUR}]
+[(#LARGEUR|non)#SET{largeur,#ENV{largeur,720}]
+[(#HAUTEUR|oui)#SET{hauteur,#HAUTEUR}]
+[(#HAUTEUR|non)#SET{hauteur,#ENV{hauteur,360}]
+[(#MIME_TYPE|=={application/webm}|oui) #SET{type,video/webm}]
+[(#MIME_TYPE|=={application/ogv}|oui) #SET{type,video/ogv}]
+<div class="center"> 
+<video src="#FICHIER"[ width="(#GET{largeur})"][ height="(#GET{hauteur})"] controls="controls">
+ 
+<object type="application/x-shockwave-flash" width="400" height="222" data="http://www.youtube.com/v/HVMoJqg41Bw"> 
+    <param name="movie" value="http://www.youtube.com/v/HVMoJqg41Bw" /> 
+    <param name="wmode" value="transparent" /> 
+    <!--[if lte IE 6 ]>
+     <embed src="http://www.youtube.com/v/HVMoJqg41Bw" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="400" height="222"></embed>
+     <![endif]--> 
+     <p>Vous n'avez pas de navigateur moderne, ni flash d'installé sur Internet Explorer... suivez les liens ci-dessous pour télécharger les vidéos.</p> 
+    </object> 
+   </video> 
+  </div> 
+
+
+</BOUCLE_autres>
+
+#FILTRE{trim}

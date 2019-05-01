@@ -1,0 +1,302 @@
+[(#REM)
+Projet OauthSD
+Copyright(c) 2019 DnC
+Auteur : Bertrand Degoy
+Licence : GPL 3
+
+dnc27 Plot des événements avec JpGraph.
+Table spip_oidc_stats.
+
+Tableau des événements avec DataTables    
+Table spip_oidc_logs
+
+dnc27d version avec server-side processing pour le tableau des événements.
+
+]
+
+#SET{total,#ENV{total,200}}
+
+#SET{tsmax,#ENV{tmax}|div{1000}}
+
+#SET{dtmax,#GET{tsmax}|unix2date{'Y-m-d H:i:s'}}
+
+#SET{date,<?php echo date('Y-m-d H:i:s'); ?>}
+
+<div id="plot_container">
+
+<h2>Statistiques</h2>
+
+
+
+<div style="float:right;"><p>
+        A jour le : <time datetime='#GET{date}'><span id="dtpickercontainer"><input id="dtpicker" class="hasDatepicker" type="text" name="dtpicker" value="#GET{date}"></span></time> 
+        [(#REM) Définir la date du premier événement compte-tenu de la valeur de total]
+        <B_depuis>
+            &nbsp;-&nbsp;#GET{total}&nbsp;minutes depuis le 
+            <BOUCLE_depuis(spip_oidc_stats) {par datetime} {inverse} {#GET{total},1}>
+            #DATETIME
+            </BOUCLE_depuis>
+            &nbsp;<a href="[(#SELF|parametre_url{total,#GET{total}|plus{500}})]" class="ajax">Plus</a>
+            &nbsp;<a href="[(#SELF|parametre_url{total,200})]" class="ajax">200</a>
+        </B_depuis>
+    </p></div>
+<div class="nettoyeur"></div>
+
+<div id="chartContainer" style="width:100%; height:300px;"></div>
+
+#SET{data_x,#ARRAY}
+<BOUCLE_x(spip_oidc_stats) {par datetime} {inverse} {0,#GET{total}}>#SET{data_x, #GET{data_x}|push{#DATETIME|strtotime|mult{1000}}}</BOUCLE_x>
+#SET{data_x,#GET{data_x}|array_reverse}
+
+#SET{data_start,#ARRAY}
+<BOUCLE_start(spip_oidc_stats) {par datetime} {inverse} {0,#GET{total}}>#SET{data_start, #GET{data_start}|push{#ID_OIDC_LOG}}</BOUCLE_start>
+#SET{data_start,#GET{data_start}|array_reverse}
+#SET{starts,#GET{data_start}|implode{','}}
+
+#SET{data_authorize,#ARRAY}
+<BOUCLE_authorize(spip_oidc_stats) {par datetime} {inverse} {0,#GET{total}}>#SET{data_authorize, #GET{data_authorize}|push{#AUTHORIZE_COUNT}}</BOUCLE_authorize>
+#SET{data_authorize,#GET{data_authorize}|array_reverse}
+
+#SET{data_authorize_ok,#ARRAY}
+<BOUCLE_authorize_ok(spip_oidc_stats) {par datetime} {inverse} {0,#GET{total}}>#SET{data_authorize_ok, #GET{data_authorize_ok}|push{#AUTHORIZE_OK_COUNT}}</BOUCLE_authorize_ok>
+#SET{data_authorize_ok,#GET{data_authorize_ok}|array_reverse}
+
+#SET{data_errors,#ARRAY}
+<BOUCLE_errors(spip_oidc_stats) {par datetime} {inverse} {0,#GET{total}}>#SET{data_errors, #GET{data_errors}|push{#ERRORS_COUNT}}</BOUCLE_errors>
+#SET{data_errors,#GET{data_errors}|array_reverse}
+
+#SET{data_token,#ARRAY}
+<BOUCLE_token(spip_oidc_stats) {par datetime} {inverse} {0,#GET{total}}>#SET{data_token, #GET{data_token}|push{#TOKEN_COUNT}}</BOUCLE_token>
+#SET{data_token,#GET{data_token}|array_reverse}    
+
+#SET{data_introspect,#ARRAY}
+<BOUCLE_introspect(spip_oidc_stats) {par datetime} {inverse} {0,#GET{total}}>#SET{data_introspect, #GET{data_introspect}|push{#INTROSPECT_COUNT}}</BOUCLE_introspect>
+#SET{data_introspect,#GET{data_introspect}|array_reverse}        
+
+<script>
+
+    //[dnc27d] Statistiques (server-side processing) 
+
+    $(document).ready(function() {
+
+        var oTable;
+        var Api;
+
+        oTable = $('#tbl').dataTable( {
+            processing: true,
+            serverSide: true,
+            ordering: false,
+            searching: false,
+            responsive : true,
+            language: {
+                url: '#CHEMIN{lib/French.json}',
+            },  
+            "aaSorting": [[ 0, "desc" ]],
+            fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {   
+                // coloration de la ligne
+                var level;
+                level = aData[8];
+                if ( level  == 2 ) {
+                    $('td', nRow).css('background-color', '#d4ffff');
+                } else if ( level  == 1 ) {
+                    $('td', nRow).css('background-color', '#ffffd4');
+                } else if ( level = 3 ) {
+                    $('td', nRow).css('background-color', '#ffd4ff');
+                } else {
+                    $('td', nRow).css('background-color', '#fff');
+                }
+            },
+            ajax: { // server-side processing
+                url: "https://<?php echo $_SERVER['HTTP_HOST'];?>/web/http.api/datatables/oidc_logs/?code=<?php echo $GLOBALS["visiteur_session"]['id_token']; ?>",
+                dataSrc: 'data', // simple (non-associative) array of data
+            },
+            columns: [
+                { data: 0, "width": "5%", },
+                { data: 1, "width": "15%", },
+                { data: 2, "width": "15%", 
+                    "render": function ( data, type, row, meta ) {
+                        if ( type === "display" ) {
+                            var data2 = data;
+                            if ( data == '<?php echo $_SERVER['REMOTE_ADDR']; ?>' ) {
+                                data2 = 'Own IP';
+                            }
+                            if ( data == '<?php echo $_SERVER['SERVER_ADDR']; ?>' ) {
+                                data2 = 'Server IP';
+                            }
+                            return '<a href="/web/?page=remote-addr&remote_addr='+data+'" class="ajax">'+data2+'</a>';
+                        } else return data;
+                    }
+                },
+                { data: 3,  "width": "20%", 
+                    "render": function ( data, type, row, meta ) {
+                        if ( type === "display" ) {
+                            return '<a href="/web/?page=state&state='+data+'" class="ajax">'+data+'</a>';
+                        } else return data;
+                    }
+                },
+                { data: 4, "width" : "15%", 
+                    "render": function ( data, type, row, meta ) {
+                        if ( type === "display" ) {
+                            return '<a href="/web/?page=evenements&client_id='+data+'" class="ajax">'+data+'</a>';
+                        } else return data;
+                    }
+                },
+                { data: 5, "width": "10%",
+                    "render": function ( data, type, row, meta ) {
+                        if ( type === "display" ) {
+                            return '<a href="/web/?page=evenements&user_id='+data+'" class="ajax">'+data+'</a>';
+                        } else return data;
+                    }
+                },
+                { data: 6 },
+                { data: 7 },
+                { data: 8 },
+                { data: 9 },
+                { data : 10, "width": "5%",
+                    "render": function ( data, type, row, meta ) {
+                        if ( type === "display" ) {
+                            return '<a href="/web/?page=evenements&errnum='+data+'" class="ajax">'+data+'</a>';
+                        } else return data;
+                    } 
+                },
+            ],
+            scrollY: '50vh',   // https://datatables.net/examples/basic_init/scroll_y_dynamic.html
+            //scrollCollapse: true,
+            paging:         true,
+            //*
+            scroller: {
+                loadingIndicator: true
+            },
+            initComplete: function () {
+                Api = this.api();
+            },
+        } );   
+
+        //[dnc27] Plot des événements avec CanvasJS.Chart
+
+        var length = "#GET{total}";
+        var starts = [#GET{starts}];
+
+        $("#chartContainer").CanvasJSChart({ 
+            axisX:{
+                labelAngle: -20,
+                valueFormatString: "UTC:YYYY-M-D H:mm"
+            },
+            axisY:{
+                title: "Evénements"
+            },
+            data: [
+                {
+                    type: "line", 
+                    showInLegend: true,
+                    name: "Authorize",
+                    xValueType: "dateTime",
+                    xValueFormatString: "UTC:YYYY-M-D H:mm:ss",
+                    color: "#8080F0",
+                    dataPoints: [ 
+                        <BOUCLE_dp(DATA){source table, #GET{data_authorize}}>{ x: [(#GET{data_x/#CLE})],  y: #VALEUR },</BOUCLE_dp>
+                    ],
+                    click: function(e){
+                        Api.scroller.toPosition( starts[e.dataPointIndex], false );   
+                    },
+                },
+                {
+                    type: "line", 
+                    showInLegend: true,
+                    name: "Errors",
+                    xValueType: "dateTime",
+                    xValueFormatString: "UTC:YYYY-M-D H:mm:ss",
+                    //markerType: "square",
+                    color: "#F00000",
+                    dataPoints: [ 
+                        <BOUCLE_dp_errors(DATA){source table, #GET{data_errors}}>{ x: [(#GET{data_x/#CLE})],  y: #VALEUR },</BOUCLE_dp_errors>
+                    ],
+                    click: function(e){
+                        Api.scroller.toPosition( starts[e.dataPointIndex], false );   
+                    },
+                },
+                {
+                    type: "line", 
+                    showInLegend: true,
+                    name: "Token",
+                    xValueType: "dateTime",
+                    xValueFormatString: "UTC:YYYY-M-D H:mm:ss",
+                    //markerType: "square",
+                    color: "#808080",
+                    dataPoints: [ 
+                        <BOUCLE_dp_token(DATA){source table, #GET{data_token}}>{ x: [(#GET{data_x/#CLE})],  y: #VALEUR },</BOUCLE_dp_token>
+                    ]
+                },
+                {
+                    type: "line", 
+                    showInLegend: true,
+                    name: "Introspect",
+                    xValueType: "dateTime",
+                    xValueFormatString: "UTC:YYYY-M-D H:mm:ss",
+                    //markerType: "square",
+                    color: "#F080F0",
+                    dataPoints: [ 
+                        <BOUCLE_dp_introspect(DATA){source table, #GET{data_introspect}}>{ x: [(#GET{data_x/#CLE})],  y: #VALEUR },</BOUCLE_dp_introspect>
+                    ],
+                    click: function(e){
+                        Api.scroller.toPosition( starts[e.dataPointIndex], false );   
+                    },
+                },
+                {
+                    type: "line",
+                    lineThickness: 5, 
+                    showInLegend: true,
+                    name: "Authorize Ok",
+                    xValueType: "dateTime",
+                    xValueFormatString: "UTC:YYYY-M-D H:mm:ss",
+                    markerType: "square",
+                    color: "#80F080",
+                    dataPoints: [ 
+                        <BOUCLE_dp_authorize_ok(DATA){source table, #GET{data_authorize_ok}}>{ x: [(#GET{data_x/#CLE})],  y: #VALEUR },</BOUCLE_dp_authorize_ok>
+                    ],
+                    click: function(e){
+                        Api.scroller.toPosition( starts[e.dataPointIndex], false );   
+                    },
+                },
+            ]
+        });
+        
+        $('#dtpicker').datetimepicker;  //[dnc38]
+
+    });
+
+</script>
+
+<div class="nettoyeur"></div>
+<p><br/></p>
+
+[(#REM) dnc27d version avec server-side processing pour le tableau des événements.
+Voir :
+https://datatables.net/manual/ajax#Loading-data
+https://datatables.net/manual/server-side
+https://datatables.net/examples/server_side/defer_loading.html
+https://github.com/DataTables/DataTables/blob/master/examples/server_side/scripts/ssp.class.php
+https://datatables.net/extensions/scroller/examples/initialisation/server-side_processing.html
+]
+
+<table id="tbl" class="display datatable">
+
+    <thead>
+        <tr> 
+            <th>id</th>    
+            <th>datetime</th>
+            <th>IP</th>
+            <th>state</th> 
+            <th>client_id</th>
+            <th>user_id</th>
+            <th>origin</th>
+            <th>message</th>
+            <th>level</th>
+            <th>weight</th>
+            <th>errnum</th>
+        </tr>
+    </thead>
+
+</table>
+
+

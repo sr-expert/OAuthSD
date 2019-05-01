@@ -1,0 +1,6 @@
+[(#SET{ariane_separateur, #ENV{ariane_separateur}|is_null|non|?{#ENV{ariane_separateur},'&gt;'}})]
+[(#SET{ariane_separateur, [<span class="sep">(#GET{ariane_separateur})</span>]})]
+<p id="hierarchie">
+	[(#ENV{afficher_lien_accueil}|oui)<a href="#URL_SITE_SPIP/"><:accueil_site:></a> ]
+	[[(#GET{ariane_separateur})] <strong class="on pas_surlignable">(#ENV{archives}|affdate|sinon{#ENV{archives}})</strong>]
+</p>

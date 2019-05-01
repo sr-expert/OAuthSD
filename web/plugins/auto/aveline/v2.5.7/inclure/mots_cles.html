@@ -1,0 +1,24 @@
+[(#SET{titre,[(#ENV{titre_liste}|=={titre_perso}|?{[(#ENV**{titre_liste_perso}|typo)],[(#ENV{titre_liste}|_T)]})]})]
+[(#SET{liste_mots, #ENV{liste_mots}|sinon{tous}})]
+[(#SET{groupes,[(#GET{liste_mots}|=={groupes_specifiques}|?{#ENV{groupes_specifiques},#ARRAY})]})]
+<BOUCLE_groupes_tous(GROUPES_MOTS)>[(#GET{liste_mots}|=={tous}|?{#SET{groupes, #GET{groupes}|push{#ID_GROUPE}}})]</BOUCLE_groupes_tous>
+[(#ENV{id_groupe}|?{#SET{groupes, #ENV{id_groupe}}})]
+[(#SET{tri,[(#ENV{recherche}|oui|?{points,[(#ENV{separer_resultats_groupes}|oui|?{'multi type','multi titre'})]})]})]
+[(#SET{senstri,[(#ENV{recherche}|oui|?{'inverse',''})]})]
+
+<B_liste_mots>
+<div class="liste mots">
+	#ANCRE_PAGINATION
+	[(#ENV{afficher_titre_liste}|oui)[<h2 class="h2">(#GET{titre}) [(#ENV{afficher_nb_resultats}|oui)&#40;#GRAND_TOTAL&#41;]</h2>]]
+	[<p class="pagination">(#AVELINE_PAGINATION{'debut'})</p>]
+	<BOUCLE_liste_mots(MOTS) {id_groupe IN #GET{groupes}}{id_objet?}{objet?}{id_groupe?}{recherche?}{tri #GET{tri},#GET{senstri}}{par titre}{aveline_pagination}>
+	[(#ENV{separer_resultats_groupes}|oui)[[(#COMPTEUR_BOUCLE|moins{#ENV{debut_liste_mots}}|=={1}|non)</ul>][(#ENV{afficher_titre_liste}|oui|?{'<h3 class="h3">','<h2 class="h2">'})](#TYPE|unique)[(#ENV{afficher_titre_liste}|oui|?{'</h3>','</h2>'})]<ul class="liste-items">]]
+	[(#ENV{separer_resultats_groupes}|non)[(#COMPTEUR_BOUCLE|moins{#ENV{debut_liste_mots}}|=={1}|oui)<ul class="liste-items">]]
+		#INCLURE{fond=inclure/mot-resume,id_mot=#ID_MOT,id_mot_expose=#ENV{id_mot},env}
+	</BOUCLE_liste_mots>
+	</ul>
+	[<p class="pagination">(#AVELINE_PAGINATION{'fin'})</p>]
+</div>
+</B_liste_mots>
+[(#ENV{message_aucun_resultat}|oui)<div class="texte"><:avelinepublic:aucun_mot_trouve:></div>]
+<//B_liste_mots>

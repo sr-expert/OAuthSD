@@ -1,0 +1,247 @@
+#CACHE{10}
+
+#SET{date,<?php echo date('Y-m-d H:i:s'); ?>}
+
+<div class="breadcrumb"><a href="/">Accueil</a> - <a href="/web/?page=suivre">Suivi</a> - Événements d'Authorize</div>
+
+#INCLURE{fond=inclure/identification,env}
+<BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
+
+    [(#REM)
+    Projet OauthSD
+    Copyright(c) 2019 DnC
+    Auteurs : Bertrand Degoy
+    Licence : GPL 3
+
+    Logs avec le Plugin DataTables.
+    Table spip_oidc_logs.
+
+    ]
+    
+    #SET{total,#ENV{total,200}}
+
+    [(#SET{mots,#ENV{mots,#SESSION{mots}|unserialize}})]
+    #SET{recherche,#ENV{recherche,#SESSION{recherche}}}
+
+    <div class="nettoyeur"></div>
+    
+    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+
+    <div id="datatable_container">
+
+        [(#ENV{client_id}|oui) #SET{on,un client}]
+        [(#ENV{user_id}|oui) #SET{on,#GET{on}&nbsp;un utilisateur}]
+        [(#ENV{remote_addr}|oui) #SET{on,#GET{on}&nbsp;une IP}]
+        [(#ENV{errnum}|oui) #SET{on,#GET{on}&nbsp;un code}]
+
+        [(#GET{on}|non)
+        [(#ENV{id_oidc_log}|non)    
+        <h2>Événements d'Authorize</h2>
+        ]
+        [(#ENV{id_oidc_log}|oui)    
+        <h2>Un événement</h2>
+        ]
+        ]
+        [(#GET{on}|oui)    
+        <h2>Événements pour Authorize et #GET{on}</h2> 
+        <p><a href="/web/?page=evenements">Tous les événements</a></p>
+        ]
+        
+        <div style="float:right;"><p>
+        A jour le : <time datetime='#GET{date}'>#GET{date}</time> 
+        <B_depuis>
+            &nbsp;-&nbsp;#GET{total}&nbsp;événements depuis le 
+            <BOUCLE_depuis(spip_oidc_logs) {id_oidc_log?} {client_id?} {user_id?} {errnum?} {level ?} {origin ?} {remote_addr ?} {state ?} {par id_oidc_log} {inverse} {#GET{total},1}>
+            #DATETIME
+            </BOUCLE_depuis>
+            &nbsp;<a href="[(#SELF|parametre_url{total,#GET{total}|plus{500}})]">Plus</a>
+            &nbsp;<a href="[(#SELF|parametre_url{total,200})]">200</a>
+        </B_depuis>
+        </p></div>
+        <div class="nettoyeur"></div>
+        
+        #SET{recherche,#LISTE{2,3,4,5,6,7}}
+        
+        <p>Filtrer par colonne(s) :</p>
+        <div id="searchers" style="text-align:normalize;"></div>
+
+        <B_table1>
+
+            <table id="tbl" class="display datatable">
+
+                <thead>
+                    <tr> 
+                        <th>id</th>
+                        <th>datetime</th>
+                        <th>client_id</th> 
+                        <th>user_id</th>
+                        <th>code</th>
+                        <th>level</th>
+                        <th>remote_addr</th>
+                        <th>state</th>
+                        <th>message</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+
+                    <BOUCLE_table1(spip_oidc_logs) {id_oidc_log?} {client_id?} {user_id?} {errnum?} {level ?} {origin=authorize} {remote_addr ?} {state ?} {par id_oidc_log} {inverse} {0,200}>
+                    <tr>
+                        <td>#ID_OIDC_LOG</td>
+                        <td>#DATETIME</td>
+                        <td>#CLIENT_ID</td>
+                        <td>#USER_ID</td>
+                        <td>#ERRNUM</td>
+                        <td>#LEVEL</td>
+                        <td>#REMOTE_ADDR</td>
+                        <td>#STATE</td>
+                        <td>[(#MESSAGE|purify)]
+                        </td>
+                    </tr>   
+                    </BOUCLE_table1>
+
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <th>id</th>
+                        <th>datetime</th>
+                        <th>client_id</th> 
+                        <th>user_id</th>
+                        <th>code</th>
+                        <th>level</th>
+                        <th>remote_addr</th>
+                        <th>state</th>
+                        <th>message</th>
+                    </tr>
+                </tfoot>
+
+            </table>
+        </B_table1>
+        <p>Aucun enregistrement</p>
+        <//B_table1>
+        
+
+    </div>
+
+    <script type="text/javascript">
+
+
+
+        $(document).ready(function() {
+            /* Initialise the DataTable */
+
+            var oTable = $('#tbl').dataTable( {
+                responsive: true,
+                language: {
+                    url: '#CHEMIN{lib/French.json}',
+                },
+                "aaSorting": [[ 0, "desc" ]],
+                "createdRow": function ( row, data, index ) {   //o4 Callback for whenever a TR element is created for the table's body
+                    // coloration de la ligne
+                    var level;
+                    level = data[5];
+                    index +=1;
+                    str = ':nth-child(' + index + ')';
+                    if ( level  == 2 ) {
+                        $('tbody tr' + str).css('background-color','#d4ffff');
+                    } else if ( level  == 1 ) {
+                        $('tbody tr' + str).css('background-color','#ffffd4');
+                    } else if ( level = 3 ) {
+                        $('tbody tr' + str).css('background-color','#ffd4ff');
+                    } else {
+                        $('tbody tr' + str).css('background-color','#000').css('color','#fff');
+                    }
+                },
+                "deferRender": true,
+                "autoWidth": false,
+                "columnDefs": [
+                    {   "targets": 0,
+                        "width": "5%",
+                    },
+                    {   "targets": 1,
+                        "width": "10%",
+                    },
+                    {   "targets": 2,
+                        "width": "15%",
+                        "data": "client_id",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="/web/?page=evenements&client_id='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    },
+                    {   "targets": 3,
+                        "width": "10%",
+                        "data": "user_id",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="/web/?page=evenements&user_id='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    },
+                    {   "targets": 4,
+                        "data": "errnum",
+                        "width": "5%",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="/web/?page=evenements&errnum='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    },
+                    {   "targets": 6,
+                        "data": "remote_addr",
+                        "width": "10%",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="/web/?page=remote-addr&remote_addr='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    },
+                    {   "targets": 7,
+                        "data": "state",
+                        "width": "20%",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="/web/?page=state&state='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    }
+                ],
+                initComplete: function () {
+                    var i = 0;
+                    this.api().columns().every( function () {
+                        if( $.inArray(i,[#GET{rechsur}]) > -1 ) {
+                            var column = this;
+                            var colname = column.header().textContent;
+                            var select = $('<select><option value="">'+colname+'<option></select>')
+                            .appendTo( $('#searchers') )
+                            .on( 'change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+                                column
+                                .search( val ? '^'+val+'$' : '', true, false )
+                                .draw();
+                            } );
+
+                            column.data().unique().sort().each( function ( d, j ) {
+                                select.append( '<option value="'+d+'">'+d+'</option>' )
+                            } );
+
+                        }
+                        i+=1;
+                    });
+                }
+
+            });
+
+            $('#datatable_container').fadeIn(2000);
+
+        } ); 
+
+
+    </script>
+
+</BOUCLE_auteur>

@@ -1,0 +1,9 @@
+[(#CONFIG{sarkaspip/recherche/activer_par_motcle,oui}|=={oui}|oui)
+[(#SET{meta_description, [(#ENV{meta_description}|sinon{#DESCRIPTIF_SITE_SPIP})]})]
+<title><:sarkaspip:rechercher_par_mot:> - [(#NOM_SITE_SPIP|textebrut)]</title>
+<meta name="description" content="[(#GET{meta_description}|textebrut|attribut_html)]" />
+]<BOUCLE_mot(MOTS){id_mot}{si #CONFIG{sarkaspip/recherche/activer_par_motcle,oui}|=={non}}>
+<title>[(#TITRE|textebrut) - ][(#NOM_SITE_SPIP|textebrut)]</title>
+[<meta name="description" content="(#INTRODUCTION{#EVAL{_SARKASPIP_CONFIG_INTRO_META}}|attribut_html)" />]
+[<link rel="canonical" href="(#URL_MOT|url_absolue)" />]
+</BOUCLE_mot>

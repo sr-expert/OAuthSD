@@ -1,0 +1,88 @@
+Options -Indexes
+
+RewriteEngine On
+
+# ssl-tls : Assurer https. L'url préférentielle est https://oa.dnc.global
+RewriteCond %{SERVER_PORT} 80
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^(.*)$ https://oa.dnc.global/$1 [QSA,L,R=301]
+    
+    # 2018/02/13 NON //j : Assurer www (pour que le sous-domaine static puisse être différencié par setcookie)
+    #RewriteCond %{HTTP_HOST} ^oa.dnc.global$
+    #RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+    #RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+    #RewriteRule ^(.*) https://www.oa.dnc.global/$1  [QSA,L,R=301]
+
+# HTTP Strict Transport Security (HSTS)
+Header add Strict-Transport-Security "max-age=157680000; includeSubDomains"
+
+##### CORS pour r.dnc.global : //SECU
+SetEnvIf Origin "^http(s)?://(.+\.)?r\.dnc\.global$" origin_is=$0 
+Header always set Access-Control-Allow-Origin %{origin_is}e env=origin_is
+Header always set Access-Control-Allow-Headers x-requested-with
+
+##### CORS pour chemindeleau.com : [dnc2c] //SECU
+SetEnvIf Origin "^http(s)?://(.+\.)?chemindeleau\.com$" origin_is=$0 
+Header always set Access-Control-Allow-Origin %{origin_is}e env=origin_is
+
+#### CORS pour tout le monde ! // PAS SECU !!!
+#Header always set Access-Control-Allow-Origin "*"
+
+### [dnc17] Réécrire impérativement (pourquoi?) les appels aux pages sous la forme /web/spip.php?page=
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$ 
+RewriteRule ^spip\.php\?page=(.*)$ /web/spip.php?page=$1 [QSA,L,R=301]
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^\?page=(.*)$ /web/spip.php?page=$1 [QSA,L,R=301]
+
+### Points d'entrée pour OpenID Connect
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^authorize  /oidc/authorize.php [QSA,L,skip=100]
+
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^token   /oidc/token.php [QSA,L,skip=100]
+
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^userinfo   /oidc/userinfo.php [QSA,L,skip=100]
+
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^introspect   /oidc/introspect.php [QSA,L,skip=100]
+
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^revoke   /oauth/revoke.php [QSA,L,skip=100]
+
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^keys   /oidc/jwks.json [QSA,L,skip=100]
+
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^jwks.json   /oidc/jwks.json [QSA,L,skip=100]
+
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^logout   /oidc/logout.php [QSA,L,skip=100]
+
+### Pour OpenID Connect avec Apache CGI ??? Voir Request::getHeadersFromServer
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]  [QSA,L,skip=100]
+
+### Suite à la modification /web, rediriger les anciennes URL pour conserver les liens externes et le référencement
+RewriteRule ^([0-9]*)$ /web/$1 [QSA,L,R=301]
+RewriteRule ^rubrique([0-9]*)$ /web/rubrique$1 [QSA,L,R=301]
+RewriteRule ^article([0-9]*)$ /web/article$1 [QSA,L,R=301]
+RewriteRule ^(.*)(\.html)$ /web/$1$2 [QSA,L,R=301]
+### Réécrire impérativement (pourquoi?) les appels aux pages sous la forme /spip.php?page= 
+#RewriteRule ^/spip.php\?page=(.*)$ /web/spip.php?page=$1 [QSA,L,R=301]    # ne fonctionne pas !!!
+RewriteRule ^/\?page=(.*)$ /web/spip.php?page=$1 [QSA,L,R=301]
+
+
+
+
+

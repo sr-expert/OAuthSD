@@ -1,0 +1,17 @@
+<B_lettre>
+	<p class='pagination tri_alphabetique'>
+<BOUCLE_lettre(AUTEURS){tri #ENV{tri},#ENV{senstri}}{aveline_lang}{aveline_exclure_objet_encours}>
+		[(#NOM**|aveline_initiale|unique{tri_alphabétique}|oui)
+			[(#ENV{selection}|=={pagination}|oui)
+				[(#SELF|parametre_url{debut_liste_auteurs,#COMPTEUR_BOUCLE|moins{1}}|ancre_url{pagination_liste_auteurs}|aveline_afficher_initiale{[(#NOM**|aveline_initiale)],#COMPTEUR_BOUCLE,#ENV{debut_liste_auteurs},#ENV{pas_pagination}}) <span class="sep separateur">|</span> ]
+			]
+			[(#ENV{selection}|=={tout}|oui)
+				[(#COMPTEUR_BOUCLE|=={1}|non)<span class="sep separateur">|</span> ][<a href="#tri_alphabetique_[(#NOM**|aveline_initiale)]" class="noajax">(#NOM**|aveline_initiale)</a>]
+			]
+		]
+		</BOUCLE_lettre>
+		[(#ENV{selection}|=={pagination}|oui)
+			[(#REM|aveline_afficher_initiale{#REM,#TOTAL_BOUCLE,#ENV{debut_liste_auteurs},#ENV{pas_pagination}})]
+		]
+	</p>
+</B_lettre>

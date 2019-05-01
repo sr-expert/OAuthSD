@@ -1,0 +1,6 @@
+[(#SET{titre_noisette, #ENV{titre_noisette}|sinon{agenda:label_inscription}})]
+[(#SET{titre,[(#GET{titre_noisette}|=={titre_perso}|?{[(#ENV**{titre_noisette_perso}|typo)],[(#GET{titre_noisette}|_T)]})]})]
+<BOUCLE_evenement(EVENEMENTS){id_evenement}>[(#INSCRIPTION|oui)
+	[(#ENV{afficher_titre_noisette}|oui)[<h2 class="h2">(#GET{titre})</h2>]]
+	<div class="ajax">[(#FORMULAIRE_PARTICIPER_EVENEMENT{#ID_EVENEMENT})]</div>
+]</BOUCLE_evenement>

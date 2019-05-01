@@ -1,0 +1,13 @@
+nom: '<:aveline:nom_page-forum-contenuprincipal:>'
+description: '<:aveline:description_page-forum-contenuprincipal:>'
+icon: 'contenu-24.png'
+necessite:
+  - 'forum'
+ajax: 'non'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_resume_parent'
+      label: '<:aveline:label_afficher_resume_parent:>'
+      defaut: 'on'

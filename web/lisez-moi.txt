@@ -1,0 +1,7 @@
+2019/01/17
+Le dossier /web contient SPIP, rien que SPIP.
+L'URL de base est redirigée sur SPIP.
+
+Attention! L'écriture <a href="/?page= 
+ne fonctionne pas, il faut écrire :
+<a href="/web/spip.php?page=

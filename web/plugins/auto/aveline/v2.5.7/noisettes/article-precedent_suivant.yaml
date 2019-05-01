@@ -1,0 +1,58 @@
+nom: '<:aveline:nom_article-precedent_suivant:>'
+description: '<:aveline:description_article-precedent_suivant:>'
+icon: 'precedent_suivant-24.png'
+necessite:
+  - 'suivant_precedent'
+contexte:
+  - 'id_rubrique'
+  - 'id_article'
+  - 'lang'
+parametres:
+  -
+    saisie: 'selection'
+    options:
+      nom: 'branche'
+      label: '<:aveline:label_precedent_suivant_trouver:>'
+      explication: '<:aveline:explication_precedent_suivant_trouver:>'
+      defaut: 'tous'
+      cacher_option_intro: 'oui'
+      datas:
+        tous: '<:aveline:item_articles_tous:>'
+        meme_rubrique: '<:aveline:item_articles_meme_rubrique:>'
+        meme_secteur: '<:aveline:item_articles_meme_secteur:>'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'precedent_suivant_type_lien'
+      label: '<:aveline:label_precedent_suivant_type_lien:>'
+      explication: '<:aveline:explication_precedent_suivant_type_lien:>'
+      defaut: 'lien_fleche'
+      cacher_option_intro: 'oui'
+      datas:
+        lien_fleche: '<:aveline:item_precedent_suivant_lien_fleche:>'
+        lien_texte: '<:aveline:item_precedent_suivant_lien_texte:>'
+        lien_titre: '<:aveline:item_precedent_suivant_lien_titre:>'
+  -
+    saisie: 'input'
+    options:
+      nom: 'precedent_suivant_longueur_max_titres'
+      label: '<:aveline:label_longueur_max_titres:>'
+      defaut: 20
+      afficher_si: '@type_lien@ == "lien_titre"'
+    verifier:
+      type: 'entier'
+      min: 10
+  -
+    saisie: 'selection'
+    options:
+      nom: 'precedent_suivant_align'
+      label: '<:aveline:label_precedent_suivant_align:>'
+      explication: '<:aveline:explication_precedent_suivant_align:>'
+      defaut: 'left'
+      cacher_option_intro: 'oui'
+      datas:
+        left: '<:aveline:item_align_left:>'
+        center: '<:aveline:item_align_center:>'
+        right: '<:aveline:item_align_right:>'
+  - 'inclure:inc-yaml/tri-article.yaml'
+  - 'inclure:inc-yaml/restreindre_langue.yaml'

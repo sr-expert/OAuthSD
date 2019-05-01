@@ -1,0 +1,166 @@
+#CACHE{15}
+
+<div class="breadcrumb"><a href="/">Accueil</a> - <a href="/web/?page=suivre">Suivi</a> - <a href="/web/?page=evenements">Événements</a> - Même state</div>
+
+#INCLURE{fond=inclure/identification,env}
+<BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
+
+    [(#REM)
+    Projet OauthSD
+    Copyright(c) 2019 DnC
+    Auteurs : Bertrand Degoy
+    Licence : GPL 3
+
+    Logs avec le Plugin DataTables.
+    Table spip_oidc_logs.
+
+    Fait appel à /inclure/liste-tables.html particularisé au projet.
+
+    ]
+
+    [(#SET{mots,#ENV{mots,#SESSION{mots}|unserialize}})]
+    #SET{recherche,#ENV{recherche,#SESSION{recherche}}}
+
+    <div class="nettoyeur"></div>
+    
+    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+
+    <div id="datatable_container">
+
+        <h2>Événements avec state = #ENV{state}</h2>
+
+        <B_table1>
+
+            <table id="tbl" class="display datatable" style="width: 100%">
+
+                <thead>
+                    <tr> 
+                        <th>id</th>
+                        <th>datetime</th>
+                        <th>code</th> 
+                        <th>level</th>
+                        <th>remote_addr</th>
+                        <th>message</th>   
+                    </tr>
+                </thead>
+
+                <tbody>
+
+
+                    <BOUCLE_table1(spip_oidc_logs) {client_id?} {user_id?} {level ?} {origin ?} {remote_addr ?} {state} {par id_oidc_log} {inverse} {0,1000}>
+                    <tr>
+                        <td>#ID_OIDC_LOG</td>
+                        <td>#DATETIME</td>
+                        <td>#ERRNUM</td>
+                        <td>#LEVEL</td>
+                        <td>#REMOTE_ADDR</td>   
+                        <td>[(#MESSAGE|purify)]
+
+                        </td>
+                    </tr>   
+                    </BOUCLE_table1>
+
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <th>id</th>
+                        <th>datetime</th>
+                        <th>code</th> 
+                        <th>level</th>
+                        <th>remote_addr</th>
+                        <th>message</th>      
+                    </tr>
+                </tfoot>
+
+            </table>
+        </B_table1>
+        <p>Aucun enregistrement</p>
+        <//B_table1>
+
+    </div>
+
+    <script type="text/javascript">
+
+
+
+        $(document).ready(function() {
+            /* Initialise the DataTable */
+
+            var oTable = $('#tbl').dataTable( {
+                //serverSide: true, //o2
+                //select: true,
+                responsive: true,
+                language: {
+                    url: '#CHEMIN{lib/French.json}',
+                },
+                "aaSorting": [[ 0, "desc" ]],
+                "createdRow": function ( row, data, index ) {   //o4
+                    // coloration de la ligne
+                    var level;
+                    level = data[3];
+                    index +=1;
+                    str = ':nth-child(' + index + ')';
+                    if ( level  == 2 ) {
+                        $('tbody tr' + str).css('background-color','#d4ffff');
+                    } else if ( level  == 1 ) {
+                        $('tbody tr' + str).css('background-color','#ffffd4');
+                    } else if ( level = 3 ) {
+                        $('tbody tr' + str).css('background-color','#ffd4ff');
+                    } else {
+                        $('tbody tr' + str).css('background-color','#000').css('color','#fff');
+                    }
+                },
+                "deferRender": true,
+                "autoWidth": false,
+                "columnDefs": [
+                    {   "targets": 0,
+                        "width": "4%",
+                        "data": "id_client",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="./spip.php?page=evenements&id_oidc_log='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    },
+                    {   "targets": 2,
+                        "width": "4%",
+                        "data": "errnum",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="/web/?page=evenements&errnum='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    },
+                    {   "targets": 4,
+                        "width": "4%",
+                        "data": "remote_addr",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                var data2 = data;
+                                if ( data == '<?php echo $_SERVER['REMOTE_ADDR']; ?>' ) {
+                                    data2 = 'Own IP';
+                                }
+                                if ( data == '<?php echo $_SERVER['SERVER_ADDR']; ?>' ) {
+                                    data2 = 'Server IP';
+                                }
+                                return '<a href="/web/?page=remote-addr&remote_addr='+data+'">'+data2+'</a>';
+                            } else return data;
+                        }
+                    },
+                    {   "targets": [1,2],
+                        "width": "20%",
+                    },
+                ],
+            });
+
+
+            $('#datatable_container').fadeIn(2000);
+
+
+        } ); 
+
+
+    </script>
+
+</BOUCLE_auteur>

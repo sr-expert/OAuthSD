@@ -1,0 +1,205 @@
+<div class="formulaire_spip formulaire_configurer formulaire_#FORM">
+
+	<h3 class="titrem"><:sarkaspip_config:cfg_boite_formulaires:></h3>
+
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	<form method="post" action="#ENV{action}"><div>
+		<input type="hidden" name="_meta_casier" value="sarkaspip/formulaires" />
+		#ACTION_FORMULAIRE{#ENV{action}}
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_form_contact:></legend>
+			<p class="explication"><:sarkaspip_config:cfg_inf_form_contact:></p>
+			<p class="explication"><:sarkaspip_config:cfg_inf_form_contact_plugin:></p>
+			<ul class="editer-groupe">
+				#SET{name,plugin_contact}#SET{defaut,0}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+					<label></label>[
+					<span class='erreur_message'>(#GET{erreurs})</span>
+					]
+					#SET{val,1}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_contact_1:></label>
+					</div>
+					#SET{val,0}
+					<div class="choix">
+						<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+						<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_lbl_contact_0:></label>
+					</div>
+				</li>
+				<li class="fieldset suite" id="bloc_contact_0"><fieldset>
+					<p class="explication"><:sarkaspip_config:cfg_inf_form_contact_plugin_0:></p>
+					[(#EVAL{_SARKASPIP_CONFIG_AUTORISATION_CONTACT}|=={0minirezo}|oui)
+						#SET{critere_statut, #ARRAY{0,0minirezo}}
+					]
+					[(#EVAL{_SARKASPIP_CONFIG_AUTORISATION_CONTACT}|=={1comite}|oui)
+						#SET{critere_statut, #ARRAY{0,0minirezo,1,1comite}}
+					]
+					[(#EVAL{_SARKASPIP_CONFIG_AUTORISATION_CONTACT}|=={6forum}|oui)
+						#SET{critere_statut, #ARRAY{0,0minirezo,1,1comite,2,6forum}}
+					]
+					<ul class="editer-groupe">
+						#SET{name,auteur_contact}#SET{defaut,0}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+						<li class="editer editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+							<label for="#GET{name}"><:sarkaspip_config:cfg_lbl_liste_contacts:></label>[
+							<span class='erreur_message'>(#GET{erreurs})</span>
+							]<select name="#GET{name}" class="select" id="#GET{name}">
+								#SET{val,0}
+								<option value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)selected="selected"]>--</option>
+								#SET{groupe_statut, aucun}
+								#SET{optgroup,''}
+								<BOUCLE_auteurs(AUTEURS){tout}{statut IN #GET{critere_statut}}{par statut}{par nom}>
+								[(#GET{groupe_statut}|!={#STATUT}|oui)
+									#GET{optgroup}<optgroup style="font-weight: strong;"[ label="(#STATUT|libelle_statut|ucfirst)"]>
+									[(#SET{groupe_statut, #STATUT})]
+									[(#SET{optgroup,'</optgroup>'})]
+								]
+								#SET{val,#ID_AUTEUR}
+								[(#EMAIL|oui)
+								<option value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)selected="selected"]>[(#NOM|sinon{sans nom}|attribut_html)]</option>
+								]
+								</BOUCLE_auteurs>
+								#GET{optgroup}
+							</select>
+						</li>
+					</ul></fieldset>
+				</li>
+				<li class="fieldset suite" id="bloc_contact_1"><fieldset>
+					<p class="explication"><:sarkaspip_config:cfg_inf_form_contact_plugin_1:></p>
+				</li>
+				<INCLURE{fond=formulaires/inc/cfg_information_page}
+					{suffixe=_contact}
+					{choix=titre_descriptif}
+					{label_titre=<:sarkaspip_config:cfg_lbl_form_titre:>}
+					{label_descriptif=<:sarkaspip_config:cfg_lbl_form_descriptif:>}
+					{defaut_titre=<:sarkaspip:contacter_site:>}
+					{env}>
+			</ul>
+		</fieldset>
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_form_lettre:></legend>
+			#SET{plugin,#REM|sarkaspip_detecter_plugin_newsletter}
+			[(#GET{plugin}|oui)
+				#SET{plugin,#PLUGIN{#GET{plugin},nom}|extraire_multi}
+				<p class="explication">
+					<:sarkaspip_config:cfg_inf_form_lettre:>
+					<:sarkaspip_config:cfg_inf_form_lettre_plugin{plugin=#GET{plugin}}:>
+				</p>
+				<ul class="editer-groupe">
+					<INCLURE{fond=formulaires/inc/cfg_information_page}
+						{suffixe=_lettre}
+						{choix=titre_descriptif}
+						{label_titre=<:sarkaspip_config:cfg_lbl_form_titre:>}
+						{label_descriptif=<:sarkaspip_config:cfg_lbl_form_descriptif:>}
+						{defaut_titre=<:sarkaspip:inscrire_a_newsletter:>}
+						{env}>
+				</ul>
+			]
+			[(#GET{plugin}|non)
+				#SET{plugins,'<b>Mailsubscribers</b>'}
+				<div class="notice"><:sarkaspip_config:cfg_inf_plugins_inactifs{lbl_plugins=#GET{plugins}}:></div>
+			]
+		</fieldset>
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_form_inscription:></legend>
+			<ul class="editer-groupe">
+				<li class="editer pleine_largeur">
+				<p class="explication"><:sarkaspip_config:cfg_inf_form_inscription:></p>
+				</li>
+			<INCLURE{fond=formulaires/inc/cfg_information_page}
+				{suffixe=_inscription}
+				{choix=titre_descriptif}
+				{label_titre=<:sarkaspip_config:cfg_lbl_form_titre:>}
+				{label_descriptif=<:sarkaspip_config:cfg_lbl_form_descriptif:>}
+				{defaut_titre=<:sarkaspip:inscrire_au_site:>}
+				{env}>
+			</ul>
+		</fieldset>
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_form_referencement:></legend>
+			<ul class="editer-groupe">
+				<li class="editer pleine_largeur">
+					<p class="explication"><:sarkaspip_config:cfg_inf_form_referencement:></p>
+				</li>
+			<INCLURE{fond=formulaires/inc/cfg_information_page}
+				{suffixe=_referencement}
+				{choix=descriptif}
+				{label_descriptif=<:sarkaspip_config:cfg_lbl_form_descriptif:>}
+				{env}>
+			</ul>
+		</fieldset>
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_form_login1:></legend>
+			<ul class="editer-groupe">
+				<li class="editer pleine_largeur">
+					<p class="explication"><:sarkaspip_config:cfg_inf_form_login1:></p>
+				</li>
+			<INCLURE{fond=formulaires/inc/cfg_information_page}
+				{suffixe=_login1}
+				{choix=titre_descriptif}
+				{label_titre=<:sarkaspip_config:cfg_lbl_form_titre:>}
+				{label_descriptif=<:sarkaspip_config:cfg_lbl_form_descriptif:>}
+				{defaut_titre=<:sarkaspip:acceder_espace_membre:>}
+				{env}>
+			</ul>
+		</fieldset>
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_form_login2:></legend>
+			<ul class="editer-groupe">
+				<li class="editer pleine_largeur">
+					<p class="explication"><:sarkaspip_config:cfg_inf_form_login2:></p>
+				</li>
+			<INCLURE{fond=formulaires/inc/cfg_information_page}
+				{suffixe=_login2}
+				{choix=titre_descriptif}
+				{label_titre=<:sarkaspip_config:cfg_lbl_form_titre:>}
+				{label_descriptif=<:sarkaspip_config:cfg_lbl_form_descriptif:>}
+				{defaut_titre=<:sarkaspip:acceder_espace_prive:>}
+				{env}>
+			</ul>
+		</fieldset>
+
+		<INCLURE{fond=formulaires/inc/cfg_boutons}>
+	</div></form>
+</div>
+<script type="text/javascript">/*<![CDATA[*/
+	jQuery(document).ready(function() {
+		[(#ENV{plugin_contact, 0}|=={0}|oui)
+			jQuery("#bloc_contact_1").hide();
+		]
+		[(#ENV{plugin_contact, 0}|=={1}|oui)
+			jQuery("#bloc_contact_0").hide();
+		]
+		[(#ENV{position_extrait, 1}|!={1}|oui)
+			jQuery("#bloc_pas_extrait").hide();
+		]
+		jQuery("input[name='plugin_contact']").change(function() {
+			if (jQuery("input[name='plugin_contact']:checked").val() == 0) {
+				jQuery("#bloc_contact_1").hide('fast');
+				jQuery("#bloc_contact_0").show('fast');
+			}
+			else {
+				jQuery("#bloc_contact_0").hide('fast');
+				jQuery("#bloc_contact_1").show('fast');
+			}
+			jQuery(this).blur();
+		});
+		jQuery("input[name='position_extrait']").change(function() {
+			if (jQuery("input[name='position_extrait']:checked").val() == 1) {
+				jQuery("#bloc_pas_extrait").show('fast');
+			}
+			else {
+				jQuery("#bloc_pas_extrait").hide('fast');
+			}
+			jQuery(this).blur();
+		});
+	});
+/*]]>*/</script>
+<style>li.fieldset.suite>fieldset {padding-left: 30px;border-top:0;}</style>

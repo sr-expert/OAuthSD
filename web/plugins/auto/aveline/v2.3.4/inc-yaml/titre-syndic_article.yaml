@@ -1,0 +1,26 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'afficher_titre_liste'
+    label: '<:aveline:label_afficher_titre_liste:>'
+    defaut: 'on'
+-
+  saisie: 'selection'
+  options:
+    nom: 'titre_liste'
+    label: '<:aveline:label_titre_liste:>'
+    defaut: 'public:nouveautes_web'
+    cacher_option_intro: 'oui'
+    datas:
+      'public:sur_web': '<:public:sur_web:>'
+      'public:nouveautes_web': '<:public:nouveautes_web:>'
+      'public:voir_en_ligne': '<:public:voir_en_ligne:>'
+      titre_perso: '<:aveline:item_titre_perso:>'
+    afficher_si: '@afficher_titre_liste@ == "on"'
+-
+  saisie: 'input'
+  options:
+    nom: 'titre_liste_perso'
+    label: '<:aveline:label_titre_liste_perso:>'
+    explication: '<:aveline:explication_raccourcis_typo:>'
+    afficher_si: '@afficher_titre_liste@ == "on" && @titre_liste@ == "titre_perso"'

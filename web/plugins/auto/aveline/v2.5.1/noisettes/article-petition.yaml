@@ -1,0 +1,4 @@
+nom: '<:aveline:nom_petition:>'
+icon: 'petition-24.png'
+necessite:
+  - 'petitions'

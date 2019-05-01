@@ -1,0 +1,24 @@
+nom: '<:aveline:nom_liste_documents:>'
+description: '<:aveline:description_documents:>'
+icon: 'document-24.png'
+necessite:
+  - 'medias'
+contexte:
+  - 'lang'
+parametres:
+  - 'inclure:inc-yaml/tri-document.yaml'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'exclure_photos'
+      label: '<:aveline:label_exclure_photos:>'
+      defaut: 'on'
+  -
+    saisie: 'input'
+    options:
+      nom: 'exclure_extensions'
+      label: '<:aveline:label_exclure_extensions:>'
+      defaut: ''
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-document.yaml'
+  - 'inclure:inc-yaml/resume-document.yaml'

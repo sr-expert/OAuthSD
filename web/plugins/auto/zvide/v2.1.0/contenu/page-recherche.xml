@@ -1,0 +1,5 @@
+<page>
+	<nom><:zvide:nom_page-recherche:></nom>
+	<description><:zvide:description_page-recherche:></description>
+	<icon>recherche-24.png</icon>
+</page>

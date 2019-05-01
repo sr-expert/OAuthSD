@@ -1,0 +1,35 @@
+[(#REM) <!-- Menu par defaut des raccourcis du site vers pages speciales --> ]
+
+<BOUCLE_has_agenda(EVENEMENTS?){0,1}{si #PLUGIN{agenda}}>
+	<li class="menu_pages_speciales[(#SI_PAGE{agenda}|oui)on active]"><a href="[(#URL_PAGE{agenda})]"><:sarkaspip:agenda:></a></li>
+</BOUCLE_has_agenda>
+
+<BOUCLE_has_album(ALBUMS?){0,1}{si #PLUGIN{albums}}>
+	<li class="menu_pages_speciales[(#SI_PAGE{galerie}|oui)on active]"><a href="[(#URL_PAGE{galerie})]"><:sarkaspip:galerie:></a></li>
+</BOUCLE_has_album>
+
+<BOUCLE_has_forum(RUBRIQUES) {composition=forums}{0,1}>
+	<li class="menu_pages_speciales[(#SI_PAGE{forums}|oui)on active]"><a href="[(#URL_RUBRIQUE)]"><:sarkaspip:forum:></a></li>
+</BOUCLE_has_forum>
+
+<BOUCLE_acces_mots(MOTS) {type != squelette_habillage}{0,1}>
+	<li class="menu_pages_speciales[(#SI_PAGE{mot}|oui)on active]"><a href="[(#URL_PAGE{mot})]"><:sarkaspip:mots_clefs:></a></li>
+</BOUCLE_acces_mots>
+
+<BOUCLE_acces_herbier(SITES){0,1}>
+	<li class="menu_pages_speciales[(#SI_PAGE{herbier}|oui)on active]"><a href="[(#URL_PAGE{herbier})]"><:sarkaspip:herbier_sites|ucfirst:></a></li>
+</BOUCLE_acces_herbier>
+
+<BOUCLE_acces_syndics(SYNDIC_ARTICLES){0,1}>
+	<li class="menu_pages_speciales[(#SI_PAGE{site}|oui)on active]"><a href="[(#URL_PAGE{site})]"><:sarkaspip:sur_web:></a></li>
+</BOUCLE_acces_syndics>
+
+[(#PLUGIN{TICKETS}|oui)
+	[(#REM|afaire_ticket_existe|oui)
+		<li class="menu_pages_speciales[(#SI_PAGE{afaire}|oui)on active]"><a href="[(#URL_PAGE{afaire})]"><:sarkaspip:afaire:></a></li>
+	]
+]
+
+[(#PIPELINE{menu_pages_speciales_fin,
+	[(#ARRAY{args, [(#ARRAY{position, #ENV{position}, classe_li, menu_pages_speciales, no_menu, 1})], data, ''})]}
+)]

@@ -1,0 +1,40 @@
+nom: '<:aveline:nom_article-formulaire_notation:>'
+icon: 'notation-24.png'
+necessite:
+  - 'notation'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_titre_noisette'
+      label: '<:aveline:label_afficher_titre_noisette:>'
+      defaut: ''
+  -
+    saisie: 'selection'
+    options:
+      nom: 'titre_noisette'
+      label: '<:aveline:label_titre_noisette:>'
+      defaut: 'avelinepublic:notez_cet_article'
+      cacher_option_intro: 'oui'
+      datas:
+        'avelinepublic:notez_cet_article': '<:avelinepublic:notez_cet_article:>'
+        titre_perso: '<:aveline:item_titre_perso:>'
+      afficher_si: '@afficher_titre_noisette@ == "on"'
+  -
+    saisie: 'input'
+    options:
+      nom: 'titre_noisette_perso'
+      label: '<:aveline:label_titre_noisette_perso:>'
+      explication: '<:aveline:explication_raccourcis_typo:>'
+      afficher_si: '@afficher_titre_noisette@ == "on" && @titre_noisette@ == "titre_perso"'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'formulaire_notation'
+      label: '<:aveline:label_formulaire_notation:>'
+      defaut: 'notation'
+      cacher_option_intro: 'oui'
+      datas:
+        notation: '<:aveline:item_notation:>'
+        jaime_jaimepas: '<:aveline:item_jaime_jaimepas:>'
+        jaime: '<:aveline:item_jaime:>'

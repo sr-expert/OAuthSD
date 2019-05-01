@@ -1,0 +1,12 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'afficher_nb_resultats'
+    label: '<:aveline:label_afficher_nb_resultats:>'
+    defaut: 'on'
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'message_aucun_resultat'
+    label: '<:aveline:label_message_aucun_resultat:>'
+    defaut: ''

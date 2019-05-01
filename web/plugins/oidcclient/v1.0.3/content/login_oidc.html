@@ -1,0 +1,29 @@
+<?php
+/***************************************************************************\
+*  SPIP, Systeme de publication pour l'internet                           *
+*                                                                         *
+*  Copyright (c) 2001-2016                                                *
+*  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
+*                                                                         *
+*  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
+*  Pour plus de details voir le fichier COPYING.txt ou l'aide en ligne.   *
+\***************************************************************************/
+/*
+* Plugin OpenID Connect client pour SPIP
+* content/login_oidc.php
+* Permet d'afficher directement le login OIDC (sans passerpar le login SPIP).
+* 
+* Usage en Javascript : var url_login_oidc = "<?php echo '?page=login_oidc&url=' . $GLOBALS['REQUEST_URI']; ?>";
+* Il est impératif de définir une url de suite sinon il y a bouclage de redirection.
+* 
+* Auteur : B.Degoy DnC
+* Copyright (c) 2018 B.Degoy
+*/
+
+//[dnc28e]
+
+include_spip('inc/session');
+include_spip('inc/oidcclient_configuration');
+include_spip('inc/oidc_steps');
+$login = @$GLOBALS['visiteur_session']['login'];
+oidc_step_1( $login );

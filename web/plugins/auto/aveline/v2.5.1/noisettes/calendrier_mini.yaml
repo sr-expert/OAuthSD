@@ -1,0 +1,49 @@
+nom: '<:aveline:nom_calendrier_mini:>'
+description: '<:aveline:description_calendrier_mini:>'
+icon: 'agenda-evenement-24.png'
+necessite:
+  - 'agenda'
+contexte:
+  - 'id_rubrique'
+  - 'id_secteur'
+  - 'id_article'
+  - 'id_evenement'
+  - 'date'
+parametres:
+  - 'inclure:inc-yaml/branche-evenement.yaml'
+  - 'inclure:inc-yaml/exclure_objet_en_cours-evenement.yaml'
+  -
+    saisie: 'page_spip'
+    options:
+      nom: 'url_minical'
+      label: '<:aveline:label_url_minical:>'
+      explication: '<:aveline:explication_url_minical:>'
+      defaut: 'agenda'
+      cacher_option_intro: 'oui'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_titre_liste'
+      label: '<:aveline:label_afficher_titre_liste:>'
+      defaut: 'on'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'titre_liste'
+      label: '<:aveline:label_titre_liste:>'
+      defaut: 'ecrire:icone_calendrier'
+      cacher_option_intro: 'oui'
+      datas:
+        'agenda:agenda': '<:agenda:agenda:>'
+        'agenda:evenements': '<:agenda:evenements:>'
+        'agenda:evenements_a_venir': '<:agenda:evenements_a_venir:>'
+        'ecrire:icone_calendrier': '<:ecrire:icone_calendrier:>'
+        titre_perso: '<:aveline:item_titre_perso:>'
+      afficher_si: '@afficher_titre_liste@ == "on"'
+  -
+    saisie: 'input'
+    options:
+      nom: 'titre_liste_perso'
+      label: '<:aveline:label_titre_liste_perso:>'
+      explication: '<:aveline:explication_raccourcis_typo:>'
+      afficher_si: '@afficher_titre_liste@ == "on" && @titre_liste@ == "titre_perso"'

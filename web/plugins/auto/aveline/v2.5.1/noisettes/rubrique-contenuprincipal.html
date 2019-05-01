@@ -1,0 +1,23 @@
+[(#SET{taille_max_logo, #ENV{taille_max_logo}|is_null|non|?{#ENV{taille_max_logo},200}})]
+[(#SET{taille_max_images_texte, #ENV{taille_max_images_texte}|is_null|non|?{#ENV{taille_max_images_texte},500}})]
+<BOUCLE_rubrique(RUBRIQUES){id_rubrique}>
+<div class="contenu-principal">
+	<div class="cartouche">
+		[(#ENV{afficher_logo}|oui)
+			[(#LOGO_RUBRIQUE||image_reduire{#GET{taille_max_logo}})]
+		]
+		<h1 class="h1 #EDIT{titre}">#TITRE</h1>
+		[(#ENV{afficher_date_dernier_ajout}|oui)
+			[<p class="info-publi"><span class="published"><:dernier_ajout:> : (#DATE|affdate_jourcourt).</span></p>]
+		]
+	</div>
+	[(#ENV{afficher_descriptif}|non)
+		[<div class="#EDIT{texte} chapo">(#TEXTE|image_reduire{#GET{taille_max_images_texte},0})</div>]
+	]
+	[(#ENV{afficher_descriptif}|oui)
+		[<div class="#EDIT{descriptif} chapo">(#DESCRIPTIF|image_reduire{#GET{taille_max_images_texte},0})</div>]
+		[<div class="#EDIT{texte} texte">(#TEXTE|image_reduire{#GET{taille_max_images_texte},0})</div>]
+	]
+</div>
+[<div class="notes surlignable"><h2 class="h2 pas_surlignable"><:info_notes:></h2>(#NOTES)</div>]
+</BOUCLE_rubrique>

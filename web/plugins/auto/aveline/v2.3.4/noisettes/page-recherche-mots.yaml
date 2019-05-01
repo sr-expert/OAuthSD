@@ -1,0 +1,14 @@
+nom: '<:aveline:nom_page-recherche-mots:>'
+description: '<:aveline:description_resultats_recherche:>'
+icon: 'mot-24.png'
+necessite:
+  - 'mots'
+contexte:
+  - 'recherche'
+  - 'lang'
+parametres:
+  - 'inclure:inc-yaml/liste-mot.yaml'
+  - 'inclure:inc-yaml/options-recherche.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-mot.yaml'
+  - 'inclure:inc-yaml/resume-mot.yaml'

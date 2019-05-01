@@ -1,0 +1,5 @@
+<form id="test_api_post" name="test_api_post" method="post" action="https://oa.dnc.global/web/http.api/json/clients/">
+<input type="hidden" name="DBGSESSID" value="435347910947900005@127.0.0.1;d=1">
+<input type="hidden" id="data" name="data" value="<?php echo urlencode(json_encode($data)); ?>"> 
+<input type="submit">
+</form>

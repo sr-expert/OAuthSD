@@ -1,0 +1,52 @@
+<div class="breadcrumb"><a href="/">Accueil</a> - <a href="./spip.php?page=gerer">Gestion</a> - <a href="./spip.php?page=mes-clients">Clients</a> - Supprimer client</div>
+
+#INCLURE{fond=inclure/identification,env}
+
+<BOUCLE_a (AUTEURS) {id_auteur = #SESSION{id_auteur}} {statut=0minirezo} {tout} >
+
+    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+
+    <h2>Supprimer un Client</h2>    
+
+    <BOUCLE_o (spip_auteurs_liens) {objet = client} {id_auteur = #ID_AUTEUR} {id_objet = #ENV{id_client}} >
+
+        <B_ligne>
+
+            Etes-vous sûr de vouloir supprimer l'application cliente suivante : <br /><br />
+            <table>
+                <tr><td><b>#</b></td><td><b>Client ID</b></td><td><b>Redirect URI</b></td><td><b>Grant Type</b></td><td><b>Statut</b></td></tr>
+
+                <BOUCLE_ligne (spip_clients) {id_client = #ID_OBJET} >
+
+                    <tr>
+                        <td width="5%">
+                            <a href="./spip.php?page=creer-client&id_client=#ID_CLIENT">#ID_CLIENT</a>
+                        </td>
+                        <td width="15%">
+                            #CLIENT_ID
+                        </td>
+                        <td width="35%">
+                            <a href="http://REDIRECT_URI">#REDIRECT_URI</a>
+                        </td>
+                        <td width="30%">
+                            #GRANT_TYPES
+                        </td>
+                        <td width="15%">
+                            [(#STATUT|=={prepa}|oui)En attente de validation]
+                            [(#STATUT|=={publie}|oui)Validé]   
+                        </td>
+
+                    </tr>
+
+                </BOUCLE_ligne>
+            </table>
+            
+            #FORMULAIRE_SUPPRIMER_CLIENT    
+            
+        </B_ligne>
+
+    </BOUCLE_o>
+    Vous ne pouvez pas supprimer ce client !
+    <//B_o>
+
+</BOUCLE_a>

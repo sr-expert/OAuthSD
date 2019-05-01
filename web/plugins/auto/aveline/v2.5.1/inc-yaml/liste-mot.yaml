@@ -1,0 +1,24 @@
+-
+  saisie: 'selection'
+  options:
+    nom: 'liste_mots'
+    label: '<:aveline:label_liste_mots:>'
+    defaut: 'tous'
+    cacher_option_intro: 'oui'
+    datas:
+      tous: '<:aveline:item_mots_tous:>'
+      groupes_specifiques: '<:aveline:item_groupes_specifiques:>'
+-
+  saisie: 'groupe_mots'
+  options:
+    nom: 'groupes_specifiques'
+    label: '<:aveline:label_groupes_specifiques:>'
+    cacher_option_intro: 'oui'
+    multiple: 'oui'
+    afficher_si: '@liste_mots@ == "groupes_specifiques"'
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'separer_resultats_groupes'
+    label: '<:aveline:label_separer_resultats_groupes:>'
+    defaut: ''

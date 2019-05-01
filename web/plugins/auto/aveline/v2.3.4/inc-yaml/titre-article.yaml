@@ -1,0 +1,46 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'afficher_titre_liste'
+    label: '<:aveline:label_afficher_titre_liste:>'
+    defaut: 'on'
+-
+  saisie: 'selection_selon_plugin'
+  options:
+    nom: 'titre_liste'
+    label: '<:aveline:label_titre_liste:>'
+    defaut: 'public:articles'
+    cacher_option_intro: 'oui'
+    datas-necessite:
+      'avelinepublic:articles_les_mieux_notes': 'notation'
+      'avelinepublic:les_mieux_notes': 'notation'
+    datas:
+      'public:articles': '<:public:articles:>'
+      'public:articles_rubrique': '<:public:articles_rubrique:>'
+      'public:meme_rubrique': '<:public:meme_rubrique:>'
+      'public:derniers_articles': '<:public:derniers_articles:>'
+      'avelinepublic:les_derniers_publies': '<:avelinepublic:les_derniers_publies:>'
+      'public:nouveaux_articles': '<:public:nouveaux_articles:>'
+      'avelinepublic:articles_les_plus_recents' : '<:avelinepublic:articles_les_plus_recents:>'
+      'avelinepublic:les_plus_recents': '<:avelinepublic:les_plus_recents:>'
+      'avelinepublic:modifies_recemment': '<:avelinepublic:modifies_recemment:>'
+      'avelinepublic:articles_les_plus_anciens' : '<:avelinepublic:articles_les_plus_anciens:>'
+      'avelinepublic:les_plus_anciens': '<:avelinepublic:les_plus_anciens:>'
+      'avelinepublic:articles_les_plus_populaires': '<:avelinepublic:articles_les_plus_populaires:>'
+      'avelinepublic:les_plus_populaires': '<:avelinepublic:les_plus_populaires:>'
+      'avelinepublic:articles_les_plus_visites' : '<:avelinepublic:articles_les_plus_visites:>'
+      'avelinepublic:les_plus_visites': '<:avelinepublic:les_plus_visites:>'
+      'avelinepublic:articles_les_plus_commentes' : '<:avelinepublic:articles_les_plus_commentes:>'
+      'avelinepublic:les_plus_commentes': '<:avelinepublic:les_plus_commentes:>'
+      'avelinepublic:articles_les_mieux_notes' : '<:avelinepublic:articles_les_mieux_notes:>'
+      'avelinepublic:les_mieux_notes': '<:avelinepublic:les_mieux_notes:>'
+      'public:articles_auteur': '<:public:articles_auteur:>'
+      titre_perso: '<:aveline:item_titre_perso:>'
+    afficher_si: '@afficher_titre_liste@ == "on"'
+-
+  saisie: 'input'
+  options:
+    nom: 'titre_liste_perso'
+    label: '<:aveline:label_titre_liste_perso:>'
+    explication: '<:aveline:explication_raccourcis_typo:>'
+    afficher_si: '@afficher_titre_liste@ == "on" && @titre_liste@ == "titre_perso"'

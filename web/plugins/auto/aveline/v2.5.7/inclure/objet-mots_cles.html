@@ -1,0 +1,3 @@
+<B_mots>[(#ENV{affiche_sep}|et{#ENV{texte_devant_mots_cles}|!={avelinepublic:gt}}|et{#ENV{texte_devant_mots_cles}|!={avelinepublic:colon2}})<span class="sep">|</span> ][(#ENV{texte_devant_mots_cles}|_T)]
+<BOUCLE_mots(MOTS){id_article ?}{id_breve ?}{id_syndic ?}{id_rubrique ?}{par titre}{', '}><a href="#URL_MOT">#TITRE</a></BOUCLE_mots>[(#ENV{ajoute_point}|?{'.',''})]
+</B_mots>

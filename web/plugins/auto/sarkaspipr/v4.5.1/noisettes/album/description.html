@@ -1,0 +1,31 @@
+[(#REM) 
+<!-- Affichage de l'album : logo, titre, descriptif
+	Recoit en argument :
+		- id_album: id de la album concernee
+		- avec_filles: indique si on doit afficher les albums filles ou pas
+-->
+]
+<BOUCLE_description (ALBUMS) {id_album}>
+	<header class="cartouche">
+		[<h1>[(#LOGO_ALBUM|image_reduire{#ENV{taille_logo,150}})]<span class="#EDIT{titre}">(#TITRE)</span></h1>]
+		[(#INCLURE{fond=noisettes/album/cartouche}
+			{id_album}
+			{type-page})
+		]
+		[(#ENV{avec_socialbar,0}|=={1}|oui)
+		[(#INCLURE{fond=noisettes/album/social,id_album,type-page})]
+		]
+	</header>
+
+	<div class="main">
+		[<div class="#EDIT{descriptif} descriptif">(#DESCRIPTIF)</div>]
+
+	</div>
+
+	<footer>
+		[(#ENV{avec_socialbar,0}|=={1}|oui)
+		[(#INCLURE{fond=noisettes/album/social,id_album,type-page})]
+		]
+		[<div class="notes">(#NOTES)</div>]
+	</footer>
+</BOUCLE_description>

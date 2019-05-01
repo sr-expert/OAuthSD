@@ -1,0 +1,28 @@
+[(#REM)
+Tests API HTTP REST
+
+https://oidc.dnc.global/web/?page=test-api-rest
+]
+
+<?php
+$data = array(
+    'client_id' => 'testtest',
+    'client_secret' => 'TheBigSecret',
+    'redirect_uri' => 'https://oidc.dnc.global/web/?action=oauth',
+    'grant_types' => 'authorization_code',
+    'scope' => 'openid sli' 
+);
+?>
+
+<!-- Format application/x-www-form-urlencoded -->
+<form id="test_api_post" name="test_api_post" method="post" action="https://oidc.dnc.global/web/http.api/json/clients/">
+<input type="hidden" name="DBGSESSID" value="435347910947900005@127.0.0.1;d=1">
+<?php foreach ( $data as $name => $value ) { ?>
+    <input type="hidden" id="<?php echo $name;?>" name="<?php echo $name;?>" value="<?php echo $value;?>"> 
+<?php } ?>
+    <input type="submit">
+</form>
+
+
+
+

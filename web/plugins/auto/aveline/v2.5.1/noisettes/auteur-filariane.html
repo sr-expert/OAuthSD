@@ -1,0 +1,11 @@
+[(#SET{ariane_separateur, #ENV{ariane_separateur}|is_null|non|?{#ENV{ariane_separateur},'&gt;'}})]
+[(#SET{ariane_separateur, [<span class="sep">(#GET{ariane_separateur})</span>]})]
+[(#SET{longueur_max_titres, #ENV{longueur_max_titres}|sinon{80}})]
+[(#SET{titre_racine,[(#ENV{titre_racine}|=={titre_perso}|?{[(#ENV**{titre_racine_perso}|typo)],[(#ENV{titre_racine,spip:icone_auteurs}|_T)]})]})]
+<BOUCLE_auteur(AUTEURS){id_auteur}>
+<p id="hierarchie">
+	[(#ENV{afficher_lien_accueil}|oui)<a href="#URL_SITE_SPIP/"><:accueil_site:></a>]
+	[(#GET{ariane_separateur})] [(#ENV{lien_page_auteurs}|oui)<a href="#URL_PAGE{auteurs}">][(#GET{titre_racine})][(#ENV{lien_page_auteurs}|oui)</a>]
+	[(#ENV{afficher_nom_auteur}|oui) [(#GET{ariane_separateur})] <strong class="on">[(#NOM|couper{#GET{longueur_max_titres}})]</strong>]
+</p>
+</BOUCLE_auteur>

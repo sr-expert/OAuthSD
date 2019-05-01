@@ -1,0 +1,48 @@
+<BOUCLE_breve(BREVES) {id_breve} {statut?}{compteur_publie forum}>
+[(#ENV{style_liste}|=={liste}|oui)
+	<li class="item">
+		[(#ENV{liste_afficher_date}|oui)[(#DATE|affdate_jourcourt) &ndash; ]]<a href="#URL_BREVE"[(#ENV{id_breve_expose}|=={#ID_BREVE}) class="on"]>#TITRE</a>
+		[(#ENV{liste_afficher_nb_commentaires}|ou{#ENV{liste_afficher_rubrique}}|ou{#ENV{liste_afficher_mots_cles}})<div class="info-publi">]
+			[(#ENV{liste_afficher_rubrique}oui)[(#ENV{liste_texte_devant_rubrique}|_T) ]<a href="#INFO_URL{rubrique,#ID_RUBRIQUE}">#INFO_TITRE{rubrique,#ID_RUBRIQUE}</a>.]
+			[(#ENV{liste_afficher_mots_cles}oui)#INCLURE{fond=inclure/objet-mots_cles,id_breve,id_rubrique='',texte_devant_mots_cles=#ENV{liste_texte_devant_mots_cles},ajoute_point='on'}]
+			[(#ENV{liste_afficher_nb_commentaires}|et{#AVELINE_COMPTEUR_FORUM|>{0}}|oui)
+				[<a href="[(#URL_BREVE|ancre_url{forum})]" class="nb_commentaires">(#AVELINE_COMPTEUR_FORUM)[&nbsp;(#AVELINE_COMPTEUR_FORUM|=={1}|?{<:zpip:commentaire:>,<:zpip:commentaires:>})]</a>.]
+			]
+		[(#ENV{liste_afficher_nb_commentaires}|ou{#ENV{liste_afficher_rubrique}}|ou{#ENV{liste_afficher_mots_cles}})</div>]
+	</li>
+]
+[(#ENV{style_liste}|=={resume}|oui)
+	<li class="item hentry">
+		<h3 class="h3 entry-title">
+			[(#ENV{liste_afficher_date}|oui)[(#DATE|affdate_jourcourt) &ndash; ]]
+			<a href="#URL_BREVE" rel="bookmark"[(#ENV{id_breve_expose}|=={#ID_BREVE}) class="on"]>
+				[(#ENV{afficher_logo}|oui)
+					[(#ENV{utiliser_logo_breve_rubrique}|oui)[(#LOGO_BREVE_RUBRIQUE||image_reduire{[(#ENV{taille_max_logo}|sinon{150})]})]]
+					[(#ENV{utiliser_logo_breve_rubrique}|non)[(#LOGO_BREVE||image_reduire{[(#ENV{taille_max_logo}|sinon{150})]})]]
+				]
+				#TITRE
+			</a>
+		</h3>
+		[(#ENV{afficher_texte_breve}|=={introduction}|ou{#ENV{afficher_texte_breve}|non})
+			[<div class="#EDIT{texte} introduction entry-content">(#TEXTE|couper{[(#ENV{longueur_max_introduction}|sinon{600})]})</div>]
+		]
+		[(#ENV{afficher_texte_breve}|=={complet}|oui)
+			[<div class="#EDIT{texte} texte entry-content">(#TEXTE)</div>]
+		]
+		[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_nb_commentaires}}|ou{#ENV{afficher_rubrique}}|ou{#ENV{afficher_mots_cles}})<div class="meta-publi">]
+			[(#ENV{afficher_lire_la_suite}|oui)<a class="lire-la-suite" href="#URL_BREVE"><:zpip:lire_la_suite:>[(#ENV{rappeler_titre}|oui)<span class="lire-la-suite-titre"><:zpip:lire_la_suite_de:> <em>#TITRE</em></span>]</a>]
+			[(#ENV{afficher_lien_permanent}|oui)
+				[(#ENV{afficher_lire_la_suite}|oui)<span class="sep">|</span> ]<a class="lire-la-suite" href="#URL_BREVE"><:avelinepublic:lien_permanent:></a>
+			]
+			[(#ENV{afficher_rubrique}oui)
+				[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|et{#ENV{texte_devant_rubrique}|!={avelinepublic:gt}}|et{#ENV{texte_devant_rubrique}|!={avelinepublic:colon2}})<span class="sep">|</span> ][(#ENV{texte_devant_rubrique}|_T)]
+			<a href="#INFO_URL{rubrique,#ID_RUBRIQUE}">#INFO_TITRE{rubrique,#ID_RUBRIQUE}</a>]
+			[(#ENV{afficher_mots_cles}oui)[(#INCLURE{fond=inclure/objet-mots_cles,id_breve,id_rubrique='',texte_devant_mots_cles=#ENV{texte_devant_mots_cles},affiche_sep=[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_rubrique}}|?{'on',''})]})]]
+			[(#ENV{afficher_nb_commentaires}|et{#AVELINE_COMPTEUR_FORUM|>{0}}|oui)
+				[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_rubrique}}|ou{#ENV{afficher_mots_cles}}|oui)<span class="sep">|</span>]
+				[<a href="[(#URL_BREVE|ancre_url{forum})]" class="nb_commentaires">(#AVELINE_COMPTEUR_FORUM)[&nbsp;(#AVELINE_COMPTEUR_FORUM|=={1}|?{<:zpip:commentaire:>,<:zpip:commentaires:>})]</a>]
+			]
+		[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_nb_commentaires}}|ou{#ENV{afficher_rubrique}}|ou{#ENV{afficher_mots_cles}})</div>]
+	</li>
+]
+</BOUCLE_breve>

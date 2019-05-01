@@ -1,0 +1,15 @@
+// Le nom de l'application cliente
+define ( 'APPNAME', 'radar' );
+// La requete
+$req = "http://chemindeleau.com/?page=gis.json&pt=1";
+
+echo '<h3>Résultat de : ' .  $req . '</h3><br/>';
+
+$api_result = ProtectedApi_GET_auto( $req );
+if ( $api_result == false ) {
+    $api_result = "Erreur !";
+} else {
+    echo '<pre>';
+    print_r( json_decode( $api_result, true ));
+    echo '</pre>';    
+}

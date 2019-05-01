@@ -1,0 +1,18 @@
+[(#REM) <!-- Pipeline de debut pour inserer des noisettes perso --> ]
+[(#PIPELINE{colonne_navigation_debut,
+	[(#ARRAY{args, [(#ENV*|unserialize)], data, ''})]}
+)]
+
+<INCLURE{fond=aside/inc-nav-base,env} />
+
+<INCLURE{fond=aside/inc-plugins,env} />
+
+[(#REM) <!-- affichage du panneau d'annonce --> ]
+[(#CONFIG{sarkaspip/noisettes/position_annonce, 0}|=={1}|oui)
+	<INCLURE{fond=noisettes/inc_annonce}>
+]
+
+[(#REM) <!-- Pipeline de fin pour inserer des noisettes perso --> ]
+[(#PIPELINE{colonne_navigation_fin,
+	[(#ARRAY{args, [(#ENV*|unserialize)], data, ''})]}
+)]

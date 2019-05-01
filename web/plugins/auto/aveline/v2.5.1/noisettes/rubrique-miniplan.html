@@ -1,0 +1,8 @@
+<BOUCLE_test(CONDITION){si #ENV{afficher_si_pas_article}}>
+	<BOUCLE_articles(ARTICLES){id_rubrique}{0,1}>
+	</BOUCLE_articles>
+	#INCLURE{fond=inclure/miniplan,env}
+	<//B_articles>
+</BOUCLE_test>
+#INCLURE{fond=inclure/miniplan,env}
+<//B_test>

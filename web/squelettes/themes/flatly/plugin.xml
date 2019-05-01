@@ -1,0 +1,12 @@
+<plugin>
+	<nom>Flatly</nom>
+	<version>2.3.2</version>
+	<etat>stable</etat>
+	<auteur>MIL</auteur>
+	<licence>GPL</licence>
+	<prefix>theme_bsflatly</prefix>
+	<description>Flat an modern</description>
+	<icon>vignette.png</icon>
+	<utilise id="spipr" version="[0.1.0-dev;]" />
+	<categorie>theme</categorie>
+</plugin>

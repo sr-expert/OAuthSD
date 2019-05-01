@@ -1,0 +1,12 @@
+<BOUCLE_principale(MOTS) {id_mot} >
+<title>[(#TITRE|textebrut) - ][(#NOM_SITE_SPIP|textebrut)]</title>
+[<meta name="description" content="(#DESCRIPTIF|couper{150}|attribut_html)" />]
+
+[(#REM) Lien vers le flux RSS des articles du mot cle
+        Sauf si desactive par le plugin Flux rss configurable]
+[(#PLUGIN{rssconfig}|oui|et{#CONFIG{rssconfig/activer}|!={non}|oui})
+<link rel="alternate" type="application/rss+xml"[ title="(#TITRE|attribut_html)"] href="[(#URL_PAGE{backend}|parametre_url{id_mot,#ID_MOT})]" />
+]
+</BOUCLE_principale>
+[<link rel="icon" type="image/x-icon" href="(#CHEMIN{favicon.ico})" />
+[<link rel="shortcut icon" type="image/x-icon" href="(#CHEMIN{favicon.ico})" />]]

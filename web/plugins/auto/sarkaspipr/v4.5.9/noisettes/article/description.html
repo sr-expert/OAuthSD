@@ -1,0 +1,59 @@
+[(#REM) 
+<!-- Affichage de l'article: logo, titre, chapo, texte, ps...
+	Recoit en argument :
+		- id_article: id de l'article concerne
+		- page: indique le type de page affichee (article - par defaut -, evenement, album, edito, une, forum)
+		- afficher_commentaires: indicateur d'affichage ou pas du nombre de commentaires de l'article concerne
+		- avec_popularite: indique si on doit afficher ou pas la popularite
+		- avec_notation: indique si on doit afficher ou pas la notation de l'article (necessite le plugin notation)
+		- avec_socialtags: indique si on doit afficher ou pas les boutons de bookmark sur les reseaux sociaux
+		- logo_rubrique: indique si on utilise le logo de la rubrique dans le cas ou le logo de l'article est absent
+		- taille_logo: taille max du logo si affiche
+		- id_evenement: id de l'evenement associe a l'article (page evenement avec plugin agenda)
+		- id_rubrique: rubrique de l'article (utilise uniquement dans la une)
+		- statut_forum: utilise uniquement dans la page forum pour presenter un message d'avertissement si ferme
+-->
+]
+<BOUCLE_description (ARTICLES) {id_article}>
+
+	[(#REM) <!-- Initialisation des parametres de config --> ]
+	#SET{logo,#ENV{logo_rubrique}|=={oui}|?{#LOGO_ARTICLE_RUBRIQUE,#LOGO_ARTICLE}}
+
+	<header class="cartouche">
+
+		[<h1>[(#GET{logo}|image_reduire{#ENV{taille_logo,150}})]<span class="#EDIT{titre}">(#TITRE)</span>
+		[<small class="soustitre #EDIT{soustitre}">(#SOUSTITRE)</small>]
+		</h1>]
+
+		[(#INCLURE{fond=noisettes/article/cartouche}
+			{id_article}
+			{id_evenement}
+			{avec_popularite}
+			{type-page})
+		]
+		[(#ENV{avec_socialbar,0}|=={1}|oui)
+		[(#INCLURE{fond=noisettes/article/social,id_article,type-page})]
+		]
+
+	</header>
+
+	<div class="main">
+
+		<BOUCLE_ev(EVENEMENTS?){id_evenement}>
+		<div class="evenement one well">#INCLURE{fond=inclure/resume/evenement,id_evenement}</div>
+		</BOUCLE_ev>
+
+		[<div class="#EDIT{chapo} chapo">(#CHAPO|adaptive_images)</div>]
+		[<div class="#EDIT{texte} texte">(#TEXTE|adaptive_images)</div>]
+
+		[<p class="#EDIT{hyperlien} hyperlien"><:voir_en_ligne:>&nbsp;: <a href="(#URL_SITE)">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
+	</div>
+
+	<footer>
+		[(#ENV{avec_socialbar,0}|=={2}|oui)
+		[(#INCLURE{fond=noisettes/article/social,id_article,type-page})]
+		]
+		[<div class="#EDIT{ps} ps">(#PS|adaptive_images)</div>]
+		[<div class="notes">(#NOTES)</div>]
+	</footer>
+</BOUCLE_description>

@@ -1,0 +1,590 @@
+[01-Nov-2016 18:37:38 UTC] PHP Notice:  Undefined index: redirect_uri in /home/dnc/oa/oauth/authorize.php on line 228
+[01-Nov-2016 18:40:24 UTC] PHP Notice:  Undefined variable: domain in /home/dnc/oa/oauth/authorize.php on line 230
+[01-Nov-2016 18:40:42 UTC] PHP Notice:  Undefined variable: thedomain in /home/dnc/oa/oauth/authorize.php on line 230
+[01-Nov-2016 18:41:23 UTC] PHP Notice:  Undefined variable: thedomain in /home/dnc/oa/oauth/authorize.php on line 230
+[01-Nov-2016 18:45:53 UTC] PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: no parameters were bound in /home/dnc/oa/oauth/authorize.php on line 65
+[04-Nov-2016 14:38:32 UTC] PHP Notice:  Undefined variable: scope in /home/dnc/oa/oauth/resource.php on line 31
+[04-Nov-2016 14:38:32 UTC] PHP Fatal error:  Call to a member function send() on null in /home/dnc/oa/oauth/resource.php on line 32
+[04-Nov-2016 14:40:32 UTC] PHP Fatal error:  Call to a member function send() on null in /home/dnc/oa/oauth/resource.php on line 33
+[04-Nov-2016 17:25:07 UTC] PHP Fatal error:  Cannot access private property OAuth2\Controller\ResourceController::$token in /home/dnc/oa/oauth/resource.php on line 38
+[04-Nov-2016 17:58:17 UTC] PHP Notice:  Undefined variable: nanitized_user_id in /home/dnc/oa/oauth/resource.php on line 43
+[04-Nov-2016 17:58:17 UTC] PHP Notice:  Undefined variable: user_info in /home/dnc/oa/oauth/resource.php on line 60
+[04-Nov-2016 17:58:17 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 60
+[13-Nov-2016 13:36:10 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/dnc/oa/oauth/authorize.php on line 166
+[13-Nov-2016 13:58:15 UTC] PHP Notice:  Undefined variable: explain in /home/dnc/oa/oauth/error.php on line 85
+[29-Nov-2016 09:29:56 UTC] PHP Notice:  Undefined index: state in /home/dnc/oa/oauth/authorize.php on line 103
+[29-Nov-2016 09:32:36 UTC] PHP Notice:  Undefined index: state in /home/dnc/oa/oauth/authorize.php on line 103
+[29-Nov-2016 09:33:23 UTC] PHP Notice:  Undefined index: state in /home/dnc/oa/oauth/authorize.php on line 103
+[02-Dec-2016 14:24:59 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[02-Dec-2016 14:25:59 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[02-Dec-2016 14:35:21 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[02-Dec-2016 14:36:21 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[02-Dec-2016 14:43:11 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[02-Dec-2016 14:46:31 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[02-Dec-2016 14:53:32 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[02-Dec-2016 14:54:42 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[02-Dec-2016 15:00:34 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[02-Dec-2016 15:01:09 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 08:36:56 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 10:52:25 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:00:44 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:01:25 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:02:18 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:02:51 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:03:22 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:10:19 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:12:02 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:15:23 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:17:50 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:18:26 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:21:14 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:22:40 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:24:25 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:25:29 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:26:27 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:32:06 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:34:06 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:38:19 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:44:35 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 11:55:44 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 15:25:49 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 16:59:29 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 17:04:17 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 17:07:49 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 17:13:05 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 55
+[03-Dec-2016 17:43:43 UTC] PHP Notice:  Undefined index: envhash in /home/dnc/oa/oauth/resource.php on line 32
+[03-Dec-2016 17:43:43 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[03-Dec-2016 17:46:03 UTC] PHP Notice:  Undefined index: envhash in /home/dnc/oa/oauth/resource.php on line 32
+[03-Dec-2016 17:46:03 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[03-Dec-2016 17:49:06 UTC] PHP Notice:  Undefined index: envhash in /home/dnc/oa/oauth/resource.php on line 32
+[03-Dec-2016 17:49:06 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 07:54:08 UTC] PHP Notice:  Undefined index: envhash in /home/dnc/oa/oauth/resource.php on line 32
+[04-Dec-2016 07:54:08 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 07:54:51 UTC] PHP Notice:  Undefined index: envhash in /home/dnc/oa/oauth/resource.php on line 32
+[04-Dec-2016 07:54:51 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 07:55:34 UTC] PHP Notice:  Undefined index: envhash in /home/dnc/oa/oauth/resource.php on line 32
+[04-Dec-2016 07:55:34 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 07:56:12 UTC] PHP Notice:  Undefined index: envhash in /home/dnc/oa/oauth/resource.php on line 32
+[04-Dec-2016 07:56:12 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 07:59:05 UTC] PHP Notice:  Undefined index: envhash in /home/dnc/oa/oauth/resource.php on line 32
+[04-Dec-2016 07:59:05 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 08:01:09 UTC] PHP Notice:  Undefined index: envhash in /home/dnc/oa/oauth/resource.php on line 32
+[04-Dec-2016 08:01:09 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 08:02:53 UTC] PHP Notice:  Undefined index: envhash in /home/dnc/oa/oauth/resource.php on line 32
+[04-Dec-2016 08:02:53 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 08:11:10 UTC] PHP Notice:  Undefined index: envhash in /home/dnc/oa/oauth/resource.php on line 32
+[04-Dec-2016 08:11:10 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 08:12:06 UTC] PHP Notice:  Undefined index: envhash in /home/dnc/oa/oauth/resource.php on line 32
+[04-Dec-2016 08:12:06 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 08:13:24 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 08:16:32 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 08:23:18 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 08:24:09 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 08:25:05 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 09:08:49 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 09:10:38 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 09:13:59 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 09:16:11 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 09:31:54 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 09:33:30 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[04-Dec-2016 09:36:28 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/dnc/oa/oauth/resource.php on line 65
+[21-Dec-2016 17:40:32 UTC] PHP Notice:  Undefined variable: tehdefinition in /home/dnc/oa/oauth/authorize.php on line 106
+[24-Sep-2018 17:15:23 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[24-Sep-2018 17:15:40 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[24-Sep-2018 17:15:41 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[24-Sep-2018 17:16:00 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[24-Sep-2018 17:16:10 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[24-Sep-2018 17:21:44 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[24-Sep-2018 17:21:59 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[24-Sep-2018 17:22:01 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[24-Sep-2018 17:24:30 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[24-Sep-2018 17:34:00 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[24-Sep-2018 17:34:10 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[24-Sep-2018 17:34:15 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[24-Sep-2018 17:34:51 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 13:47:50 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 13:48:30 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 13:54:26 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 13:54:54 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 13:55:06 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 14:07:13 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 14:09:11 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 14:10:32 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 14:11:27 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 14:20:12 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 14:20:30 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 14:20:31 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 14:34:01 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 14:34:21 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 14:34:22 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 14:46:32 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 14:47:02 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 14:47:39 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 14:53:12 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 14:54:56 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 14:54:57 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Sep-2018 16:58:31 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[27-Sep-2018 06:27:57 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[27-Sep-2018 06:28:20 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[29-Sep-2018 04:57:26 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[29-Sep-2018 19:06:14 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[05-Oct-2018 12:28:16 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[05-Oct-2018 16:54:58 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[05-Oct-2018 16:55:08 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[06-Oct-2018 02:31:48 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[08-Oct-2018 02:20:01 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[10-Oct-2018 01:48:53 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[13-Oct-2018 13:34:04 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[21-Oct-2018 02:36:06 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[05-Nov-2018 17:43:17 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Nov-2018 11:31:23 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[11-Nov-2018 08:37:16 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[13-Nov-2018 09:43:37 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[14-Nov-2018 13:52:40 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[14-Nov-2018 18:39:44 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[17-Nov-2018 18:43:12 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[20-Nov-2018 08:16:46 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[23-Nov-2018 10:35:52 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[23-Nov-2018 18:33:13 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[23-Nov-2018 19:31:09 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[24-Nov-2018 12:37:10 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Nov-2018 17:09:25 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Nov-2018 17:56:06 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Nov-2018 17:56:33 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Nov-2018 19:00:51 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Nov-2018 20:00:40 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Nov-2018 07:00:08 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Nov-2018 10:01:08 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Nov-2018 15:05:33 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Nov-2018 15:06:42 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[27-Nov-2018 06:40:16 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[28-Nov-2018 11:40:13 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[28-Nov-2018 11:40:14 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[28-Nov-2018 11:41:02 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Dec-2018 10:14:35 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Dec-2018 10:51:25 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Dec-2018 16:10:43 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Dec-2018 16:34:47 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[10-Dec-2018 02:32:43 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[11-Dec-2018 10:27:04 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[15-Dec-2018 05:06:14 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[15-Dec-2018 05:06:15 UTC] PHP Notice:  Use of undefined constant SLI_SESSION_DIR - assumed 'SLI_SESSION_DIR' in /home/oadnc/public_html/oauth/authorize.php on line 32
+[15-Dec-2018 05:06:15 UTC] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[15-Dec-2018 05:06:15 UTC] PHP Warning:  session_start(): open(SLI_SESSION_DIR/sess_3955025481e4ffaaa9a22ee815b2d090, O_RDWR) failed: No such file or directory (2) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[15-Dec-2018 05:06:15 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[15-Dec-2018 05:06:15 UTC] PHP Warning:  Unknown: open(SLI_SESSION_DIR/sess_3955025481e4ffaaa9a22ee815b2d090, O_RDWR) failed: No such file or directory (2) in Unknown on line 0
+[15-Dec-2018 05:06:15 UTC] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (SLI_SESSION_DIR) in Unknown on line 0
+[15-Dec-2018 13:56:51 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[17-Dec-2018 12:17:33 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[17-Dec-2018 12:17:33 UTC] PHP Notice:  Use of undefined constant SLI_SESSION_DIR - assumed 'SLI_SESSION_DIR' in /home/oadnc/public_html/oauth/authorize.php on line 32
+[17-Dec-2018 12:17:33 UTC] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[17-Dec-2018 12:17:33 UTC] PHP Warning:  session_start(): open(SLI_SESSION_DIR/sess_3955025481e4ffaaa9a22ee815b2d090, O_RDWR) failed: No such file or directory (2) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[17-Dec-2018 12:17:33 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[17-Dec-2018 12:17:33 UTC] PHP Warning:  Unknown: open(SLI_SESSION_DIR/sess_3955025481e4ffaaa9a22ee815b2d090, O_RDWR) failed: No such file or directory (2) in Unknown on line 0
+[17-Dec-2018 12:17:33 UTC] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (SLI_SESSION_DIR) in Unknown on line 0
+[18-Dec-2018 14:44:22 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[18-Dec-2018 14:44:22 UTC] PHP Notice:  Use of undefined constant SLI_SESSION_DIR - assumed 'SLI_SESSION_DIR' in /home/oadnc/public_html/oauth/authorize.php on line 32
+[18-Dec-2018 14:44:22 UTC] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[18-Dec-2018 14:44:22 UTC] PHP Warning:  session_start(): open(SLI_SESSION_DIR/sess_18c05e41e2432915332ccbe89f770745, O_RDWR) failed: No such file or directory (2) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[18-Dec-2018 14:44:22 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[18-Dec-2018 14:44:22 UTC] PHP Warning:  Unknown: open(SLI_SESSION_DIR/sess_18c05e41e2432915332ccbe89f770745, O_RDWR) failed: No such file or directory (2) in Unknown on line 0
+[18-Dec-2018 14:44:22 UTC] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (SLI_SESSION_DIR) in Unknown on line 0
+[20-Dec-2018 06:01:48 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[20-Dec-2018 06:01:48 UTC] PHP Notice:  Use of undefined constant SLI_SESSION_DIR - assumed 'SLI_SESSION_DIR' in /home/oadnc/public_html/oauth/authorize.php on line 32
+[20-Dec-2018 06:01:48 UTC] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[20-Dec-2018 06:01:48 UTC] PHP Warning:  session_start(): open(SLI_SESSION_DIR/sess_3883f07fa0fbe5b152f9ceaa18714e3d, O_RDWR) failed: No such file or directory (2) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[20-Dec-2018 06:01:48 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[20-Dec-2018 06:01:48 UTC] PHP Warning:  Unknown: open(SLI_SESSION_DIR/sess_3883f07fa0fbe5b152f9ceaa18714e3d, O_RDWR) failed: No such file or directory (2) in Unknown on line 0
+[20-Dec-2018 06:01:48 UTC] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (SLI_SESSION_DIR) in Unknown on line 0
+[20-Dec-2018 06:15:26 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[20-Dec-2018 06:15:26 UTC] PHP Notice:  Use of undefined constant SLI_SESSION_DIR - assumed 'SLI_SESSION_DIR' in /home/oadnc/public_html/oauth/authorize.php on line 32
+[20-Dec-2018 06:15:26 UTC] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[20-Dec-2018 06:15:26 UTC] PHP Warning:  session_start(): open(SLI_SESSION_DIR/sess_3883f07fa0fbe5b152f9ceaa18714e3d, O_RDWR) failed: No such file or directory (2) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[20-Dec-2018 06:15:26 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[20-Dec-2018 06:15:26 UTC] PHP Warning:  Unknown: open(SLI_SESSION_DIR/sess_3883f07fa0fbe5b152f9ceaa18714e3d, O_RDWR) failed: No such file or directory (2) in Unknown on line 0
+[20-Dec-2018 06:15:26 UTC] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (SLI_SESSION_DIR) in Unknown on line 0
+[22-Dec-2018 04:45:39 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[22-Dec-2018 04:45:41 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Dec-2018 01:10:31 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[25-Dec-2018 01:10:31 UTC] PHP Notice:  Use of undefined constant SLI_SESSION_DIR - assumed 'SLI_SESSION_DIR' in /home/oadnc/public_html/oauth/authorize.php on line 32
+[25-Dec-2018 01:10:31 UTC] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[25-Dec-2018 01:10:31 UTC] PHP Warning:  session_start(): open(SLI_SESSION_DIR/sess_15a37cb6a3b1fa01e4c8ab3fd5f003d3, O_RDWR) failed: No such file or directory (2) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[25-Dec-2018 01:10:31 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[25-Dec-2018 01:10:31 UTC] PHP Warning:  Unknown: open(SLI_SESSION_DIR/sess_15a37cb6a3b1fa01e4c8ab3fd5f003d3, O_RDWR) failed: No such file or directory (2) in Unknown on line 0
+[25-Dec-2018 01:10:31 UTC] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (SLI_SESSION_DIR) in Unknown on line 0
+[27-Dec-2018 03:22:24 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[27-Dec-2018 19:46:59 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[28-Dec-2018 13:45:01 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[29-Dec-2018 02:27:18 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[29-Dec-2018 02:27:18 UTC] PHP Notice:  Use of undefined constant SLI_SESSION_DIR - assumed 'SLI_SESSION_DIR' in /home/oadnc/public_html/oauth/authorize.php on line 32
+[29-Dec-2018 02:27:18 UTC] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[29-Dec-2018 02:27:18 UTC] PHP Warning:  session_start(): open(SLI_SESSION_DIR/sess_578351525, O_RDWR) failed: No such file or directory (2) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[29-Dec-2018 02:27:18 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[29-Dec-2018 02:27:19 UTC] PHP Warning:  Unknown: open(SLI_SESSION_DIR/sess_578351525, O_RDWR) failed: No such file or directory (2) in Unknown on line 0
+[29-Dec-2018 02:27:19 UTC] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (SLI_SESSION_DIR) in Unknown on line 0
+[29-Dec-2018 02:28:47 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[30-Dec-2018 15:44:33 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[30-Dec-2018 15:44:33 UTC] PHP Notice:  Use of undefined constant SLI_SESSION_DIR - assumed 'SLI_SESSION_DIR' in /home/oadnc/public_html/oauth/authorize.php on line 32
+[30-Dec-2018 15:44:33 UTC] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[30-Dec-2018 15:44:33 UTC] PHP Warning:  session_start(): open(SLI_SESSION_DIR/sess_4d453613e26185c41f1df42f679d2a68, O_RDWR) failed: No such file or directory (2) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[30-Dec-2018 15:44:33 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[30-Dec-2018 15:44:33 UTC] PHP Warning:  Unknown: open(SLI_SESSION_DIR/sess_4d453613e26185c41f1df42f679d2a68, O_RDWR) failed: No such file or directory (2) in Unknown on line 0
+[30-Dec-2018 15:44:33 UTC] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (SLI_SESSION_DIR) in Unknown on line 0
+[01-Jan-2019 06:26:22 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[01-Jan-2019 06:26:22 UTC] PHP Notice:  Use of undefined constant SLI_SESSION_DIR - assumed 'SLI_SESSION_DIR' in /home/oadnc/public_html/oauth/authorize.php on line 32
+[01-Jan-2019 06:26:22 UTC] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[01-Jan-2019 06:26:22 UTC] PHP Warning:  session_start(): open(SLI_SESSION_DIR/sess_3a62f6b3b177ed3dddfacc17ce246a31, O_RDWR) failed: No such file or directory (2) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[01-Jan-2019 06:26:22 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[01-Jan-2019 06:26:22 UTC] PHP Warning:  Unknown: open(SLI_SESSION_DIR/sess_3a62f6b3b177ed3dddfacc17ce246a31, O_RDWR) failed: No such file or directory (2) in Unknown on line 0
+[01-Jan-2019 06:26:22 UTC] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (SLI_SESSION_DIR) in Unknown on line 0
+[03-Jan-2019 03:06:58 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[03-Jan-2019 03:06:58 UTC] PHP Notice:  Use of undefined constant SLI_SESSION_DIR - assumed 'SLI_SESSION_DIR' in /home/oadnc/public_html/oauth/authorize.php on line 32
+[03-Jan-2019 03:06:58 UTC] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[03-Jan-2019 03:06:58 UTC] PHP Warning:  session_start(): open(SLI_SESSION_DIR/sess_42219cb104dc04fff3f9a9b0e15abefb, O_RDWR) failed: No such file or directory (2) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[03-Jan-2019 03:06:58 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[03-Jan-2019 03:06:58 UTC] PHP Warning:  Unknown: open(SLI_SESSION_DIR/sess_42219cb104dc04fff3f9a9b0e15abefb, O_RDWR) failed: No such file or directory (2) in Unknown on line 0
+[03-Jan-2019 03:06:58 UTC] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (SLI_SESSION_DIR) in Unknown on line 0
+[03-Jan-2019 10:38:49 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[03-Jan-2019 10:38:49 UTC] PHP Notice:  Use of undefined constant SLI_SESSION_DIR - assumed 'SLI_SESSION_DIR' in /home/oadnc/public_html/oauth/authorize.php on line 32
+[03-Jan-2019 10:38:49 UTC] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[03-Jan-2019 10:38:49 UTC] PHP Warning:  session_start(): open(SLI_SESSION_DIR/sess_1c67ae7686bd7a060c098541b49b331f, O_RDWR) failed: No such file or directory (2) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[03-Jan-2019 10:38:49 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[03-Jan-2019 10:38:49 UTC] PHP Warning:  Unknown: open(SLI_SESSION_DIR/sess_1c67ae7686bd7a060c098541b49b331f, O_RDWR) failed: No such file or directory (2) in Unknown on line 0
+[03-Jan-2019 10:38:49 UTC] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (SLI_SESSION_DIR) in Unknown on line 0
+[03-Jan-2019 11:16:35 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[03-Jan-2019 11:16:35 UTC] PHP Notice:  Use of undefined constant SLI_SESSION_DIR - assumed 'SLI_SESSION_DIR' in /home/oadnc/public_html/oauth/authorize.php on line 32
+[03-Jan-2019 11:16:35 UTC] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[03-Jan-2019 11:16:35 UTC] PHP Warning:  session_start(): open(SLI_SESSION_DIR/sess_1c67ae7686bd7a060c098541b49b331f, O_RDWR) failed: No such file or directory (2) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[03-Jan-2019 11:16:35 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/oadnc/public_html/oauth/authorize.php:32) in /home/oadnc/public_html/oauth/authorize.php on line 35
+[03-Jan-2019 11:16:35 UTC] PHP Warning:  Unknown: open(SLI_SESSION_DIR/sess_1c67ae7686bd7a060c098541b49b331f, O_RDWR) failed: No such file or directory (2) in Unknown on line 0
+[03-Jan-2019 11:16:35 UTC] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (SLI_SESSION_DIR) in Unknown on line 0
+[03-Jan-2019 11:28:02 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[03-Jan-2019 11:28:03 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 07:51:44 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 07:51:44 UTC] PHP Notice:  Use of undefined constant JWK_IN_JWT_HEADER - assumed 'JWK_IN_JWT_HEADER' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 156
+[09-Jan-2019 07:51:44 UTC] PHP Notice:  Undefined index: kid in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 160
+[09-Jan-2019 07:51:44 UTC] PHP Notice:  Use of undefined constant OIDC_SERVER_URL - assumed 'OIDC_SERVER_URL' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 161
+[09-Jan-2019 07:51:44 UTC] PHP Notice:  Undefined index: kid in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 161
+[09-Jan-2019 08:10:20 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 08:10:20 UTC] PHP Notice:  Use of undefined constant JWK_IN_JWT_HEADER - assumed 'JWK_IN_JWT_HEADER' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 156
+[09-Jan-2019 08:10:20 UTC] PHP Notice:  Undefined index: kid in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 160
+[09-Jan-2019 08:10:20 UTC] PHP Notice:  Use of undefined constant OIDC_SERVER_URL - assumed 'OIDC_SERVER_URL' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 161
+[09-Jan-2019 08:10:20 UTC] PHP Notice:  Undefined index: kid in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 161
+[09-Jan-2019 08:10:20 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtp' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'radar', '', 1547025020, 'basic data')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/ClientCredentials.php(58): OAuth2\ResponseType\JwtAccessToken->createAccessToken('radar', '', 'basic data', false)
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\ClientCredentials->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'radar' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[09-Jan-2019 08:14:40 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 08:14:51 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 08:15:05 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 08:33:55 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 08:33:55 UTC] PHP Notice:  Use of undefined constant JWK_IN_JWT_HEADER - assumed 'JWK_IN_JWT_HEADER' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 156
+[09-Jan-2019 08:33:55 UTC] PHP Notice:  Undefined index: kid in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 160
+[09-Jan-2019 08:33:55 UTC] PHP Notice:  Use of undefined constant OIDC_SERVER_URL - assumed 'OIDC_SERVER_URL' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 161
+[09-Jan-2019 08:33:55 UTC] PHP Notice:  Undefined index: kid in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 161
+[09-Jan-2019 08:33:55 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtp' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'radar', '', 1547026435, 'basic data')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/ClientCredentials.php(58): OAuth2\ResponseType\JwtAccessToken->createAccessToken('radar', '', 'basic data', false)
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\ClientCredentials->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'radar' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[09-Jan-2019 08:36:25 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 08:36:25 UTC] PHP Notice:  Use of undefined constant JWK_IN_JWT_HEADER - assumed 'JWK_IN_JWT_HEADER' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 156
+[09-Jan-2019 08:36:25 UTC] PHP Notice:  Undefined index: kid in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 160
+[09-Jan-2019 08:36:25 UTC] PHP Notice:  Use of undefined constant OIDC_SERVER_URL - assumed 'OIDC_SERVER_URL' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 161
+[09-Jan-2019 08:36:25 UTC] PHP Notice:  Undefined index: kid in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 161
+[09-Jan-2019 08:36:25 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtp' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'radar', '', 1547026585, 'basic data')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/ClientCredentials.php(58): OAuth2\ResponseType\JwtAccessToken->createAccessToken('radar', '', 'basic data', false)
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\ClientCredentials->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'radar' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[09-Jan-2019 08:38:41 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 08:38:41 UTC] PHP Notice:  Use of undefined constant JWK_IN_JWT_HEADER - assumed 'JWK_IN_JWT_HEADER' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 156
+[09-Jan-2019 08:38:41 UTC] PHP Notice:  Undefined index: kid in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 160
+[09-Jan-2019 08:38:41 UTC] PHP Notice:  Use of undefined constant OIDC_SERVER_URL - assumed 'OIDC_SERVER_URL' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 161
+[09-Jan-2019 08:38:41 UTC] PHP Notice:  Undefined index: kid in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 161
+[09-Jan-2019 08:38:41 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtp' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'radar', '', 1547026721, 'basic data')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/ClientCredentials.php(58): OAuth2\ResponseType\JwtAccessToken->createAccessToken('radar', '', 'basic data', false)
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\ClientCredentials->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'radar' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[09-Jan-2019 08:40:50 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 08:40:50 UTC] PHP Notice:  Use of undefined constant JWK_IN_JWT_HEADER - assumed 'JWK_IN_JWT_HEADER' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 156
+[09-Jan-2019 08:40:50 UTC] PHP Notice:  Undefined index: kid in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 160
+[09-Jan-2019 08:40:50 UTC] PHP Notice:  Use of undefined constant OIDC_SERVER_URL - assumed 'OIDC_SERVER_URL' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 161
+[09-Jan-2019 08:40:50 UTC] PHP Notice:  Undefined index: kid in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 161
+[09-Jan-2019 08:40:50 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtp' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'radar', '', 1547026850, 'basic data')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/ClientCredentials.php(58): OAuth2\ResponseType\JwtAccessToken->createAccessToken('radar', '', 'basic data', false)
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\ClientCredentials->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'radar' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[09-Jan-2019 08:52:32 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 08:52:32 UTC] PHP Warning:  include_once(/home/oadnc/public_html/oauth/includes/log.php): failed to open stream: No such file or directory in /home/oadnc/public_html/oauth/includes/configure.php on line 23
+[09-Jan-2019 08:52:32 UTC] PHP Warning:  include_once(): Failed opening '/home/oadnc/public_html/oauth/includes/log.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/oadnc/public_html/oauth/includes/configure.php on line 23
+[09-Jan-2019 08:52:32 UTC] PHP Notice:  Undefined variable: config in /home/oadnc/public_html/oauth/includes/server.php on line 32
+[09-Jan-2019 08:52:32 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 70
+[09-Jan-2019 08:52:32 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where client_id = 'radar'' at line 1' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:81
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(81): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ClientAssertionType/HttpBasic.php(62): OAuth2\Storage\Pdo->checkClientCredentials('radar', '01fc4587ab1c23f...')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(124): OAuth2\ClientAssertionType\HttpBasic->validateRequest(Object(OAuth2\Request), Object(OAuth2\Response))
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(49): OAuth2\Controlle in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 81
+[09-Jan-2019 08:55:42 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 08:55:42 UTC] PHP Notice:  Undefined variable: config in /home/oadnc/public_html/oauth/includes/server.php on line 32
+[09-Jan-2019 08:55:42 UTC] PHP Warning:  array_merge(): Argument #2 is not an array in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 70
+[09-Jan-2019 08:55:42 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where client_id = 'radar'' at line 1' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:81
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(81): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ClientAssertionType/HttpBasic.php(62): OAuth2\Storage\Pdo->checkClientCredentials('radar', '01fc4587ab1c23f...')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(124): OAuth2\ClientAssertionType\HttpBasic->validateRequest(Object(OAuth2\Request), Object(OAuth2\Response))
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(49): OAuth2\Controlle in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 81
+[09-Jan-2019 09:08:37 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 09:08:37 UTC] PHP Notice:  Undefined index: kid in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 167
+[09-Jan-2019 09:08:37 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtp' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'radar', '', 1547028517, 'basic data')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/ClientCredentials.php(58): OAuth2\ResponseType\JwtAccessToken->createAccessToken('radar', '', 'basic data', false)
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\ClientCredentials->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'radar' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[09-Jan-2019 09:08:43 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 09:08:43 UTC] PHP Notice:  Undefined index: kid in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 167
+[09-Jan-2019 09:08:43 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtp' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'radar', '', 1547028523, 'basic data')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/ClientCredentials.php(58): OAuth2\ResponseType\JwtAccessToken->createAccessToken('radar', '', 'basic data', false)
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\ClientCredentials->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'radar' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[09-Jan-2019 09:10:58 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 09:10:58 UTC] PHP Notice:  Undefined index: kid in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Encryption/Jwt.php on line 167
+[09-Jan-2019 09:10:58 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtp' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'radar', '', 1547028658, 'basic data')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/ClientCredentials.php(58): OAuth2\ResponseType\JwtAccessToken->createAccessToken('radar', '', 'basic data', false)
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\ClientCredentials->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'radar' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[09-Jan-2019 09:11:54 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 09:12:06 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 09:12:33 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[09-Jan-2019 09:13:28 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[10-Jan-2019 03:23:16 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[10-Jan-2019 03:23:16 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'radar', '', 1547094196, 'basic data')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/ClientCredentials.php(58): OAuth2\ResponseType\JwtAccessToken->createAccessToken('radar', '', 'basic data', false)
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\ClientCredentials->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'radar' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[10-Jan-2019 03:26:21 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[10-Jan-2019 03:26:22 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[12-Jan-2019 06:43:11 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[15-Jan-2019 02:53:31 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[17-Jan-2019 21:59:31 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[18-Jan-2019 08:06:42 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[18-Jan-2019 08:08:34 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[18-Jan-2019 08:10:06 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[18-Jan-2019 21:28:07 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[18-Jan-2019 23:24:30 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[18-Jan-2019 23:25:41 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 08:21:52 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 08:21:52 UTC] PHP Notice:  Undefined index: scope in /home/oadnc/public_html/oauth/ui/login.php on line 160
+[26-Jan-2019 08:30:04 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 08:30:04 UTC] PHP Notice:  Undefined index: scope in /home/oadnc/public_html/oauth/ui/login.php on line 160
+[26-Jan-2019 08:30:26 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 08:30:26 UTC] PHP Notice:  Undefined index: scope in /home/oadnc/public_html/oauth/ui/login.php on line 160
+[26-Jan-2019 08:30:31 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 08:30:31 UTC] PHP Notice:  Undefined index: scope in /home/oadnc/public_html/oauth/ui/login.php on line 160
+[26-Jan-2019 08:31:51 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 08:31:51 UTC] PHP Notice:  Undefined index: scope in /home/oadnc/public_html/oauth/ui/login.php on line 160
+[26-Jan-2019 10:08:42 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 10:08:42 UTC] PHP Notice:  Undefined index: scope in /home/oadnc/public_html/oauth/ui/login.php on line 160
+[26-Jan-2019 11:19:18 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 11:19:18 UTC] PHP Notice:  Undefined index: scope in /home/oadnc/public_html/oauth/ui/login.php on line 160
+[26-Jan-2019 11:24:15 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 11:24:15 UTC] PHP Notice:  Undefined index: scope in /home/oadnc/public_html/oauth/ui/login.php on line 160
+[26-Jan-2019 11:26:00 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 11:26:16 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 11:27:00 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 11:31:00 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 11:31:10 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 11:35:03 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 11:35:13 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 11:54:11 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 11:58:47 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 11:59:39 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 11:59:52 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:02:08 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:03:30 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:06:53 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:07:14 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:07:14 UTC] PHP Notice:  Undefined variable: id_token in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/AuthorizationCode.php on line 61
+[26-Jan-2019 12:07:56 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:07:56 UTC] PHP Notice:  Undefined variable: id_token in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/AuthorizationCode.php on line 61
+[26-Jan-2019 12:10:17 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:10:24 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:10:28 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:10:51 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:10:51 UTC] PHP Notice:  Undefined variable: id_token in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/AuthorizationCode.php on line 61
+[26-Jan-2019 12:13:43 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:13:43 UTC] PHP Notice:  Undefined variable: id_token in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/AuthorizationCode.php on line 61
+[26-Jan-2019 12:18:54 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:18:56 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:19:09 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:19:19 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:19:35 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:36:51 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:56:40 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:56:59 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:57:22 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 12:57:41 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:01:28 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:06:26 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:08:47 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:09:37 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:26:26 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:26:40 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:29:29 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:29:42 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:30:09 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:31:12 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:32:24 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:32:38 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:34:01 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:34:05 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:34:20 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:34:31 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:36:48 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:37:00 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:37:38 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:38:06 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:49:18 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:49:31 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:56:05 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 13:56:20 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:29:36 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:30:07 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:30:25 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:31:46 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:32:01 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:35:08 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:35:20 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:36:43 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:36:57 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:41:19 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:41:33 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:41:37 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:41:37 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'testrpc3', 'bebert', 1548517297, 'basic')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/AuthorizationCode.php(95): OAuth2\ResponseType\JwtAccessToken->createAccessToken('testrpc3', 'bebert', 'basic')
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\AuthorizationCode->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'testr in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[26-Jan-2019 14:41:55 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:41:55 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'testrpc3', 'bebert', 1548517315, 'basic')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/AuthorizationCode.php(95): OAuth2\ResponseType\JwtAccessToken->createAccessToken('testrpc3', 'bebert', 'basic')
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\AuthorizationCode->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'testr in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[26-Jan-2019 14:44:15 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:44:40 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:44:50 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:44:50 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'testrpc3', 'bebert', 1548517490, 'basic')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/AuthorizationCode.php(95): OAuth2\ResponseType\JwtAccessToken->createAccessToken('testrpc3', 'bebert', 'basic')
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\AuthorizationCode->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'testr in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[26-Jan-2019 14:45:37 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:45:52 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:46:02 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:46:02 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'testrpc3', 'bebert', 1548517562, 'basic')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/AuthorizationCode.php(95): OAuth2\ResponseType\JwtAccessToken->createAccessToken('testrpc3', 'bebert', 'basic')
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\AuthorizationCode->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'testr in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[26-Jan-2019 14:50:46 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:50:58 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:51:03 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:51:03 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'testrpc3', 'bebert', 1548517863, 'basic')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/AuthorizationCode.php(95): OAuth2\ResponseType\JwtAccessToken->createAccessToken('testrpc3', 'bebert', 'basic')
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\AuthorizationCode->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'testr in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[26-Jan-2019 14:56:34 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:57:45 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:57:58 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:58:18 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:58:36 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:58:41 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 14:58:41 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'testrpc3', 'bebert', 1548518321, 'basic')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/AuthorizationCode.php(95): OAuth2\ResponseType\JwtAccessToken->createAccessToken('testrpc3', 'bebert', 'basic')
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\AuthorizationCode->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'testr in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[26-Jan-2019 15:27:30 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 15:27:45 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 15:27:54 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 15:28:06 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 15:30:16 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 15:30:29 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 15:30:30 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 15:36:42 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 15:36:58 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 15:37:06 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 15:37:06 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'testrpc3', 'bebert', 1548520626, 'basic')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/AuthorizationCode.php(95): OAuth2\ResponseType\JwtAccessToken->createAccessToken('testrpc3', 'bebert', 'basic')
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\AuthorizationCode->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'testr in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[26-Jan-2019 15:37:18 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 15:37:18 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'testrpc3', 'bebert', 1548520638, 'basic')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/AuthorizationCode.php(95): OAuth2\ResponseType\JwtAccessToken->createAccessToken('testrpc3', 'bebert', 'basic')
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\AuthorizationCode->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'testr in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[26-Jan-2019 16:08:15 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 16:08:30 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 16:08:34 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[26-Jan-2019 16:08:34 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'testrpc3', 'bebert', 1548522514, 'basic')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/AuthorizationCode.php(95): OAuth2\ResponseType\JwtAccessToken->createAccessToken('testrpc3', 'bebert', 'basic')
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\AuthorizationCode->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'testr in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[26-Jan-2019 16:14:55 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[27-Jan-2019 13:02:20 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[27-Jan-2019 13:02:45 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[27-Jan-2019 13:03:06 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[27-Jan-2019 13:03:27 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[29-Jan-2019 08:24:49 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
+[28-Feb-2019 21:01:06 UTC] PHP Notice:  Constant SERVER_CLIENT_ID already defined in /home/oadnc/public_html/oauth/includes/configure.php on line 44
+[06-Mar-2019 16:54:03 UTC] PHP Notice:  Constant SERVER_CLIENT_ID already defined in /home/oadnc/public_html/oauth/includes/configure.php on line 44
+[06-Mar-2019 16:54:03 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'radar', '', 1551894843, 'basic data')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/ClientCredentials.php(58): OAuth2\ResponseType\JwtAccessToken->createAccessToken('radar', '', 'basic data', false)
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\ClientCredentials->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'radar' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[06-Mar-2019 16:54:09 UTC] PHP Notice:  Constant SERVER_CLIENT_ID already defined in /home/oadnc/public_html/oauth/includes/configure.php on line 44
+[06-Mar-2019 16:54:09 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'radar', '', 1551894849, 'basic data')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/ClientCredentials.php(58): OAuth2\ResponseType\JwtAccessToken->createAccessToken('radar', '', 'basic data', false)
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\ClientCredentials->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'radar' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168
+[06-Mar-2019 16:54:32 UTC] PHP Notice:  Constant SERVER_CLIENT_ID already defined in /home/oadnc/public_html/oauth/includes/configure.php on line 44
+[06-Mar-2019 16:54:32 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ' for key 'PRIMARY'' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php:168
+Stack trace:
+#0 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php(168): PDOStatement->execute(Array)
+#1 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/ResponseType/JwtAccessToken.php(88): OAuth2\Storage\Pdo->setAccessToken('eyJ0eXAiOiJKV1Q...', 'radar', '', 1551894872, 'basic data')
+#2 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/GrantType/ClientCredentials.php(58): OAuth2\ResponseType\JwtAccessToken->createAccessToken('radar', '', 'basic data', false)
+#3 /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Controller/TokenController.php(201): OAuth2\GrantType\ClientCredentials->createAccessToken(Object(OAuth2\ResponseType\JwtAccessToken), 'radar' in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/Storage/Pdo.php on line 168

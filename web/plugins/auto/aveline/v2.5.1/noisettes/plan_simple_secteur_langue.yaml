@@ -1,0 +1,11 @@
+nom: '<:aveline:nom_plan_simple_secteur_langue:>'
+description: '<:aveline:description_plan_simple_secteur_langue:>'
+icon: 'plan-lang-24.png'
+ajax: 'non'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_articles'
+      label: '<:aveline:label_afficher_articles:>'
+      defaut: 'on'

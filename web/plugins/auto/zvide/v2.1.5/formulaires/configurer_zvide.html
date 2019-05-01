@@ -1,0 +1,105 @@
+<div class="formulaire_spip formulaire_configurer formulaire_#FORM">
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+	<form method="post" action="#ENV{action}"><div>
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<h3 class="titrem"><:zvide:label_options_en_tete:></h3>
+		<ul>
+			<li class="editer_masquer_logo[ (#ENV**{erreurs}|table_valeur{masquer_logo}|oui)erreur]">
+				<label><:zvide:label_masquer_logo:></label>
+				<p class="explication"><:zvide:explication_masquer_logo:></p>
+				<div class="choix">
+					<input type="radio" name="masquer_logo" class="radio" id="masquer_logo_oui" value="on" [(#ENV{masquer_logo}|oui) checked="checked"] 
+					onChange="jQuery('li.editer_taille_logo').hide(400);" />
+					<label for='masquer_logo_oui'><:item_oui:></label>
+				</div>
+				<div class="choix">
+					<input type="radio" name="masquer_logo" class="radio" id="masquer_logo_non" value="" [(#ENV{masquer_logo}|non) checked="checked"] 
+					onChange="jQuery('li.editer_taille_logo').show(400);" />
+					<label for='masquer_logo_non'><:item_non:></label>
+				</div>
+			</li>
+			<li class="editer_taille_logo[ (#ENV**{erreurs}|table_valeur{taille_logo}|oui)erreur]">
+				<label><:zvide:label_taille_logo:></label>
+				<input type="text" name="taille_logo" class="text" id="taille_logo" value="#ENV*{taille_logo,300}" />
+			</li>
+			[(#ENV{masquer_logo}|oui)<script type="text/javascript">// <!\[CDATA\[
+				jQuery(document).ready(function(){
+					jQuery('li.editer_taille_logo').hide(400);
+				});
+			//\]\]></script>]
+			<li class="editer_masquer_slogan[ (#ENV**{erreurs}|table_valeur{masquer_slogan}|oui)erreur]">
+				<label><:zvide:label_masquer_slogan:></label>
+				<p class="explication"><:zvide:explication_masquer_slogan:></p>
+				<div class="choix">
+					<input type="radio" name="masquer_slogan" class="radio" id="masquer_slogan_oui" value="on" [(#ENV{masquer_slogan}|oui) checked="checked"] />
+					<label for='masquer_slogan_oui'><:item_oui:></label>
+				</div>
+				<div class="choix">
+					<input type="radio" name="masquer_slogan" class="radio" id="masquer_slogan_non" value="" [(#ENV{masquer_slogan}|non) checked="checked"] />
+					<label for='masquer_slogan_non'><:item_non:></label>
+				</div>
+			</li>
+			<li class="editer_menu_lang[ (#ENV**{erreurs}|table_valeur{menu_lang}|oui)erreur]">
+				<label for='menu_lang'><:zvide:label_menu_lang:></label>
+				<p class="explication"><:zvide:explication_menu_lang:></p>
+				<select name="menu_lang" id="menu_lang">
+					<option value=""[(#ENV{menu_lang}|non)selected="selected"]><:zvide:label_choix_menu_lang_defaut:></option>
+					<option value="sommaire"[(#ENV{menu_lang}|=={sommaire}|oui)selected="selected"]><:zvide:label_choix_menu_lang_sommaire:></option>
+					<option value="retour_sommaire"[(#ENV{menu_lang}|=={retour_sommaire}|oui)selected="selected"]><:zvide:label_choix_menu_lang_retour_sommaire:></option>
+					<option value="liens_trad"[(#ENV{menu_lang}|=={liens_trad}|oui)selected="selected"]><:zvide:label_choix_menu_lang_liens_trad:></option>
+					<option value="masquer"[(#ENV{menu_lang}|=={masquer}|oui)selected="selected"]><:zvide:label_choix_menu_lang_masquer:></option>
+				</select>
+			</li>
+		</ul>
+		
+		<h3 class="titrem"><:zvide:label_options_pied:></h3>
+		<ul>
+			<li class="editer_masquer_connexion[ (#ENV**{erreurs}|table_valeur{masquer_connexion}|oui)erreur]">
+				<label><:zvide:label_masquer_connexion:></label>
+				<p class="explication"><:zvide:explication_masquer_connexion:></p>
+				<div class="choix">
+					<input type="radio" name="masquer_connexion" class="radio" id="masquer_connexion_oui" value="on" [(#ENV{masquer_connexion}|oui) checked="checked"] />
+					<label for='masquer_connexion_oui'><:item_oui:></label>
+				</div>
+				<div class="choix">
+					<input type="radio" name="masquer_connexion" class="radio" id="masquer_connexion_non" value="" [(#ENV{masquer_connexion}|non) checked="checked"] />
+					<label for='masquer_connexion_non'><:item_non:></label>
+				</div>
+			</li>
+			<li class="editer_masquer_plan[ (#ENV**{erreurs}|table_valeur{masquer_plan}|oui)erreur]">
+				<label><:zvide:label_masquer_plan:></label>
+				<p class="explication"><:zvide:explication_masquer_plan:></p>
+				<div class="choix">
+					<input type="radio" name="masquer_plan" class="radio" id="masquer_plan_oui" value="on" [(#ENV{masquer_plan}|oui) checked="checked"] />
+					<label for='masquer_plan_oui'><:item_oui:></label>
+				</div>
+				<div class="choix">
+					<input type="radio" name="masquer_plan" class="radio" id="masquer_plan_non" value="" [(#ENV{masquer_plan}|non) checked="checked"] />
+					<label for='masquer_plan_non'><:item_non:></label>
+				</div>
+			</li>
+			<li class="editer_masquer_rss[ (#ENV**{erreurs}|table_valeur{masquer_rss}|oui)erreur]">
+				<label><:zvide:label_masquer_rss:></label>
+				<p class="explication"><:zvide:explication_masquer_rss:></p>
+				<div class="choix">
+					<input type="radio" name="masquer_rss" class="radio" id="masquer_rss_oui" value="on" [(#ENV{masquer_rss}|oui) checked="checked"] />
+					<label for='masquer_rss_oui'><:item_oui:></label>
+				</div>
+				<div class="choix">
+					<input type="radio" name="masquer_rss" class="radio" id="masquer_rss_non" value="" [(#ENV{masquer_rss}|non) checked="checked"] />
+					<label for='masquer_rss_non'><:item_non:></label>
+				</div>
+			</li>
+			<li class="editer_liens_add[ (#ENV**{erreurs}|table_valeur{liens_add}|oui)erreur]">
+				<label for='liens_add'><:zvide:label_liens_add:></label>
+				<p class="explication"><:zvide:explication_liens_add:></p>
+				<input type="text" name="liens_add" class="text" id="liens_add" value="#ENV*{liens_add}" />
+			</li>
+		</ul>
+		<p class='boutons'><span class='image_loading'>&nbsp;</span>
+			<input type='submit' name="_cfg_ok" class='submit' value='<:bouton_enregistrer:>' />
+		</p>
+	</div></form>
+</div>

@@ -1,0 +1,17 @@
+<B_breves_selecteur>
+<form action="#SELF" class="bouton_action_post ajax" method="get">
+	[(#SELF|parametre_url{archives, ''}|form_hidden)]
+	<p class="pagination selecteur_archives">
+		[(#ENV{texte_devant_selecteur_archives}|_T)]
+		<select name="archives" class="select" id="archives" style="display:inline;">
+			<option value=""><:avelinepublic:voir_tous:></option>
+		<BOUCLE_breves_selecteur(BREVES){aveline_selecteur_archives_mois}{aveline_branche}{aveline_lang}{recherche}{!par date_heure}>
+			<option value="[(#DATE|affdate{'Y-m'})]"[(#ENV{archives}|=={[(#DATE|affdate{'Y-m'})]}|oui)selected="selected" ] >
+				[(#DATE|affdate_mois_annee)] (#NB_ARCHIVES)
+			</option>
+		</BOUCLE_breves_selecteur>
+		</select>
+		<button type='submit' class='submit pagination'><:avelinepublic:voir:></button>
+	</p>
+</form>
+</B_breves_selecteur>

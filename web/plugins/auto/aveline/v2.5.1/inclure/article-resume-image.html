@@ -1,0 +1,25 @@
+[(#REM) Retourne la première image de l'article 
+	On prend une image parmi celles inclues dans le texte, sinon dans le portfolio
+]<BOUCLE_test(CONDITION){si #ENV{utiliser_image_article}|ou{#ENV{vignette_utiliser_image_article}}}>
+<BOUCLE_image_inclue(DOCUMENTS){id_article}{vu=oui}{extension IN png,jpg,gif}{0,1}>
+[(#ENV{seulement_fichier}|oui)
+	#FICHIER
+][(#ENV{seulement_fichier}|non)
+	[(#FICHIER
+		|image_reduire{[(#ENV{taille_max_logo}|sinon{150})]}
+		|inserer_attribut{class,spip_logos}
+		|inserer_attribut{alt,[(#TITRE|attribut_html|couper{80})]})]
+]
+</BOUCLE_image_inclue>
+<BOUCLE_image_portfolio(DOCUMENTS){id_article}{mode=document}{extension IN png,jpg,gif}{0,1}>
+[(#ENV{seulement_fichier}|oui)
+	#FICHIER
+][(#ENV{seulement_fichier}|non)
+	[(#FICHIER
+		|image_reduire{[(#ENV{taille_max_logo}|sinon{150})]}
+		|inserer_attribut{class,spip_logos}
+		|inserer_attribut{alt,[(#TITRE|attribut_html|couper{80})]})]
+]
+</BOUCLE_image_portfolio>
+<//B_image_inclue>
+</BOUCLE_test>

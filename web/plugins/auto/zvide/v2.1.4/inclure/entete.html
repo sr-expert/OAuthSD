@@ -1,0 +1,11 @@
+<div class="accueil">
+	[(#CONFIG{zvide/masquer_logo}|non)[<a rel="start home" href="#URL_SITE_SPIP/" title="<:accueil_site:>">(#LOGO_SITE_SPIP||image_reduire{#CONFIG{zvide/taille_logo,300}})</a>]]
+	<strong id="nom_site_spip"><a rel="start home" href="#URL_SITE_SPIP/" title="<:accueil_site:>">#NOM_SITE_SPIP</a></strong>
+	[(#CONFIG{zvide/masquer_slogan}|non)[<div id='slogan_site_spip'>(#SLOGAN_SITE_SPIP|PtoBR)</div>]]
+</div>
+[(#CONFIG{zvide/menu_lang}|non)#MENU_LANG]
+[(#CONFIG{zvide/menu_lang}|=={sommaire}|et{#ENV{type}|=={page}}|et{#ENV{composition}|=={sommaire}}|oui)#MENU_LANG]
+[(#CONFIG{zvide/menu_lang}|=={retour_sommaire}|oui)#INCLURE{fond=inclure/menu_lang_retour_sommaire,env}]
+[(#CONFIG{zvide/menu_lang}|=={liens_trad}|et{#ENV{type}|=={page}}|oui)#MENU_LANG]
+[(#CONFIG{zvide/menu_lang}|=={liens_trad}|et{#ENV{type}|=={article}}|oui)#INCLURE{fond=inclure/menu_lang_liens_trad_articles,env}]
+[(#CONFIG{zvide/menu_lang}|=={liens_trad}|et{#ENV{type}|=={rubrique}}|et{#PLUGIN{tradrub}}|oui)#INCLURE{fond=inclure/menu_lang_liens_trad_rubriques,env}]

@@ -1,0 +1,118 @@
+<?php
+/**
+* Interface avec OAuthSD, Autorisation via un code (Authorization Code Grant).
+* Cette fonction interroge une API protégée et retourne le résultat au format JSON.
+* Si l'API refuse l'accès, une demande d'authentification de l'utilisateur final est lancée automatiquement.  
+*
+* @param mixed $request : URI de l'appel à l'API REST
+* @return mixed string, bool : Résultat de la requête au format JSON ou false en cas de refus d'accès.
+*/
+function ProtectedApi_GET_auto ( $request ) {
+
+    include_spip('inc/headers');
+    include_spip('inc/distant');
+
+    $token = $_SESSION['oauth_access_token'];
+    if ( !$token  ) {
+        if ( isset($_GET['token']) ) {
+            $token = $_GET['token'];
+        }
+    } 
+
+    if ( !empty($token) ) {
+
+        // Interroger la ressource protégée
+
+        $request_response = recuperer_url($request . "&token=$token");
+
+        if ( (int)$request_response['status'] == 200 ) {
+            // Ok
+            return $request_response['page'];
+
+        } elseif ( (int)$request_response['status'] == 401 ) {
+
+            // Pas le droit d'accéder à cette ressource.
+            // Commencer par vérifier le jeton
+            $url = "http://oa.dnc.global/oauth/resource.php?access_token=" . $token;
+            $resource_response = recuperer_url($url);
+
+            $status = (int)$resource_response['status'];
+            $page = json_decode($resource_response['page'], true);
+            $error = $page['error'];
+            $error_description = $page['error_description'];  
+
+            switch( $status ) { 
+
+                case 200 :
+                    // Le jeton était valide,ne pas boucler!
+                    return false;
+                    break;
+
+                case 401 : 
+
+                    if ( $error == 'expired_token' ) {
+                        // Rafraîchir le jeton expiré 
+
+                        // Interroger Token
+                        $options = array(
+                            'methode' => 'POST',
+                            'datas' => array(
+                                'grant_type' => 'refresh_token',
+                                'refresh_token' => $_SESSION['oauth_refresh_token'],
+                                'client_id' => 'chemindeleau',
+                                'client_secret' => '01fc4587ab1c23ff456e448dab18327a', 
+                            ),      
+                        );
+
+                        $url = "http://oa.dnc.global/oauth/token.php";
+                        $refresh_response = recuperer_url($url,$options);
+                        $refresh_status = (int)$refresh_response['status'];
+
+                        if ( $refresh_status == 200 ) {
+
+                            // Enregistrer le jeton d'accès et recommencer
+                            $page = json_decode($refresh_response['page'], true);
+                            $_SESSION['oauth_access_token'] = $page['access_token'];
+                            return ProtectedApi_GET_auto ( $request); // réentrer
+
+                        } else 
+                            // Demander une nouvelle authentification
+                            Authenticate();
+
+                    } else return false;
+
+                    break;
+
+                default :
+
+                    // Demander une nouvelle authentification
+                    Authenticate();
+
+            }
+            return false;
+        }
+    } else {
+
+        // Demander une nouvelle authentification
+        Authenticate();
+
+    }
+
+}
+
+/**
+* Demander une nouvelle authentification au serveur OAuth
+*/
+function Authenticate() {
+    
+    // Sécurité : Générer un ID de session nouveau à chaque demande d'autorisation 
+    @session_regenerate_id();
+    
+    // Dire à Callback où il faudra reprendre après authentification
+    $_SESSION['oauth_again'] = $_SERVER['REQUEST_URI'];
+
+    // Interroger Authorize
+    $url = "https://oa.dnc.global/oauth/authorize.php?response_type=code&client_id=" . APPNAME . "&state=" . session_id();
+    redirige_par_entete($url);    
+
+}

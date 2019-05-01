@@ -1,0 +1,26 @@
+[(#SET{taille_max_logo, #ENV{taille_max_logo}|is_null|non|?{#ENV{taille_max_logo},200}})]
+[(#SET{taille_max_images_texte, #ENV{taille_max_images_texte}|is_null|non|?{#ENV{taille_max_images_texte},500}})]
+
+<BOUCLE_breve(BREVES){id_breve}>
+<div class="contenu-principal">
+	<div class="cartouche">
+		[(#ENV{afficher_logo}|oui)
+			[(#ENV{utiliser_logo_breve_rubrique}|oui)
+				[(#LOGO_BREVE_RUBRIQUE||image_reduire{#GET{taille_max_logo}})]
+			]
+			[(#ENV{utiliser_logo_breve_rubrique}|non)
+				[(#LOGO_BREVE||image_reduire{#GET{taille_max_logo}})]
+			]
+		]
+		<h1 class="h1 #EDIT{titre}">#TITRE</h1>
+		<p class="info-publi"><abbr class="published" title="[(#DATE|date_iso)]">[(#DATE|nom_jour) ][(#DATE|affdate)]</abbr></p>
+	</div>
+	
+	[<div class="#EDIT{texte} texte surlignable">(#TEXTE|image_reduire{#GET{taille_max_images_texte},0})</div>]
+	[(#ENV{afficher_lienhypertexte}|oui)
+		[<p class="lien"><:voir_en_ligne:> : <a href="(#URL_SITE)" class="spip_out">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
+	]
+</div>
+
+[<div class="notes surlignable"><h2 class="h2 pas_surlignable"><:info_notes:></h2>(#NOTES)</div>]
+</BOUCLE_breve>

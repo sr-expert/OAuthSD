@@ -1,0 +1,9 @@
+[(#SET{titre_noisette, #ENV{titre_noisette}|sinon{avelinepublic:notez_cet_article}})]
+[(#SET{titre,[(#GET{titre_noisette}|=={titre_perso}|?{[(#ENV**{titre_noisette_perso}|typo)],[(#GET{titre_noisette}|_T)]})]})]
+[(#SET{formulaire_notation,#ENV{formulaire_notation}|sinon{notation}})]
+	[(#ENV{afficher_titre_noisette}|oui)[<h2 class="h2">(#GET{titre})</h2>]]
+	[(#PLUGIN{notation}|oui)
+		[(#GET{formulaire_notation}|=={notation}|oui) #FORMULAIRE_NOTATION{article,#ENV{id_article}}]
+		[(#GET{formulaire_notation}|=={jaime_jaimepas}|oui) #FORMULAIRE_JAIME_JAIMEPAS{article,#ENV{id_article}}]
+		[(#GET{formulaire_notation}|=={jaime}|oui) #FORMULAIRE_JAIME{article,#ENV{id_article}}]
+	]

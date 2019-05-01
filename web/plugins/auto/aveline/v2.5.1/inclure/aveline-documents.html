@@ -1,0 +1,53 @@
+[(#SET{titre,[(#ENV{titre_liste}|=={titre_perso}|?{[(#ENV**{titre_liste_perso}|typo)],[(#ENV{titre_liste}|_T)]})]})]
+
+<BOUCLE_test_exclusion_portfolio(CONDITION){si #ENV{exclure_photos}}>
+	<BOUCLE_documents_portfolio(DOCUMENTS) {id_objet?}{objet?}{id_mot?}{recherche?}{mode=document}{extension IN png,jpg,gif}{vu?}{doublons portfolio}> </BOUCLE_documents_portfolio>
+</BOUCLE_test_exclusion_portfolio>
+
+<B_liste_documents>
+<div class="liste document documents_joints">
+	#ANCRE_PAGINATION
+	[(#ENV{afficher_titre_liste}|oui)[<h2 class="h2">(#GET{titre})[(#ENV{afficher_nb_resultats}|oui)&#40;#GRAND_TOTAL&#41;]</h2>]]
+	[<p class="pagination">(#AVELINE_PAGINATION{'debut'})</p>]
+	<ul class="liste-items">
+	<BOUCLE_liste_documents(DOCUMENTS) {tri #ENV{tri},#ENV{senstri}}{aveline_pagination}{id_objet?}{objet?}{id_mot?}{recherche?}{extension !IN #ENV{exclure_extensions}|explode{','}}{vu?}{doublons portfolio}>
+	[(#ENV{style_liste}|=={liste}|oui)
+		<li class="item">
+			<strong><a href="#URL_DOCUMENT" title="<:bouton_telecharger:>" type="#MIME_TYPE">[(#TITRE|sinon{<:medias:info_document:>})]</a></strong>
+			[(#ENV{liste_afficher_type}|ou{#ENV{liste_afficher_taille}})<span class="small">(<span>][(#ENV{liste_afficher_type}|?{#TYPE_DOCUMENT})][(#ENV{liste_afficher_type}|et{#ENV{liste_afficher_taille}})&ndash; ][(#ENV{liste_afficher_taille}?{[(#TAILLE|taille_en_octets)]})][(#ENV{liste_afficher_type}|ou{#ENV{liste_afficher_taille}}|?{</span>)</span>})]
+			[(#ENV{liste_afficher_date}|ou{#ENV{liste_afficher_date_modif}})<div class="info-publi">]
+			[(#ENV{liste_afficher_date}|oui)[<abbr class="published" title="[(#DATE|date_iso)]">(#DATE|affdate_jourcourt).</abbr>]]
+			[(#ENV{liste_afficher_date_modif}|oui)<:avelinepublic:mis_a_jour_le:> [(#MAJ|affdate)].]
+			[(#ENV{liste_afficher_date}|ou{#ENV{liste_afficher_date_modif}})</div>]
+			[(#ENV{liste_afficher_descriptif}|oui)#DESCRIPTIF]
+		</li>
+	]
+	[(#ENV{style_liste}|=={resume}|oui)
+	<li class="item hentry">
+	<h3 class="h3 entry-title">
+		<a href="#URL_DOCUMENT" title="<:bouton_telecharger:>" type="#MIME_TYPE">
+			[(#ENV{afficher_logo}|oui)
+				[(#LOGO_DOCUMENT||image_reduire{[(#ENV{taille_max_logo}|sinon{52})]})]
+			]
+			#TITRE
+		</a>
+	</h3>
+	[(#ENV{afficher_date}|ou{#ENV{afficher_date_modif}})<div class="info-publi">]
+		[(#ENV{afficher_date}|oui)[<abbr class="published" title="[(#DATE|date_iso)]">(#DATE|affdate_jourcourt)</abbr>]]
+		[(#ENV{afficher_date_modif}|oui)[(#ENV{afficher_date}|oui)<br />]<:avelinepublic:mis_a_jour_le:> [(#MAJ|nom_jour) ][(#MAJ|affdate)]]
+	[(#ENV{afficher_date}|ou{#ENV{afficher_date_modif}})</div>]
+	[(#ENV{afficher_descriptif}|oui)[<div class="#EDIT{descriptif} introduction entry-content">(#DESCRIPTIF)</div>]]
+	[(#ENV{afficher_credits}|oui)[<div class="#EDIT{credits} credits entry-content">(#CREDITS)</div>]]
+	[(#ENV{afficher_telecharger}|ou{#ENV{afficher_type}}|ou{#ENV{afficher_taille}})<div class="meta-publi">]
+		[(#ENV{afficher_telecharger}|oui)<a class="lire-la-suite" href="#URL_DOCUMENT"><:bouton_telecharger:>[(#ENV{rappeler_titre}|oui)<span class="lire-la-suite-titre"><em>#TITRE</em></span>]</a>]
+		[(#ENV{afficher_type}|ou{#ENV{afficher_taille}})<span class="small">(<span>][(#ENV{afficher_type}|?{#TYPE_DOCUMENT})][(#ENV{afficher_type}|et{#ENV{afficher_taille}})&ndash; ][(#ENV{afficher_taille}?{[(#TAILLE|taille_en_octets)]})][(#ENV{afficher_type}|ou{#ENV{afficher_taille}}|?{</span>)</span>})]
+	[(#ENV{afficher_telecharger}|ou{#ENV{afficher_type}}|ou{#ENV{afficher_taille}})</div>]
+	</li>
+	]
+	</BOUCLE_liste_documents>
+	</ul>
+	[<p class="pagination">(#AVELINE_PAGINATION{'fin'})</p>]
+</div>
+</B_liste_documents>
+[(#ENV{message_aucun_resultat}|oui)<div class="texte"><:avelinepublic:aucun_document_trouve:></div>]
+<//B_liste_documents>

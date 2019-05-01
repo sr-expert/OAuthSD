@@ -1,0 +1,170 @@
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/base/oauth.php ../plugins/fabrique_auto/oauth/base/oauth.php
+56c56
+<             'profil'             => 'varchar(255) DEFAULT NULL',
+---
+> 			'profile'            => 'text',
+74,75d73
+<             'profile'            => 'text NULL',
+< 			'comment'            => 'text NULL',
+86,87c84,85
+< 		'champs_editables'  => array('username', 'password', 'email', 'given_name', 'middle_name', 'family_name', 'nickname', 'profil', 'picture', 'website', 'gender', 'birthday', 'zoneinfo', 'locale', 'phone_number', 'street_address', 'locality', 'region', 'postal_code', 'country', 'profile', 'comment'),
+< 		'champs_versionnes' => array('profile', 'comment'),
+---
+> 		'champs_editables'  => array('username', 'password', 'email', 'profile'),
+> 		'champs_versionnes' => array('profile'),
+159,186d156
+< }
+<
+<
+< /**
+<  * Déclaration des tables secondaires (liaisons)
+<  *
+<  * @pipeline declarer_tables_auxiliaires
+<  * @param array $tables
+<  *     Description des tables
+<  * @return array
+<  *     Description complétée des tables
+<  */
+< function oauth_declarer_tables_auxiliaires($tables) {
+<
+< 	$tables['spip_clients_liens'] = array(
+< 		'field' => array(
+< 			'id_client'          => 'bigint(21) DEFAULT "0" NOT NULL',
+< 			'id_objet'           => 'bigint(21) DEFAULT "0" NOT NULL',
+< 			'objet'              => 'VARCHAR(25) DEFAULT "" NOT NULL',
+< 			'vu'                 => 'VARCHAR(6) DEFAULT "non" NOT NULL',
+< 		),
+< 		'key' => array(
+< 			'PRIMARY KEY'        => 'id_client,id_objet,objet',
+< 			'KEY id_client'      => 'id_client',
+< 		)
+< 	);
+<
+< 	return $tables;
+Only in ../plugins/fabrique_auto/oauth/formulaires: configurer_oauth.html
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/formulaires/editer_user.html ../plugins/fabrique_auto/oauth/formulaires/editer_user.html
+26,29d25
+<
+< 			[(#SAISIE{textarea, comment,
+< 				label=<:user:champ_comment_label:>,
+< 				explication=<:user:champ_comment_explication:> })]
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/lang/oauth_fr.php ../plugins/fabrique_auto/oauth/lang/oauth_fr.php
+5c5
+<
+---
+>
+9a10,17
+>
+> 	// C
+> 	'cfg_exemple' => 'Exemple',
+> 	'cfg_exemple_explication' => 'Explication de cet exemple',
+> 	'cfg_titre_parametrages' => 'Paramétrages',
+>
+> 	// T
+> 	'titre_page_configurer_oauth' => 'Configurer le client OpenID Connect',
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/lang/paquet-oauth_fr.php ../plugins/fabrique_auto/oauth/lang/paquet-oauth_fr.php
+10,11c10,11
+< 	'oauth_nom' => 'OAuth 2.0.1',
+< 	'oauth_slogan' => 'Helps building an OAuth 2.0 OIDC Server',
+---
+> 	'oauth_nom' => 'OAuth 2.0',
+> 	'oauth_slogan' => 'Helps building an OAuth 2.0 Server',
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/lang/user_fr.php ../plugins/fabrique_auto/oauth/lang/user_fr.php
+10c10
+< 	'ajouter_lien_user' => 'Ajouter cet End-user',
+---
+> 	'ajouter_lien_user' => 'Ajouter ce user',
+14d13
+< 	'champ_comment_label' => 'Comment',
+33c32
+< 	'champ_profile_explication' => 'Le profil du client est interprété par les applications ou les ressources protégées qui en ont l\'usage. Il n\'y a pas de format prédéfini, mais il est recommandé d\'utiliser un array de valeurs au format JSON. Ce champ n\'est visible et éditable que par les administrateurs.',
+---
+> 	'champ_profile_explication' => 'Le profil du client est interprété par les applications ou les ressources protégées qui en ont l\'usage. Il n\'y a pas de format prédéfini, mais il est recommandé d\'utiliser un array de valeurs au format JSON.',
+44,48d42
+<     // ext
+<     'champ_comment_explication' => 'Commentaire visible et éditable par les administrateurs seulement.',
+<     'champ_comment_label' => 'Comment',
+<     'champ_profile_explication' => 'Le profil du client est interprété par les applications ou les ressources protégées qui en ont l\'usage. Il n\'y a pas de format prédéfini, mais il est recommandé d\'utiliser un array de valeurs au format JSON. Ce champ n\'est visible et éditable que par les administrateurs.',
+<     'champ_profile_label' => 'Profile',
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/oauth_administrations.php ../plugins/fabrique_auto/oauth/oauth_administrations.php
+27c27
+< 	$maj['create'] = array(array('maj_tables', array('spip_users', 'spip_clients', 'spip_clients_liens')));
+---
+> 	$maj['create'] = array(array('maj_tables', array('spip_users', 'spip_clients')));
+45d44
+< 	sql_drop_table("spip_clients_liens");
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/oauth_autorisations.php ../plugins/fabrique_auto/oauth/oauth_autorisations.php
+25,37d24
+< /**
+<  * Autorisation de voir un élément de menu (users)
+<  *
+<  * @param  string $faire Action demandée
+<  * @param  string $type  Type d'objet sur lequel appliquer l'action
+<  * @param  int    $id    Identifiant de l'objet
+<  * @param  array  $qui   Description de l'auteur demandant l'autorisation
+<  * @param  array  $opt   Options de cette autorisation
+<  * @return bool          true s'il a le droit, false sinon
+< **/
+< function autoriser_users_menu_dist($faire, $type, $id, $qui, $opt){
+< 	return true;
+< }
+41,54d27
+<  * Autorisation de voir le bouton d'accès rapide de création (user)
+<  *
+<  * @param  string $faire Action demandée
+<  * @param  string $type  Type d'objet sur lequel appliquer l'action
+<  * @param  int    $id    Identifiant de l'objet
+<  * @param  array  $qui   Description de l'auteur demandant l'autorisation
+<  * @param  array  $opt   Options de cette autorisation
+<  * @return bool          true s'il a le droit, false sinon
+< **/
+< function autoriser_usercreer_menu_dist($faire, $type, $id, $qui, $opt){
+< 	return autoriser('creer', 'user', '', $qui, $opt);
+< }
+<
+< /**
+207,220d179
+<  * Autorisation de lier/délier l'élément (clients)
+<  *
+<  * @param  string $faire Action demandée
+<  * @param  string $type  Type d'objet sur lequel appliquer l'action
+<  * @param  int    $id    Identifiant de l'objet
+<  * @param  array  $qui   Description de l'auteur demandant l'autorisation
+<  * @param  array  $opt   Options de cette autorisation
+<  * @return bool          true s'il a le droit, false sinon
+< **/
+< function autoriser_associerclients_dist($faire, $type, $id, $qui, $opt) {
+< 	return ($qui['statut'] == '0minirezo' and !$qui['restreint'])
+< 		or ($auteurs = clients_auteurs_objet('', $id) and in_array($qui['id_auteur'], $auteurs));
+< }
+< /**
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/oauth_pipelines.php ../plugins/fabrique_auto/oauth/oauth_pipelines.php
+74d73
+<  * Supprime les liens orphelins de l'objet vers quelqu'un et de quelqu'un vers l'objet.
+84,86d82
+< 	include_spip('action/editer_liens');
+< 	$flux['data'] += objet_optimiser_liens(array('client'=>'*'),'*');
+<
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/paquet.xml ../plugins/fabrique_auto/oauth/paquet.xml
+12c12
+< 		Paquet généré le 2018-10-30 17:16:01
+---
+> 		Paquet généré le 2018-11-03 16:21:46
+28d27
+< 	<pipeline nom="declarer_tables_auxiliaires" inclure="base/oauth.php" />
+33,34d31
+< 	<menu nom="users" titre="user:titre_users" parent="menu_edition" icone="images/user-16.png" action="users" />
+< 	<menu nom="user_creer" titre="user:icone_creer_user" parent="outils_rapides" icone="images/user-new-16.png" action="user_edit" parametres="new=oui" />
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/prive/objets/contenu/user.html ../plugins/fabrique_auto/oauth/prive/objets/contenu/user.html
+128,132d127
+< [<div class="champ contenu_comment[ (#COMMENT*|strlen|?{'',vide})]">
+< 	<label><:user:champ_comment_label:> : </label>
+< 	<span dir="#LANG_DIR" class="#EDIT{comment} comment">(#COMMENT)</span>
+< </div>]
+<
+diff -r -x . -x .. -x fabrique_diff.diff -x fabrique_oauth.php ../plugins/fabrique_auto/.backup/oauth/prive/objets/liste/clients.html ../plugins/fabrique_auto/oauth/prive/objets/liste/clients.html
+20c20
+< 	<BOUCLE_liste_clients(CLIENTS){id_mot?}{auteurs_liens.id_auteur?}{where?}{statut?}{recherche?}{tri #ENV{par,num },#GET{defaut_tri}}{par }{pagination #ENV{nb,10}}>
+---
+> 	<BOUCLE_liste_clients(CLIENTS){id_mot?}{id_auteur?}{where?}{statut?}{recherche?}{tri #ENV{par,num },#GET{defaut_tri}}{par }{pagination #ENV{nb,10}}>
+Only in ../plugins/fabrique_auto/oauth/prive/squelettes/contenu: configurer_oauth.html

@@ -1,0 +1,46 @@
+[(#SET{lien_sur_titre,[(#ENV{lien_sur_titre}|is_null|?{'on',#ENV{lien_sur_titre}})]})]
+<BOUCLE_site(SITES) {id_syndic} {statut?}{compteur_publie forum}>
+[(#ENV{style_liste}|=={liste}|oui)
+		<li class="item">
+		<a [(#ENV{liste_lien_externe}|oui)href="#URL_SITE")][(#ENV{liste_lien_externe}|non)href="[(#ID_SYNDIC|generer_url_entite{site,'','',#CONNECT})]"] class="[(#ENV{liste_lien_externe}|oui)spip_out][(#ENV{id_syndic_expose}|=={#ID_SYNDIC}|oui)on]"><span class="#EDIT{nom_site}">#NOM_SITE</span></a>
+		[(#ENV{liste_afficher_nb_commentaires}|ou{#ENV{liste_afficher_rubrique}}|ou{#ENV{liste_afficher_mots_cles}})<div class="info-publi">]
+			[(#ENV{liste_afficher_rubrique}oui)[(#ENV{liste_texte_devant_rubrique}|_T) ]<a href="#INFO_URL{rubrique,#ID_RUBRIQUE}">#INFO_TITRE{rubrique,#ID_RUBRIQUE}</a>.]
+			[(#ENV{liste_afficher_mots_cles}oui)#INCLURE{fond=inclure/objet-mots_cles,id_syndic,id_rubrique='',texte_devant_mots_cles=#ENV{liste_texte_devant_mots_cles},ajoute_point='on'}]
+			[(#ENV{liste_afficher_nb_commentaires}|et{#AVELINE_COMPTEUR_FORUM|>{0}}|oui)
+				[<a href="[(#ID_SYNDIC|generer_url_entite{site,'','',#CONNECT}|ancre_url{forum})]" class="nb_commentaires">(#AVELINE_COMPTEUR_FORUM)[&nbsp;(#AVELINE_COMPTEUR_FORUM|=={1}|?{<:zpip:commentaire:>,<:zpip:commentaires:>})]</a>.]
+			]
+		[(#ENV{liste_afficher_nb_commentaires}|ou{#ENV{liste_afficher_rubrique}}|ou{#ENV{liste_afficher_mots_cles}})</div>]
+		[(#ENV{afficher_derniers_articles_syndiques}|oui)#INCLURE{fond=inclure/site-derniers_articles,id_syndic,nombre_articles_syndiques_a_afficher}]
+	</li>
+]
+[(#ENV{style_liste}|=={resume}|oui)
+	<li class="item hentry">
+		<h3 class="h3 entry-title">
+      	[(#GET{lien_sur_titre}|oui)
+				<a href="[(#ID_SYNDIC|generer_url_entite{site,'','',#CONNECT})]"[(#ENV{id_syndic_expose}|=={#ID_SYNDIC}) class="on"]>]
+				[(#ENV{afficher_logo}|oui)[(#LOGO_SITE||image_reduire{[(#ENV{taille_max_logo}|sinon{150})]})]]
+				<span class="#EDIT{nom_site}">#NOM_SITE</span>
+      	[(#GET{lien_sur_titre}|oui)</a>]
+		</h3>
+			[<div class="#EDIT{DESCRIPTIF} introduction entry-content">(#DESCRIPTIF|couper{[(#ENV{longueur_max_introduction}|sinon{600})]})</div>]
+		[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_url}}|ou{#ENV{afficher_nb_commentaires}}|ou{#ENV{afficher_rubrique}}|ou{#ENV{afficher_mots_cles}})<div class="meta-publi">]
+			[(#ENV{afficher_lire_la_suite}|oui)<a class="lire-la-suite" href="[(#ID_SYNDIC|generer_url_entite{site,'','',#CONNECT})]"><:zpip:lire_la_suite:>[(#ENV{rappeler_titre}|oui)<span class="lire-la-suite-titre"><:zpip:lire_la_suite_de:> <em>#NOM_SITE</em></span>]</a>]
+			[(#ENV{afficher_lien_permanent}|oui)
+				[(#ENV{afficher_lire_la_suite}|oui)<span class="sep">|</span> ]<a class="lire-la-suite" href="[(#ID_SYNDIC|generer_url_entite{site,'','',#CONNECT})]"><:avelinepublic:lien_permanent:></a>
+			]
+			[(#ENV{afficher_url}|oui)
+				[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}})<span class="sep">|</span> ]<a class="spip_out" href="#URL_SITE">[(#URL_SITE|couper{80})]</a>
+			]
+			[(#ENV{afficher_rubrique}oui)
+				[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_url}}|et{#ENV{texte_devant_rubrique}|!={avelinepublic:gt}}|et{#ENV{texte_devant_rubrique}|!={avelinepublic:colon2}})<span class="sep">|</span> ][(#ENV{texte_devant_rubrique}|_T)]
+			<a href="#INFO_URL{rubrique,#ID_RUBRIQUE}">#INFO_TITRE{rubrique,#ID_RUBRIQUE}</a>]
+			[(#ENV{afficher_mots_cles}oui)[(#INCLURE{fond=inclure/objet-mots_cles,id_syndic,id_rubrique='',texte_devant_mots_cles=#ENV{texte_devant_mots_cles},affiche_sep=[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_url}}|ou{#ENV{afficher_rubrique}}|?{'on',''})]})]]
+			[(#ENV{afficher_nb_commentaires}|et{#AVELINE_COMPTEUR_FORUM|>{0}}|oui)
+				[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_url}}|ou{#ENV{afficher_rubrique}}|ou{#ENV{afficher_mots_cles}}|oui)<span class="sep">|</span>]
+				[<a href="[(#ID_SYNDIC|generer_url_entite{site,'','',#CONNECT}|ancre_url{forum})]" class="nb_commentaires">(#AVELINE_COMPTEUR_FORUM)[&nbsp;(#AVELINE_COMPTEUR_FORUM|=={1}|?{<:zpip:commentaire:>,<:zpip:commentaires:>})]</a>]
+			]
+		[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_lien_permanent}}|ou{#ENV{afficher_url}}|ou{#ENV{afficher_nb_commentaires}}|ou{#ENV{afficher_rubrique}}|ou{#ENV{afficher_mots_cles}})</div>]
+		[(#ENV{afficher_derniers_articles_syndiques}|oui)#INCLURE{fond=inclure/site-derniers_articles,id_syndic,nombre_articles_syndiques_a_afficher}]
+	</li>
+]
+</BOUCLE_site>

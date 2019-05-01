@@ -1,0 +1,12 @@
+<plugin>
+	<nom>Cerulean</nom>
+	<version>1.0.0</version>
+	<etat>stable</etat>
+    <auteur>DnC</auteur>
+	<licence>GPL</licence>
+	<prefix>theme_bscerulean</prefix>
+	<description>Make It Stupid and Simple</description>
+	<icon>vignette.png</icon>
+	<utilise id="spipr" version="[0.1.0-dev;]" />
+	<categorie>theme</categorie>
+</plugin>

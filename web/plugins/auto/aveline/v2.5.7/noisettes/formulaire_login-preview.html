@@ -1,0 +1,4 @@
+[(#SET{titre,[(#ENV{titre_noisette}|=={titre_perso}|?{[(#ENV**{titre_noisette_perso}|typo)],[(#ENV{titre_noisette}|_T)]})]})]
+[(#ENV{afficher_titre_noisette}|oui)[(#GET{titre}|typo)<br />]]
+[(#ENV**{texte}|propre|image_reduire{500,0}|PtoBR)<br />]
+&lt;form&gt;<:public:lien_connecter:>&lt;/form&gt;

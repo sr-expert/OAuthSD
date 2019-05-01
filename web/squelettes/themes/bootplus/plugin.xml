@@ -1,0 +1,13 @@
+<plugin>
+	<nom>Bootplus</nom>
+	<version>2.3.2</version>
+	<etat>test</etat>
+	<auteur>MIL</auteur>
+	<auteur>Marcello Palmitessa</auteur>
+	<licence>GPL</licence>
+	<prefix>theme_bsbootplus</prefix>
+	<description>GooglePlus Style</description>
+	<icon>vignette.png</icon>
+	<utilise id="spipr" version="[0.1.0-dev;]" />
+	<categorie>theme</categorie>
+</plugin>

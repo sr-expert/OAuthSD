@@ -1,0 +1,5 @@
+<page>
+	<nom><:zvide:nom_page_auteur:></nom>
+	<description><:zvide:description_page_auteur:></description>
+	<icon>auteur-24.png</icon>
+</page>

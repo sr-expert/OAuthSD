@@ -1,0 +1,22 @@
+nom: '<:aveline:nom_titre_descriptif_site:>'
+icon: 'information-24.png'
+ajax: 'non'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_nom_site'
+      label: '<:aveline:label_afficher_nom_site:>'
+      defaut: 'on'
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_slogan_site'
+      label: '<:aveline:label_afficher_slogan_site:>'
+      defaut: ''
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_descriptif_site'
+      label: '<:aveline:label_afficher_descriptif_site:>'
+      defaut: 'on'

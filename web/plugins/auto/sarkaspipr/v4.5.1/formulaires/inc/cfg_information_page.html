@@ -1,0 +1,18 @@
+[(#ENV{choix}|match{(titre)}|oui)
+#SET{name,titre#ENV{suffixe}}#SET{defaut,#ENV{defaut_titre}|ucfirst}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+<li class="editer pleine_largeur editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+	<label for="#GET{name}">#ENV{label_titre}</label>[
+	<span class='erreur_message'>(#GET{erreurs})</span>
+	]<input type="text" name="#GET{name}" class="text" value="#ENV*{#GET{name},#GET{defaut}}" id="#GET{name}" [(#HTML5|et{#GET{obli}})required='required']/>
+</li>
+]
+[(#ENV{choix}|match{(descriptif)}|oui)
+#SET{name,descriptif#ENV{suffixe}}#SET{defaut,#ENV{defaut_descriptif}}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+<li class="editer pleine_largeur editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+	<label for="#GET{name}">#ENV{label_descriptif}</label>[
+	<span class='erreur_message'>(#GET{erreurs})</span>
+	]<textarea name="#GET{name}" class="textarea">
+#ENV*{#GET{name},#GET{defaut}}</textarea>
+</li>
+
+]

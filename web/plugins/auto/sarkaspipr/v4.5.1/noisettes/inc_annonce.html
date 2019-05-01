@@ -1,0 +1,17 @@
+[(#REM) <!-- Noisette annonce
+Recoit en argument:
+-->]
+<B_annonce>
+	<div id="noisette_annonce" class="noisette noisette_annonce">
+		<p><span class="label"><:sarkaspip:annonces:></span></p>
+		<ul class="liste-items long annonces">
+		<BOUCLE_annonce(ARTICLES) {id_article IN #CONFIG{sarkaspip/noisettes/article_annonce}|sinon{0}}{par num titre, titre}>
+		<li class="item"><article class="hentry article">
+			<strong class="h2-like entry-title">[(#LOGO_ARTICLE|image_reduire{150,100})]#TITRE</strong>
+			<div class="texte entry-content">[(#TEXTE|image_reduire{120,0})]</div>
+			[<div class="notes">(#NOTES)</div>]
+		</article></li>
+		</BOUCLE_annonce>
+		</ul>
+	</div>
+</B_annonce>

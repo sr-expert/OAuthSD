@@ -1,0 +1,34 @@
+#CACHE{5}
+
+[(#REM)  //18
+Utilise le plugin DataTables
+
+Copyright(c) 2017-2019 DnC
+Auteurs : Bertrand Degoy
+Licence : GPL 3
+
+]
+
+<div class="breadcrumb"><a href="/">Accueil</a> - <a href="./spip.php?page=gerer">Gestion</a> - Utilisateurs</div>
+
+#INCLURE{fond=inclure/identification,env}
+
+<BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{statut=1comite}{tout} >
+
+    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+
+    <h2>Gérez les utilisateurs finaux</h2>
+
+    [(#INCLURE{
+        fond=inclure/liste-table,
+        table=user,
+        champs=#LISTE{id_user,username,given_name,family_name,email},
+        recherche=#LISTE{2,3,4,5},
+        link=2,
+    })]
+
+</BOUCLE_auteur>
+
+
+
+

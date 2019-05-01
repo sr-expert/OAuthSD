@@ -1,0 +1,23 @@
+[(#REM) Ceci prend tout son sens avec le Plugin Inscription 3
+]
+
+<div class="breadcrumb"><a href="/">Accueil</a> - <a href="./spip.php?page=gerer">Gestion</a> - Auteur</div>
+
+#INCLURE{fond=inclure/identification,env}
+       
+<BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
+
+    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span>#NOM <br /><br />
+
+    <h2>Gérez vos informations d'auteur</h2>
+
+    <p>
+        Renseignez avec soin cette fiche qui vous identifie auprès du super-administrateur en tant qu'auteur et administrateur d'applications. Certaines de ces données apparaîtront dans le formulaire d'identification présenté aux utilisateurs finaux au moment de leur connexion aux applications.        <br />
+        L'utilisation du serveur est réservée à nos clients ou à des personnes agréées. Le compte d'auteur doit être validé par un administrateur avant de pouvoir être utilisé. 
+        Il sera tenu le plus grand compte de la qualité des informations communiquées. 
+        Nous nous réservons le droit d'interdire l'accès au site (y compris l'utilisation du serveur) à tout moment et sans justification. Voyez les <a href="/?article10">Contitions d'utilisation</a>.
+    </p>
+
+    #FORMULAIRE_EDITER_AUTEUR{#SESSION{id_auteur}}
+
+</BOUCLE_auteur>

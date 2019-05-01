@@ -1,0 +1,59 @@
+<div class="formulaire_spip formulaire_configurer formulaire_#FORM">
+
+	<h3 class="titrem"><:sarkaspip_config:cfg_boite_apparence:></h3>
+
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	<form method="post" action="#ENV{action}"><div>
+		<input type="hidden" name="_meta_casier" value="sarkaspip/apparence" />
+		#ACTION_FORMULAIRE{#ENV{action}}
+
+		#SET{fl,sarkaspip_config}
+		[<p>Le fichier de personalisation actuellement utilisé est <br /><tt>(#ENV{_fichier_actif}|joli_repertoire)</tt></p>]
+		<p class="explication">Vous pouvez personnaliser l'image de fond sur l'en-tête de votre site en l'ajoutant dans le dossier <tt>squelettes/img/</tt> sous le nom <tt>bg-header.jpg</tt> (largeur conseillée de 1200px)</p>
+		<ul class="editer-groupe">
+			#SET{name,header_min_height}#SET{obli,''}#SET{defaut,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+			<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+				<label for="#GET{name}"><tt>#GET{name}</tt></label>[
+				<span class='erreur_message'>(#GET{erreurs})</span>
+				]<input type="text" name="#GET{name}" class="text" value="#ENV*{#GET{name},#GET{defaut}}" id="#GET{name}" [(#HTML5|et{#GET{obli}})required='required']/>
+			</li>
+
+			<BOUCLE_sections(POUR){tableau #ENV{variables}}>
+			<li class="fieldset">
+				<fieldset>
+					<legend>#CLE</legend>
+					<ul class="editer-groupe">
+						<BOUCLE_vars(POUR){tableau #VALEUR**}>
+						#SET{name,variables/#_sections:CLE/#CLE}#SET{obli,''}#SET{defaut,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+						#SET{is_color,#_sections:CLE|in_array{#LISTE{links,grays,colors,scaffolding,tables,buttons,dropdowns}}|ou{#CLE|match{color|background|text|border}|et{#CLE|match{width|height|radius}|non}}|oui}
+						<li class="editer long_label editer_[(#GET{name}|replace{'/','_'})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+							<label for="#GET{name}"><tt>#CLE</tt></label>[
+							<span class='erreur_message'>(#GET{erreurs})</span>
+							]<input type="text" name="variables[#_sections:CLE][#CLE]" class="text" value="#ENV*{#GET{name},#GET{defaut}}" id="[(#GET{name}|replace{'/','_'})]" [(#HTML5|et{#GET{obli}})required='required']
+							[(#GET{is_color})style="width:6em;"
+								onchange="jQuery(this).next().prop('value',jQuery(this).prop('value'));"]
+							/>[(#GET{is_color})
+							<input type="color" name="fake\[#_sections:CLE\]\[#CLE\]" class="text" value="#ENV*{#GET{name},#GET{defaut}}" [(#HTML5|et{#GET{obli}})required='required']
+							style="width:6em;vertical-align: middle;"
+							onchange="jQuery(this).prev().prop('value',jQuery(this).prop('value'));"
+							tabindex="-1"
+							/>]
+						</li>
+						</BOUCLE_vars>
+					</ul>
+				</fieldset>
+			</li>
+			</BOUCLE_sections>
+
+		</ul>
+		<p class="boutons">
+			<input type="submit" name="save" class="submit over" title="<:sarkaspip_config:bulle_bouton_valider:>" value="<:sarkaspip_config:bouton_valider:>" />
+			<input type="submit" name="reset" class="submit" title="<:sarkaspip_config:bulle_bouton_effacer:>" value="<:sarkaspip_config:bouton_effacer:>" />
+			<input type="submit" name="save" class="submit" title="<:sarkaspip_config:bulle_bouton_valider:>" value="<:sarkaspip_config:bouton_valider:>" />
+		</p>
+	</div></form>
+</div>
+<style>
+	.formulaire_spip .editer {padding-top: 0}
+</style>

@@ -1,0 +1,97 @@
+<div class="formulaire_spip formulaire_configurer formulaire_#FORM">
+
+	<h3 class="titrem"><:sarkaspip_config:cfg_boite_article:></h3>
+
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	<form method="post" action="#ENV{action}"><div>
+		<input type="hidden" name="_meta_casier" value="sarkaspip/article" />
+		#ACTION_FORMULAIRE{#ENV{action}}
+	[(#ENV{_cfg_}|form_hidden)]
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_description:></legend>
+			<ul class="editer-groupe">
+			<INCLURE{fond=formulaires/inc/cfg_logo}
+				{explication=<:sarkaspip_config:cfg_inf_article_sans_logo:>}
+				{env}>
+			<INCLURE{fond=formulaires/inc/cfg_cartouche}
+				{label_popularite=<:sarkaspip_config:cfg_inf_article_popularite:>}
+				{label_socialbar=<:sarkaspip_config:cfg_inf_article_socialbar:>}
+				{env}>
+			</ul>
+		</fieldset>
+
+		<!--
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_documents_joints:></legend>
+			<ul class="editer-groupe">
+			<INCLURE{fond=formulaires/inc/cfg_descriptif_document}{env}>
+			</ul>
+		</fieldset>
+
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_images_jointes:></legend>
+			<ul class="editer-groupe">
+			<INCLURE{fond=formulaires/inc/cfg_effet_image}
+				{explication=<:sarkaspip_config:cfg_inf_effet_image:>}
+				{choix=portfolio}
+				{env}>
+			</ul>
+		</fieldset>
+		-->
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_petition:></legend>
+			<p><:sarkaspip_config:cfg_inf_petition:></p>
+			<ul class="editer-groupe">
+			<INCLURE{fond=formulaires/inc/cfg_pagination}{defaut_pas=20}{defaut_position=2}{suffixe=_signatures}{env}>
+			</ul>
+		</fieldset>
+		<!--
+		<fieldset class="todo">
+			<legend><:sarkaspip_config:cfg_lgd_commentaires:></legend>
+			<p><:sarkaspip_config:cfg_inf_article_commentaires:></p>
+			<ul class="editer-groupe">
+			<INCLURE{fond=formulaires/inc/cfg_presentation_commentaires}
+				{defaut_presentation=2}
+				{defaut_tri=2}
+				{defaut_auteur=1}
+				{defaut_mail=2}
+				{env}>
+			<INCLURE{fond=formulaires/inc/cfg_sens_tri}
+				{explication=<:sarkaspip_config:cfg_inf_commentaires_sens_tri:>}
+				{suffixe=_commentaires}
+				{label_sens_normal=<:sarkaspip_config:cfg_lbl_tri_chrono:>}
+				{label_sens_inverse=<:sarkaspip_config:cfg_lbl_tri_antichrono:>}
+				{defaut_sens=1}
+				{env}>
+
+			<li class="editer pleine_largeur">
+				<p class="explication"><:sarkaspip_config:cfg_inf_commentaires_lien_auteur:></p>
+			</li>
+			#SET{name,auteur_commentaires}#SET{defaut,1}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+			<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+				<label></label>[
+				<span class='erreur_message'>(#GET{erreurs})</span>
+				]
+				#SET{val,1}
+				<div class="choix">
+					<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+					<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_inf_lien_auteur_oui:></label>
+				</div>
+				#SET{val,2}
+				<div class="choix">
+					<input type="radio" name="#GET{name}" class="radio" id="#GET{name}_#GET{val}" value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)checked="checked"] />
+					<label for="#GET{name}_#GET{val}"><:sarkaspip_config:cfg_inf_lien_auteur_non:></label>
+				</div>
+			</li>
+			<INCLURE{fond=formulaires/inc/cfg_pagination}
+				{defaut_pas=20}
+				{defaut_position=2}
+				{suffixe=_commentaires}
+				{env}>
+			</ul>
+		</fieldset>
+		-->
+		<INCLURE{fond=formulaires/inc/cfg_boutons}>
+	</div></form>
+</div>

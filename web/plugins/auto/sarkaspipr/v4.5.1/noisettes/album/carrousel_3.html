@@ -1,0 +1,37 @@
+[(#REM) 
+<!-- Presentation du carrousel des photos de l'album en mode pagine
+	Recoit en argument :
+		- id_article: id de l'album concerne
+		- nb_photos: nombre total de photos dans l'album (non utilise dans ce modele)
+-->
+]
+
+[(#ENV{avec_zoom}|=={non}|oui)
+	#SET{classe, #ENV{effet_galerie}}
+]
+<B_carrousel>
+	<div id="a_pagination" class="carrousel">
+		[(#REM) <!-- Affichage des vignettes -->]
+		<div class="contenu">
+			[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{top})]
+			<ul class="vignettes[ (#ENV{avec_diaporama}|=={oui}|?{galerie})]">
+<BOUCLE_carrousel(DOCUMENTS){id_album}{media=image}{par num titre, id_document}{pagination #CONFIG{sarkaspip/album/pas_pagination_carrousel, 20}}>
+				[(#SET{titre, [(#TITRE|texte_backend|couper{#EVAL{_SARKASPIP_CONFIG_TAILLE_TITRE_IMAGE}}|sinon{[(#TYPE_DOCUMENT) - ][(#TAILLE|taille_en_octets)]})]})]
+				[(#SET{url, #FICHIER})]
+				[<li>
+					<span class="wrap1">
+						[(#SET{legende, [(#GET{titre})[, (#DESCRIPTIF)]]})]
+						<span class="wrap2">
+							<a[ class="(#GET{classe})"][ href="(#GET{url})"][ title="(#GET{legende}|attribut_html)"]>
+								(#FICHIER|copie_locale|image_reduire{#EVAL{_SARKASPIP_CONFIG_TAILLE_MAX_VIGNETTE_4}}|inserer_attribut{alt, #GET{titre}})
+							</a>
+						</span>
+						[<span class="titre #EDIT{titre}">(#GET{legende})</span>]
+					</span>
+				</li>]
+</BOUCLE_carrousel>
+			</ul>
+			[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{bottom})]
+		</div> <!-- fin contenu -->
+	</div> <!-- fin carrousel -->
+</B_carrousel>

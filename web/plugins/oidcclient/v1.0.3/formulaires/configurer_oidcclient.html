@@ -1,0 +1,70 @@
+<div class="formulaire_spip formulaire_cfg formulaire_configurer formulaire_#FORM">
+
+    <h3 class="titrem"><:oidcclient:cfg_titre_parametrages:></h3>
+
+    [<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+    [<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+    <form method="post" action="#ENV{action}">
+        <div>
+            #ACTION_FORMULAIRE{#ENV{action}}
+
+            <ul>
+                <li>
+                    <label for="cfg_oidcclient_client_id"><:oidcclient:cfg_lbl_oidcclient_client_id:></label>
+                    <div class="explication"><:oidcclient:cfg_inf_oidcclient_client_id:></div>
+                    <input type="text" name="cfg_oidcclient_client_id" id="cfg_oidcclient_client_id" size="40" value="#ENV{cfg_oidcclient_client_id}" />
+                    <br/><br/> 
+                </li><li>
+                    <label for="cfg_oidcclient_client_secret"><:oidcclient:cfg_lbl_oidcclient_client_secret:></label>
+                    <div class="explication"><:oidcclient:cfg_inf_oidcclient_client_secret:></div>
+                    <input type="text" name="cfg_oidcclient_client_secret" id="cfg_oidcclient_client_secret" size="40" value="#ENV{cfg_oidcclient_client_secret}" />
+                    <br/><br/>
+                </li><li>
+                    <label for="cfg_oidcclient_server_url"><:oidcclient:cfg_lbl_oidcclient_server_url:></label>
+                    <div class="explication"><:oidcclient:cfg_inf_oidcclient_server_url:></div>
+                    <input type="text" name="cfg_oidcclient_server_url" id="cfg_oidcclient_server_url" size="40" value="#ENV{cfg_oidcclient_server_url}" />
+                    <br/><br/>
+                </li>
+                </li><li>
+                    <label for="cfg_oidcclient_scopes"><:oidcclient:cfg_lbl_oidcclient_scopes:></label>
+                    <div class="explication"><:oidcclient:cfg_inf_oidcclient_scopes:></div>
+                    <input type="text" name="cfg_oidcclient_scopes" id="cfg_oidcclient_scopes" size="40" value="#ENV{cfg_oidcclient_scopes}" />
+                    <br/><br/>
+                </li>
+                </li><li>
+                    <label for="cfg_oidcclient_scopes"><:oidcclient:cfg_lbl_oidcclient_pollingperiod:></label>
+                    <div class="explication"><:oidcclient:cfg_inf_oidcclient_pollingperiod:></div>
+                    <input type="text" name="cfg_oidcclient_pollingperiod" id="cfg_oidcclient_pollingperiod" size="10" value="#ENV{cfg_oidcclient_pollingperiod}" />
+                    <br/><br/>
+                </li>
+                </li><li>
+                    <label for="cfg_oidcclient_appendto"><:oidcclient:cfg_lbl_oidcclient_appendto:></label>
+                    <div class="explication"><:oidcclient:cfg_inf_oidcclient_appendto:></div>
+                    <input type="text" name="cfg_oidcclient_appendto" id="cfg_oidcclient_appendto" size="12" value="#ENV{cfg_oidcclient_appendto}" />
+                    <br/><br/>
+                </li>
+                </li><li>
+                    <label for="cfg_oidcclient_top"><:oidcclient:cfg_lbl_oidcclient_top:></label>
+                    <div class="explication"><:oidcclient:cfg_inf_oidcclient_top:></div>
+                    <input type="text" name="cfg_oidcclient_top" id="cfg_oidcclient_top" size="6" value="#ENV{cfg_oidcclient_top}" />
+                    <br/><br/>
+                </li>
+                </li><li>
+                    <label for="cfg_oidcclient_left"><:oidcclient:cfg_lbl_oidcclient_left:></label>
+                    <div class="explication"><:oidcclient:cfg_inf_oidcclient_left:></div>
+                    <input type="text" name="cfg_oidcclient_left" id="cfg_oidcclient_left" size="10" value="#ENV{cfg_oidcclient_left}" />
+                    <br/><br/>
+                </li>
+            </ul>
+
+
+
+
+
+
+            <input type="hidden" name="_meta_casier" value="oidcclient" />
+            <p class='boutons'><input type='submit' class='submit' value='<:bouton_enregistrer:>' /></p>
+        </div>
+    </form>
+</div>

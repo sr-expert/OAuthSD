@@ -1,0 +1,32 @@
+[(#AUTORISER{webmestre}|sinon_interdire_acces)]
+[<h1 class="grostitre">(#VAL{sarkaspip_config:cfg_titre_}|concat{#ENV{cfg, accueil}}|_T)</h1>]
+[(#ENV{cfg, accueil}|=={accueil}|non)
+[<p>(#VAL{sarkaspip_config:cfg_descr_}|concat{#ENV{cfg, accueil}}|_T)</p>]
+]
+
+#SET{page,configurer_sarkaspip-#ENV{cfg, accueil}}
+[(#GET{page}|tester_url_ecrire|non)#SET{page,''}]
+
+[(#GET{page}|non)
+	[(#SET{configurer, [(#ENV{type-page})_[(#ENV{cfg, accueil})]]})]
+	[<div class='ajax'>(#FORMULAIRE_{#GET{configurer}})</div>]
+]
+[(#GET{page}|oui)
+	<INCLURE{fond=prive/squelettes/contenu/#GET{page},env} />
+]
+[(#ENV{cfg, accueil}|=={accueil}|oui)
+[(#REM) <!-- Boite d'information sur la page de configuration affichee --> ]
+#BOITE_OUVRIR{#CHEMIN_IMAGE{sarka-spip-24.gif}|balise_img{'',cadre-icone}, simple}
+	<div class="liste">
+		<p><:sarkaspip_config:cfg_inf_versions:></p>
+		<ul>
+			<li>Sarka-SPIP #VERSION_SQUELETTE</li>
+			<li>SPIP #SPIP_VERSION</li>
+			<li>PHP #VERSION_PHP</li>
+		</ul>
+	</div>
+#BOITE_FERMER
+]
+
+[(#REM) <!-- Boite de debug des variables et de l'environnement --> ]
+[(#INCLURE{fond=formulaires/inc/cfg_debug, env})]

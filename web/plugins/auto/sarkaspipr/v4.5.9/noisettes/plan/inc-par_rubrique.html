@@ -1,0 +1,70 @@
+[(#REM) <!-- Plan du site par rubrique --> ]
+<B_non_vide>
+[(#CONFIG{sarkaspip/plan/position_pagination, 1}|match{^(1|3)$}|oui)
+	<INCLURE{fond=noisettes/plan/inc-boutons_tri}{tri=par_rubrique}>
+]
+<ul class="nav nav-list">
+<BOUCLE_non_vide(ARTICLES){0,1}>
+	[(#REM) <!-- Les articles des rubriques non specialisees --> ]
+	<BOUCLE_secteurs(RUBRIQUES){racine}{id_rubrique!==#RACINE_SPECIALISEE}{par num titre, titre}>
+		<li>[(#INCLURE{fond=noisettes/rubrique/lien}
+				{id_rubrique}
+				{classe=noeud})]
+		<B_articles_secteur>
+			<ul class="nav nav-list">
+		<BOUCLE_articles_secteur(ARTICLES){id_rubrique}{par date}{inverse #CONFIG{sarkaspip/plan/senstri_date, 1}}>
+				[(#SET{date, [<span class="date">&#91;(#DATE|affdate{'d-m-Y'})&#93;&nbsp;</span>&nbsp;]})]
+				[<li>
+					(#INCLURE{fond=noisettes/article/lien}
+						{id_article}
+						{classe=feuille}
+						{avant_titre=#GET{date}})
+				</li>]
+		</BOUCLE_articles_secteur>
+			</ul>
+		</B_articles_secteur>
+	
+		<B_hierarchie>
+			<ul class="nav nav-list">
+		<BOUCLE_hierarchie(RUBRIQUES){id_parent}{par num titre, titre}>
+				<li>[(#INCLURE{fond=noisettes/rubrique/lien}
+						{id_rubrique}
+						{classe=noeud})]
+				<B_articles_hierarchie>
+					<ul class="nav nav-list">
+				<BOUCLE_articles_hierarchie(ARTICLES){id_rubrique}{par date}{inverse #CONFIG{sarkaspip/plan/senstri_date, 1}}>
+						[(#SET{date, [<span class="date">&#91;(#DATE|affdate{'d-m-Y'})&#93;&nbsp;</span>&nbsp;]})]
+						[<li>
+							(#INCLURE{fond=noisettes/article/lien}
+								{id_article}
+								{classe=feuille}
+								{avant_titre=#GET{date}})
+						</li>]
+				</BOUCLE_articles_hierarchie>
+					</ul>
+				</B_articles_hierarchie>
+				<BOUCLE_sous_hierarchie(boucle_hierarchie)></BOUCLE_sous_hierarchie>
+				</li>
+		</BOUCLE_hierarchie>
+			</ul>
+		</B_hierarchie>
+		</li>
+	</BOUCLE_secteurs>
+	
+	[(#REM) <!-- Les albums de la galerie --> ]
+	<B_albums>
+		<li><a class="noeud" href="[(#URL_PAGE{galerie})]"><:sarkaspip:galerie:></a>
+			<ul class="nav nav-list">
+			<BOUCLE_albums(ALBUMS?){par date}{inverse #CONFIG{sarkaspip/plan/senstri_date, 1}}>
+				[(#SET{date, [<span class="date">&#91;(#DATE|affdate{'d-m-Y'})&#93;&nbsp;</span>&nbsp;]})]
+				[<li><a class="feuille" href="#URL_ALBUM">#GET{date}(#TITRE)</a></li>]
+			</BOUCLE_albums>
+			</ul>
+		</li>
+	</B_albums>
+</BOUCLE_non_vide>
+</ul>
+[(#CONFIG{sarkaspip/plan/position_pagination, 1}|match{^(2|3)$}|oui)
+	<INCLURE{fond=noisettes/plan/inc-boutons_tri}{tri=par_rubrique}>
+]
+</B_non_vide>

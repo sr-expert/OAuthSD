@@ -1,0 +1,16 @@
+nom: '<:aveline:nom_liste_sites:>'
+description: '<:aveline:description_liste_sites:>'
+icon: 'site-24.png'
+necessite:
+  - 'sites'
+contexte:
+  - 'id_rubrique'
+  - 'id_secteur'
+  - 'id_syndic'
+parametres:
+  - 'inclure:inc-yaml/branche-site.yaml'
+  - 'inclure:inc-yaml/tri-site.yaml'
+  - 'inclure:inc-yaml/exclure_objet_en_cours-site.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-site.yaml'
+  - 'inclure:inc-yaml/resume-site.yaml'

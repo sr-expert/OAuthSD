@@ -1,0 +1,6 @@
+<BOUCLE_evenement_head(EVENEMENTS) {id_evenement}>
+<title>[(#TITRE|textebrut) - ][(#NOM_SITE_SPIP|textebrut)]</title>
+[<meta name="description" content="(#DESCRIPTIF{150}|attribut_html)" />]
+[<link rel="canonical" href="(#URL_EVENEMENT|url_absolue)" />]
+</BOUCLE_evenement_head>
+[(#PLUGIN{Z,version}|>={1.9.9}|oui)<INCLURE{fond=inclure/head}>]

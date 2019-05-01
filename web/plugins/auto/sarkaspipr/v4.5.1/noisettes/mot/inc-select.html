@@ -1,0 +1,24 @@
+[(#REM) 
+<!-- liste tous les mots-cles classe par groupe de mot au sein d'un select
+	Recoit en argument :
+		- groupes : tableau contenant les id des groupes a selectionner
+		- suffixe : numero compris entre 1 et 3 correspondant a l'id du select
+		- label : le label qui sera utilise pour le select
+		- mot : id du mot selectionne
+-->
+]
+<B_groupe>	
+ 	<label for="mot_#ENV{suffixe}">#ENV{label}</label>
+	<select name="mot_#ENV{suffixe}" id="mot_#ENV{suffixe}">
+		<option value=''><:sarkaspip:indifferent:></option>	
+<BOUCLE_groupe(GROUPES_MOTS){id_groupe IN #ENV{groupes}|sinon{0}}{par num titre, titre}>
+	<B_mot>
+		<optgroup[ label="(#TITRE|attribut_html)"]>
+	<BOUCLE_mot(MOTS){id_groupe=#ID_GROUPE}{par num titre, titre}>
+			[<option value="#ID_MOT"[ (#ID_MOT|=={#ENV{mot}}|oui)selected="selected"]>(#TITRE)</option>]
+	</BOUCLE_mot>
+		</optgroup>
+	</B_mot>
+</BOUCLE_groupe>
+	</select> 	
+</B_groupe>

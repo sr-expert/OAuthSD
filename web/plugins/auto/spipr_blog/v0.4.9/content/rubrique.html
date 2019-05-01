@@ -1,0 +1,32 @@
+<BOUCLE_content(RUBRIQUES){id_rubrique}>
+<section>
+
+	<header class="cartouche">
+		[(#LOGO_RUBRIQUE|image_reduire{200,200})]
+		<h1 class="#EDIT{titre}">#TITRE</h1>
+		[<p class="publication"><time pubdate="pubdate" datetime="[(#DATE|date_iso)]"><:dernier_ajout:> : (#DATE|affdate_jourcourt).</time></p>]
+	</header>
+
+	<div class="main">
+		[<div class="#EDIT{texte} chapo">(#TEXTE|adaptive_images)</div>]
+
+		<BOUCLE_articles(ARTICLES){id_rubrique}{0,1}>
+			<div class="liste articles long">
+			<INCLURE{fond=liste/articles-resume,env,ajax,titre=<:contenu_rubrique:>} />
+			</div>
+		</BOUCLE_articles>
+
+		<p class="warning">Aucun article dans cette catégorie</p>
+
+		<//B_articles>
+	</div>
+
+	<footer>
+		[<div class="notes"><h2><:info_notes:></h2>(#NOTES)</div>]
+	</footer>
+
+	<aside>
+	</aside>
+
+</section>
+</BOUCLE_content>

@@ -1,0 +1,42 @@
+<div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{client_id,nouveau}'>
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+	[(#ENV{editable})
+	<form method="post" action="#ENV{action}"><div>
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<input type="hidden" name="client_id" value="#ENV{client_id}" />
+		<div class="editer-groupe">
+ 
+			[(#SAISIE{input, client_secret, obligatoire=oui,
+				label=<:client_id:champ_client_secret_label:>,
+				explication=<:client_id:champ_client_secret_explication:> })]
+ 
+			[(#SAISIE{input, redirect_uri, obligatoire=oui,
+				label=<:client_id:champ_redirect_uri_label:>,
+				explication=<:client_id:champ_redirect_uri_explication:> })]
+ 
+			[(#SAISIE{selection, grant_types, obligatoire=oui,
+				label=<:client_id:champ_grant_types_label:>,
+				explication=<:client_id:champ_grant_types_explication:> ,
+				datas=[(#ARRAY{
+AuthorizationCode,Authorization Code,
+Implicit,Implicit,
+UserCredentials,User Credentials,
+ClientCredentials,Client Credentials (server-server),
+RefreshToken,Refresh Token,
+JwtBearer,Jwt Bearer
+})]})]
+ 
+			[(#SAISIE{textarea, scope, obligatoire=oui,
+				label=<:client_id:champ_scope_label:>,
+				explication=<:client_id:champ_scope_explication:> ,
+				rows=4})]
+
+		</div>
+		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+		<!--extra-->
+		<p class="boutons"><input type="submit" class="submit" value="<:bouton_enregistrer:>" /></p>
+	</div></form>
+	]
+</div>

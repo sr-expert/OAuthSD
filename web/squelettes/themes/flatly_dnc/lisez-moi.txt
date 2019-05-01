@@ -1,0 +1,42 @@
+Thème Flatly version DnC
+Sur base spipr (Z + HTML5 + bootstrap et less)
+
+2016/11 - Modifications DnC :
+
+Ajustements de détails dans le css
+
+******
+Utilisé avec spipr-dist (abandonné) : 
+
+Modification à spipr_dist rubrique.html ligne 47 : supprimer <//B_articles> afin 
+de toujours afficher le plan de la rubrique.
+
+A faire :
+
+Sommaire : ne pas présenter les derniers articles en bas de page, 
+présenter le plan : Ok
+Présenter les 3 derniers articles en colonnes.
+
+Plan : supprimer les titres  "Articles"
+
+*****
+Utilisé avec spipr-doc :
+
+Menus déroulants multi-niveaux : 
+Voir :  Voir : http://contrib.spip.net/SPIPr-4642#forum486504
+Ajouts:
+/js/menu.dropdown.js modifié pour multi-niveaux, surcharge bootstrap 
+/head_js/dist.html
+dans bootswatch.less
+
+*****
+Problème d'affichage sur tablette Android : quand on agrandit la vue, il y a chevauchement
+du bandeau de gauche avec le contenu.
+Surcharge de spipr_doc ../inclure/head.html dans le thème : Ok
+Curieux, les smartphones et tablettes n'obéissent pas à shrink-to-fit=no, maximum-scale=1.0, user-scalable=no ???
+
+*****
+Menu déroulant fonctionne bien sur smartphone (réduit).
+Mais pas agréable sur tablette : il y a sélection automatique de "Développeur".
+Il faut garder appuyer, aller au sous-menu et taper.
+

@@ -1,0 +1,9 @@
+<traduction module="avelinepublic" gestionnaire="salvatore" url="http://trad.spip.net" source="svn://zone.spip.org/spip-zone/_squelettes_/aveline/trunk/lang/" reference="fr">
+	<langue code="en" url="http://trad.spip.net/tradlang_module/avelinepublic?lang_cible=en">
+		<traducteur nom="Joseph" lien="http://trad.spip.net/auteur/joseph-larmarange" />
+	</langue>
+	<langue code="fr" />
+	<langue code="sk" url="http://trad.spip.net/tradlang_module/avelinepublic?lang_cible=sk">
+		<traducteur nom="jaro" lien="http://trad.spip.net/auteur/jaro" />
+	</langue>
+</traduction>

@@ -1,0 +1,25 @@
+nom: '<:aveline:nom_logositespip:>'
+icon: 'information-24.png'
+ajax: 'non'
+parametres:
+  -
+    saisie: 'input'
+    options:
+      nom: 'taille_max_logo'
+      label: '<:aveline:label_taille_max_logo:>'
+      defaut: '200'
+    verifier:
+      type: 'entier'
+      min: 10
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'lien_sur_logo'
+      label: '<:aveline:label_lien_sur_logo:>'
+      defaut: ''
+  -
+    saisie: 'selecteur_rubrique_article'
+    options:
+      nom: 'lien_objet'
+      label: '<:aveline:label_lien_objet:>'
+      afficher_si: '@lien_sur_logo@ == "on"'

@@ -1,0 +1,13 @@
+Plugin HTTP pour DataTables
+
+Traitement server-side et API HTTP REST pour DataTables
+        
+S'appuie sur le plugin HTTP et sur HTTPFoundation de Symphony
+
+Les autorisations du plugin http ne différencient pas les formats. Ce sont donc 
+les autorisations du plugin collectionjsonoauthsd qui s'appliquent. 
+Voir : collectionjsonoauthsd_autorisations.php 
+
+Auteur : B.Degoy
+Copyright (c) 2016-2019 DnC
+Licence GPL v3

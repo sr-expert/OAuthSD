@@ -1,0 +1,40 @@
+[(#SET{defaut_tri,#ARRAY{
+	date_publication,-1, 
+	id_client,1
+}})]<B_liste_clients>
+#ANCRE_PAGINATION
+<div class="liste-objets clients">
+<table class="spip liste">
+	[<caption><strong class="caption">(#ENV*{titre,#GRAND_TOTAL|singulier_ou_pluriel{client:info_1_client,client:info_nb_clients}})</strong></caption>]
+	<thead>
+		<tr class="first_row">
+			<th class="picto" scope="col"></th>
+			<th class="statut" scope="col">[(#TRI{statut,<span title="<:lien_trier_statut|attribut_html:>">#</span>,ajax})]</th> 
+			<th class="date" scope="col">[(#TRI{client_id,Client,ajax})]</th>
+            <th class="date" scope="col">[(#TRI{date_publication,<:date:>,ajax})]</th> 
+			<th class="id" scope="col">[(#TRI{id_client,<:info_numero_abbreviation:>,ajax})]</th>
+		</tr>
+	</thead>
+	<tbody>
+	<BOUCLE_liste_clients(CLIENTS){id_mot?}{id_auteur?}{where?}{statut?}{recherche?}{tri #ENV{par,num id_client},#GET{defaut_tri}}{pagination #ENV{nb,10}}>
+		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+			<td class="picto">[(#CHEMIN_IMAGE{client-16.png}|balise_img)]</td>
+			<td class="statut">[(#STATUT|puce_statut{client,#ID_CLIENT})]</td>
+            <td class="titre">[(#AUTORISER{modifier,client,#ID_CLIENT}|?{
+                <a href="[(#URL_ECRIRE{client_edit,id_client=#ID_CLIENT})]">#CLIENT_ID</a>,
+                #CLIENT_ID
+            })]</td>
+			<td class="date secondaire">[(#DATE_PUBLICATION|affdate_jourcourt)]</td> 
+			<td class="id">[(#AUTORISER{modifier,client,#ID_CLIENT}|?{
+				<a href="[(#URL_ECRIRE{client_edit,id_client=#ID_CLIENT})]">#ID_CLIENT</a>,
+				#ID_CLIENT
+			})]</td>
+		</tr>
+	</BOUCLE_liste_clients>
+	</tbody>
+</table>
+[<p class="pagination">(#PAGINATION{prive})</p>]
+</div>
+</B_liste_clients>[
+<div class="liste-objets clients caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
+]<//B_liste_clients>

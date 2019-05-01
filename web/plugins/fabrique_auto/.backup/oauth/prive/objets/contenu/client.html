@@ -1,0 +1,38 @@
+<BOUCLE_client(CLIENTS){id_client}{statut?}>
+
+[<div class="champ contenu_client_secret[ (#CLIENT_SECRET*|strlen|?{'',vide})]">
+	<label><:client:champ_client_secret_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{client_secret} client_secret">(#CLIENT_SECRET)</span>
+</div>]
+
+[<div class="champ contenu_redirect_uri[ (#REDIRECT_URI*|strlen|?{'',vide})]">
+	<label><:client:champ_redirect_uri_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{redirect_uri} redirect_uri">(#REDIRECT_URI)</span>
+</div>]
+
+[<div class="champ contenu_grant_types[ (#GRANT_TYPES*|strlen|?{'',vide})]">
+	<label><:client:champ_grant_types_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{grant_types} grant_types">(#GRANT_TYPES)</span>
+</div>]
+
+[<div class="champ contenu_scope[ (#SCOPE*|strlen|?{'',vide})]">
+	<label><:client:champ_scope_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{scope} scope">(#SCOPE)</span>
+</div>]
+
+[<div class="champ contenu_user_id[ (#USER_ID*|strlen|?{'',vide})]">
+	<label><:client:champ_user_id_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{user_id} user_id">(#USER_ID)</span>
+</div>]
+
+[<div class="champ contenu_client_id[ (#CLIENT_ID*|strlen|?{'',vide})]">
+	<label><:client:champ_client_id_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{client_id} client_id">(#CLIENT_ID)</span>
+</div>]
+
+[<div class="champ contenu_css[ (#CSS*|strlen|?{'',vide})]">
+	<label><:client:champ_css_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{css} css">(#CSS)</span>
+</div>]
+
+</BOUCLE_client>

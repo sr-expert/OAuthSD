@@ -1,0 +1,46 @@
+[(#SET{ariane_separateur, #ENV{ariane_separateur}|is_null|non|?{#ENV{ariane_separateur},'&gt;'}})]
+[(#SET{ariane_separateur, [<span class="sep">(#GET{ariane_separateur})</span>]})]
+[(#SET{longueur_max_titres, #ENV{longueur_max_titres}|sinon{#GET{longueur_max_titres}}})]
+
+<p id="hierarchie">[(#ENV{afficher_lien_accueil}|oui)<a href="#URL_SITE_SPIP/"><:accueil_site:></a>]
+	<BOUCLE_contexte_article(ARTICLES) {id_article}>
+	<BOUCLE_ariane_article(HIERARCHIE) {id_article}>
+	[(#GET{ariane_separateur})] <a href="#URL_RUBRIQUE">[(#TITRE|couper{#GET{longueur_max_titres}})]</a>
+	</BOUCLE_ariane_article>
+	[(#GET{ariane_separateur})] <a href="#URL_ARTICLE">[(#TITRE|couper{#GET{longueur_max_titres}})]</a>
+	</BOUCLE_contexte_article>
+	</B_contexte_article>
+
+	<BOUCLE_contexte_breve(BREVES) {id_breve}>
+	<BOUCLE_ariane_breve(RUBRIQUES) {id_rubrique}>
+	[(#GET{ariane_separateur})] <a href="#URL_RUBRIQUE">[(#TITRE|couper{#GET{longueur_max_titres}})]</a>
+	</BOUCLE_ariane_breve>
+	[(#GET{ariane_separateur})] <a href="#URL_BREVE">[(#TITRE|couper{#GET{longueur_max_titres}})]</a>
+	</BOUCLE_contexte_breve>
+
+	<BOUCLE_contexte_rubrique(RUBRIQUES) {id_rubrique}>
+	<BOUCLE_ariane_rubrique(HIERARCHIE) {id_rubrique}>
+	[(#GET{ariane_separateur})] <a href="#URL_RUBRIQUE">[(#TITRE|couper{#GET{longueur_max_titres}})]</a>
+	</BOUCLE_ariane_rubrique>
+	[(#GET{ariane_separateur})] <a href="#URL_RUBRIQUE">[(#TITRE|couper{#GET{longueur_max_titres}})]</a>
+	</BOUCLE_contexte_rubrique>
+
+	<BOUCLE_contexte_site(SITES) {id_syndic}>
+	<BOUCLE_ariane_site(HIERARCHIE) {id_rubrique}>
+	[(#GET{ariane_separateur})] <a href="#URL_RUBRIQUE">[(#TITRE|couper{#GET{longueur_max_titres}})]</a>
+	</BOUCLE_ariane_site>
+	[(#GET{ariane_separateur})] <a href="[(#ID_SYNDIC|generer_url_entite{'site'})]">[(#TITRE|couper{#GET{longueur_max_titres}})]</a>
+	</BOUCLE_contexte_site>
+
+	<//B_contexte_site>
+	<//B_contexte_rubrique>
+	<//B_contexte_breve>
+	<//B_contexte_article>
+
+	<BOUCLE_contexte_forum(FORUMS) {id_forum}>
+	[(#GET{ariane_separateur})] <a href="#URL_FORUM">[(#TITRE|couper{#GET{longueur_max_titres}})]</a>
+	</BOUCLE_contexte_forum>
+
+	[(#GET{ariane_separateur})] <strong class="on"><:poster_message:></strong>
+	
+</p>

@@ -1,0 +1,87 @@
+#CACHE{7200}
+#SET{verrou, ''}
+<BOUCLE_forum(FORUMS){id_forum=#ENV{id_forum}}><BOUCLE_article_forum(ARTICLES){id_article}>
+
+
+	<section class="forums sujet">
+		[(#SET{statut_forum, [(#ID_ARTICLE|statut_forum)]})]
+		[(#GET{statut_forum}|=={ouvert}|non)#SET{verrou, lock}]
+			<div id="sujet" class="forum">
+				[(#REM) <!-- Titre, logo, texte du sujet --> ]
+				<INCLURE{fond=noisettes/forum/sujet_description}
+					{id_forum}
+					{statut_forum=#GET{statut_forum}}
+					{verrou=#GET{verrou}}>
+			</div>
+
+			<aside>
+			[(#REM) <!-- Les reponses au sujet --> ]
+			<INCLURE{fond=noisettes/forum/liste-sujet_reponses}
+				{statut_forum=#GET{statut_forum}}
+				{id_thread}
+				{id_forum}
+				{verrou=#GET{verrou}}
+				{sens_tri=#CONFIG{sarkaspip/forum/sens_tri_reponses, 0}}
+				{self}
+				{ajax}>
+			</aside>
+	</section>
+
+
+</BOUCLE_article_forum></BOUCLE_forum>
+	<BOUCLE_article(ARTICLES){id_article}>
+
+
+	<section class="forums forum">
+
+		[(#SET{statut_forum, [(#ENV{id_article}|statut_forum)]})]
+
+		[(#REM) <!-- Titre, logo, texte de la page du forum --> ]
+		<INCLURE{fond=noisettes/article/description}
+			{id_article}
+			{page=forum}
+			{afficher_commentaires=non}
+			{avec_popularite=non}
+			{avec_notation=non}
+			{avec_socialtags=non}
+			{logo_rubrique=oui}
+			{taille_logo=100}
+			{statut_forum=#GET{statut_forum}}>
+
+		[(#GET{statut_forum}|=={ouvert}|oui)
+		<div class="outils">
+			<a class="fonction" id="commenter" href="#formulaire_sujet" title="<:sarkaspip:poster_sujet:>"></a>
+			<br class="nettoyeur">
+		</div>
+		]
+
+		[(#REM) <!-- On traite d'abord les annonces --> ]
+		<INCLURE{fond=noisettes/forum/liste-annonces}
+			{id_article}
+			{statut_forum=#GET{statut_forum}}>
+
+		[(#REM) <!-- On traite ensuite les sujets epingles --> ]
+		<INCLURE{fond=noisettes/forum/liste-epingles}
+			{id_article}
+			{statut_forum=#GET{statut_forum}}>
+
+		[(#REM) <!-- On traite enfin les sujets non epingles --> ]
+		<INCLURE{fond=noisettes/forum/liste-discussions}
+			{id_article}
+			{statut_forum=#GET{statut_forum}}
+			{ajax}>
+
+		[(#REM) <!-- Forumlaire de reponse --> ]
+		[(#GET{statut_forum}|=={ouvert}|oui)
+			<div class="formulaire" id="formulaire_sujet">#FORMULAIRE_FORUM{#URL_PAGE{forum, #PARAMETRES_FORUM{#SELF}}}</div>
+		]
+		<script type='text/javascript'>/*<![CDATA[*/
+			jQuery(document).ready(function() {
+				jQuery("#formulaire_forum .saisie_titre input[name='titre']").val('<:sarkaspip:titre_forum_nouveau_sujet|texte_script:>');
+			});
+		/*]]>*/</script>
+	</section>
+
+
+	</BOUCLE_article>
+<//B_forum>

@@ -1,0 +1,282 @@
+#CACHE{5}
+[(#REM)
+Plugin OpenID Connect client pour SPIP
+OIDC Client Monitoring
+Interroge le controleur OIDC Authorize avec prompt=none pour afficher l'état de connexion.
+Voir également action_logout() dans oidcclient_options.php.
+dnc28, dnc36
+Auteur : B.Degoy DnC
+Copyright (c) 2019 B.Degoy
+]
+
+<?php
+
+/**
+* Déterminer le login OIDC. Celui-ci peut-être différent du login SPIP. 
+* Dans ce cas, le login OIDC est précisé dans la table spip_auteurs. 
+*/
+$loginspip = @$GLOBALS['visiteur_session']['login'];
+$l = sql_quote($loginspip, '', 'text');
+$loginoidc = sql_getfetsel('oidc', 'spip_auteurs',
+    "statut<>'5poubelle'" .
+    " AND login<>'' AND login=$l");
+if ( empty($loginoidc) ) $loginoidc = $loginspip;
+$nom_auteur = sql_getfetsel('nom', 'spip_auteurs',
+    "statut<>'5poubelle'" .
+    " AND login<>'' AND login=$l");
+?>
+
+<script>
+
+    //[dnc28] OIDC Client Monitoring
+
+    <?php include_spip('inc/oidcclient_configuration');
+    $serveur_url = lire_config('oidcclient/cfg_oidcclient_server_url'); 
+    $infos =
+    '<br/>' . _T('oidcclient:serveur_url') . ' : <a href="' . $serveur_url . '">' . $serveur_url . '</a>' .
+    '<br/>' . _T('oidcclient:client_id') . ' : ' . OIDC_CLIENT_ID . 
+    '<br/>' . _T('oidcclient:login_spip') . ' : ' . $loginspip .
+    '<br/>' . _T('oidcclient:login_oidc_court') . ' : ' .  $loginoidc . 
+    '<br/>' . _T('oidcclient:nom_auteur') . ' : ' .  $nom_auteur;   
+    ?>
+    var login = "<?php echo $loginoidc; ?>";
+    var state = "<?php echo @$GLOBALS['visiteur_session']['state']; ?>";
+    var url_logout = "<?php echo '?action=logout&url=' . $GLOBALS['REQUEST_URI']; ?>";
+    var url_login_oidc = "<?php echo '?page=login_oidc&url=' . $GLOBALS['REQUEST_URI']; ?>";
+    var timeleft = 0;
+    var connected = 0;
+    var connectionMsg = '';
+    var interval = null;
+    var pollperiod = <?php echo OIDC_POLLPERIOD; ?>;
+    var tagappendto = '<?php echo OIDC_TAG_APPENDTO; ?>';
+    var tagtop = '<?php echo OIDC_TAG_TOP; ?>';
+    var tagleft = '<?php echo OIDC_TAG_LEFT; ?>';
+    var infos = '<?php echo  $infos; ?>';
+    var responseDelay = 'Unk';
+
+    $(document).on('ready',function(){
+
+        // Ajouter l'etiquette si elle n'existe pas
+        if($('#oidc').length === 0){
+            $('<div id="oidc"><span id="oidctag">&nbsp;OIDC&nbsp;</span><span id="oidcinfo">&nbsp;?&nbsp;</span></div>')
+            .appendTo(tagappendto);
+            //
+            $('#oidc')
+            .css('position','absolute')
+            .css('top',tagtop)
+            .css('left',tagleft);
+            //
+            $('#oidctag')
+            .css('color','white')
+            .css('padding','3px')
+            .css('z-index','10000')
+            .on('click', function(){
+                switch (connected) {
+                    case 0 :
+                        connectionMsg = '<?php echo "<:oidcclient:session_connected_non:>"; ?>';
+                        SessionOpenDialog(connectionMsg);
+                        break;
+                    case 1 :
+                        connectionMsg = '<?php echo "<:oidcclient:session_connected_oui:>"; ?>';
+                        SessionCloseDialog(connectionMsg);
+                        break;
+                    default :
+                    case -1 :
+                        connectionMsg = '<?php echo "<:oidcclient:session_connected_erreur:>"; ?>';
+                        break;
+                }; 
+            });
+            //
+            $('#oidcinfo') 
+            .css('color','white')
+            .css('padding','3px')
+            .css('z-index','10001')
+            .css('background-color','#09f')
+            .on('click', function(){
+                $('<div></div>').appendTo('body')
+                .html('<div><h6>'+ infos +'<br/><?php echo _T('oidcclient:t_session_restant'); ?> : ' + timeleft + ' s<br/><?php echo _T('oidcclient:delai_reponse'); ?> : ' + responseDelay +' ms</h6></div>')
+                .dialog({
+                    modal: true, title: "<?php echo _T('oidcclient:infos_titre'); ?>", zIndex: 10000, autoOpen: true,
+                    width: 'auto', resizable: false,
+                    close: function (event, ui) {
+                        $(this).remove();
+                        interval = setInterval(pollOidc,pollperiod);
+                    }
+                });
+
+                } 
+            );     
+        }
+
+        // Si on est loge localement, surveiller qu'on l'est egalement sur OIDC
+        if ( login !== "" ) {
+            pollOidc();
+            interval = setInterval(pollOidc,pollperiod);
+
+        } else {
+            connected = 0; 
+            // Signaler la deconnexion 
+            $('#oidctag').css('background-color', 'orange');
+            $('#oidctag').text(' OIDC ');
+        }
+
+        function SessionCloseDialog(message) {    //[dnc28d]
+            clearInterval(interval);
+            $('<div></div>').appendTo('body')
+            .html('<div><h6>'+message+'?</h6></div>')
+            .dialog({
+                modal: true, title: "<?php echo _T('oidcclient:session_close'); ?>", zIndex: 10000, autoOpen: true,
+                width: 'auto', resizable: false,
+                buttons: [
+                    {
+                        text: "<?php echo _T('item_oui'); ?>",
+                        click: function () {
+                            // Clore la session locale => globale
+                            window.location.replace(url_logout);
+                            $(this).dialog("close");
+                        }
+                    },{
+                        text: "<?php echo _T('item_non'); ?>",
+                        click: function () {                                                               
+                            $(this).dialog("close");
+                            interval = setInterval(pollOidc,pollperiod);
+                        }
+                    }
+                ],
+                close: function (event, ui) {
+                    $(this).remove();
+                    interval = setInterval(pollOidc,pollperiod);
+                }
+            });
+        };
+
+        function SessionOpenDialog(message) {    //[dnc28d]
+            clearInterval(interval);
+            $('<div></div>').appendTo('body')
+            .html('<div><h6>'+message+'?</h6></div>')
+            .dialog({
+                modal: true, title: "<?php echo _T('oidcclient:session_open'); ?>", zIndex: 10000, autoOpen: true,
+                width: 'auto', resizable: false,
+                buttons: [
+                    {
+                        text: "<?php echo _T('item_oui'); ?>",
+                        click: function () {
+                            // Se connecter
+                            window.location.replace(url_login_oidc);
+                            $(this).dialog("close");
+                        }
+                    },{
+                        text: "<?php echo _T('item_non'); ?>",
+                        click: function () {                                                                 
+                            $(this).dialog("close");
+                            interval = setInterval(pollOidc,pollperiod);
+                        }
+                    }
+                ],
+                close: function (event, ui) {
+                    $(this).remove();
+                    interval = setInterval(pollOidc,pollperiod);
+                }
+            });
+        };
+
+        function ExtendDialog(message) {    //[dnc28d]
+            clearInterval(interval);
+            $('<div></div>').appendTo('body')
+            .html('<div><h6>'+message+'?</h6></div>')
+            .dialog({
+                modal: true, title: "<?php echo _T('oidcclient:session_extend'); ?>", zIndex: 10000, autoOpen: true,
+                width: 'auto', resizable: false,
+                buttons: [
+                    {
+                        text: "<?php echo _T('item_oui'); ?>",
+                        click: function () {
+                            // Etendre la session
+                            $.ajax({
+                                type : "get",
+                                url : "<?php echo OIDC_AUTHORIZATION_ENDPOINT; ?>",
+                                data : { 'response_type' : 'code',
+                                    'client_id' : "<?php echo OIDC_CLIENT_ID; ?>",
+                                    'user_id' : login,
+                                    'state' :  state,
+                                    'scope' : 'openid sli',
+                                } 
+                            });
+                            $(this).dialog("close");
+                            interval = setInterval(pollOidc,pollperiod);
+                        }
+                    },{
+                        text: "<?php echo _T('item_non'); ?>",
+                        click: function () {                                                                 
+                            $(this).dialog("close");
+                            interval = setInterval(pollOidc,pollperiod);
+                        },
+                    }
+                ],
+                close: function (event, ui) {
+                    $(this).remove();
+                    interval = setInterval(pollOidc,pollperiod);
+                },
+            });
+        };
+
+        // Tester la connexion
+        function pollOidc(){
+            connected = -1;
+            var d = new Date();
+            var timeStart = d.getTime();
+            var timeStop = 0;
+            $.ajax({
+                type : "get",
+                url : "<?php echo OIDC_AUTHORIZATION_ENDPOINT; ?>",
+                data : { 'response_type' : 'code',
+                    'client_id' : "<?php echo OIDC_CLIENT_ID; ?>",
+                    'user_id' : login,
+                    'state' :  state,
+                    'scope' : 'openid',
+                    'prompt' : 'none',
+                },
+                statusCode : {
+                    401 : function(){
+                        connected = 0;
+                        var d = new Date();
+                        timeStop = d.getTime();
+                        // Non authentifie sur OIDC, deconnecter localement
+                        window.location.replace(url_logout +"&logout=local");
+                    },
+                    200 : function ( data, textStatus, jqXHR){
+                        connected = 1;
+                        var d = new Date();
+                        timeStop = d.getTime();
+                        // Signaler la connexion 
+                        $('#oidctag').css('background-color', '#8f8');
+                        $('#oidctag').text(' OIDC ');
+                        timeleft = data['timeleft'];
+                        if ( timeleft < 600 ) {  //[dnc28d]
+                            // La fin de session approche
+                            clearInterval(interval); 
+                            ExtendDialog("<?php echo _T('oidcclient:session_expire'); ?>");
+                            interval = setInterval(pollOidc,pollperiod);
+                        }
+                    },
+                },
+                error : function(obj,textStatus,errorThrown){
+                    connected = -1;
+                    // Signaler qu'on ne sait pas 
+                    $('#oidctag').css('background-color', 'red');
+                    $('#oidctag').text(textStatus + ' ' + errorThrown);
+                },
+                complete : function ( data, textStatus, jqXHR){
+                    if ( timeStop && timeStart ) {
+                        responseDelay = timeStop - timeStart;       
+                    } else {
+                        responseDelay = 'Unk';
+                    }
+                },
+
+            });    
+        } 
+
+    });
+
+</script>

@@ -1,0 +1,102 @@
+/*couleur principale*/
+body {background: #02461d;}
+#entete{ background: transparent url(./img/header-noise-green-center.jpg) no-repeat center top; }
+#entete-wrap{background: #02461d url(./img/header-noise-green-center.jpg) repeat-x center top;}
+#entete #slogan_site_spip{ border-left: 1px solid #87b298;}
+
+/* Les titres des menus et extra*/
+  #extra .liste .h2, 
+  #navigation .liste .h2 , 
+  #extra .contenu .h2, 
+  #navigation .contenu .h2 , 
+  #extra .formulaire_spip .h2 , 
+  #navigation .formulaire_spip .h2 {
+  background:transparent url(./img/box-title-bg-green-left.png) no-repeat top left;}
+
+  #extra #formulaire_recherche label ,
+  #navigation #formulaire_recherche label,
+  #extra #formulaire_menu_lang label ,
+  #navigation #formulaire_menu_lang label {
+  background:transparent url(./img/box-title-bg-green.png) no-repeat top left;}
+
+/* Les liens survolé */
+a:focus,a:hover,a:active {color: #65ae2b;}
+a:hover, a.spip_in:hover, a.spip_out:hover,a.spip_note:hover,a.spip_ancre:hover,a.spip_url:hover,a.spip_glossaire:hover, a.spip_mail:hover {color: #65ae2b;}
+.liste-items .item .h3 a:hover, .liste-items .item .entry-title a:hover, .resume .h3 a:hover{color: #65ae2b;}
+
+
+/*Contenu*/
+/* Conteneur */
+#conteneur-wrap{ background: #ddd url(./img/main2-bg.jpg) repeat center top; }
+
+/*couleurs des tables*/
+fieldset{  border: 1px solid #999; }
+table.spip td, table.spip th, table td, table th {border-right: 1px solid #fff;border-color: #fff;}
+table th , table.spip tr.row_first{
+  background: #7e7e7e;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+}
+table.spip td, table td{ background: #f1f1f1; }
+table.spip tr.row_odd { background: #f1f1f1; }
+table.spip tr.row_even td, table.spip tr.row_even{  background: #fff;}
+table.spip tr:hover td, table tr:hover td{  background: #fff;}
+
+.cartouche .spip_logos, .liste-items .item .spip_logos{
+	background: #ddd url(./img/logo-grey-bg.jpg) repeat scroll center top;
+	border: 1px solid #f2efe5;
+	} /*conteneur grey*/
+.liste-items .item .spip_logos:hover{
+	border-color: #75695E;
+	} /*conteneur grey*/
+/*formulaire*/
+.formulaire_spip fieldset, fieldset{ border: 1px solid #d2c7af;}
+
+/*forum et retour formulaire reprise couleur body*/
+.formulaire_spip fieldset.previsu {  border: 2px dashed #02461d; }
+.formulaire_spip fieldset.previsu legend { color: #02461d; }
+.reponse_formulaire { color: #02461d;  }
+fieldset.reponse_formulaire { border-color: #02461d; }
+fieldset.reponse_formulaire.reponse_formulaire legend { color:#02461d; }
+.forum-chapo{
+  background: #67b02c url(img/comment-head.png) repeat-x left bottom; /*couelur reprise des coté*/
+}
+/*habillage supplémentaire du contenu commun*/
+hr{color:  #999;background:  #999;
+  border-bottom: 1px solid  #999;
+}
+blockquote, blockquote.spip,blockquote.spip_poesie{
+  border: 1px dotted  #999;
+  color:  #999;  
+  }
+
+.documents_portfolio .spip_logos { border-color: #999; }  
+.documents_portfolio a.on .spip_logos { border-color: #666; }
+.documents_portfolio a:focus .spip_logos,
+.documents_portfolio a:hover .spip_logos,
+.documents_portfolio a:active .spip_logos { border-color: #CCC; }
+
+/*A adapter ou non ..*/
+.pagination , .pagination a { color: #A8937B; }
+.pagination .on { color: #A8937B; }
+#hierarchie, #hierarchie a {color: #A8937B; }
+.meta-publi{color: #a8937b;}
+.meta-publi a{color: #6b5e50;}
+/*les blocs de navigation et extra*/
+#extra .liste .liste-items,#extra  .contenu .texte, #navigation .liste .liste-items,#navigation  .contenu .texte,  #extra .formulaire_spip form, #navigation .formulaire_spip form {
+  background:#FFF;
+}
+  #extra .formulaire_spip fieldset,
+  #navigation .formulaire_spip fieldset,{
+  background:#FFF;
+}
+#navigation .formulaire_spip fieldset legend , #extra .formulaire_spip fieldset legend {   
+ background-color: background:#FFF; color: #333; } 
+
+/* pas de changement*/
+#pied{color: #e7e0c7;}
+#pied a{color: #a59079;}
+
+/*info-publi du forum*/
+.info-publi ul li a{color: #df2e56;}
+.info-publi ul li a{color: #f44365;}

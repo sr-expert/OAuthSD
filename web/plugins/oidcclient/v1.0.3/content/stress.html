@@ -1,0 +1,32 @@
+[(#REM) D'où vient la limitation à 1/s ?
+]
+
+Stressant!
+
+<script>
+
+    $(document).ready(function() {
+    var total = 0;
+
+        setInterval(function() {
+
+            total +=1;
+            $.ajax({
+                type : "get",
+                url : 'https://oa.dnc.global/authorize',
+                data : { 'response_type' : 'code',
+                    'client_id' : "essailogout",
+                    'user_id' : 'login',
+                    'state' :  total,
+                    'scope' : 'openid sli',
+                    'prompt' : 'none',
+                }
+            });
+
+        }, 100);
+
+
+    });
+
+</script>
+

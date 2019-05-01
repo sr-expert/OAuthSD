@@ -1,0 +1,7 @@
+[(#SET{ariane_separateur, #ENV{ariane_separateur}|is_null|non|?{#ENV{ariane_separateur},'&gt;'}})]
+[(#SET{ariane_separateur, [<span class="sep">(#GET{ariane_separateur})</span>]})]
+[(#SET{titre_racine,[(#ENV{titre_racine}|=={titre_perso}|?{[(#ENV**{titre_racine_perso}|typo)],[(#ENV{titre_racine,public:mots_clefs}|_T)]})]})]
+<p id="hierarchie">
+	[(#ENV{afficher_lien_accueil}|oui)<a href="#URL_SITE_SPIP/"><:accueil_site:></a>] [(#GET{ariane_separateur})] 
+	<strong class="on">[(#GET{titre_racine})]</strong>
+</p>

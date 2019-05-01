@@ -1,0 +1,6 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'ignorer_si_objet_unique'
+    label: '<:aveline:label_ignorer_si_objet_unique:>'
+    defaut: ''

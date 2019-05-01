@@ -1,0 +1,31 @@
+<BOUCLE_mot(MOTS) {id_mot}>
+[(#ENV{style_liste}|=={liste}|oui)
+	<li class="item">
+		<a href="#URL_MOT"[(#ENV{id_mot_expose}|=={#ID_MOT}) class="on"] rel="tag" >#TITRE</a>[(#ENV{liste_afficher_groupe}|oui)
+			[(#ENV{liste_lien_groupe_mots}|oui)<a href="#URL_PAGE{groupe_mots,id_groupe=#ID_GROUPE}">]([(#TYPE)])[(#ENV{liste_lien_groupe_mots}|oui)</a>]
+		]
+		[(#ENV{liste_afficher_statistiques_mot}|oui)<div class="info-publi">
+			[(#ID_MOT|statistiques_mot{#ID_GROUPE})]
+		<div>]
+	</li>
+]
+[(#ENV{style_liste}|=={resume}|oui)
+	<li class="item hentry">
+		<h3 class="h3 entry-title">
+			<a href="#URL_MOT"  rel="tag" [(#ENV{id_mot_expose}|=={#ID_MOT}) class="on"]>
+				[(#ENV{afficher_logo}|oui)
+					[(#LOGO_MOT||image_reduire{[(#ENV{taille_max_logo}|sinon{150})]})]
+				]
+				#TITRE
+			</a>
+		</h3>
+		[<div class="info-publi">(#ENV{afficher_groupe}|oui)[(#ENV{lien_groupe_mots}|oui)<a href="#URL_PAGE{groupe_mots,id_groupe=#ID_GROUPE}">]#TYPE[(#ENV{lien_groupe_mots}|oui)</a>]</div>]
+			
+		[(#ENV{afficher_introduction}|oui)[<div class="introduction entry-content">(#DESCRIPTIF|sinon{#TEXTE}|couper{[(#ENV{longueur_max_introduction}|sinon{600})]})</div>]]
+		[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_statistiques_mot}})<div class="meta-publi">]
+			[(#ENV{afficher_lire_la_suite}|oui)<a class="lire-la-suite" href="#URL_ARTICLE"><:zpip:lire_la_suite:>[(#ENV{rappeler_titre}|oui)<span class="lire-la-suite-titre"><:zpip:lire_la_suite_de:> <em>#TITRE</em></span>]</a>]
+			[(#ENV{afficher_statistiques_mot}|oui)[(#ENV{afficher_lire_la_suite}|oui)<span class="sep">|</span> ]]
+		[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_statistiques_mot}})[(#ID_MOT|statistiques_mot{#ID_GROUPE})]</div>]
+	</li>
+]
+</BOUCLE_mot>

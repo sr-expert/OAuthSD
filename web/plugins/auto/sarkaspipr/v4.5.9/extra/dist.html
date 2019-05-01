@@ -1,0 +1,25 @@
+[(#REM) <!-- Pipeline de debut pour inserer des noisettes perso --> ]
+[(#PIPELINE{colonne_extra_debut,
+	[(#ARRAY{args, [(#ENV*|unserialize)], data, ''})]}
+)]
+
+<INCLURE{fond=extra/inc-nav-base,env} />
+
+<INCLURE{fond=extra/inc-plugins,env} />
+
+<INCLURE{fond=extra/inc-recents,env} />
+
+[(#SI_PAGE{sommaire}|oui)
+	[(#REM) <!-- Blocs de statistiques --> ]
+	[(#CONFIG{sarkaspip/noisettes/position_stats_1, 1}|in_any{#LISTE{1,2}}|oui)
+		<INCLURE{fond=noisettes/statistiques/stats_site}>
+	]
+	[(#CONFIG{sarkaspip/noisettes/position_stats_2, 0}|in_any{#LISTE{1,2}}|oui)
+		<INCLURE{fond=noisettes/statistiques/liste-articles}>
+	]
+]
+
+[(#REM) <!-- Pipeline de fin pour inserer des noisettes perso --> ]
+[(#PIPELINE{colonne_extra_fin,
+	[(#ARRAY{args, [(#ENV*|unserialize)], data, ''})]}
+)]

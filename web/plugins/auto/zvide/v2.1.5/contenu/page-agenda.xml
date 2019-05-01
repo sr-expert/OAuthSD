@@ -1,0 +1,6 @@
+<page>
+	<nom><:zvide:nom_page-agenda:></nom>
+	<description><:zvide:description_page-agenda:></description>
+	<icon>agenda-24.png</icon>
+	<necessite id="agenda" />
+</page>

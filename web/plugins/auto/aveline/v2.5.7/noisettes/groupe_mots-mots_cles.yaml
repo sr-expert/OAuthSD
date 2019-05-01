@@ -1,0 +1,11 @@
+nom: '<:aveline:nom_groupe_mots-mots_cles:>'
+icon: 'mot-24.png'
+necessite:
+  - 'mots'
+contexte:
+  - 'id_groupe'
+  - 'lang'
+parametres:
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-mot.yaml'
+  - 'inclure:inc-yaml/resume-mot.yaml'

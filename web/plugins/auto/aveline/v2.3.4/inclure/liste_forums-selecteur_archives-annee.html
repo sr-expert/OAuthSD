@@ -1,0 +1,17 @@
+<B_forums_selecteur>
+<form action="#SELF" class="bouton_action_post ajax" method="get">
+	[(#SELF|parametre_url{archives, ''}|form_hidden)]
+	<p class="pagination selecteur_archives">
+		[(#ENV{texte_devant_selecteur_archives}|_T)]
+		<select name="archives" class="select" id="archives" style="display:inline;">
+			<option value=""><:avelinepublic:voir_tous:></option>
+		<BOUCLE_forums_selecteur(FORUMS){plat}{aveline_selecteur_archives_annee}{!par date_heure}>
+			<option value="[(#DATE_HEURE|affdate{'Y'})]"[(#ENV{archives}|=={[(#DATE_HEURE|affdate{'Y'})]}|oui)selected="selected" ] >
+				[(#DATE_HEURE|annee)] (#NB_ARCHIVES)
+			</option>
+		</BOUCLE_forums_selecteur>
+		</select>
+		<button type='submit' class='submit pagination'><:avelinepublic:voir:></button>
+	</p>
+</form>
+</B_forums_selecteur>

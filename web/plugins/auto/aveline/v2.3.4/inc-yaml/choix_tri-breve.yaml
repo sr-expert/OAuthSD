@@ -1,0 +1,48 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'choix_tri'
+    label: '<:aveline:label_choix_tri:>'
+    explication: '<:aveline:explication_choix_tri:>'
+-
+  saisie: 'fieldset'
+  options:
+    nom: 'si_choix_tri'
+    label: '<:aveline:label_si_choix_tri:>'
+    afficher_si: '@choix_tri@ == "on"'
+  saisies:
+    -
+      saisie: 'selection'
+      options:
+        nom: 'position_choix_tri'
+        label: '<:aveline:label_position_choix_tri:>'
+        defaut: 'debut'
+        cacher_option_intro: 'oui'
+        datas:
+          debut: '<:aveline:item_debut:>'
+          fin: '<:aveline:item_fin:>'
+          deux: '<:aveline:item_deux:>'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_tri_titre'
+        label: '<:avelinepublic:par_titre:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_tri_date'
+        label: '<:avelinepublic:b_les_plus_recentes:>'
+        defaut: 'on'
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_tri_anciens'
+        label: '<:avelinepublic:b_les_plus_anciennes:>'
+        defaut: ''
+    -
+      saisie: 'oui_non'
+      options:
+        nom: 'choix_tri_commentes'
+        label: '<:avelinepublic:b_les_plus_commentees:>'
+        defaut: ''

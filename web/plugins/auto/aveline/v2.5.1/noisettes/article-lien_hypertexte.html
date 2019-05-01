@@ -1,0 +1,8 @@
+[(#SET{titre_noisette, #ENV{titre_noisette}})]
+[(#SET{titre,[(#GET{titre_noisette}|=={titre_perso}|?{[(#ENV**{titre_noisette_perso}|typo)],[(#GET{titre_noisette}|_T)]})]})]
+
+<BOUCLE_article(ARTICLES){id_article}>
+[
+[(#ENV{afficher_titre_noisette}|oui)[<h2 class="h2">(#GET{titre})</h2>]]
+<p class="#EDIT{hyperlien} hyperlien"><a href="(#URL_SITE)" class="spip_out">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
+</BOUCLE_article>

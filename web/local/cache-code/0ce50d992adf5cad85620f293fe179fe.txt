@@ -1,0 +1,6 @@
+$data_string = json_encode($data);  
+curl_setopt($h, CURLOPT_POST, true);
+curl_setopt($h, CURLOPT_POSTFIELDS, $data_string);
+curl_setopt($h, CURLOPT_HTTPHEADER, array(                                                                          
+    'Content-Type: application/json',                                                                                
+    'Content-Length: ' . strlen($data_string)) 

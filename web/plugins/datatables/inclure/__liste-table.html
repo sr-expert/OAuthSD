@@ -1,0 +1,66 @@
+[(#REM)  //o
+Plugin DataTables
+Liste paginée d'une table avec Data Tables.
+
+Copyright(c) 2017 DnC
+Auteurs : Bertrand Degoy
+Licence : GPL 3
+]
+
+<h2>Table #ENV{table}</h2>
+
+<div class="nettoyeur"> </div>
+
+<B_table>
+    [<h3>(#GRAND_TOTAL) enregistrement(s) pour #ENV{table}</h3>]
+    <table id="tbl" class="display">
+
+        <B_thead>
+            <thead>
+                <tr>
+                    <BOUCLE_thead(DATA){source table, (#ENV{table}|table_champs)} {cle IN #ENV{champs}} >
+                    [<th>(#CLE)</th>]
+                    </BOUCLE_thead>
+                </tr>
+            </thead>
+        </B_thead>
+        
+        <tbody>
+
+            <BOUCLE_table(DATA){source sql, SELECT * FROM spip_#ENV{table}} >       
+
+            <B_valeur>
+                <tr>
+                    <BOUCLE_valeur(DATA){source table, #VALEUR}>
+                        [(#ENV{champs}|find{#CLE}|oui)
+                            <td>[(#VALEUR|sinon{' '})]</td>
+                        ]
+                    </BOUCLE_valeur>
+                </tr>
+            </B_valeur>
+
+            </BOUCLE_table>
+
+        </tbody>
+        
+        <B_tfoot>
+            <tfoot>
+                <tr>
+                    <BOUCLE_tfoot(DATA){source table, (#ENV{table}|table_champs)} {cle IN #ENV{champs}}>
+                    [<th>(#CLE)</th>]
+                    </BOUCLE_tfoot>
+                </tr>
+            </tfoot>
+        </B_tfoot>
+
+    </table>
+</B_table>
+[<p>Aucun enregistrement dans (#ENV{table})</p>]
+<//B_table>
+
+
+<script type="text/javascript">
+    $( function() {
+        $('#tbl').DataTable();
+    } );
+</script>

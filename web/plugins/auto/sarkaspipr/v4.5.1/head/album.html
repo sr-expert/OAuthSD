@@ -1,0 +1,5 @@
+<BOUCLE_album_head(ALBUMS){id_album}>
+	<title>[(#TITRE|textebrut) - ][(#NOM_SITE_SPIP|textebrut)]</title>
+	[<meta name="description" content="(#DESCRIPTIF|couper{#EVAL{_SARKASPIP_CONFIG_INTRO_META}}|attribut_html)" />]
+	[<link rel="canonical" href="(#URL_ALBUM|url_absolue)" />]
+</BOUCLE_album_head>

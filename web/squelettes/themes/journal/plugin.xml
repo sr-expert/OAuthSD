@@ -1,0 +1,12 @@
+<plugin>
+	<nom>Journal</nom>
+	<version>2.1.1</version>
+	<etat>stable</etat>
+	<auteur>Cedric</auteur>
+	<licence>GPL</licence>
+	<prefix>theme_bsjournal</prefix>
+	<description>Crisp like a new sheet of paper</description>
+	<icon>vignette.png</icon>
+	<utilise id="spipr" version="[0.1.0-dev;]" />
+	<categorie>theme</categorie>
+</plugin>

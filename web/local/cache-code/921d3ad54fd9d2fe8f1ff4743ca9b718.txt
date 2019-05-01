@@ -1,0 +1,35 @@
+/*
+Autorisation avec OAuth Server by DnC
+Auteur : Bertrand degoy
+Copyright (c) 2016 DnC
+*/
+
+function oauth_authorize($accesstoken) {
+
+    $Ok = false;
+
+    if ( !empty( $accesstoken ) ) {
+
+        // Interroger OAuth Server by DnC
+        include_spip('inc/distant');
+        $url = "http://oa.dnc.global/oauth/resource.php?access_token=" . $accesstoken;
+        $resource_response = recuperer_url($url);  
+        
+        if ( (int)$resource_response['status'] === 200 ) {
+            $page = json_decode($resource_response['page'], true);
+            if ( $page['success'] == 'true' ) {
+                if ( isset($_SERVER["HTTP_ORIGIN"]) ) {
+                    // Accès HTTP (CORS) : autoriser l'origine
+                    include_spip('inc/headers');
+                    $issuer = trim(strtr($_SERVER["HTTP_ORIGIN"], '<>"\'', '[]##'));    
+                    header('Access-Control-Allow-Origin', $issuer);
+                }
+                $Ok = true;
+            }
+        }
+
+    }
+
+    return $Ok;
+
+}

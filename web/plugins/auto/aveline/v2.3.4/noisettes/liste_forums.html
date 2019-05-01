@@ -1,0 +1,20 @@
+[(#SET{titre,[(#ENV{titre_liste}|=={titre_perso}|?{[(#ENV**{titre_liste_perso}|typo)],[(#ENV{titre_liste}|_T)]})]})]
+<B_liste_forums>
+<div class="liste forums">
+	#ANCRE_PAGINATION
+	[(#ENV{afficher_titre_liste}|oui)[<h2 class="h2">(#GET{titre}) [((#ENV{archives}|affdate|sinon{#ENV{archives}}))]</h2>]]
+	[(#ENV{afficher_selecteur_archives}|et{#ENV{position_selecteur_archives}|!={fin}})
+		#INCLURE{fond=inclure/liste_forums-selecteur_archives-#ENV{pas_selecteur_archives},env}
+	]
+	[<p class="pagination">(#AVELINE_PAGINATION{'debut'})</p>]
+	<ul class="liste-items">
+	<BOUCLE_liste_forums(FORUMS){plat}{tri #ENV{tri},#ENV{senstri}}{archives?}{aveline_pagination}>
+		#INCLURE{fond=inclure/forum-resume,id_forum=#ID_FORUM,env}
+	</BOUCLE_liste_forums>
+	</ul>
+	[<p class="pagination">(#AVELINE_PAGINATION{'fin'})</p>]
+	[(#ENV{afficher_selecteur_archives}|et{#ENV{position_selecteur_archives}|!={debut}})
+		#INCLURE{fond=inclure/liste_forums-selecteur_archives-#ENV{pas_selecteur_archives},env}
+	]
+</div>
+</B_liste_forums>

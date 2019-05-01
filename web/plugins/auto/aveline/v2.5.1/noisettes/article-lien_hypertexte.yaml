@@ -1,0 +1,30 @@
+nom: '<:aveline:nom_article-lien_hypertexte:>'
+icon: 'information-24.png'
+ajax: 'non'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_titre_noisette'
+      label: '<:aveline:label_afficher_titre_noisette:>'
+      defaut: 'on'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'titre_noisette'
+      label: '<:aveline:label_titre_noisette:>'
+      defaut: 'public:voir_en_ligne'
+      cacher_option_intro: 'oui'
+      datas:
+        'public:voir_en_ligne': '<:public:voir_en_ligne:>'
+        'ecrire:info_lien_hypertexte': '<:ecrire:info_lien_hypertexte:>'
+        'avelinepublic:source': '<:avelinepublic:source:>'
+        titre_perso: '<:aveline:item_titre_perso:>'
+      afficher_si: '@afficher_titre_noisette@ == "on"'
+  -
+    saisie: 'input'
+    options:
+      nom: 'titre_noisette_perso'
+      label: '<:aveline:label_titre_noisette_perso:>'
+      explication: '<:aveline:explication_raccourcis_typo:>'
+      afficher_si: '@afficher_titre_noisette@ == "on" && @titre_noisette@ == "titre_perso"'

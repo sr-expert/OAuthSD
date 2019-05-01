@@ -1,0 +1,12 @@
+<plugin>
+	<nom>Superhero</nom>
+	<version>2.1.1</version>
+	<etat>test</etat>
+	<auteur>Cedric</auteur>
+	<licence>GPL</licence>
+	<prefix>theme_bssuperhero</prefix>
+	<description>Batman meets... Aquaman?</description>
+	<icon>vignette.png</icon>
+	<utilise id="spipr" version="[0.1.0-dev;]" />
+	<categorie>theme</categorie>
+</plugin>

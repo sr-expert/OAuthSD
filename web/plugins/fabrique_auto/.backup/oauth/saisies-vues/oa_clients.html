@@ -1,0 +1,20 @@
+<BOUCLE_test_multiple(CONDITION){si #ENV{multiple}|=={on}|oui}>
+	[(#SET{valeur,[(#ENV*{valeur}|is_array|?{[(#ENV*{valeur})],[(#ENV*{valeur}|explode{','})]})]})]
+	<B_oa_clients_selectionnes>
+	<ul>
+	<BOUCLE_oa_clients_selectionnes(OA_CLIENTS){client_id IN #GET*{valeur}}
+		{par num , }{statut?}{tout}>
+		<li class="choix"># (#CLIENT_ID)</li>
+	</BOUCLE_oa_clients_selectionnes>
+	</ul>
+	</B_oa_clients_selectionnes>
+   	[(#ENV*{sans_reponse}|propre)]
+	<//B_oa_clients_selectionnes>
+</BOUCLE_test_multiple>
+	<BOUCLE_client_id_selectionne(OA_CLIENTS){client_id=#ENV{valeur}}
+		{par num , }{statut?}{tout}>
+	  	<p># (#CLIENT_ID)</p>
+	</BOUCLE_client_id_selectionne>
+   	[(#ENV*{sans_reponse}|propre)]
+	<//B_client_id_selectionne>
+<//B_test_multiple>

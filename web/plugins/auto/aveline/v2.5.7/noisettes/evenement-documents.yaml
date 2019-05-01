@@ -1,0 +1,12 @@
+nom: '<:aveline:nom_evenement-documents:>'
+description: '<:aveline:description_documents:>'
+icon: 'doc-24.png'
+contexte:
+  - 'lang'
+  - 'id_evenement'
+parametres:
+  - 'inclure:inc-yaml/tri-document.yaml'
+  - 'inclure:inc-yaml/inclure_exclure-document.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-document.yaml'
+  - 'inclure:inc-yaml/resume-document.yaml'

@@ -1,0 +1,23 @@
+#SET{name,article_#ENV{article}}#SET{defaut,0}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+<li class="editer pleine_largeur">
+	[<p class="explication">(#ENV{explication})</p>]
+</li>
+<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+	<label for="#GET{name}"><:sarkaspip_config:cfg_lbl_liste_articles:></label>[
+	<span class='erreur_message'>(#GET{erreurs})</span>
+	]<select name="#GET{name}[(#ENV{multiple}|?{\[\]})]" class="select" id="#GET{name}"[ (#ENV{multiple}|oui)multiple="multiple"]>
+		[(#ENV{multiple}|non)
+		#SET{val,0}
+		<option value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)selected="selected"]>--</option>
+		]
+		<BOUCLE_articles(ARTICLES){id_secteur=#RACINE_SPECIALISEE{squelette}}{par num titre}{par titre}>
+			#SET{val,#ID_ARTICLE}
+			[(#ENV{multiple}|non)
+			<option value="#GET{val}"[(#ENV{#GET{name},#GET{defaut}}|=={#GET{val}}|oui)selected="selected"]>[(#TITRE|sinon{sans titre}|attribut_html)]</option>
+			]
+			[(#ENV{multiple}|oui)
+			<option value="#GET{val}"[(#GET{val}|in_array{#ENV{#GET{name},#LISTE{#GET{defaut}}}}|oui)selected="selected"]>[(#TITRE|sinon{sans titre}|attribut_html)]</option>
+			]
+		</BOUCLE_articles>
+	</select>
+</li>

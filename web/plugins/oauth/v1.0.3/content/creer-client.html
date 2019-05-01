@@ -1,0 +1,35 @@
+#CACHE{0}
+
+<div class="breadcrumb"><a href="/">Accueil</a> - <a href="./spip.php?page=gerer">Gestion</a> - Inscrire une application</div>
+
+#INCLURE{fond=inclure/identification,env}
+
+<BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
+    
+    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+
+    [(#ENV{id_client}|oui)
+        [(#AUTORISER{modifier,client,#ENV{id_client}}|oui)
+            <h2>Editer l'application cliente # #ENV{id_client}</h2>
+            #FORMULAIRE_EDITER_CLIENT
+        ]
+    ]
+
+    [(#ENV{id_client}|non)
+        [(#AUTORISER{creer,client}|oui)
+            <h2>Inscrire une application cliente</h2>
+            #FORMULAIRE_EDITER_CLIENT
+        ]
+    ]
+
+    <p>Aide : <br />
+    <a href="./article7">Pour OAuth 2.0</a><br />
+    <a href="./article48">Pour OpenID Connect</a>
+    </p>
+    
+    <br />
+    Nota : L'inscription d'une application cliente est soumise à l'approbation de l'administrateur.
+    
+    ]
+
+</BOUCLE_auteur>

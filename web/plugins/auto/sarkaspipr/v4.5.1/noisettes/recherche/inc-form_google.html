@@ -1,0 +1,14 @@
+<div class="recherche google muted">
+	<strong class="h3-like"><:sarkaspip:sstitre_recherche_web:> <small><a href="http://www.google.fr"><img class="moteur" src="#CHEMIN{images/logo-google.gif}" alt="Google" /></a></small></strong>
+	<div class="formulaire_spip formulaire_recherche form-search google">
+		[(#REM) <!-- Google Search --> ]
+		<form method="get" action="http://www.google.fr/search"><div>
+			<input type="hidden" name="hl" value="fr" />
+			<label class="muted" for="q"><:info_rechercher_02:></label>
+			<div class="input-append">
+				<input type="search" class="search text search-query" placeholder="<:sarkaspip:requete:>" maxlength="255" name="q" id="q"[ value="(#ENV{recherche})"] autocapitalize="off" autocorrect="off" />
+				<button type="submit" class="btn" title="<:info_rechercher|attribut_html:>" >&gt;&gt;</button>
+			</div>
+		</div></form>
+	</div>
+</div>

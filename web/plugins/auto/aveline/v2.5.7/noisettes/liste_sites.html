@@ -1,0 +1,14 @@
+[(#SET{titre,[(#ENV{titre_liste}|=={titre_perso}|?{[(#ENV**{titre_liste_perso}|typo)],[(#ENV{titre_liste}|_T)]})]})]
+<B_liste_sites>
+<div class="liste sites">
+	#ANCRE_PAGINATION
+	[(#ENV{afficher_titre_liste}|oui)[<h2 class="h2">(#GET{titre})</h2>]]
+	[<p class="pagination">(#AVELINE_PAGINATION{'debut'})</p>]
+	<ul class="liste-items">
+	<BOUCLE_liste_sites(SITES){aveline_branche}{tri #ENV{tri},#ENV{senstri}}{aveline_pagination}{aveline_exclure_objet_encours}>
+		#INCLURE{fond=inclure/site-resume,id_syndic=#ID_SYNDIC,id_syndic_expose=#ENV{id_syndic},env}
+	</BOUCLE_liste_sites>
+	</ul>
+	[<p class="pagination">(#AVELINE_PAGINATION{'fin'})</p>]
+</div>
+</B_liste_sites>

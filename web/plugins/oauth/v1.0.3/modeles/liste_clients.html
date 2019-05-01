@@ -1,0 +1,41 @@
+<B_o> 
+    #ANCRE_PAGINATION
+    <table class="liste_clients liste">
+        <tr><td><b>#</b></td><td><b>Client ID</b></td><td><b>Redirect URI</b></td><td><b>Grant Type</b></td><td><b>Statut</b></td><td><b>Action</b></td></tr>
+        <BOUCLE_o (spip_auteurs_liens) {objet = client} {id_auteur=#SESSION{id_auteur}} {pagination 10} >
+            <BOUCLE_ligne (CLIENTS) {id_client = #ID_OBJET} {statut IN prop,prepa,publie,refuse,poubelle} >
+                <td width="5%" style="padding-right: 9px;">
+                    <a href="./spip.php?page=creer-client&id_client=#ID_CLIENT">#ID_CLIENT</a>
+                </td>
+                <td width="15%">
+                    #CLIENT_ID
+                </td>
+                <td width="35%">
+                    <a href="http://#REDIRECT_URI">#REDIRECT_URI</a>
+                </td>
+                <td width="25%" style="padding-right: 9px;">
+                    #GRANT_TYPES
+                </td>
+                <td width="10%">   
+                    [(#STATUT|=={prepa}|oui)Attente] 
+                    [(#STATUT|=={prop}|oui)Attente]
+                    [(#STATUT|in_array{#ARRAY{refuse,poubelle}}|oui)Refusé] 
+                    [(#STATUT|=={publie}|oui)Actif]       
+                </td>
+                <td width="10%">
+                    <a href="./spip.php?page=creer-client&id_client=#ID_CLIENT">éditer</a>
+                    <br />
+                    <a href="./spip.php?page=gerer-public_keys&id_client=#ID_CLIENT">clés</a>
+                    <br />
+                    <a href="./spip.php?page=supprimer-client&id_client=#ID_CLIENT">supprimer</a>       
+                </td>
+                </tr>
+            </BOUCLE_ligne>
+            </B_ligne>
+        </BOUCLE_o>
+    </table>
+    <p class="pagination">#PAGINATION</p>
+</B_o>
+Vous n'avez pas d'application cliente ! <br />
+<a href="./spip.php?page=creer-client">Ajouter (Inscrire) une application cliente</a><br />
+<//B_o>

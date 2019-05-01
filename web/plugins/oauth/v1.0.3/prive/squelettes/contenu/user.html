@@ -1,0 +1,54 @@
+[(#AUTORISER{voir,user,#ID_USER}|sinon_interdire_acces)]
+<BOUCLE_user(USERS){id_user}{statut==.*}{si #ENV{exec}|=={user}}>
+[(#BOITE_OUVRIR{[
+	[(#AUTORISER{modifier,user,#ID_USER})
+		[(#ID_USER|afficher_qui_edite{user}|non)
+			[(#URL_ECRIRE{user_edit,id_user=#ID_USER}|icone_verticale{<:user:icone_modifier_user:>,user,edit,right ajax preload})]
+		]
+		[(#ID_USER|afficher_qui_edite{user}|oui)
+			[(#URL_ECRIRE{user_edit,id_user=#ID_USER}|icone_verticale{#ID_USER|afficher_qui_edite{user},warning-24,'',right edition_deja ajax preload})]
+		]
+	]
+
+	<h1>[(#RANG). ](#|sinon{<:info_sans_titre:>})[(#CHEMIN_IMAGE{user-24.png}|balise_img{user,cadre-icone})]</h1>
+
+],simple fiche_objet})]
+
+<div class="ajax">
+	#FORMULAIRE_DATER{user,#ID_USER}
+</div>
+
+<!--affiche_milieu-->
+
+<div id="wysiwyg">
+<INCLURE{fond=prive/objets/contenu/user,id=#ID_USER,id_user=#ID_USER,virtuel=oui,ajax=wysiwyg,wysiwyg=1}>
+</div>
+
+<div class="nettoyeur"></div>
+
+[(#AUTORISER{modifier,user,#ID_USER})
+	[(#ID_USER|afficher_qui_edite{user}|non)
+		[(#URL_ECRIRE{user_edit,id_user=#ID_USER}|icone_verticale{<:user:icone_modifier_user:>,user,edit,right ajax preload})]
+	]
+	[(#ID_USER|afficher_qui_edite{user}|oui)
+		[(#URL_ECRIRE{user_edit,id_user=#ID_USER}|icone_verticale{#ID_USER|afficher_qui_edite{user},warning-24,'',right edition_deja ajax preload})]
+	]
+]
+
+#PIPELINE{afficher_complement_objet,#ARRAY{args,#ARRAY{type,user,id,#ID_USER},data,'<div class="nettoyeur"></div>'}}
+
+#BOITE_FERMER
+
+
+#SET{enfants,''}
+[(#VAL{prive/objets/contenu/user-enfants}|trouver_fond|oui)
+	[(#SET{enfants,[(#INCLURE{fond=prive/objets/contenu/user-enfants,id_user,env})]})]
+]
+[(#PIPELINE{affiche_enfants,[(#ARRAY{args,#ARRAY{exec,user,id_user,#ID_USER,objet,user,id_objet,#ID_USER},data,#GET{enfants}})]})]
+
+[(#EVAL{_AJAX}|oui)
+	<script type="text/javascript">/*<!\\[CDATA\\[*/reloadExecPage('#ENV{exec}','#navigation,#chemin,#extra');/*\\]\\]>*/</script>
+]
+</BOUCLE_user>
+[(#ENV**{exec}|=={user_edit}|?{#INCLURE{fond=prive/squelettes/contenu/user_edit,redirect='',env,retourajax=oui},#REM|sinon_interdire_acces})]
+<//B_user>

@@ -1,0 +1,18 @@
+[(#REM) 
+<!-- Liens vers les documents joints, a l'exclusion des images, pour la rubrique ou l'article concerne
+	Recoit en argument :
+		- id_article: id de l'article concerne
+		- id_rubrique: id de la rubrique concernee 
+		- avec_descriptif: indique si en plus du titre on affiche le descriptif du document
+-->
+]
+<B_documents_objet>
+	<div id="documents_joints" class="documents_joints liste portfolio documents">
+		<h2><:sarkaspip:docu_article|ucfirst:></h2>
+		<ul class="liste-items">
+		<BOUCLE_documents_objet(DOCUMENTS){id_article ?}{id_rubrique ?}{id_objet ?}{objet ?}{extension !IN gif,jpg,png}{mode=document}{vu=non}{par num titre, id_document}>
+			<li class="item">#INCLURE{fond=inclure/resume/document,id_document}</li>
+		</BOUCLE_documents_objet>
+		</ul>
+	</div> <!-- Fin portfolio -->
+</B_documents_objet>

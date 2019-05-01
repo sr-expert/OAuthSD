@@ -1,0 +1,16 @@
+// Méthode Auth Header
+
+    $h = curl_init('https://oa.dnc.global/userinfo');
+    curl_setopt($h, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($h, CURLOPT_TIMEOUT, 10);
+    curl_setopt($h, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $access_token));
+
+    $res = curl_exec($h);
+    if (!$res)
+        exit(curl_error($h));
+
+    curl_close($h);
+    $res = json_decode($res, true);
+
+    echo "UserInfo Response:\n";
+    print_r($res);

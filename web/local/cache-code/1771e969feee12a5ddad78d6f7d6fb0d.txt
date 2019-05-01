@@ -1,0 +1,27 @@
+/*
+Autorisation avec OAuth Server by DnC
+Auteur : Bertrand degoy
+Copyright (c) 2016 DnC
+*/
+
+function oauth_authorize($accesstoken) { 
+
+    if ( !empty( $accesstoken ) ) {
+
+        // Interroger OAuth Server by DnC
+        include_spip('inc/distant');
+        // Vérifier le jeton d'accès (access token)
+        $url = "http://oa.dnc.global/oauth/resource.php?access_token=" . $accesstoken;
+        $res = recuperer_url($url);  
+        if ( (int)$res['status'] === 200 ) {
+            if ( isset($_SERVER["HTTP_ORIGIN"]) ) {
+                // Accès HTTP (CORS) : autoriser l'origine
+                $issuer = trim(strtr($_SERVER["HTTP_ORIGIN"], '<>"\'', '[]##'));    
+                header('Access-Control-Allow-Origin', $issuer);
+            }
+            return true ;
+        }
+
+    } else return false; 
+
+}    

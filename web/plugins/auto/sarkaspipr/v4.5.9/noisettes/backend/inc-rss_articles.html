@@ -1,0 +1,7 @@
+[(#REM)	<!-- On diffuse les articles des n derniers jours --> ]
+<BOUCLE_articles_recents(ARTICLES){lang ?}{branche ?}{id_mot ?}{id_auteur ?}{id_secteur!==#RACINE_SPECIALISEE}{par date}{inverse}{0, #CONFIG{sarkaspip/backend/nb_articles, 10}}{doublons ARTICLE}>
+	<INCLURE{fond=inc-rss-item}{id_article}>
+</BOUCLE_articles_recents>
+<BOUCLE_articles_tres_recents(ARTICLES){lang ?}{branche ?}{id_mot ?}{id_auteur ?}{id_secteur!==#RACINE_SPECIALISEE}{par date}{inverse}{age<#CONFIG{sarkaspip/backend/age_articles, 3}}{doublons ARTICLE}>
+	<INCLURE{fond=inc-rss-item}{id_article}>
+</BOUCLE_articles_tres_recents>

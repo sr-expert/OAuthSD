@@ -1,0 +1,9 @@
+{
+    "require": {
+        "bshaffer/oauth2-server-php": "~1.8",
+        "defuse/php-encryption": "^2.0"
+    },
+    "autoload": {
+        "php-encryption": {"Defuse\\": "src/"}
+    }
+}

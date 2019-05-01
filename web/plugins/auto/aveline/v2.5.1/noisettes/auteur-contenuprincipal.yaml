@@ -1,0 +1,36 @@
+nom: '<:aveline:nom_auteur-contenuprincipal:>'
+description: '<:aveline:description_auteur-contenuprincipal:>'
+icon: 'contenu-24.png'
+ajax: 'non'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_logo'
+      label: '<:aveline:label_afficher_logo:>'
+      defaut: 'on'
+  -
+    saisie: 'input'
+    options:
+      nom: 'taille_max_logo'
+      label: '<:aveline:label_taille_max_logo:>'
+      defaut: 200
+      afficher_si: '@afficher_logo@ == "on"'
+    verifier:
+      type: 'entier'
+      min: 10
+  -
+    saisie: 'input'
+    options:
+      nom: 'taille_max_images_texte'
+      label: '<:aveline:label_taille_max_images_texte:>'
+      defaut: 500
+    verifier:
+      type: 'entier'
+      min: 10
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_site_web'
+      label: '<:aveline:label_afficher_site_web:>'
+      defaut: 'on'

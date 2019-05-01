@@ -1,0 +1,124 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'liste_afficher_surtitre'
+    label: '<:aveline:label_afficher_surtitre:>'
+    defaut: ''
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'liste_afficher_soustitre'
+    label: '<:aveline:label_afficher_soustitre:>'
+    defaut: ''
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'liste_afficher_note'
+    label: '<:aveline:label_afficher_note:>'
+    defaut: ''
+    afficher_si: '@plugin:notation@'
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'liste_afficher_date'
+    label: '<:aveline:label_afficher_date_publication:>'
+    defaut: ''
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'liste_afficher_date_en_surtitre'
+    label: '<:aveline:label_afficher_date_en_surtitre:>'
+    defaut: ''
+    afficher_si: '@liste_afficher_date@ == "on"'
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'liste_afficher_date_modif'
+    label: '<:aveline:label_afficher_date_modif:>'
+    defaut: ''
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'liste_afficher_auteurs'
+    label: '<:aveline:label_afficher_auteurs:>'
+    defaut: ''
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'liste_afficher_source_rss'
+    label: '<:aveline:label_afficher_source_rss:>'
+    explication: '<:aveline:explication_afficher_source_rss:>'
+    defaut: ''
+    afficher_si: '@plugin:rssarticle@'
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'liste_afficher_source_rss_soustitre'
+    label: '<:aveline:label_afficher_source_rss_soustitre:>'
+    defaut: ''
+    afficher_si: '@plugin:rssarticle@ && @afficher_source_rss@ == "on"'
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'liste_afficher_rubrique'
+    label: '<:aveline:label_afficher_rubrique:>'
+-
+  saisie: 'selection'
+  options:
+    nom: 'liste_texte_devant_rubrique'
+    label: '<:aveline:label_texte_devant_rubrique:>'
+    defaut: 'avelinepublic:rubrique_deux_points'
+    afficher_si: '@liste_afficher_rubrique@ == "on"'
+    datas:
+      'avelinepublic:rubrique_deux_points': '<:avelinepublic:rubrique_deux_points:>'
+      'avelinepublic:categorie_deux_points': '<:avelinepublic:categorie_deux_points:>'
+      'avelinepublic:theme_deux_points': '<:avelinepublic:theme_deux_points:>'
+      'avelinepublic:sujet_deux_points': '<:avelinepublic:sujet_deux_points:>'
+      'avelinepublic:dans': '<:avelinepublic:dans:>'
+      'avelinepublic:colon2' : '<:avelinepublic:colon2:>'
+      'avelinepublic:gt' : '<:avelinepublic:gt:>'
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'liste_afficher_mots_cles'
+    label: '<:aveline:label_afficher_mots_cles:>'
+    defaut: ''
+-
+  saisie: 'selection'
+  options:
+    nom: 'liste_texte_devant_mots_cles'
+    label: '<:aveline:label_texte_devant_mots_cles:>'
+    defaut: 'avelinepublic:mots_cles_deux_points'
+    afficher_si: '@liste_afficher_mots_cles@ == "on"'
+    datas:
+      'avelinepublic:mots_cles_deux_points': '<:avelinepublic:mots_cles_deux_points:>'
+      'avelinepublic:tags_deux_points': '<:avelinepublic:tags_deux_points:>'
+      'avelinepublic:categories_deux_points': '<:avelinepublic:categories_deux_points:>'
+      'avelinepublic:themes_deux_points': '<:avelinepublic:themes_deux_points:>'
+      'avelinepublic:sujets_deux_points': '<:avelinepublic:sujets_deux_points:>'
+      'avelinepublic:colon2' : '<:avelinepublic:colon2:>'
+      'avelinepublic:gt' : '<:avelinepublic:gt:>'
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'liste_afficher_nb_commentaires'
+    label: '<:aveline:label_afficher_nb_commentaires:>'
+    defaut: ''
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'liste_afficher_popularite'
+    label: '<:aveline:label_afficher_popularite:>'
+    defaut: ''
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'liste_afficher_visites'
+    label: '<:aveline:label_afficher_visites:>'
+    defaut: ''
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'liste_afficher_traductions'
+    label: '<:aveline:label_afficher_traductions:>'
+    defaut: ''

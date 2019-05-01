@@ -1,0 +1,45 @@
+[(#REM) 
+<!-- Presentation de la photo agrandie
+	Recoit en argument :
+		- id_document: id de la photo concernee
+		- effet_galerie: precise le type de plugin utilise pour l'effet galerie: mediabox, aucun
+-->
+]
+<script type='text/javascript'>
+//<![CDATA[ 
+	// Uniquement pour le premier affichage de la page
+	jQuery(window).load(function(){
+		var lpadding = Math.round((jQuery("#conteneur_photo").width() - jQuery("#image_agrandie").width()) / 2);
+		// On la centre en changeant le padding left de son conteneur
+		jQuery("#conteneur_photo").css("padding-left", lpadding);
+	});
+//]]>
+</script>
+
+<B_zoom>
+<div class="zoom">
+<BOUCLE_zoom(DOCUMENTS){id_document}>
+	[(#REM) <!-- Affichage de la photo agrandie et centree -->]
+	[(#SET{titre, [(#TITRE|texte_backend|couper{#EVAL{_SARKASPIP_CONFIG_TAILLE_TITRE_IMAGE}}|sinon{[(#TYPE_DOCUMENT) - ][(#TAILLE|taille_en_octets)]})]})]
+
+	[<div id="conteneur_photo">
+		<a href="#FICHIER"[ class="(#ENV{effet_galerie})"][ title="(#GET{titre})"]>
+			(#FICHIER|copie_locale|image_reduire{#EVAL{_SARKASPIP_CONFIG_TAILLE_MAX_PHOTO}}|inserer_attribut{alt, #GET{titre}}|inserer_attribut{id, image_agrandie})
+		</a>
+	</div>]
+
+	[(#REM) <!-- Affichage du titre centre -->]
+	[<div class="#EDIT{titre}" id="titre_photo">(#GET{titre})</div>]
+
+	[(#REM) <!-- Affichage du descriptif -->]
+	[<div class="description texte #EDIT{descriptif}" id="descriptif_photo">(#DESCRIPTIF)</div>]
+
+	[(#REM) <!-- Affichage du descriptif -->]
+	[(#PLUGIN{PHOTO_INFOS}|oui)
+		[(#ENV{avec_exif}|=={oui}|oui)
+			<INCLURE{fond=noisettes/album/meta-exif}{fichier=#FICHIER}>
+		]
+	]
+</BOUCLE_zoom>
+</div>
+</B_zoom>

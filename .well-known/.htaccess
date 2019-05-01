@@ -1,0 +1,3 @@
+<FilesMatch "^openid-configuration">
+    ForceType application/json
+</FilesMatch>

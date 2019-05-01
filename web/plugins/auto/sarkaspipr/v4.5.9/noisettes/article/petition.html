@@ -1,0 +1,37 @@
+[(#REM) 
+<!-- Petition de l'article
+	Recoit en argument :
+		- id_article: id de l'article concernee
+-->
+]
+<div id="petition" class="liste long petition signatures signatures_article">
+	<B_signatures>
+		[(#ANCRE_PAGINATION)]
+		<h2>[(#GRAND_TOTAL|objet_afficher_nb{signature})]</h2>
+
+		[[<div class="pagination pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{top})]
+		<table class="spip">
+			<thead>
+				<tr class="row_first">
+					<th><:sarkaspip:date:></th>
+					<th><:sarkaspip:nom:></th>
+					<th><:sarkaspip:sites_web:></th>
+					<th><:sarkaspip:message:></th>
+				</tr>
+			</thead>
+			<tbody>
+			<BOUCLE_signatures(SIGNATURES) {id_article} {par date} {inverse} {pagination #CONFIG{sarkaspip/article/pas_pagination_signatures, 5}}>
+				<tr [class="(#COMPTEUR_BOUCLE|alterner{'row_even','row_odd'})"]>
+					<td>[(#DATE|affdate_court)]</td>
+					<td>#NOM</td>
+					<td><a href="#URL_SITE">[(#NOM_SITE)]</a></td>
+					<td class="#EDIT{message}">[(#MESSAGE)]</td>
+				</tr>
+			</BOUCLE_signatures>
+			</tbody>
+		</table>
+
+		[[<div class="pagination pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{bottom})]
+
+	</B_signatures>
+</div>

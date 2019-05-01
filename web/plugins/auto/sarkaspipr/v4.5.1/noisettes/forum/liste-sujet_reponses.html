@@ -1,0 +1,43 @@
+[(#REM) 
+<!-- Sujet et ses reponses. Affichage en fin de page du formulaire d'ajout d'une reponse
+	Recoit en argument :
+		- id_forum: id du sujet concerne
+		- id_thread: id du fil concerne
+		- verrou: indique si le sujet est verrouille ou pas
+		- le verrou sera posé si besoin en analysant le titre du post (recherche de "_verrouillé_")
+		- sens_tri : sens de tri par date des réponses
+-->
+]
+[(#ENV{verrou}|=={lock}|oui)#SET{verrou, lock}]
+<BOUCLE_titre(FORUMS){id_forum=#ENV{id_thread}}>
+		[(#TITRE|strstr{_verrouille_}|oui) #SET{verrou, lock}]
+</BOUCLE_titre>
+
+
+[(#REM) Cette balise (invisible) provoque le recalcul du forum la premiere fois qu'un message est poste (cf. inc/invalideur). ]
+[(#PARAMETRES_FORUM|?{''})]
+<B_comments_list>
+<div class="forum">
+	<h2><span class="label"><:sarkaspip:forum_sujet_reponses:></span></h2>
+	<ul class="comments-ul comments-items">
+		<BOUCLE_comments_list(FORUMS){id_thread}{id_forum!=#ENV{id_forum}}{plat} {par date}{inverse #ENV{sens_tri}}{pagination #CONFIG{sarkaspip/forum/pas_pagination_2, 30}}>
+		<li class="comment-li comment-item[ (#COMPTEUR_BOUCLE|alterner{'odd','even'})][ (#COMPTEUR_BOUCLE|=={1}|oui)first][ (#EXPOSE)][(#ID_OBJET|me{#OBJET,#ID_AUTEUR})me]">
+			<INCLURE{fond=inclure/comment,id_forum,compteur=#COMPTEUR_BOUCLE} />
+		</li>
+		</BOUCLE_comments_list>
+	</ul>
+</div>
+</B_comments_list>
+
+[(#REM) <!-- Forumlaire de reponse --> ]
+[(#GET{verrou}|non)
+<div class="formulaire" id="formulaire_reponse">#FORMULAIRE_FORUM{#SELF}</div>
+]
+
+<script type='text/javascript'>
+//<![CDATA[ 
+	jQuery(document).ready(function() {
+		jQuery('#formulaire_forum .saisie_titre').hide();
+	});
+//]]>
+</script>

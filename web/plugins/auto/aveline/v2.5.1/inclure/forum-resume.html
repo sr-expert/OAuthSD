@@ -1,0 +1,25 @@
+<BOUCLE_forum(FORUMS) {id_forum} {statut?}>
+[(#ENV{style_liste}|=={liste}|oui)
+	<li class="item">
+		[(#ENV{liste_afficher_date}|oui)[(#DATE|affdate_jourcourt) &ndash;]
+		][(#ENV{liste_afficher}|=={titre}|oui)<a href="#URL_FORUM"[ title="(#TITRE|attribut_html|couper{80})"]>#TITRE</a>
+		][(#ENV{liste_afficher}|=={texte}|oui)<a href="#URL_FORUM"[ title="(#TITRE|attribut_html|couper{80})"]>[(#TEXTE|couper{[(#ENV{liste_longueur_max_texte}|sinon{80})]})]</a>
+		][(#ENV{liste_afficher}|=={titre_texte}|oui)<a href="#URL_FORUM"[ title="(#TITRE|attribut_html|couper{80})"]>#TITRE</a> &ndash; [(#TEXTE|couper{[(#ENV{liste_longueur_max_texte}|sinon{80})]})]]
+		[(#ENV{liste_afficher_nom_auteur}|oui)[<div class="info-publi"><span class="auteurs"><:par_auteur:> (#NOM)</span></div>]]
+	</li>
+]
+[(#ENV{style_liste}|=={resume}|oui)
+	<li class="item hentry">
+		<h3 class="h3 entry-title">
+			[(#ENV{liste_afficher_date}|oui)[(#DATE|affdate_jourcourt)[(#ENV{afficher_titre}|oui) &ndash; ]]]
+			<a href="#URL_FORUM">
+				[(#ENV{afficher_logo_auteur}|oui)[(#LOGO_AUTEUR||image_reduire{[(#ENV{taille_max_logo}|sinon{150})]})]]
+				[(#ENV{afficher_titre}|oui)#TITRE]
+			</a>
+		</h3>
+		[(#ENV{afficher_nom_auteur}|oui)[<span class="auteurs"><:par_auteur:> (#NOM)</span>]]
+			[<div class="#EDIT{texte} introduction entry-content">[(#ENV{afficher_titre}|?{'','<a href="#URL_FORUM">'})](#TEXTE|couper{[(#ENV{longueur_max_texte}|sinon{600})]})[(#ENV{afficher_titre}|?{'','</a>'})]</div>]
+		[(#ENV{afficher_lire_la_suite}|oui)<div class="meta-publi"><a class="lire-la-suite" href="#URL_FORUM"><:zpip:lire_la_suite:></div>]
+	</li>
+]
+</BOUCLE_forum>

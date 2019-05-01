@@ -1,0 +1,16 @@
+[(#REM) <!-- Pipeline de debut pour inserer des noisettes perso --> ]
+[(#PIPELINE{colonne_navigation_debut,
+	[(#ARRAY{args, [(#ENV*|unserialize)], data, ''})]}
+)]
+
+<INCLURE{fond=aside/inc-nav-base,env} />
+
+[(#REM) <!-- affichage du bloc des categories de la page agenda, herbier ou galerie --> ]
+<INCLURE{fond=noisettes/herbier/nav-filtre}{ajax}{categorie}>
+
+<INCLURE{fond=aside/inc-plugins,env} />
+
+[(#REM) <!-- Pipeline de fin pour inserer des noisettes perso --> ]
+[(#PIPELINE{colonne_navigation_fin,
+	[(#ARRAY{args, [(#ENV*|unserialize)], data, ''})]}
+)]

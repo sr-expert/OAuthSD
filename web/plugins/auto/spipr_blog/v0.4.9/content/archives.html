@@ -1,0 +1,42 @@
+<section>
+	<header class="cartouche">
+		<h1><:archives:>[
+			<small>(#ENV{archives,''}|affdate)</small>
+		]</h1>
+	</header>
+
+	<div class="main">
+
+		[(#REM) <!-- Plan du site par date --> ]
+		<B_annee>
+		<ul class="nav nav-list">
+		<BOUCLE_annee(ARTICLES){!par date}{date like #ENV{archives,''}|concat{%}}{fusion YEAR(date)}>
+			<B_annee_relative>
+			<li><h3>[(#DATE|annee)]</h3>
+				<ul class="nav nav-list">
+				<BOUCLE_annee_relative(ARTICLES){annee_relatif}{!par date}{lang_select=non}{date like #ENV{archives,''}|concat{%}}{fusion MONTH(date)}>
+				<B_articles_mois>
+					<li><h4>[(#DATE|nom_mois|ucfirst)][
+						(#GRAND_TOTAL|>{#TOTAL_BOUCLE}|oui)
+						<a href="#URL_PAGE{archives,archives=#DATE|affdate{Y-m}}"><small>[(#GRAND_TOTAL)] billets</small></a>
+						]</h4>
+						<ul class="liste-items [(#ENV{archives,''}|match{\d\d+-\d+-\d+}|?{long,short})] articles">
+							<BOUCLE_articles_mois(ARTICLES){mois_relatif}{date like #ENV{archives,''}|concat{%}}{!par date}{pagination #ENV{archives}|?{100,5}}>
+							<li class="item with-publication-inline">#INCLURE{fond=inclure/resume/article,id_article}</li>
+							</BOUCLE_articles_mois>[
+							(#GRAND_TOTAL|>{#TOTAL_BOUCLE}|oui)
+							<li class="item"><a href="#URL_PAGE{archives,archives=#DATE|affdate{Y-m}}" title="<:voir_derniers_articles:>[(#DATE|affdate_mois_annee|attribut_html)]">...</a></li>
+							]
+						</ul>
+					</li>
+				</B_articles_mois>
+				</BOUCLE_annee_relative>
+				</ul>
+			</li>
+			</B_annee_relative>
+		</BOUCLE_annee>
+		</ul>
+		</B_annee>
+
+	</div>
+</section>

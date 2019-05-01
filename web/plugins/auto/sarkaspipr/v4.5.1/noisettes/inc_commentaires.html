@@ -1,0 +1,17 @@
+[(#REM) <!-- affichage des X commentaires d'articles les plus recents du site ou du secteur concerne --> ]
+<B_commentaires>
+<div id="noisette_commentaires" class="noisette noisette_commentaires comments">
+	<div class="liste short">
+		#ANCRE_PAGINATION
+		<h2><:sarkaspip:derniers_commentaires:></h2>
+		[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{top})]
+		<ul class="liste-items comments">
+<BOUCLE_commentaires(FORUMS){objet=article}{id_secteur ?}{articles.id_rubrique!==#BRANCHE_SPECIALISEE{galerie,not_in}}{plat}{!par date_heure}{0,#CONFIG{sarkaspip/noisettes/max_commentaires, 50}}{pagination #CONFIG{sarkaspip/noisettes/pas_pagination_commentaires, 10}}>
+			[<li class="item item-header"><span class="">(#DATE|affdate_court|unique{date_commentaires})</span></li>]
+			[<li class="item"><i class="icon-comment"></i> [<span class="auteur muted">(#AUTEUR)&nbsp;: </span>]<a href="#URL_FORUM" title="[(#TITRE|attribut_html)]">(#INTRODUCTION{#CONFIG{sarkaspip/noisettes/intro_commentaire, 100}}|PtoBR)</a><small></small></li>]
+</BOUCLE_commentaires>
+		</ul>
+		[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{bottom})]
+	</div>
+</div>
+</B_commentaires>

@@ -1,0 +1,57 @@
+<body class="[ rubrique(#ENV{id_rubrique,''})][ secteur(#ENV{id_secteur,''})]">
+	<div class="page">
+		<div class="header-wrap">
+			<div class="container">
+				<header class="header" id="header">
+					<INCLURE{fond=header/#ENV{type-page},env} />
+				</header>
+			</div>
+		</div>
+		[<div class="nav-wrap">
+			<div class="container">
+				<nav class="navbar navbar-inverse" id="nav">
+					<div class="navbar-wrap">
+					(#INCLURE{fond=inclure/nav,env}|navbar_responsive)
+					</div>
+				</nav>
+			</div>
+		</div>]
+		<div class="breadcrumb-wrap">
+			<div class="container">
+				<div id="breadcrumb">
+					<INCLURE{fond=breadcrumb/#ENV{type-page},env} />
+				</div>
+			</div>
+		</div>
+		<div class="content-wrap">
+			<div class="container">
+				<div class="row wrapper" id="wrapper">
+					<div class="content primary span6" id="content">
+						<div class="inner">
+						<INCLURE{fond=content/#ENV{type-page},env} />
+						</div>
+					</div>
+					<div class="aside secondary span3 " id="aside">
+						<div class="inner">
+						<INCLURE{fond=aside/#ENV{type-page},env} />
+						</div>
+					</div>
+					<div class="extra secondary span3 " id="extra">
+						<div class="inner">
+						<INCLURE{fond=extra/#ENV{type-page},env} />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-wrap">
+			<div class="container">
+				<footer class="footer" id="footer">
+					<div class="inner">
+					<INCLURE{fond=footer/#ENV{type-page},env} />
+					</div>
+				</footer>
+			</div>
+		</div>
+	</div>
+</body>

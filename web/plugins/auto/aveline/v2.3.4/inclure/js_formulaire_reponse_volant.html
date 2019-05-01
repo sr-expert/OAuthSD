@@ -1,0 +1,55 @@
+<script type="text/javascript">/*<!#EVAL{chr(91)}CDATA#EVAL{chr(91)}*/
+
+	jQuery.fn.add_reply_to = function(id_thread){
+		var me = jQuery(this).parents('li.comment-li').eq(0);
+		if (me.find('#formulaire_forum').length==0){
+			jQuery('div.comments p.repondre').show();
+			jQuery('#formulaire_forum')
+				.hide()
+				.detach()
+				.appendTo(me.children('div.form_response'))
+				.slideDown('fast')
+				.find('form')
+				.removeClass('noajax')
+				.find('input[name=id_forum]').val(id_thread);
+
+			me.find('p.repondre').first().hide();
+			jQuery('#formulaire_forum').find('form.preview,.reponse_formulaire').remove();
+			if ($('.comment-form h2 a').length == 0)
+				jQuery('.comment-form h2').wrapInner('<a href="#forum-formulaire-principal" onClick="jQuery(this).main_reply();return false;"><\/a>');
+			jQuery(me).find('.comment').last().find('p').last().positionner(true);
+		}
+	}
+	jQuery(function(){
+		var ancre = window.location.hash;
+		var id;
+		if ((id=ancre.match(/^#(forum|comment)([0-9]+$)/)) && jQuery(ancre).length==0){
+			var a = jQuery('.comments-thread a.lien_pagination').last();
+			if( a.length > 0){
+				var href = a.attr('href');
+				href = href.replace(/debut_comments-list=[0-9]+#.*$/,'debut_comments-list=@@'+id[2]+ancre);
+				a.after("<a href='"+href+"' style='visibility:hidden' id='forum"+id[2]+"' class='lien_pagination'>Go<\/a>");
+				jQuery(a.parents('div.ajaxbloc').first()).ajaxbloc();
+				jQuery(ancre).eq(0).click();
+			}
+		}
+	});
+	jQuery.fn.main_reply = function(){
+		var me = jQuery(this).parents('.comment-form').eq(0);
+		if (me.find('#formulaire_forum').length==0){
+			jQuery('div.comments p.repondre').show();
+			jQuery('#formulaire_forum')
+				.hide()
+				.detach()
+				.appendTo(me)
+				.slideDown('fast')
+				.find('form')
+				.removeClass('noajax')
+				.find('input[name=id_forum]').val(0);
+
+			me.find('h2 a').contents().unwrap();
+			jQuery('#formulaire_forum').find('form.preview,.reponse_formulaire').remove();
+			me.find('h2').positionner(true);
+		}
+	}
+	/*#EVAL{chr(93)}[(#EVAL{chr(93)})]>*/</script>

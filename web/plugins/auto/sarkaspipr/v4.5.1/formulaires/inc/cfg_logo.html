@@ -1,0 +1,20 @@
+<li class="editer pleine_largeur">
+	[<p class="explication">(#ENV{explication})</p>]
+</li>
+[(#ENV{choix}|!={taille_uniquement}|oui)
+<li class="editer long_label">
+<label>#ENV{label,Utiliser le logo de rubrique en remplacement}</label>
+<div class="choix">
+	<input type="radio" class="radio" name="logo_rubrique#ENV{suffixe}" id="logo_rubrique#ENV{suffixe}_oui" value="oui" [(#ENV{logo_rubrique#ENV{suffixe}, oui}|=={oui}|?{checked="checked"})] />
+	<label for="logo_rubrique#ENV{suffixe}_oui"><:sarkaspip_config:cfg_lbl_oui:></label>
+</div>
+<div class="choix">
+	<input type="radio" class="radio" name="logo_rubrique#ENV{suffixe}" id="logo_rubrique#ENV{suffixe}_non" value="non" [(#ENV{logo_rubrique#ENV{suffixe}, oui}|=={non}|?{checked="checked"})] />
+	<label for="logo_rubrique#ENV{suffixe}_non"><:sarkaspip_config:cfg_lbl_non:></label>
+</div>
+</li>
+]
+<li class="editer long_label">
+	<label for="taille_logo#ENV{suffixe}"><:sarkaspip_config:cfg_lbl_taille_logo:></label>
+	<input class="text" type="text" name="taille_logo#ENV{suffixe}" id="taille_logo#ENV{suffixe}" value="#ENV{taille_logo#ENV{suffixe}, 150}"/>
+</li>

@@ -1,0 +1,42 @@
+[(#REM)
+OAuthSD
+Copyright(c) 2013-2017 DnC
+Auteurs : Bertrand et Christophe Degoy
+Licence : GPL 3
+]
+
+<div class="lead">#DESCRIPTIF_SITE_SPIP</div>
+
+<p> </p>
+
+<p>
+    [(#REM) Derniers articles ]
+    <INCLURE{fond=inclure/sommaire-articles}{env}{ajax}{self=#SELF} />
+</p>
+
+<p>
+    [(#REM) Plan ]
+    <INCLURE{fond=content/plan} />
+</p>
+
+<p>
+    [(#REM) Liens des forums ]
+    <B_forums_liens>
+        <div class="liste forums">
+            <h1><:derniers_commentaires:> :</h1>
+            <ul class="liste-items">
+                <BOUCLE_forums_liens(FORUMS?) {plat} {par date}{inverse} {0,8}>
+                <li class="item">[<abbr class="published" title="[(#DATE|date_iso)]">(#DATE|affdate_jourcourt)</abbr><span class="sep"> &ndash; </span>]<a href="#URL_FORUM"[ title="(#TITRE|attribut_html|couper{80})"]>[(#TEXTE|couper{80})]</a></li>
+                </BOUCLE_forums_liens>
+            </ul>
+        </div>
+    </B_forums_liens>
+</p>
+
+<!--
+<p> 
+#INCLURE{fond=inclure/twidget_search} 
+<br />
+#INCLURE{fond=inclure/twidget_profile, user=poleTechno52}
+</p>
+-->

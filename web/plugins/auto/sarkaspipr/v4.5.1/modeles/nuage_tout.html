@@ -1,0 +1,9 @@
+[(#CONFIG{multi_articles}|=={oui}|oui)#SET{lang,#ENV{lang}}]
+<BOUCLE_tags(MOTS){id_groupe IN #ENV{groupes}|sinon{0}}{par #ENV{tri,titre}}>
+	[(#ID_MOT|nuage{#TITRE,[(#ENV{url}|?{[(#ENV{url}|parametre_url{id_mot,#ID_MOT}|parametre_url{lang,#GET{lang}})],[(#URL_MOT|parametre_url{lang,#GET{lang}})]})]})]
+	<BOUCLE_pop1(ARTICLES){id_mot}></BOUCLE_pop1>[(#ID_MOT|nuage{'','',#TOTAL_BOUCLE})]<//B_pop1>
+	<BOUCLE_pop2(SITES){id_mot}></BOUCLE_pop2>[(#ID_MOT|nuage{'','',#TOTAL_BOUCLE})]<//B_pop2>
+	<BOUCLE_pop3(RUBRIQUES){id_mot}></BOUCLE_pop3>[(#ID_MOT|nuage{'','',#TOTAL_BOUCLE})]<//B_pop3>
+	<BOUCLE_pop4(BREVES){id_mot}></BOUCLE_pop4>[(#ID_MOT|nuage{'','',#TOTAL_BOUCLE})]<//B_pop4>
+</BOUCLE_tags>
+[(#NUAGE|nuage_affiche{#ENV{max, -1}})]

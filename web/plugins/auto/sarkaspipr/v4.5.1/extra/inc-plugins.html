@@ -1,0 +1,21 @@
+[(#REM) <!-- affichage de la noisette Rainette --> ]
+[(#PLUGIN{TWIDGET}|ou{#PLUGIN{TWITTER}}|oui)
+	[(#CONFIG{sarkaspip/noisettes/position_twidget, 0}|in_any{#LISTE{1,2}}|oui)
+		<INCLURE{fond=noisettes/inc_twidget}>
+	]
+]
+
+[(#PLUGIN{RAINETTE}|oui)
+	[(#CONFIG{sarkaspip/noisettes/position_rainette, 0}|in_any{#LISTE{1,2}}|oui)
+		<INCLURE{fond=noisettes/inc_rainette}>
+	]
+]
+
+[(#REM) <!-- affichage du top album --> ]
+<BOUCLE_has_album(ALBUMS?){0,1}>
+	[(#PLUGIN{SPLICKR}|oui)
+		[(#ENV{type-page}|=={sommaire}|oui)
+			<INCLURE{fond=noisettes/inc_splickrbox}>
+		]
+	]
+</BOUCLE_has_album>

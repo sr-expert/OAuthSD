@@ -1,0 +1,11 @@
+[(#REM) <!-- affichage n derniers articles syndiques du secteur ou du site global --> ]
+<B_sites>
+	<div id="noisette_sites" class="noisette noisette_sites">
+		<h2><:sarkaspip:sur_web:> <small><a href="#URL_PAGE{site}">Tous les sites</a></small></h2>
+		<ul class="liste-items short">
+			<BOUCLE_sites(SYNDIC_ARTICLES) {id_secteur ?}{par date}{inverse}{0,#CONFIG{sarkaspip/noisettes/max_syndic, 5}}>
+				<li class="item">[<strong><a class="titre" href="#URL_ARTICLE" title="#NOM_SITE">[(#DATE|affdate_court) - ](#TITRE*|couper{70})</a></strong>]</li>
+			</BOUCLE_sites>
+		</ul>
+	</div>
+</B_sites>

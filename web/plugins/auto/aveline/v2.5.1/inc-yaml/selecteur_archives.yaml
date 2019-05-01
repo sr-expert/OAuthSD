@@ -1,0 +1,47 @@
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'afficher_selecteur_archives'
+    label: '<:aveline:label_afficher_selecteur_archives:>'
+    explication: '<:aveline:explication_afficher_selecteur_archives:>'
+    defaut: ''
+-
+  saisie: 'fieldset'
+  options:
+    nom: 'si_afficher_selecteur_archives'
+    label: '<:aveline:label_si_afficher_selecteur_archives:>'
+    afficher_si: '@afficher_selecteur_archives@ == "on"'
+  saisies:
+    -
+      saisie: 'selection'
+      options:
+        nom: 'position_selecteur_archives'
+        label: '<:aveline:label_position_selecteur_archives:>'
+        defaut: 'debut'
+        cacher_option_intro: 'oui'
+        datas:
+          debut: '<:aveline:item_debut:>'
+          fin: '<:aveline:item_fin:>'
+          deux: '<:aveline:item_deux:>'
+    -
+      saisie: 'selection'
+      options:
+        nom: 'pas_selecteur_archives'
+        label: '<:aveline:label_pas_selecteur_archives:>'
+        defaut: 'annee'
+        cacher_option_intro: 'oui'
+        datas:
+          annee: '<:aveline:item_annee:>'
+          mois: '<:aveline:item_mois:>'
+    -
+      saisie: 'selection'
+      options:
+        nom: 'texte_devant_selecteur_archives'
+        label: '<:aveline:label_texte_devant_selecteur_archives:>'
+        defaut: ''
+        cacher_option_intro: 'oui'
+        datas:
+          '': '<:aveline:item_aucun:>'
+          'avelinepublic:archives_deux_points': '<:avelinepublic:archives_deux_points:>'
+          'avelinepublic:annee_deux_points': '<:avelinepublic:annee_deux_points:>'
+          'avelinepublic:mois_deux_points': '<:avelinepublic:mois_deux_points:>'

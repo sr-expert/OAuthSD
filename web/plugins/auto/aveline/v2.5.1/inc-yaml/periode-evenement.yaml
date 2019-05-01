@@ -1,0 +1,20 @@
+-
+  saisie: 'selection'
+  options:
+    nom: 'periode'
+    label: '<:aveline:label_periode:>'
+    defaut: 'a_venir'
+    cacher_option_intro: 'oui'
+    datas:
+      tout: '<:avelinepublic:tout:>'
+      passe: '<:avelinepublic:passe:>'
+      passe_en_cours: '<:avelinepublic:passe_en_cours:>'
+      en_cours: '<:avelinepublic:en_cours:>'
+      en_cours_a_venir: '<:avelinepublic:en_cours_a_venir:>'
+      a_venir: '<:avelinepublic:a_venir:>'
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'afficher_passe_si_pas_a_venir'
+    label: '<:aveline:label_afficher_passe_si_pas_a_venir:>'
+    defaut: 'on'

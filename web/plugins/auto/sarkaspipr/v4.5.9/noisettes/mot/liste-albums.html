@@ -1,0 +1,20 @@
+<B_album>
+<div id="recherche_album" class="recherche_album[ (#ENV{class_resultats,''})] albums">
+	<a rel="nofollow" href="#header" title="<:sarkaspip:kezako_haut_page:>" class="fonction revenir_haut_page"></a>
+	<div class="album">
+    <h3>[(#GRAND_TOTAL|singulier_ou_pluriel{album:info_1_album,album:info_nb_albums})]</h3>
+		#ANCRE_PAGINATION
+		[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{top})]
+    <ul class="thumbnails">
+    <BOUCLE_album(ALBUMS?){par date}{inverse}{pagination #CONFIG{sarkaspip/recherche/pas_pagination_recherche_article, 5}}
+				{id_mot=#ENV{id1,#ENV{id2,#ENV{id3}}}}
+				{id_mot=#ENV{id2,#ENV{id3,#ENV{id1}}}}
+				{id_mot=#ENV{id3,#ENV{id1,#ENV{id2}}}}
+			>
+  		<li class="item">[(#INCLURE{fond=inclure/resume/album,id_article,coupe=100})]</li>
+		</BOUCLE_album>
+		</ul>
+		[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{bottom})]
+	</div>
+</div>
+</B_album>

@@ -1,0 +1,37 @@
+[(#REM) <!-- Bandeau Haut --> ]
+#SET{bg-header,#CHEMIN{img/bg-header.jpg}|sinon{#CHEMIN{img/bg-header.png}}}
+<div class="bandeau bandeau_haut clearfix[(#GET{bg-header}|oui)w-bg-header]"
+	style="[background-image:url('(#GET{bg-header})');][min-height:(#CONFIG{sarkaspip/apparence/header_min_height});]"
+	>
+	[(#PIPELINE{bandeau_haut_debut,
+		[(#ARRAY{args, [(#ARRAY{id_rubrique, #ENV{id_rubrique}})], data, ''})]}
+	)]
+
+	#SET{logo, #LOGO_SITE_SPIP}
+	[(#CONFIG{sarkaspip/bandeau/logo_reduit, 1}|=={1}|oui)
+		[(#SET{logo, [(#LOGO_SITE_SPIP|image_reduire{#CONFIG{sarkaspip/bandeau/taille_logo, 150}})]})]
+	]
+	<div class="accueil clearfix">
+		[(#SI_PAGE{sommaire}|non)<a rel="start home" href="#URL_SITE_SPIP/" title="<:accueil_site:>"
+		>]<h1 id="logo_site_spip">[(#GET{logo}) ][(#CONFIG{sarkaspip/bandeau/titre_site, 1}|=={1}|oui)#NOM_SITE_SPIP]
+		[<small id="slogan_site_spip">(#CONFIG{sarkaspip/bandeau/slogan}|sinon{#SLOGAN_SITE_SPIP})</small>]
+		</h1>[(#SI_PAGE{sommaire}|non)</a>]
+	</div>
+
+	[(#CONFIG{sarkaspip/noisettes/position_rechspip, 3}|=={3}|oui)
+		<div class="recherche">
+			#FORMULAIRE_RECHERCHE
+		</div>
+	]
+
+	[(#PLUGIN{BOUTONSTEXTE}|oui)
+		<div class="boutonstexte">
+			<img src="#CHEMIN{images/fontsizeup.png}" alt="fontsizeup" class="textsizeup" />
+			<img src="#CHEMIN{images/fontsizedown.png}" alt="fontsizedown" class="textsizedown" />
+		</div>
+	]
+
+	[(#PIPELINE{bandeau_haut_fin,
+		[(#ARRAY{args, [(#ARRAY{id_rubrique, #ENV{id_rubrique}})], data, ''})]}
+	)]
+</div>

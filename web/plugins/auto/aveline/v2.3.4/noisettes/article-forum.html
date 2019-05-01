@@ -1,0 +1,3 @@
+[(#REM) Forum de l'article ]
+[(#ENV{id_article}|>{0}|oui)
+	<INCLURE{fond=inclure/forum}{id_article}{id_rubrique=''}{env}{repondre_objet=public:repondre_article} />]

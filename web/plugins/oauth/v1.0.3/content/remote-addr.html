@@ -1,0 +1,173 @@
+#CACHE{15}
+
+<div class="breadcrumb"><a href="/">Accueil</a> - <a href="/web/?page=suivre">Suivi</a> - <a href="/web/?page=evenements">Événements</a> - Même IP</div>
+
+#INCLURE{fond=inclure/identification,env}
+<BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
+
+    [(#REM)
+    Projet OauthSD
+    Copyright(c) 2019 DnC
+    Auteurs : Bertrand Degoy
+    Licence : GPL 3
+
+    Logs avec le Plugin DataTables.
+    Table spip_oidc_logs.
+
+    Fait appel à /inclure/liste-tables.html particularisé au projet.
+
+    ]
+
+    [(#SET{mots,#ENV{mots,#SESSION{mots}|unserialize}})]
+    #SET{recherche,#ENV{recherche,#SESSION{recherche}}}
+
+    <div class="nettoyeur"></div>
+    
+    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+
+    <div id="datatable_container">
+
+        <h2>Événements avec IP = #ENV{remote_addr}</h2>
+
+        #SET{recherche,#LISTE{2,4}}
+
+        <B_table1>
+
+            <table id="tbl" class="display datatable" style="width: 100%">
+
+                <thead>
+                    <tr> 
+
+                        <th>id</th>
+                        <th>datetime</th>
+                        <th>code</th> 
+                        <th>message</th>
+                        <th>level</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+
+
+                    <BOUCLE_table1(spip_oidc_logs) {client_id?} {user_id?} {level ?} {origin ?} {remote_addr ?} {par datetime} {inverse} {0,1000}>
+                    <tr>
+                        <td>#ID_OIDC_LOG</td>
+                        <td>#DATETIME</td>
+                        <td>#ERRNUM</td>   
+                        <td>[(#MESSAGE|purify)]
+                        <td>#LEVEL</td>
+                        </td>
+                    </tr>   
+                    </BOUCLE_table1>
+
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <th>id</th>
+                        <th>datetime</th>
+                        <th>code</th>  
+                        <th>message</th>
+                        <th>level</th>
+
+                    </tr>
+                </tfoot>
+
+            </table>
+        </B_table1>
+        <p>Aucun enregistrement</p>
+        <//B_table1>
+
+    </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            /* Initialise the DataTable */
+
+            var oTable = $('#tbl').dataTable( {
+                responsive: true,
+                language: {
+                    url: '#CHEMIN{lib/French.json}',
+                },
+                "aaSorting": [[ 0, "desc" ]],
+                "createdRow": function ( row, data, index ) {   //o4
+                    // coloration de la ligne
+                    var level;
+                    level = data[4];
+                    index +=1;
+                    str = ':nth-child(' + index + ')';
+                    if ( level  == 2 ) {
+                        $('tbody tr' + str).css('background-color','#d4ffff');
+                    } else if ( level  == 1 ) {
+                        $('tbody tr' + str).css('background-color','#ffffd4');
+                    } else if ( level = 3 ) {
+                        $('tbody tr' + str).css('background-color','#ffd4ff');
+                    } else {
+                        $('tbody tr' + str).css('background-color','#000').css('color','#fff');
+                    }
+                },
+                "deferRender": true,
+                "autoWidth": false,
+                "columnDefs": [
+                    {   "targets": 0,
+                        "width": "4%",
+                        "data": "id_client",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="./spip.php?page=evenements&id_oidc_log='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    },
+                    {   "targets": 2,
+                        "width": "5%",
+                        "data": "errnum",
+                        "render": function ( data, type, row, meta ) {
+                            if ( type === "display" ) {
+                                return '<a href="./spip.php?page=evenements&errnum='+data+'">'+data+'</a>';
+                            } else return data;
+                        }
+                    },
+                    {   "targets": 1,
+                        "width": "20%",
+                    },
+                    {   "targets": 4,
+                        "width": "5%",
+                    },
+                ],
+                initComplete: function () {
+                    var i = 0;
+                    this.api().columns().every( function () {
+                        if( $.inArray(i,[#GET{rechsur}]) > -1 ) {
+                            var column = this;
+                            var select = $('<select><option value=""></option></select>')
+                            .appendTo( $(column.footer()).empty() )
+                            .on( 'change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                .search( val ? '^'+val+'$' : '', true, false )
+                                .draw();
+                            } );
+
+                            column.data().unique().sort().each( function ( d, j ) {
+                                select.append( '<option value="'+d+'">'+d+'</option>' )
+                            } );
+
+                        }
+                        i+=1;
+                    });
+                }
+            });
+
+            $('#datatable_container').fadeIn(2000);
+
+        } ); 
+
+
+    </script>
+
+</BOUCLE_auteur>

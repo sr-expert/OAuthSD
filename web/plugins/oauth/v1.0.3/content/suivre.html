@@ -1,0 +1,21 @@
+<div class="breadcrumb"><a href="/">Accueil</a> - Suivi</div>
+
+#INCLURE{fond=inclure/identification,env}
+
+<BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
+    
+    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+    
+    <h2>Suivre l'activité du serveur</h2>
+    
+    <a href="./spip.php?page=evenements_stats">Statistiques</a><br /><br />
+    <a href="./spip.php?page=evenements">Tous les événements</a><br /><br />
+    <a href="./spip.php?page=evenements_authorize">Événements d'Authorize</a><br /><br />
+    <a href="./spip.php?page=alertes">Toutes les alertes</a><br /><br />
+    <a href="./spip.php?page=bad-remote-addr">Mauvaises IP</a><br /><br />
+
+    
+   
+    <br />
+
+</BOUCLE_auteur>

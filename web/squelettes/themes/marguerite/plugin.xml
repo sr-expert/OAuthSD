@@ -1,0 +1,16 @@
+<plugin>
+	<nom>Marguerite</nom>
+	<version>1.0.0</version>
+	<etat>stable</etat>
+	<auteur>Marcimat</auteur>
+	<licence>GPL</licence>
+	<prefix>theme_marguerite</prefix>
+	<description>Du vert et du jaune-orange.</description>
+	<icon>vignette.png</icon>
+	<!-- nom d'affichage pour zen-garden -->
+	<utilise id="spipr" version="[0.1.0-dev;]" />
+	<!-- surcharger ces plugins, si activé depuis SVP -->
+	<utilise id="spipr_dist" version="[0.2.0-dev;]" />
+	<utilise id="bootstrap" version="[1.0.0;]" />
+	<categorie>theme</categorie>
+</plugin>

@@ -1,0 +1,43 @@
+<BOUCLE_syndic_article(SYNDIC_ARTICLES) {id_syndic_article} {statut?}>
+[(#ENV{style_liste}|=={liste}|oui)
+	<li class="item"[(#ENV{forcer_width_100}|oui)style="width:100%;"]>
+		[(#ENV{liste_afficher_date}|oui)[(#DATE|affdate_jourcourt) &ndash; ]]<a href="#URL_ARTICLE"[ title="(#NOM_SITE|attribut_html|couper{80})"] class="spip_out">[(#TITRE*)]</a>[(#ENV{liste_afficher_nom_site}|oui)&ndash; #NOM_SITE]
+		[(#ENV{liste_afficher_auteurs}|oui)[<div class="info-publi"><:par_auteur:> (#LESAUTEURS).</div>]]
+	</li>
+]
+[(#ENV{style_liste}|=={resume}|oui)
+	<li class="item hentry"[(#ENV{forcer_width_100}|oui)style="width:100%;"]>
+		<h3 class="h3 entry-title">
+			[(#ENV{afficher_logo}|oui)
+				[(#ENV{choix_logo}|=={site}|oui)#INCLURE{fond=inclure/site-logo,id_syndic=#ID_SYNDIC,taille_max_logo}]
+				[(#ENV{choix_logo}|=={syndic_article}|oui)[(#DESCRIPTIF|extraire_balise{img}|image_reduire{[(#ENV{taille_max_logo}|sinon{150})]}|inserer_attribut{class, spip_logos})]]
+				[(#ENV{choix_logo}|=={syndic_article_site}|oui)[(#DESCRIPTIF|extraire_balise{img}|image_reduire{[(#ENV{taille_max_logo}|sinon{150})]}|inserer_attribut{class, spip_logos}|sinon{#INCLURE{fond=inclure/site-logo,id_syndic=#ID_SYNDIC,taille_max_logo}})]]
+			]
+			<a href="#URL_ARTICLE" [ title="(#NOM_SITE|attribut_html|couper{80})"] class="spip_out">[(#TITRE*)]</a>
+		</h3>
+		[(#ENV{afficher_docs_joints}|oui)[<div class="enclosures">(#TAGS|afficher_enclosures)</div>]]
+		[(#ENV{afficher_date}|ou{#ENV{afficher_auteurs}}|ou{#ENV{afficher_nom_site}}|ou{#ENV{afficher_categorie}}|ou{#ENV{afficher_tags}})<div class="meta-publi">]
+			[(#ENV{afficher_date}|oui)[(#DATE|affdate_jourcourt)][(#ENV{afficher_auteurs}|et{#LESAUTEURS}|?{',','.'})]]
+			[(#ENV{afficher_auteurs}|oui)[<:par_auteur:> (#LESAUTEURS)]]
+			[(#ENV{afficher_nom_site}|oui)&ndash; <a href="#URL_SITE" class="spip_out">#NOM_SITE</a>]
+			[(#ENV{afficher_categorie}|oui)[&ndash; (#TAGS|afficher_tags{directory})]]
+			[(#ENV{afficher_tags}|oui)[&mdash; <em>(#TAGS|afficher_tags{tag})</em>]]
+		[(#ENV{afficher_date}|ou{#ENV{afficher_auteurs}}|ou{#ENV{afficher_nom_site}}|ou{#ENV{afficher_categorie}}|ou{#ENV{afficher_tags}})</div>]
+		[(#ENV{afficher_texte_article}|=={introduction}|oui)
+			[<div class="introduction entry-content">(#DESCRIPTIF|couper{[(#ENV{longueur_max_introduction}|sinon{600})]})</div>]
+		]
+		[(#ENV{afficher_texte_article}|=={complet}|oui)
+			[<div class="texte">(#DESCRIPTIF|image_reduire{#ENV{taille_max_images_texte,500}})</div>]
+		]
+		[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_source}}|ou{#ENV{afficher_url}})<div class="meta-publi">]
+		[(#ENV{afficher_lire_la_suite}|oui)<a class="lire-la-suite" href="#URL_ARTICLE"><:zpip:lire_la_suite:>[(#ENV{rappeler_titre}|oui)<span class="lire-la-suite-titre"><:zpip:lire_la_suite_de:> <em>[(#TITRE|textebrut)]</em></span>]</a>]
+			[(#ENV{afficher_source}|oui)
+				[[(#ENV{afficher_lire_la_suite}|oui)<span class="sep">|</span> ]<:avelinepublic:source_deux_points:> <a href="#URL_SOURCE" class="spip_out">(#SOURCE)</a>]
+			]
+			[(#ENV{afficher_url}|oui)
+				[[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_source}})<span class="sep">|</span> ]<a href="#URL_ARTICLE" class="spip_out">(#URL_ARTICLE|couper{80})</a>]
+			]
+		[(#ENV{afficher_lire_la_suite}|ou{#ENV{afficher_source}}|ou{#ENV{afficher_url}})</div>]
+	</li>
+]
+</BOUCLE_syndic_article>

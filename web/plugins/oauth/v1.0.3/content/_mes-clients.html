@@ -1,0 +1,135 @@
+<div class="breadcrumb"><a href="/">Accueil</a> - <a href="./spip.php?page=gerer">Gestion</a> - Applications</div>
+
+#INCLURE{fond=inclure/identification,env}
+
+<BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
+
+    Vous êtes identifié comme : <a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+
+    <h2>Toutes vos application clientes</h2>
+
+    <table id="tbl" class="liste_clients liste">
+
+        <thead>
+            <tr>
+                <td><b>#</b></td><td><b>Client ID</b></td><td><b>Redirect URI</b></td><td><b>Grant Type</b></td><td><b>Statut</b></td><td><b>Action</b></td>
+            </tr>
+        </thead>
+
+        <BOUCLE_o (spip_auteurs_liens) {objet = client} {id_auteur=#SESSION{id_auteur}} >
+
+            <BOUCLE_ligne (CLIENTS) {id_client = #ID_OBJET} {statut IN prop,prepa,publie,refuse,poubelle} >
+                <td style="padding-right: 9px;">
+                    <a href="./spip.php?page=creer-client&id_client=#ID_CLIENT">#ID_CLIENT</a>
+                </td>
+                <td>
+                    #CLIENT_ID
+                </td>
+                <td>
+                    <a href="http://#REDIRECT_URI">#REDIRECT_URI</a>
+                </td>
+                <td style="padding-right: 9px;">
+                    #GRANT_TYPES
+                </td>
+                <td>   
+                    [(#STATUT|=={prepa}|oui)Attente] 
+                    [(#STATUT|=={prop}|oui)Attente]
+                    [(#STATUT|in_array{#ARRAY{refuse,poubelle}}|oui)Refusé] 
+                    [(#STATUT|=={publie}|oui)Actif]       
+                </td>
+                <td>
+                    <a href="./spip.php?page=creer-client&id_client=#ID_CLIENT">éditer</a>
+                    <br />
+                    <a href="./spip.php?page=gerer-public_keys&id_client=#ID_CLIENT">clés</a>
+                    <br />
+                    <a href="./spip.php?page=supprimer-client&id_client=#ID_CLIENT">supprimer</a>       
+                </td>
+                </tr>
+            </BOUCLE_ligne>
+            </B_ligne>
+
+        </BOUCLE_o>
+
+        <thead>
+            <tr>
+                <td><b>#</b></td><td><b>Client ID</b></td><td><b>Redirect URI</b></td><td><b>Grant Type</b></td><td><b>Statut</b></td><td><b>Action</b></td>
+            </tr>
+        </thead>
+
+    </table>
+
+    </B_o>
+    Vous n'avez pas d'application cliente ! <br />
+    <a href="./spip.php?page=creer-client">Ajouter (Inscrire) une application cliente</a><br />
+    <//B_o> 
+    
+    <br/>   
+
+    <script type="text/javascript">
+
+        $(function() {
+
+            var oTable = $('#tbl').DataTable( {
+                select: true,
+                responsive: true,
+                /*
+                "fnDrawCallback": function() {   //o1
+                $('table#tbl tbody td').editable('#CHEMIN{inclure/edit-table.php}', {
+                "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                return {
+                "row_id": this.parentNode.getAttribute('id'),
+                "column": oTable.fnGetPosition( this )[2],
+                "table": '#ENV{table}s'
+                };
+                },
+                "height": "25px"
+                });
+                },*/
+                language: {
+                    url: '#CHEMIN{lib/French.json}',
+                } 
+            });
+
+            table.columns().flatten().each( function ( colIdx ) {
+
+                if( $.inArray(colIdx,[#GET{rechsur}]) > -1 ) {
+
+                    // Create the select list and search operation
+                    var select = $('<select />')
+                    .appendTo(
+                        table.column(colIdx).header()
+                    )
+                    .on( 'change', function () {
+                        table
+                        .column( colIdx )
+                        .search( $(this).val() )
+                        .draw();
+                    } );
+
+                    // Get the search data for the first column and add to the select list
+                    select.append( $('<option value="">--</option>') );
+                    table
+                    .column( colIdx )
+                    .cache( 'search' )
+                    .sort()
+                    .unique()
+                    .each( function ( d ) {
+                        select.append( $('<option value="'+d+'">'+d+'</option>') );
+                    } );
+
+                }
+            } );
+
+        } );
+    </script>
+
+</BOUCLE_auteur>
+
+
+
+
+

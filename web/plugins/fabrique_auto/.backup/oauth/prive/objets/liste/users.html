@@ -1,0 +1,38 @@
+[(#SET{defaut_tri,#ARRAY{
+	date_publication,-1, 
+	id_user,1,
+	points,-1
+}})]<B_liste_users>
+#ANCRE_PAGINATION
+<div class="liste-objets users">
+<table class="spip liste">
+	[<caption><strong class="caption">(#ENV*{titre,#GRAND_TOTAL|singulier_ou_pluriel{user:info_1_user,user:info_nb_users}})</strong></caption>]
+	<thead>
+		<tr class="first_row">
+			<th class="picto" scope="col"></th>
+			<th class="statut" scope="col">[(#TRI{statut,<span title="<:lien_trier_statut|attribut_html:>">#</span>,ajax})]</th> 
+			<th class="" scope="col">[(#TRI{,<:user:champ__label:>,ajax})]</th>
+			<th class="date" scope="col">[(#TRI{date_publication,<:date:>,ajax})]</th> 
+			<th class="id" scope="col">[(#TRI{id_user,<:info_numero_abbreviation:>,ajax})]</th>
+		</tr>
+	</thead>
+	<tbody>
+	<BOUCLE_liste_users(USERS){id_mot?}{id_auteur?}{where?}{statut?}{recherche?}{tri #ENV{par,num },#GET{defaut_tri}}{par }{pagination #ENV{nb,10}}>
+		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+			<td class="picto">[(#CHEMIN_IMAGE{user-16.png}|balise_img)]</td>
+			<td class="statut">[(#STATUT|puce_statut{user,#ID_USER})]</td> 
+			<td class=" principale">[(#LOGO_USER|image_reduire{20,26})]<a href="[(#ID_USER|generer_url_entite{user})]" title="<:info_numero_abbreviation|attribut_html:> #ID_USER">[(#RANG). ]#</a></td>
+			<td class="date secondaire">[(#DATE_PUBLICATION|affdate_jourcourt)]</td> 
+			<td class="id">[(#AUTORISER{modifier,user,#ID_USER}|?{
+				<a href="[(#URL_ECRIRE{user_edit,id_user=#ID_USER})]">#ID_USER</a>,
+				#ID_USER
+			})]</td>
+		</tr>
+	</BOUCLE_liste_users>
+	</tbody>
+</table>
+[<p class="pagination">(#PAGINATION{prive})</p>]
+</div>
+</B_liste_users>[
+<div class="liste-objets users caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
+]<//B_liste_users>

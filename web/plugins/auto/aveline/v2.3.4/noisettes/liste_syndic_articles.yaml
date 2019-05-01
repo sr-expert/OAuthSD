@@ -1,0 +1,20 @@
+nom: '<:aveline:nom_liste_syndic_articles:>'
+description: '<:aveline:description_liste_syndic_articles:>'
+icon: 'syndic_article-24.png'
+necessite:
+  - 'sites'
+contexte:
+  - 'id_rubrique'
+  - 'id_secteur'
+  - 'id_syndic'
+  - 'id_syndic_article'
+  - 'archives'
+  - 'lang'
+parametres:
+  - 'inclure:inc-yaml/branche-syndic_article.yaml'
+  - 'inclure:inc-yaml/tri-syndic_article.yaml'
+  - 'inclure:inc-yaml/restreindre_langue.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-syndic_article.yaml'
+  - 'inclure:inc-yaml/selecteur_archives.yaml'
+  - 'inclure:inc-yaml/resume-syndic_article.yaml'

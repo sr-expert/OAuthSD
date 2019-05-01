@@ -1,0 +1,16 @@
+nom: '<:aveline:nom_page-recherche-sites:>'
+description: '<:aveline:description_resultats_recherche:>'
+icon: 'site-24.png'
+necessite:
+  - 'sites'
+contexte:
+  - 'id_rubrique'
+  - 'id_secteur'
+  - 'recherche'
+parametres:
+  - 'inclure:inc-yaml/branche-site.yaml'
+  - 'inclure:inc-yaml/tri-recherche.yaml'
+  - 'inclure:inc-yaml/options-recherche.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'
+  - 'inclure:inc-yaml/titre-site.yaml'
+  - 'inclure:inc-yaml/resume-site.yaml'

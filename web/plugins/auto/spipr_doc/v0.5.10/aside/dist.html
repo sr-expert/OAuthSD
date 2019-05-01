@@ -1,0 +1,9 @@
+[(#REM) Menu de navigation dans la page ]
+<div class="doc-sidebar span3">
+<ul class="nav nav-list doc-sidenav">
+	<BOUCLE_par(ARTICLES){par num titre,titre}{id_rubrique}>
+	<li[(#COMPTEUR_BOUCLE|=={1}|oui)class="active"]>[(#VAL{#}|ancre_url{#TITRE|title2anchor}|lien_ou_expose{#TITRE,''})]</li>
+	</BOUCLE_par>
+</ul>
+</div>
+#INCLURE{fond=aside/inc-aside-js}

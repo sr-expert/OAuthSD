@@ -1,0 +1,165 @@
+[(#REM)  //o   //ad   //ag
+Plugin DataTables
+Liste paginée de la table ENV{table} avec Data Tables.
+Attention : le nom de la table est passé sans "s" à la fin !
+Les lignes sont affichés dans l'ordre de la liste #ENV{champs}.
+ENV{rechsur} donne la liste des champs avec recherche par leur ID de colonne.
+ENV{link} donne le numéro de la colonne sur laquelle figure le lien, 1 par défaut.
+
+Les mots clés sont intégrés dans une colonne "clés" et peuvent donc être recherchés
+selon la méthode de DataTables.
+
+ENV{mots} et ENV{recherche} fournissent les paramètres de la recherche, mais agissent différemment :
+- Les mots filtrent la boucle AUTEURS, ce qui permet de réduire les données intégrées à la page.
+Pour changer le filtrage par les mots, il faut recharger la page.
+- La recherche est appliquée par DataTables, on peut donc la modifier sans recharger la page.
+
+Nota : on applique également la recherche par mots à la colonne désignée par ENV{clepos}.
+Cela fait double emploi, mais permettrait de ne pas faire la sélection au niveau de la boucle 
+pour de petites bases de données. A voir à l'expérience.  
+
+N'affiche pas les visiteurs, que les rédacteurs et les administrateurs (statut IN 0minirezo,1comite)
+N'affiche pas l'auteur n°1 (B.Degoy).
+
+Copyright(c) 2017 DnC
+Auteurs : Bertrand Degoy
+Licence : GPL 3
+
+]
+
+<div class="nettoyeur"> </div>
+
+<div class="dtauteurs" style="display:none">
+
+    <B_objet>
+        
+        <table id="tbl_auteurs" class="display datatable">
+
+            <B_thead>
+                <thead>
+                    <tr>
+                        <th> </th>
+            <BOUCLE_thead(DATA) {source table, #ENV{champs} } >
+                        [<th>(#VALEUR)</th>]
+            </BOUCLE_thead>
+                <th>clés</th>
+                    </tr>
+                </thead>
+            </B_thead>
+
+            <tbody>
+                
+                #SET{zid,0}
+                
+     <BOUCLE_objet(AUTEURS) {mots?} {statut IN 0minirezo,1comite} {id_auteur!=1} >           
+                
+                    <BOUCLE_table(DATA){source sql, SELECT * FROM spip_#ENV{table}s WHERE id_auteur='#ID_AUTEUR'}>       
+                        
+                        #SET{zid,#VALEUR|table_valeur{id_#ENV{table}}}
+                        
+                        <B_cle> 
+                        <tr>
+                            <td class="editable #" width="128">
+                                [(#LOGO_AUTEUR|image_reduire{116,*})]
+                            </td>
+                        <BOUCLE_cle(DATA) {source table, #ENV{champs}} >
+                            <td class="editable">
+                                [(#COMPTEUR_BOUCLE|=={#ENV{link,1}}|oui)
+                                    <a href="/?page=#ENV{table}&id_#ENV{table}=#GET{zid}">
+                                ]
+                                [(#_table:VALEUR|table_valeur{#_cle:VALEUR}|propre|trunchtml{200})]
+                                [(#COMPTEUR_BOUCLE|=={#ENV{link,1}}|oui)
+                                    </a>
+                                ]   
+                            </td>
+                        </BOUCLE_cle>
+                            <td class="editable">
+                                <BOUCLE_mots(MOTS) {id_auteur} {", "}>
+                                    [(#ID_MOT|=={17}|oui) 
+                                        <br /><span style="float:left;margin-top:0.5em;margin-right:0.5em;"><img src="/IMG/motcle#ID_MOT.png" title="#TITRE"></span>
+                                    ]
+                                    <BOUCLE_entloc(ENTREPRISES){denomination=#TITRE}{0,1}>
+                                        <br /><span style="float:left;margin-top:0.5em;margin-right:0.5em;"><a href="/?page=entreprise&id_entreprise=#ID_ENTREPRISE">[(#LOGO_ENTREPRISE|image_reduire{116,*})]</a></span>       
+                                    </BOUCLE_entloc>
+                                    #TITRE
+                                </BOUCLE_mots>
+                                
+                                    
+                                </BOUCLE_motx>  
+                            </td>
+                        </tr>
+                        </B_cle>
+
+                    </BOUCLE_table> 
+                                
+    </BOUCLE_objet>            
+            
+            </tbody>
+
+            <B_tfoot>
+                <tfoot>
+                    <tr>
+                        <th> </th>
+            <BOUCLE_tfoot(DATA){source table, #ENV{champs}} >
+                        [<th>(#VALEUR)</th>]
+                        </BOUCLE_tfoot>
+                        <th>clés</th>   
+                    </tr>
+                </tfoot>
+            </B_tfoot>
+
+        </table>
+
+    </B_objet>
+    
+        <:aucun_auteur:>
+        <script type=text/javascript>
+         $(".dtauteurs").css("display","block"); 
+         </script>
+         
+    <//B_objet>
+
+</div>
+
+[(#REM)
+La variable d'environnement mots est un tableau mots idx=id_mot. 
+Pour DataTable, nous devons le transformer en une string. ]
+#SET{zmots,""}
+<BOUCLE_zmots(DATA) {source table, #ENV{mots}} >
+    <BOUCLE_mot(MOTS) {id_mot=#VALEUR}>
+        #SET{zmots,#GET{zmots} #VAL{' '}|concat{#TITRE} }               
+    </BOUCLE_mot>
+</BOUCLE_zmots>
+
+
+<script type="text/javascript">
+
+$(function() {
+    
+    var oTable = $('#tbl_auteurs').DataTable( {
+        dom : '[(#ENV{dom,'ftipr'})]',     // Défaut : pas de longueur
+        select: true,
+            responsive: true,
+            order: [1,'asc'],
+            language: {
+                url: '#CHEMIN{lib/French.json}',
+            },
+            [search: {
+                "search": "(#ENV{recherche})"
+            }] 
+        }); 
+        
+       [oTable.column( #ENV{clepos} )
+            .search( "(#GET{zmots})" )
+            .draw();]
+       
+       $('#tbl_auteurs').on( 'draw.dt', function () {
+            $(".dtauteurs").css("display","block");  
+        } );    
+
+    } );
+    
+    
+    
+                
+</script>

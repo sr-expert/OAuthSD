@@ -1,0 +1,10 @@
+[(#SET{ariane_separateur, #ENV{ariane_separateur}|is_null|non|?{#ENV{ariane_separateur},'&gt;'}})]
+[(#SET{ariane_separateur, [<span class="sep">(#GET{ariane_separateur})</span>]})]
+[(#REM)
+	Est-ce qu'on se connecte a l'espace prive ou pas ?
+]
+[(#ENV{url}|=={''}|?{#SET{prive,' '}})]
+[(#ENV{url}|match{^#EVAL{_DIR_RESTREINT_ABS}}|?{#SET{prive,' '}})]
+<p id="hierarchie">
+	[(#ENV{afficher_lien_accueil}|oui)<a href="#URL_SITE_SPIP/"><:accueil_site:></a> ][[(#GET{ariane_separateur})] <strong class="on">(#GET{prive}|?{<:login_acces_prive:>,<:lien_connecter:>})</strong>]
+</p>

@@ -1,0 +1,24 @@
+@import "bootstrap/css/layouts.less";
+@import "css/layoutgala/33";
+@import "css/layoutgala/27";
+
+#layoutgala33 > .core(8,4,4,@gridColumnWidth,@gridGutterWidth);
+#content > .inner {padding-right: @gridColumnWidth;}
+
+@media (min-width: 1200px) {
+  #layoutgala33 > .core(8,4,4,@gridColumnWidth1200,@gridGutterWidth1200);
+  #content > .inner {padding-right: @gridColumnWidth1200+@gridGutterWidth1200;}
+}
+@media (min-width: 768px) and (max-width: 979px) {
+  #layoutgala33 > .core(8,4,4,@gridColumnWidth768,@gridGutterWidth768);
+  #content > .inner {padding-right: 0;}
+}
+@media (max-width: 767px) {
+  #layoutgala27 > .core(auto,48%,48%,@gridColumnWidth768,@gridGutterWidth768);
+  #content > .inner {padding-right: 0;}
+}
+
+@media (max-width: 450px) {
+  div#aside {float:none;width:100%;}
+  div#extra {float:none;width:100%;}
+}

@@ -1,0 +1,28 @@
+<div class="formulaire_spip formulaire_configurer formulaire_#FORM">
+
+	<h3 class="titrem"><:sarkaspip_config:cfg_boite_fond_sauvegarde:></h3>
+
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	<form method="post" action="#ENV{action}"><div>
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_fond_sauvegarde:></legend>
+			<p class="explication"><:sarkaspip_config:cfg_inf_fond_sauvegarde:></p>
+			<ul class="editer-groupe">
+				#SET{name,config_a_sauvegarder}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]" id="bloc_fonds">
+					<label for="#GET{name}"><:sarkaspip_config:cfg_lbl_fond_sauvegarde:></label>[
+					<span class='erreur_message'>(#GET{erreurs})</span>
+					]<select name="#GET{name}" class="select" id="#GET{name}">
+						<option value="--"><:sarkaspip_config:cfg_option_tout_sauvegarder:></option>
+						#ENV*{_configurations}
+					</select>
+				</li>
+			</ul>
+		</fieldset>
+
+		<INCLURE{fond=formulaires/inc/cfg_boutons,
+			choix=valider_seul}>
+	</div></form>
+</div>

@@ -1,0 +1,28 @@
+<div class="formulaire_spip formulaire_configurer formulaire_#FORM">
+
+	<h3 class="titrem"><:sarkaspip_config:cfg_boite_fond_restauration:></h3>
+
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	<form method="post" action="#ENV{action}"><div>
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<fieldset>
+			<legend><:sarkaspip_config:cfg_lgd_fond_restauration:></legend>
+			<p class="explication"><:sarkaspip_config:cfg_inf_fond_restauration:></p>
+			<ul class="editer-groupe">
+				#SET{name,config_a_restaurer}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+					<label for="#GET{name}"><:sarkaspip_config:cfg_lbl_fond_restauration:></label>[
+					<span class="erreur_message">(#GET{erreurs})</span>
+					][<span class="erreur_message">(#ENV{_erreur_sauvegarde})</span>
+					][<select name="#GET{name}" class="select" id="#GET{name}">
+					(#ENV*{_fichiers_sauvegardes})
+					</select>]
+				</li>
+			</ul>
+		</fieldset>
+
+		<INCLURE{fond=formulaires/inc/cfg_boutons,
+			choix=valider_seul}>
+	</div></form>
+</div>

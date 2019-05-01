@@ -1,0 +1,20 @@
+<BOUCLE_auteur_principal(AUTEURS) {tout}{id_auteur}>
+	<section  class='auteur auteur_#ID_AUTEUR'>
+		[(#REM) <!-- Informations sur l'auteur --> ]
+			<INCLURE{fond=noisettes/auteur/description}{id_auteur}>
+		<aside>
+			[(#REM) <!-- articles publies par l'auteur --> ]
+			[(#CONFIG{sarkaspip/auteur/position_articles, 1}|=={1}|oui)
+				<INCLURE{fond=noisettes/auteur/liste-articles}{ajax}{id_auteur}>
+			]
+			[(#REM) <!-- albums publies par l'auteur --> ]
+			[(#CONFIG{sarkaspip/auteur/position_albums, 1}|=={1}|oui)
+				<INCLURE{fond=noisettes/auteur/liste-albums}{ajax}{id_auteur}>
+			]
+			[(#REM) <!-- Formumaire de contact de l'auteur --> ]
+			[(#CONFIG{sarkaspip/auteur/position_contact, 1}|=={1}|oui)
+				[(#FORMULAIRE_ECRIRE_AUTEUR)]
+			]
+		</aside>
+	</section>
+</BOUCLE_auteur_principal>

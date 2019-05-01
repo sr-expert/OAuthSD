@@ -1,0 +1,39 @@
+nom: '<:aveline:nom_page-contenuprincipal:>'
+icon: 'contenu-24.png'
+ajax: 'non'
+parametres:
+  -
+    saisie: 'selection'
+    options:
+      nom: 'titre'
+      label: '<:aveline:label_titre:>'
+      defaut: nom_page
+      cacher_option_intro: 'oui'
+      datas:
+        nom_page: '<:aveline:item_nom_page:>'
+        titre_perso: '<:aveline:item_titre_perso:>'
+  -
+    saisie: 'input'
+    options:
+      nom: 'titre_perso'
+      label: '<:aveline:label_titre_liste_perso:>'
+      explication: '<:aveline:explication_raccourcis_typo:>'
+      afficher_si: '@titre@ == "titre_perso"'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'description'
+      label: '<:aveline:label_description_page:>'
+      defaut: ''
+      option_intro: '<:aveline:item_rien:>'
+      datas:
+        description_page: '<:aveline:item_description_page:>'
+        description_perso: '<:aveline:item_description_perso:>'
+  -
+    saisie: 'textarea'
+    options:
+      nom: 'description_perso'
+      label: '<:aveline:label_description_perso:>'
+      inserer_barre: 'edition'
+      previsualisation: 'oui'
+      afficher_si: '@description@ == "description_perso"'

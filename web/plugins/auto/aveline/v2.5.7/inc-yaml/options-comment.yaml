@@ -1,0 +1,77 @@
+-
+  saisie: 'selection'
+  options:
+    nom: 'thread'
+    label: '<:aveline:label_thread:>'
+    defaut: 'complet'
+    cacher_option_intro: 'oui'
+    datas:
+      plat: '<:aveline:item_thread_plat:>'
+      simple: '<:aveline:item_thread_simple:>'
+      complet: '<:aveline:item_thread_complet:>'
+-
+  saisie: 'selection'
+  options:
+    nom: 'senstri'
+    label: '<:aveline:label_senstri:>'
+    defaut: '0'
+    cacher_option_intro: 'oui'
+    datas:
+      0: '<:aveline:item_ascendant:>'
+      1: '<:aveline:item_descendant:>'
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'formulaire_reponse_volant'
+    label: '<:aveline:label_formulaire_reponse_volant:>'
+    explication: '<:aveline:explication_formulaire_reponse_volant:>'
+    defaut: ''
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'afficher_titre_noisette'
+    label: '<:aveline:label_afficher_titre_noisette:>'
+    defaut: 'on'
+-
+  saisie: 'selection'
+  options:
+    nom: 'titre_noisette'
+    label: '<:aveline:label_titre_noisette:>'
+    defaut: 'nb_messages'
+    cacher_option_intro: 'oui'
+    datas:
+      'nb_messages': '<:aveline:item_nb_messages:>'
+      'public:forum': '<:forum:forum:>'
+      'public:messages_forum': '<:public:messages_forum:>'
+      'avelinepublic:commentaires': '<:avelinepublic:commentaires:>'
+      titre_perso: '<:aveline:item_titre_perso:>'
+    afficher_si: '@afficher_titre_noisette@ == "on"'
+-
+  saisie: 'input'
+  options:
+    nom: 'titre_noisette_perso'
+    label: '<:aveline:label_titre_noisette_perso:>'
+    explication: '<:aveline:explication_raccourcis_typo:>'
+    afficher_si: '@afficher_titre_noisette@ == "on" && @titre_noisette@ == "titre_perso"'
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'afficher_titre_message'
+    label: '<:aveline:label_afficher_titre_message:>'
+    defaut: 'on'
+-
+  saisie: 'oui_non'
+  options:
+    nom: 'afficher_logo_auteur'
+    label: '<:aveline:label_afficher_logo_auteur:>'
+    defaut: 'on'
+-
+  saisie: 'input'
+  options:
+    nom: 'taille_max_logo'
+    label: '<:aveline:label_taille_max_logo:>'
+    defaut: 60
+    afficher_si: '@afficher_logo_auteur@ == "on"'
+  verifier:
+    type: 'entier'
+    min: 10

@@ -1,0 +1,6 @@
+// Interroger Authorize
+include_spip('inc/headers'); 
+$oauth_state = session_get('oauth_state');
+$url = "http://oa.dnc.global/oauth/authorize.php?response_type=code&
+           client_id=radar&state=$oauth_state";
+redirige_par_entete($url);

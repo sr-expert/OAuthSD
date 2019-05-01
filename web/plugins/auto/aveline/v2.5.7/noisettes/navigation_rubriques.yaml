@@ -1,0 +1,34 @@
+nom: '<:aveline:nom_navigation_rubriques:>'
+description: '<:aveline:description_navigation_rubriques:>'
+icon: 'boussole-24.png'
+ajax: 'non'
+parametres:
+  -
+    saisie: 'oui_non'
+    options:
+      nom: 'afficher_titre_noisette'
+      label: '<:aveline:label_afficher_titre_noisette:>'
+      defaut: 'on'
+  -
+    saisie: 'selection'
+    options:
+      nom: 'titre_noisette'
+      label: '<:aveline:label_titre_noisette:>'
+      defaut: 'public:rubriques'
+      cacher_option_intro: 'oui'
+      datas:
+        'public:rubriques': '<:public:rubriques:>'
+        'public:navigation': '<:public:navigation:>'
+        'public:hierarchie_site': '<:public:hierarchie_site:>'
+        'avelinepublic:categories': '<:avelinepublic:categories:>'
+        'avelinepublic:themes': '<:avelinepublic:themes:>'
+        'avelinepublic:sujets': '<:avelinepublic:sujets:>'
+        titre_perso: '<:aveline:item_titre_perso:>'
+      afficher_si: '@afficher_titre_noisette@ == "on"'
+  -
+    saisie: 'input'
+    options:
+      nom: 'titre_noisette_perso'
+      label: '<:aveline:label_titre_noisette_perso:>'
+      explication: '<:aveline:explication_raccourcis_typo:>'
+      afficher_si: '@afficher_titre_noisette@ == "on" && @titre_noisette@ == "titre_perso"'

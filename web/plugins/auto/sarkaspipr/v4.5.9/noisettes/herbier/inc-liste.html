@@ -1,0 +1,13 @@
+<BOUCLE_categories(SITES mots_syndic){id_mot>0}{doublons herbier_exclus}{si #ENV{exclure_categorie,''}}> </BOUCLE_categories>
+<B_herbier>
+<div class="liste long herbier">
+	#ANCRE_PAGINATION
+	[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{top})]
+	<ul class="liste-items">
+		<BOUCLE_herbier(SITES) {id_mot?}{doublons herbier_exclus}{pagination #CONFIG{sarkaspip/herbier/pas_pagination_1, 5}}{par date}{inverse}>
+		<li class="item">#INCLURE{fond=inclure/resume/site,id_syndic}</li>
+		</BOUCLE_herbier>
+	</ul>
+	[[<div class="pagination">(#PAGINATION)</div>](#TOTAL_BOUCLE|affiche_pagination{bottom})]
+</div>
+</B_herbier>

@@ -1,0 +1,24 @@
+[(#SET{lien_prev,[(#CHEMIN{images/precedent.png}|image_reduire{20,20}|inserer_attribut{alt,<:avelinepublic:precedent_suivant_lien_prev:>})]})]
+[(#SET{lien_next,[(#CHEMIN{images/suivant.png}|image_reduire{20,20}|inserer_attribut{alt,<:avelinepublic:precedent_suivant_lien_next:>})]})]
+[(#ENV{precedent_suivant_type_lien}|=={lien_texte}|oui)
+   [(#SET{lien_prev,<:avelinepublic:precedent_suivant_lien_prev:>})]
+   [(#SET{lien_next,<:avelinepublic:precedent_suivant_lien_next:>})]]
+<div style="text-align:#ENV{precedent_suivant_align,left};">
+   <BOUCLE_article_precedent(ARTICLES){precedent}{aveline_branche}{aveline_lang}{tri #ENV{tri},#ENV{senstri}}>
+      [<a href="(#URL_ARTICLE)" rel="prev" class="spip_in prev" title="[(#TITRE|couper{20}|attribut_html)]">
+         [(#ENV{precedent_suivant_type_lien}|=={lien_titre}|oui)
+            [(#SET{lien_prev,[(#TITRE|couper{#ENV{precedent_suivant_longueur_max_titres,20}})]})]]
+         #GET{lien_prev}
+      </a>]
+   </BOUCLE_article_precedent>
+   
+   [(#ENV{precedent_suivant_type_lien}|=={lien_texte}|oui|ou{#ENV{precedent_suivant_type_lien}|=={lien_titre}|oui})&nbsp;-&nbsp;]
+   
+   <BOUCLE_article_suivant(ARTICLES){suivant}{aveline_branche}{aveline_lang}{tri #ENV{tri},#ENV{senstri}}>
+      [<a href="(#URL_ARTICLE)" rel="next" class="spip_in next" title="[(#TITRE|couper{20}|attribut_html)]">
+         [(#ENV{precedent_suivant_type_lien}|=={lien_titre}|oui)
+            [(#SET{lien_next,[(#TITRE|couper{#ENV{precedent_suivant_longueur_max_titres,20}})]})]]
+         #GET{lien_next}
+      </a>]
+   </BOUCLE_article_suivant>
+</div>

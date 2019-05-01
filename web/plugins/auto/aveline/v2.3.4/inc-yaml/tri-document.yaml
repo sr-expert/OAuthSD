@@ -1,0 +1,23 @@
+-
+  saisie: 'selection'
+  options:
+    nom: 'tri'
+    label: '<:aveline:label_tri:>'
+    defaut: 'titre'
+    cacher_option_intro: 'oui'
+    datas:
+      'titre': '<:aveline:item_titre:>'
+      date: '<:aveline:item_date:>'
+      maj: '<:aveline:item_date_modif:>'
+      extension: '<:aveline:item_extension:>'
+      hasard: '<:aveline:item_hasard:>'
+-
+  saisie: 'selection'
+  options:
+    nom: 'senstri'
+    label: '<:aveline:label_senstri:>'
+    defaut: ''
+    cacher_option_intro: 'oui'
+    datas:
+      '': '<:aveline:item_ascendant:>'
+      inverse: '<:aveline:item_descendant:>'

@@ -1,0 +1,7 @@
+nom: '<:aveline:nom_article-forum:>'
+icon: 'forum-24.png'
+necessite:
+  - 'forum'
+parametres:
+  - 'inclure:inc-yaml/options-comment.yaml'
+  - 'inclure:inc-yaml/pagination.yaml'

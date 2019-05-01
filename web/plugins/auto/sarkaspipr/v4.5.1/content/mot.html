@@ -1,0 +1,33 @@
+[(#CONFIG{sarkaspip/recherche/activer_par_motcle,oui}|=={oui}|oui)
+<section class="mot">
+	<header class="cartouche">
+		<h1><:sarkaspip:rechercher_par_mot:></h1>
+	</header>
+
+	<div class="main">
+		[(#REM)<!--
+			#ENV{id_mot} vaut l'id du mot selectionne lorsque l'appel s'est fait a partir des noisettes des mots cles de la colonne extra
+			#ENV{id_mot} est nul lorsque l'appel se fait directement par le bouton mot-cle du menu inc_nav_raccourci,
+		--> ]
+		<div class="ajax">#FORMULAIRE_MULTI_MOTS{#ENV{id_mot}}</div>
+	</div>
+</section>
+]<BOUCLE_mot(MOTS){id_mot}{si #CONFIG{sarkaspip/recherche/activer_par_motcle,oui}|=={non}}>
+<section class="mot">
+	<header class="cartouche">
+		[<h1>[(#LOGO_MOT|image_reduire{#ENV{taille_logo,150}})]<span class="#EDIT{titre}">(#TITRE)</span></h1>]
+	</header>
+
+	<div class="main">
+		[<div class="#EDIT{texte} texte">(#TEXTE|adaptive_images)</div>]
+		[(#TEXTE*|non)
+			[<div class="#EDIT{descriptif} chapo">(#DESCRIPTIF|adaptive_images)</div>]
+		]
+
+		[(#REM) <!-- les resultats de la recherche multi-mots -->]
+		<BOUCLE_resultats(POUR){tableau #LISTE{articles,albums,evenements,breves,rubriques,sites}}>
+			<INCLURE{fond=noisettes/mot/liste-#VALEUR,id1=#ID_MOT,ajax,env}>
+		</BOUCLE_resultats>
+	</div>
+</section>
+</BOUCLE_mot>
