@@ -1,7 +1,0 @@
-// Verify format of session_id
-$session_id = $request->query['session_id'];
-$sanitized_session_id = preg_replace('/[^A-Za-z0-9"\']/', '', $session_id);
-if ( $sanitized_sesion_id !== $session_id ) {
-    $response->send();
-    die;     
-}

@@ -1,6 +1,0 @@
-// Le nom de l'application cliente
-define ( 'APPNAME', 'testrpc3' );
-// Requete
-$request = "https://r.dnc.global/http.api/collectionjson/gis/27";
-// Afficher l'array obtenu
-echo print_r( json_decode( ProtectedApi_GET_auto ( $request ) ) , true );

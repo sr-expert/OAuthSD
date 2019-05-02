@@ -1,6 +1,0 @@
-    $url = "https://oa.dnc.global/userinfo";
-    $options = array(
-         'methode' => 'GET',
-        'datas' => 'Authorization: Bearer ' . $access_token,
-    );
-    $res = recuperer_url($url, $options);
