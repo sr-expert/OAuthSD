@@ -34,7 +34,7 @@ function hids($title, $origin, $str, $client_id, $user_id, $level, $errnum, $wei
     $stmt->execute(compact('user_id','client_id'));
     $coupledata = $stmt->fetchAll(\PDO::FETCH_ASSOC);   // 10 derniers événements
     // Un couple ne devrait pas bombarder.
-    $datetime0 = strtotime($coupledata[0]['datetime']);
+    $datetime0 = strtotime(@$coupledata[0]['datetime']);
     $datetime9 = strtotime(@$coupledata[9]['datetime']);
     if ( $datetime9 ) { 
         $secs = $datetime0 - $datetime9;
