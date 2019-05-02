@@ -7,6 +7,6 @@ OAuthSD offers you the best: to ensure not only Single Sign On (SSO), but also S
 See: <a href="https://oa.dnc.global/web/-OpenID-Connect-SSO-management-de-session-etc-.html#slisloetsrasontdansunbateauoauthsd">SLI, SLO and SRA are in a boat: OAuthSD</a>. 
 While most implementations require developments on the side of client applications, OAUthSD offers you these features without any modification of them. 
 
-OAuthSD also allow client-side monitoring and management of the OpenID Connect session.
+OAuthSD also allow end user to monitor and manage the OpenID Connect session.
 
 Please see : <a href="https://oa/dnc/global">Trial server and documentation</a>
