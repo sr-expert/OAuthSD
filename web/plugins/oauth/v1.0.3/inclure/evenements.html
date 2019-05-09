@@ -17,28 +17,28 @@ Table spip_oidc_logs.
 #SET{recherche,#ENV{recherche,#SESSION{recherche}}}
 
 
-[(#ENV{client_id}|oui) #SET{on,un client}]
-[(#ENV{user_id}|oui) #SET{on,#GET{on}&nbsp;un utilisateur}]
-[(#ENV{remote_addr}|oui) #SET{on,#GET{on}&nbsp;une IP}]
-[(#ENV{errnum}|oui) #SET{on,#GET{on}&nbsp;un code}]
+[(#ENV{client_id}|oui) [(#SET{on,&nbsp;<:oauth:un_client:>})] ]
+[(#ENV{user_id}|oui) [(#SET{on,#GET{on}&nbsp;<:oauth:un_utilisateur:>})] ]
+[(#ENV{remote_addr}|oui) [(#SET{on,#GET{on}&nbsp;<:oauth:une_ip:>})] ]
+[(#ENV{errnum}|oui) [(#SET{on,#GET{on}&nbsp;<:oauth:un_code:>})] ]
 
 [(#GET{on}|non)
 [(#ENV{id_oidc_log}|non)    
-<h2>Tous les événements</h2>
+<h2><:oauth:evenements_tous:></h2>
 ]
 [(#ENV{id_oidc_log}|oui)    
-<h2>Un événement</h2>
+<h2><:oauth:evenement_un:></h2>
 ]
 ]
 [(#GET{on}|oui)    
-<h2>Événements pour #GET{on}</h2> 
-<p><a href="/web/?page=evenements" class='ajax'>Tous les événements</a></p>
+<h2><:oauth:evenements_pour:> #GET{on}</h2> 
+<p><a href="/web/?page=evenements&lang=#ENV{lang}" class='ajax'><:oauth:evenements_tous:></a></p>
 ]
 
 <div style="float:right;"><p>
-        A jour le : <time datetime='#GET{date}'>#GET{date}</time> 
+        <:oauth:a_jour_le:> : <time datetime='#GET{date}'>#GET{date}</time> 
         <B_depuis>
-            &nbsp;-&nbsp;#GET{total}&nbsp;événements depuis le 
+            &nbsp;-&nbsp;#GET{total}&nbsp;<:oauth:evenements_depuis:> 
             <BOUCLE_depuis(spip_oidc_logs) {id_oidc_log?} {client_id?} {user_id?} {errnum?} {level ?} {origin ?} {remote_addr ?} {state ?} {par id_oidc_log} {inverse} {#GET{total},1}>
             #DATETIME
             </BOUCLE_depuis>
@@ -50,7 +50,7 @@ Table spip_oidc_logs.
 
 #SET{recherche,#LISTE{2,3,4,5,6,7,8}}
 
-<p>Filtrer par colonne(s) :</p>
+<p><:oauth:filtrer_colonnes:> :</p>
 <div id="searchers" style="text-align:normalize;"></div>
 
 <B_table1>
@@ -110,7 +110,7 @@ Table spip_oidc_logs.
 
     </table>
 </B_table1>
-<p>Aucun enregistrement</p>
+<p><:oauth:aucun_evenement:></p>
 <//B_table1>
 
 <script type="text/javascript">
@@ -118,12 +118,14 @@ Table spip_oidc_logs.
 
 
     $(document).ready(function() {
+        
+        var lang = '#ENV{lang}';
+        
         /* Initialise the DataTable */
-
         var oTable = $('#tbl').dataTable( {
             responsive: true,
             language: {
-                url: '#CHEMIN{lib/French.json}',
+                url: '#CHEMIN{lang/datatable_'+lang+'.json}',
             },
             "aaSorting": [[ 0, "desc" ]],
             "createdRow": function ( row, data, index ) {   //o4 Callback for whenever a TR element is created for the table's body
@@ -156,7 +158,7 @@ Table spip_oidc_logs.
                     "data": "client_id",
                     "render": function ( data, type, row, meta ) {
                         if ( type === "display" ) {
-                            return '<a href="/web/?page=evenements&client_id='+data+'" class="ajax">'+data+'</a>';
+                            return '<a href="/web/?page=evenements&client_id='+data+'&lang='+lang+'" class="ajax">'+data+'</a>';
                         } else return data;
                     }
                 },
@@ -165,7 +167,7 @@ Table spip_oidc_logs.
                     "data": "user_id",
                     "render": function ( data, type, row, meta ) {
                         if ( type === "display" ) {
-                            return '<a href="/web/?page=evenements&user_id='+data+'" class="ajax">'+data+'</a>';
+                            return '<a href="/web/?page=evenements&user_id='+data+'&lang='+lang+'" class="ajax">'+data+'</a>';
                         } else return data;
                     }
                 },
@@ -174,7 +176,7 @@ Table spip_oidc_logs.
                     "width": "5%",
                     "render": function ( data, type, row, meta ) {
                         if ( type === "display" ) {
-                            return '<a href="/web/?page=evenements&errnum='+data+'" class="ajax">'+data+'</a>';
+                            return '<a href="/web/?page=evenements&errnum='+data+'&lang='+lang+'" class="ajax">'+data+'</a>';
                         } else return data;
                     }
                 },
@@ -190,7 +192,7 @@ Table spip_oidc_logs.
                             if ( data == '<?php echo $_SERVER['SERVER_ADDR']; ?>' ) {
                                 data2 = 'Server IP';
                             }
-                            return '<a href="/web/?page=remote-addr&remote_addr='+data+'" class="ajax">'+data2+'</a>';
+                            return '<a href="/web/?page=remote-addr&remote_addr='+data+'&lang='+lang+'" class="ajax">'+data2+'&lang='+lang+'</a>';
                         } else return data;
                     }
                 },
@@ -199,7 +201,7 @@ Table spip_oidc_logs.
                     "width": "20%",
                     "render": function ( data, type, row, meta ) {
                         if ( type === "display" ) {
-                            return '<a href="/web/?page=state&state='+data+'" class="ajax">'+data+'</a>';
+                            return '<a href="/web/?page=state&state='+data+'&lang='+lang+'" class="ajax">'+data+'</a>';
                         } else return data;
                     }
                 }

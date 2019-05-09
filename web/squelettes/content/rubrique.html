@@ -1,11 +1,14 @@
 <section class="rubrique rubrique#ID_RUBRIQUE">
 
 <BOUCLE_rubrique(RUBRIQUES) {id_rubrique} >
+
+<p class="arbo">
+<a href="#URL_SITE_SPIP/"><:accueil_site:></a><BOUCLE_ariane(HIERARCHIE){id_rubrique}> &gt; <a href="#URL_RUBRIQUE">[(#TITRE|couper{80})]</a></BOUCLE_ariane>[ &gt; <class="on">(#TITRE|couper{80})]
+</p><!--.arbo-->
 <p>
 <span class="#EDIT{texte}">#TEXTE</span>
 </p>
 </BOUCLE_rubrique>
-
 
     <?php if (isset($GLOBALS['visiteur_session']['statut'])
     AND $GLOBALS['visiteur_session']['statut']
@@ -26,7 +29,7 @@
             <a rel="self bookmark" href="#[(#TITRE|title2anchor)]" title="Lien permanent vers l'article #ID_ARTICLE : #TITRE" class="permalink diese">#</a>&nbsp;
 
             [(#DATE_REDAC|non) 
-                <:geobase:publie_le:> <time>
+                <:publie_le:> <time>
                 <i class="icon-calendar"></i> [(#DATE|nom_jour) ][(#DATE|affdate)]
                 </time>
             ]
@@ -122,3 +125,18 @@
     </div>
     <//B_arts>
 </section>
+
+
+<BOUCLE_secteurs(RUBRIQUES)  {id_rubrique?} {racine} {par num titre}>
+
+    <p>
+        [(#REM) Derniers articles pour les rubriques de sommaire]
+        <INCLURE{fond=inclure/sommaire-articles}{id_rubrique}{env}{self=#SELF}{ajax} />
+    </p>
+
+    <p>
+        [(#REM) Plan ]
+        <INCLURE{fond=content/plan}{id_rubrique} />
+    </p>
+
+</BOUCLE_secteurs>

@@ -1,35 +1,39 @@
 #CACHE{0}
 
-<div class="breadcrumb"><a href="/">Accueil</a> - <a href="./spip.php?page=gerer">Gestion</a> - Inscrire une application</div>
+<div class="breadcrumb"><a href="/"><:oauth:accueil:></a> - <a href="./spip.php?page=gerer"><:oauth:gerer:></a> - <:oauth:inscrire_client:></div>
 
 #INCLURE{fond=inclure/identification,env}
 
 <BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
     
-    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+    <:oauth:vous_etes_identifie_comme:> : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
 
     [(#ENV{id_client}|oui)
         [(#AUTORISER{modifier,client,#ENV{id_client}}|oui)
-            <h2>Editer l'application cliente # #ENV{id_client}</h2>
+            <h2><:oauth:editer_client:> # #ENV{id_client}</h2>
+            <div class='ajax'>
             #FORMULAIRE_EDITER_CLIENT
+            </div>
         ]
     ]
 
     [(#ENV{id_client}|non)
         [(#AUTORISER{creer,client}|oui)
-            <h2>Inscrire une application cliente</h2>
+            <h2><:oauth:inscrire_client:></h2>
+            <div class='ajax'>
             #FORMULAIRE_EDITER_CLIENT
+            </div>
         ]
     ]
 
     <p>Aide : <br />
-    <a href="./article7">Pour OAuth 2.0</a><br />
-    <a href="./article48">Pour OpenID Connect</a>
+    <multi>[fr]<a href="./article7">Pour OAuth 2.0</a>[en]<a href="./article7">For OAuth 2.0</a></multi><br />
+    <multi>[fr]<a href="./article48">Pour OpenID Connect</a>[en]<a href="./article99">For OpenID Connect</a></multi><br />
+    
     </p>
     
     <br />
-    Nota : L'inscription d'une application cliente est soumise à l'approbation de l'administrateur.
+    <:oauth:nota_approbation_client:>.
     
-    ]
 
 </BOUCLE_auteur>

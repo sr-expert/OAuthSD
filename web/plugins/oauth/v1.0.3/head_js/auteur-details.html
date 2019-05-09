@@ -4,14 +4,8 @@ Auteur B.Degoy DnC 2017-2019
 licence GPL3
 ]
 
-[(#REM) content pleine largeur ]
-<style>
-html.page_auteur-details #content {
-    float: none !important;
-    width: 100% !important;
-}
+[(#REM) On a ecrasé le head_js du thème!]
+[<script type="text/javascript" src="(#CHEMIN{js/bootstrap-dropdown.js})"></script>] 
+[<script type="text/javascript" src="(#CHEMIN{js/menu.dropdown.js})"></script>]
 
-html.page_auteur-details #aside {
-    display: none !important;
-}
-</style>
+#INCLURE{fond=inclure/head_datatables,env}

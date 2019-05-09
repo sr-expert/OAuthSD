@@ -19,7 +19,7 @@ OAuth2\Autoloader::register();
 ///// Configuration /////
 
 $client_id = 'testopenid';   // iss
-$user_id = 'spdegoy';  // subject
+$user_id = 'bebert';  // subject
 
 $server = 'oa.dnc.global';
 $token_endpoint = 'https://' . $server . '/token';

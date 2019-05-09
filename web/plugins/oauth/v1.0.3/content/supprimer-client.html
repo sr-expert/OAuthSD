@@ -1,18 +1,19 @@
-<div class="breadcrumb"><a href="/">Accueil</a> - <a href="./spip.php?page=gerer">Gestion</a> - <a href="./spip.php?page=mes-clients">Clients</a> - Supprimer client</div>
+
+<div class="breadcrumb"><a href="/"><:oauth:accueil:></a> - <a href="./spip.php?page=gerer"><:oauth:gerer:></a> - <a href="./spip.php?page=mes-clients"><:oauth:applications:></a> - <:oauth:supprimer_client:></div>
 
 #INCLURE{fond=inclure/identification,env}
 
 <BOUCLE_a (AUTEURS) {id_auteur = #SESSION{id_auteur}} {statut=0minirezo} {tout} >
 
-    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+    <:oauth:vous_etes_identifie_comme:> : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
 
-    <h2>Supprimer un Client</h2>    
+    <h2><:oauth:supprimer_client:></h2>    
 
     <BOUCLE_o (spip_auteurs_liens) {objet = client} {id_auteur = #ID_AUTEUR} {id_objet = #ENV{id_client}} >
 
         <B_ligne>
 
-            Etes-vous sûr de vouloir supprimer l'application cliente suivante : <br /><br />
+            <:oauth:etes_vous_sur_supprimer_client:> ? : <br /><br />
             <table>
                 <tr><td><b>#</b></td><td><b>Client ID</b></td><td><b>Redirect URI</b></td><td><b>Grant Type</b></td><td><b>Statut</b></td></tr>
 
@@ -46,7 +47,7 @@
         </B_ligne>
 
     </BOUCLE_o>
-    Vous ne pouvez pas supprimer ce client !
+        <:oauth:vous_pas_supprimer_client:> !
     <//B_o>
 
 </BOUCLE_a>

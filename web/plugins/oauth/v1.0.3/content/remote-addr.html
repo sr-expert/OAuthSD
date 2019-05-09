@@ -1,6 +1,6 @@
 #CACHE{15}
 
-<div class="breadcrumb"><a href="/">Accueil</a> - <a href="/web/?page=suivre">Suivi</a> - <a href="/web/?page=evenements">Événements</a> - Même IP</div>
+<div class="breadcrumb"><a href="/"><:oauth:accueil:></a> - <a href="/web/?page=suivre"><:oauth:surveiller:></a> - <a href="/web/?page=evenements">Événements</a> - <:oauth:meme_ip:></div>
 
 #INCLURE{fond=inclure/identification,env}
 <BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
@@ -23,11 +23,11 @@
 
     <div class="nettoyeur"></div>
     
-    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+    <:oauth:vous_etes_identifie_comme:> : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
 
     <div id="datatable_container">
 
-        <h2>Événements avec IP = #ENV{remote_addr}</h2>
+        <h2><:oauth:evenements_avec_ip:> = #ENV{remote_addr}</h2>
 
         #SET{recherche,#LISTE{2,4}}
 
@@ -76,7 +76,7 @@
 
             </table>
         </B_table1>
-        <p>Aucun enregistrement</p>
+        <p><:oauth:aucun_evenement:></p>
         <//B_table1>
 
     </div>
@@ -84,6 +84,9 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
+            
+            var lang = '#ENV{lang}';
+            
             /* Initialise the DataTable */
 
             var oTable = $('#tbl').dataTable( {
@@ -116,7 +119,7 @@
                         "data": "id_client",
                         "render": function ( data, type, row, meta ) {
                             if ( type === "display" ) {
-                                return '<a href="./spip.php?page=evenements&id_oidc_log='+data+'">'+data+'</a>';
+                                return '<a href="./spip.php?page=evenements&id_oidc_log='+data+'&lang='+lang+'">'+data+'</a>';
                             } else return data;
                         }
                     },
@@ -125,7 +128,7 @@
                         "data": "errnum",
                         "render": function ( data, type, row, meta ) {
                             if ( type === "display" ) {
-                                return '<a href="./spip.php?page=evenements&errnum='+data+'">'+data+'</a>';
+                                return '<a href="./spip.php?page=evenements&errnum='+data+'&lang='+lang+'">'+data+'</a>';
                             } else return data;
                         }
                     },

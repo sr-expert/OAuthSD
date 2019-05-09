@@ -6,6 +6,13 @@ Licence GPL 3
 <div class="doc-sidebar span3">
 
     #FORMULAIRE_RECHERCHE
+    
+    <div class="form-langues" style=".muted">
+        <style>
+            #menu_lang {display: inline-block;}    
+        </style>
+        <:langue_site:> : [(#INCLURE{fond=formulaires/menu_lang,env})]  
+    </div>
 
     <BOUCLE_art(ARTICLES){id_article}>
 

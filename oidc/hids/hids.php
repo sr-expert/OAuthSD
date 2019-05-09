@@ -23,7 +23,7 @@ function hids($title, $origin, $str, $client_id, $user_id, $level, $errnum, $wei
     $arglist = func_get_args();
 
     // OIDC Authorize fait un usage limité des requêtes cross-origin.
-    if ( $errnum >= 10000 AND !($errnum=='10001' OR $errnum == '10110') ) {
+    if ( $errnum >= 10000 AND !($errnum=='10001' OR $errnum == '10110'  OR $errnum == '10120') ) {
         $arglist[5] = 3;
         $arglist[6] = 20000 + $errnum;  // errnum
         $arglist[7] = 1000;
@@ -38,10 +38,10 @@ function hids($title, $origin, $str, $client_id, $user_id, $level, $errnum, $wei
     $datetime9 = strtotime(@$coupledata[9]['datetime']);
     if ( $datetime9 ) { 
         $secs = $datetime0 - $datetime9;
-        if ( $secs < 5 ) {
-            // 10 événements en 5s, c'est trop
+        if ( $secs < 2 ) {
+            // 10 événements en 2s, c'est trop
             $arglist[5] = 3;        // level
-            if ( $errnum=='10001' OR $errnum == '10110') {
+            if ( $errnum=='10001' OR $errnum == '10110' OR $errnum == '10120') {
                 // polling trop rapide
                 $arglist[2] = 'Polling much too fast ! (' . $str . ')'; // msg
                 $arglist[6] = 20000;    // errnum
@@ -58,10 +58,10 @@ function hids($title, $origin, $str, $client_id, $user_id, $level, $errnum, $wei
                 $arglist[7] = 1000;     // weight
             }
         }
-        else if ( $secs < 20 ) {
-            // 10 événements en 20s, c'est beaucoup
+        else if ( $secs < 10 ) {
+            // 10 événements en 10s, c'est beaucoup
             $arglist[5] = 2;        // level
-            if ( $errnum=='10001' OR $errnum == '10110') {
+            if ( $errnum=='10001' OR $errnum == '10110' OR $errnum == '10120') {
                 // polling trop rapide
                 $arglist[2] = 'Polling too fast ! (' . $str . ')'; // msg
                 $arglist[6] = 20003;    // errnum

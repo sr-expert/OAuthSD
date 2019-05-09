@@ -1,14 +1,14 @@
 #CACHE{0}
 
-<div class="breadcrumb"><a href="/">Accueil</a> - <a href="./spip.php?page=gerer">Gestion</a> - Applications</div>
+<div class="breadcrumb"><a href="/"><:oauth:accueil:></a> - <a href="./spip.php?page=gerer"><:oauth:gerer:></a> - <:oauth:applications:></div>
 
 #INCLURE{fond=inclure/identification,env}
 
 <BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
 
-    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+    <:oauth:vous_etes_identifie_comme:> : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
 
-    <h2>Toutes vos application clientes</h2>
+    <h2><:oauth:toutes_applications:></h2>
 
     <table id="tbl" class="display datable" style="table-layout: fixed">
 
@@ -41,11 +41,11 @@
                     [(#STATUT|=={publie}|oui)Actif]       
                 </td>
                 <td style="overflow:hidden; white-space: nowrap;">
-                    <a href="./spip.php?page=creer-client&id_client=#ID_CLIENT">éditer</a>
+                    <a href="./spip.php?page=creer-client&id_client=#ID_CLIENT"><multi>[fr]éditer[en]edit</multi></a>
                     <br />
-                    <a href="./spip.php?page=gerer-public_keys&id_client=#ID_CLIENT">clés</a>
+                    <a href="./spip.php?page=gerer-public_keys&id_client=#ID_CLIENT"><multi>[fr]clés[en]keys</multi></a></a>
                     <br />
-                    <a href="./spip.php?page=supprimer-client&id_client=#ID_CLIENT">supprimer</a>       
+                    <a href="./spip.php?page=supprimer-client&id_client=#ID_CLIENT"><multi>[fr]supprimer[en]delete</multi></a></a>       
                 </td>
                 </tr>
             </BOUCLE_ligne>
@@ -64,6 +64,9 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
+            
+            var lang = '#ENV{lang}';
+            
             /* Initialise the DataTable */
 
             var oTable = $('#tbl').dataTable( {
@@ -82,7 +85,7 @@
                         "data": "id_client",
                         "render": function ( data, type, row, meta ) {
                             if ( type === "display" ) {
-                                return '<a href="./spip.php?page=creer-client&id_client='+data+'">'+data+'</a>';
+                                return '<a href="./spip.php?page=creer-client&id_client='+data+'&lang='+lang+'">'+data+'</a>';
                             } else return data;
                         }
                     },

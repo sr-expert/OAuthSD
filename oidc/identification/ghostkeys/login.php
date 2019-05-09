@@ -237,7 +237,7 @@ echo('
 
     <br />
     <div class="nologin">' .
-    _('You do not have identifiers ?') . ' <a href="/?page=editer_user_ext&id_client=' . $id_client . '&client=' . $theclient . '&nom=' . $thename . '&pswdl=' . PSWD_LENGTH . '">' . _('Please sign on') . '</a>.     
+    _('You do not have identifiers ?') . ' <a href="/?page=editer_user_ext&id_client=' . $id_client . '&client=' . $theclient . '&nom=' . $thename . '&pswdl=' . PSWD_LENGTH . '&lang=' . $lang .'">' . _('Please sign on') . '</a>.     
     </div>
 
     </div>

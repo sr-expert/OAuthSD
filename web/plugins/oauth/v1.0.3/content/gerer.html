@@ -1,37 +1,35 @@
 #CACHE{0}
 
-<div class="breadcrumb"><a href="/">Accueil</a> - Auteurs</div>
+<div class="breadcrumb"><a href="/"><:oauth:accueil:></a> - <:oauth:gerer:></div>
 
-<p>
-L’Auteur est un utilisateur privilégié de OAuthSD. Il est notamment propriétaire d’une ou plusieurs applications clientes qu’il inscrit et gère sur ce serveur à l’aide des fonctions ci-dessous. 
-</p>
+<p><:oauth:auteur_est_un:></p>
 
 #INCLURE{fond=inclure/identification,env}
 
 <BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
 
-    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+    <:oauth:vous_etes_identifie_comme:> : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
     
     [(#AUTORISER{voir,auteur,#ID_AUTEUR})
-        <a href="./spip.php?page=auteur-details">Gérez vos informations d'auteur</a><br /><br />
+        <a href="./spip.php?page=auteur-details&lang=#ENV{lang}"><:oauth:gerer_infos_auteur:></a><br /><br />
     ]
 
     [(#AUTORISER{creer,client})
-        <h2>Gérez vos applications clientes</h2>
-        <a href="./spip.php?page=creer-client">Ajouter (Inscrire) une application cliente</a><br />
-        <a href="./spip.php?page=mes-clients">Toutes vos applications clientes</a><br />
+        <h3><:oauth:gerer_app_clientes:></h3>
+        <a href="./spip.php?page=creer-client&lang=#ENV{lang}"><:oauth:ajouter_application_cliente:></a><br />
+        <a href="./spip.php?page=mes-clients&lang=#ENV{lang}"><:oauth:toutes_applications:></a><br />
         <br />
     
-        <h2>Gérez les Scopes de vos applications</h2>
-        <a href="./spip.php?page=creer-scope">Ajouter un Scope</a><br />
-        <a href="./spip.php?page=mes-scopes">Tous vos Scopes</a><br />
+        <h3><:oauth:gerer_scopes:></h3>
+        <a href="./spip.php?page=creer-scope&lang=#ENV{lang}"><:oauth:ajouter_scope:></a><br />
+        <a href="./spip.php?page=mes-scopes&lang=#ENV{lang}"><:oauth:tous_scopes:></a><br />
         <br />
     ]
     
     [(#AUTORISER{creer,user})
-        <h2>Gérez les Utilisateurs finaux</h2>
-        <a href="./spip.php?page=user">Ajouter (Inscrire) un utilisateur</a><br />
-        <a href="./spip.php?page=users">Tous les utilisateurs</a><br />
+        <h3><:oauth:gerer_utilisateurs:></h3>
+        <a href="./spip.php?page=user&lang=#ENV{lang}"><:oauth:inscrire_utilisateur:></a><br />
+        <a href="./spip.php?page=users&lang=#ENV{lang}"><:oauth:tous_utilisateurs:></a><br />
     ]
     
     <br />

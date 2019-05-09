@@ -2,10 +2,10 @@
 
 #SET{date,<?php echo date('Y-m-d H:i:s'); ?>}
 
-<div class="breadcrumb"><a href="/">Accueil</a> - <a href="/web/?page=suivre">Suivi</a> - Événements d'Authorize</div>
+<div class="breadcrumb"><a href="/"><:oauth:accueil:></a> - <a href="/web/?page=suivre"><:oauth:surveiller:></a> - <:oauth:evenements_authorize:></div>
 
 #INCLURE{fond=inclure/identification,env}
-<BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
+<BOUCLE_auteur(AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
 
     [(#REM)
     Projet OauthSD
@@ -25,32 +25,32 @@
 
     <div class="nettoyeur"></div>
     
-    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+    <:oauth:vous_etes_identifie_comme:> : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
 
     <div id="datatable_container">
 
-        [(#ENV{client_id}|oui) #SET{on,un client}]
-        [(#ENV{user_id}|oui) #SET{on,#GET{on}&nbsp;un utilisateur}]
-        [(#ENV{remote_addr}|oui) #SET{on,#GET{on}&nbsp;une IP}]
-        [(#ENV{errnum}|oui) #SET{on,#GET{on}&nbsp;un code}]
+        [(#ENV{client_id}|oui) [(#SET{on,&nbsp;<:oauth:un_client:>})] ]
+        [(#ENV{user_id}|oui) [(#SET{on,#GET{on}&nbsp;<:oauth:un_utilisateur:>})] ]
+        [(#ENV{remote_addr}|oui) [(#SET{on,#GET{on}&nbsp;<:oauth:une_ip:>})] ]
+        [(#ENV{errnum}|oui) [(#SET{on,#GET{on}&nbsp;<:oauth:un_code:>})] ]
 
         [(#GET{on}|non)
         [(#ENV{id_oidc_log}|non)    
-        <h2>Événements d'Authorize</h2>
+        <h2><:oauth:evenements_authorize:></h2>
         ]
         [(#ENV{id_oidc_log}|oui)    
         <h2>Un événement</h2>
         ]
         ]
         [(#GET{on}|oui)    
-        <h2>Événements pour Authorize et #GET{on}</h2> 
-        <p><a href="/web/?page=evenements">Tous les événements</a></p>
+        <h2><:oauth:evenements_authorize_et:> #GET{on}</h2> 
+        <p><a href="/web/?page=evenements"><:oauth:tous_evenements:></a></p>
         ]
         
         <div style="float:right;"><p>
         A jour le : <time datetime='#GET{date}'>#GET{date}</time> 
         <B_depuis>
-            &nbsp;-&nbsp;#GET{total}&nbsp;événements depuis le 
+            &nbsp;-&nbsp;#GET{total}&nbsp;<:oauth:evenements_depuis:> 
             <BOUCLE_depuis(spip_oidc_logs) {id_oidc_log?} {client_id?} {user_id?} {errnum?} {level ?} {origin ?} {remote_addr ?} {state ?} {par id_oidc_log} {inverse} {#GET{total},1}>
             #DATETIME
             </BOUCLE_depuis>
@@ -62,7 +62,7 @@
         
         #SET{recherche,#LISTE{2,3,4,5,6,7}}
         
-        <p>Filtrer par colonne(s) :</p>
+        <p><:oauth:filtrer_colonnes:> :</p>
         <div id="searchers" style="text-align:normalize;"></div>
 
         <B_table1>
@@ -119,7 +119,7 @@
 
             </table>
         </B_table1>
-        <p>Aucun enregistrement</p>
+        <p><:oauth:aucun_evenement:></p>
         <//B_table1>
         
 
@@ -130,8 +130,10 @@
 
 
         $(document).ready(function() {
+            
+            var lang = '#ENV{lang}';
+            
             /* Initialise the DataTable */
-
             var oTable = $('#tbl').dataTable( {
                 responsive: true,
                 language: {
@@ -168,7 +170,7 @@
                         "data": "client_id",
                         "render": function ( data, type, row, meta ) {
                             if ( type === "display" ) {
-                                return '<a href="/web/?page=evenements&client_id='+data+'">'+data+'</a>';
+                                return '<a href="/web/?page=evenements&client_id='+data+'&lang='+lang+'">'+data+'</a>';
                             } else return data;
                         }
                     },
@@ -177,7 +179,7 @@
                         "data": "user_id",
                         "render": function ( data, type, row, meta ) {
                             if ( type === "display" ) {
-                                return '<a href="/web/?page=evenements&user_id='+data+'">'+data+'</a>';
+                                return '<a href="/web/?page=evenements&user_id='+data+'&lang='+lang+'">'+data+'</a>';
                             } else return data;
                         }
                     },
@@ -186,7 +188,7 @@
                         "width": "5%",
                         "render": function ( data, type, row, meta ) {
                             if ( type === "display" ) {
-                                return '<a href="/web/?page=evenements&errnum='+data+'">'+data+'</a>';
+                                return '<a href="/web/?page=evenements&errnum='+data+'&lang='+lang+'">'+data+'</a>';
                             } else return data;
                         }
                     },
@@ -195,7 +197,7 @@
                         "width": "10%",
                         "render": function ( data, type, row, meta ) {
                             if ( type === "display" ) {
-                                return '<a href="/web/?page=remote-addr&remote_addr='+data+'">'+data+'</a>';
+                                return '<a href="/web/?page=remote-addr&remote_addr='+data+'&lang='+lang+'">'+data+'</a>';
                             } else return data;
                         }
                     },
@@ -204,7 +206,7 @@
                         "width": "20%",
                         "render": function ( data, type, row, meta ) {
                             if ( type === "display" ) {
-                                return '<a href="/web/?page=state&state='+data+'">'+data+'</a>';
+                                return '<a href="/web/?page=state&state='+data+'&lang='+lang+'">'+data+'</a>';
                             } else return data;
                         }
                     }

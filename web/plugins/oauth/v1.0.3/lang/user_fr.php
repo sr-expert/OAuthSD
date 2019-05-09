@@ -7,7 +7,8 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// A
-	'ajouter_lien_user' => 'Ajouter cet End-user',
+    'administration' => 'Administration',
+	'ajouter_lien_user' => 'Ajouter cet utilisateur',
 
 	// C
 	'champ_email_explication' => 'Entrez un E-mail valide et permanent. Cet E-mail vous servira d\'identifiant de connexion et sera utilisé pour les échanges techniques. Il ne sera pas divulgué.',
@@ -68,42 +69,55 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'champ_profile_label' => 'Profile',
     'champ_scope_label' => 'Scope(s)',
     'champ_scope_explication' => 'Scope(s) propres à l\'utilisateur, séparés par des espaces. Ce champ n\'est visible et éditable que par les administrateurs ',
-
+    'creer_utilisateur' => 'Créer un nouvel utilisateur',
     
     // E
+    'editer_utilisateur' => 'Editer l\'utilisateur',
     'email_exists' => 'L\'email existe déjà. Veuillez récupérer votre compte existant.',
            
 
 	// I
-	'icone_creer_user' => 'Créer un user',
-	'icone_modifier_user' => 'Modifier ce user',
-	'info_1_user' => 'Un user',
-	'info_aucun_user' => 'Aucun user',
+	'icone_creer_user' => 'Créer un utilisateur',
+	'icone_modifier_user' => 'Modifier cet utilisateur',
+	'info_1_user' => 'Un utilisateur',
+	'info_aucun_user' => 'Aucun utilisateur',
 	'info_nb_users' => '@nb@ users',
 	'info_users_auteur' => 'Les users de cet auteur',
+    
+    // J
+    'je_m_inscris' => 'Je m\'inscris',
     
     // P
     'pswd2_non_identique' => 'Les mots de passe ne sont pas identiques',
 
 	// R
-	'retirer_lien_user' => 'Retirer ce user',
+	'retirer_lien_user' => 'Retirer cet utilisateur',
 	'retirer_tous_liens_users' => 'Retirer tous les users',
 
 	// S
-	'supprimer_user' => 'Supprimer cet user',
+	'supprimer_user' => 'Supprimer cet utilisateur',
 
 	// T
-	'texte_ajouter_user' => 'Ajouter un user',
-	'texte_changer_statut_user' => 'Ce user est :',
-	'texte_creer_associer_user' => 'Créer et associer un user',
-	'texte_definir_comme_traduction_user' => 'Ce user est une traduction du user numéro :',
-	'titre_langue_user' => 'Langue de ce user',
-	'titre_logo_user' => 'Logo de ce user',
+	'texte_ajouter_user' => 'Ajouter un utilisateur',
+	'texte_changer_statut_user' => 'Cet utilisateur est :',
+	'texte_creer_associer_user' => 'Créer et associer un utilisateur',
+	'texte_definir_comme_traduction_user' => 'Cet utilisateur est une traduction de l\' utilisateur numéro :',
+	'titre_langue_user' => 'Langue de cet utilisateur',
+	'titre_logo_user' => 'Logo de cet utilisateur',
 	'titre_user' => 'User',
-	'titre_users' => 'Users',
-	'titre_users_rubrique' => 'Users de la rubrique',
+	'titre_users' => 'Utilisateurs',
+	'titre_users_rubrique' => 'Utilisateurs de la rubrique',
     
     // U
     'username_exists' => 'Ce pseudonyme ou nom d\'utilisateur existe déjà, veuillez en créer un autre',
     'username_mauvais' => 'Un pseudonyme doit se limiter aux lettres et chiffres sans espaces ni caractères spéciaux.',
+    
+    // V
+    'vous_etes_ici' => 'Vous êtes arrivé ici parce que vous avez demandé votre inscription sur une application qui délègue l\'authentification des utilisateurs au serveur OAuthSD. <br/>
+     Les informations qui vous sont demandées sont stockées sur le serveur d’authentification. Elles sont transférées aux applications sous votre contrôle. Elles sont utilisées pour vous identifier et vous permettre d\'accéder à différentes fonctionnalités. Ces informations restent privées. <br/>
+     Avec OAuth Server de DnC, les mots de passe ne peuvent être interceptés au moment de leur saisie, ils ne circulent pas sur Internet, ils ne sont enregistrés nulle part!',
+    'vos_identifiants' => 'Vos identifiants',
+    'votre_profil' => 'Votre profil',
+    'votre_adresse' => 'Votre adresse',
+    'votre_telephone' => 'Votre téléphone',
 );

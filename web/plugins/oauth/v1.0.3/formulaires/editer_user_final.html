@@ -3,13 +3,14 @@
 username est utilisé par OAuth comme clé unique.
 Dans cette version en service l'unicité de username est assurée au niveau de editer_user_ext.php.
 Il est imposé un format simple car username doit également pouvoir servir dans les chemins d'URL. 
+Contrairement à editer_user_ext, tous les éléments de profil sont demandés, quelques soient les scopes de l'application.
 ]
 
 [(#ENV{id_user}|=={oui}|non)
-    <h2>Editer l'utilisateur #ENV{id_user}</h2>
+    <h2><:user:editer_utilisateur> #ENV{id_user}</h2>
 ]
 [(#ENV{id_user}|=={oui}|oui)
-    <h2>Créer un nouvel utilisateur</h2>
+    <h2><:user:creer_utilisateur:></h2>
 ]
 
 <div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_user,nouveau}'>
@@ -34,6 +35,14 @@ Il est imposé un format simple car username doit également pouvoir servir dans
                 [(#SAISIE{input, username, obligatoire=oui,
                 label=<:user:champ_username_label:>,
                 explication=<:user:champ_username_explication:> })]
+
+                [(#SAISIE{input, password, obligatoire=oui,
+                label=<:user:champ_password_label:>,
+                explication=<:user:champ_password_explication:> })]
+
+                [(#SAISIE{input, password2, obligatoire=oui,
+                label=<:user:champ_password_label2:>,
+                explication=<:user:champ_password_explication2:> })]
                 
 
                     <h3>Profil</h3>

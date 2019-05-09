@@ -4,13 +4,12 @@
       
         <div class="liste articles">
         
-         <p><:derniers_articles:> :</p>
+         <h3><:derniers_articles:> :</h3>
 
             #ANCRE_PAGINATION
 
-
             <div class="liste-items-horz row">
-                <BOUCLE_articles(ARTICLES) {id_rubrique?} {id_auteur?} {par date} {inverse} {pagination 3}>
+                <BOUCLE_articles(ARTICLES) {id_secteur?} {id_auteur?} {par date} {inverse} {pagination 3}>
                     #INCLURE{fond=inclure/article-resume,id_article}
                 </BOUCLE_articles>
             </div>
@@ -22,7 +21,7 @@
     </B_articles>
 
     [(#REM) Séquence des pages et des documents pour l'application Android MesLiens]
-    <BOUCLE_premier_article(ARTICLES){id_rubrique?} {!par date} {0,1}> 
+    <BOUCLE_premier_article(ARTICLES){id_secteur?} {id_rubrique?} {!par date} {0,1}> 
     <div id="navdata" data-dnc-url-south="#URL_SITE_SPIP/#URL_ARTICLE"></div>
     </BOUCLE_premier_article>
 

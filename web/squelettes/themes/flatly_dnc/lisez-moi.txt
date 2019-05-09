@@ -19,8 +19,7 @@ Présenter les 3 derniers articles en colonnes.
 
 Plan : supprimer les titres  "Articles"
 
-*****
-Utilisé avec spipr-doc :
+***** Utilisé avec spipr-doc : *****
 
 Menus déroulants multi-niveaux : 
 Voir :  Voir : http://contrib.spip.net/SPIPr-4642#forum486504
@@ -40,3 +39,4 @@ Menu déroulant fonctionne bien sur smartphone (réduit).
 Mais pas agréable sur tablette : il y a sélection automatique de "Développeur".
 Il faut garder appuyer, aller au sous-menu et taper.
 
+***** Menu langues sous forme de liens ***** 

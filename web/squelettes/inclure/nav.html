@@ -1,0 +1,9 @@
+[(#REM) 
+	
+	ZPIP 2.x
+    OAuthSD :  surcharge de nav.html du plugin Menus afin de sélectionner un menu barrenav_XX pour le langage XX. 
+	
+]<div class="menu-conteneur navbar-inner">
+#SET{lang,#ENV{lang,fr}}
+#INCLURE{fond=inclure/menu, env, identifiant=barrenav_#GET{lang}}
+</div>

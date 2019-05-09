@@ -9,23 +9,23 @@ Licence GPL 3
     <div class="form-search" style="float: right">
             #FORMULAIRE_RECHERCHE
         </div>
-        <h1><:plan_site:> :</h1>  
+        <h3><:plan_site:> :</h3>  
         
     </header>
 
 
     <div class="accordeon main">
 
-        <BOUCLE_secteurs(RUBRIQUES) {racine} {par num titre}>
+        <BOUCLE_secteurs(RUBRIQUES) {id_rubrique?} {lang?} {racine} {par num titre}>
 
-        <h2 class="h2"><a href="#URL_RUBRIQUE">#TITRE</a></h2>
+        <h2 class="h2"><a href="#URL_RUBRIQUE"&lang=#ENV{lang}>#TITRE</a></h2>
         <div>
 
             [(#REM) Articles et sous-rubriques ]
             <B_articles_racine>
                 <ul class="plan">
                     <BOUCLE_articles_racine(ARTICLES) {id_rubrique} {par num titre,titre}>
-                    <li><a href="?page=unarticle&id_article=#ID_ARTICLE">#TITRE</a></li>
+                    <li><a href="?page=unarticle&id_article=#ID_ARTICLE"&lang=#ENV{lang}>#TITRE</a></li>
                     </BOUCLE_articles_racine>
                 </ul>
             </B_articles_racine>
@@ -34,12 +34,12 @@ Licence GPL 3
                 <ul class="plan">
                     <BOUCLE_rubriques(RUBRIQUES) {id_parent} {par num titre}>
                     <li>
-                        <strong><a href="#URL_RUBRIQUE">#TITRE</a></strong>
+                        <strong><a href="#URL_RUBRIQUE"&lang=#ENV{lang}>#TITRE</a></strong>
 
                         <B_articles>
                             <ul>
                                 <BOUCLE_articles(ARTICLES) {id_rubrique} {par num titre}>
-                                <li><a href="?page=unarticle&id_article=#ID_ARTICLE">#TITRE</a></li>
+                                <li><a href="?page=unarticle&id_article=#ID_ARTICLE&lang=#ENV{lang}">#TITRE</a></li>
                                 </BOUCLE_articles>
                             </ul>
                         </B_articles>
@@ -51,8 +51,14 @@ Licence GPL 3
             </B_rubriques>
         </div>
 
-
-        </BOUCLE_secteurs>               
+        </BOUCLE_secteurs>
+        
+        <ul class="plan">
+            <li><strong><a href="#URL_PAGE{gerer}&lang=#ENV{lang}"><:oauth:gerer:></a></strong></li>
+            <br/>
+            <li><strong><a href="#URL_PAGE{suivre}&lang=#ENV{lang}"><:oauth:surveiller:></a></strong></li>
+        </ul>
+                       
     </div>
 
 

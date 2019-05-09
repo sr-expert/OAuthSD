@@ -24,15 +24,15 @@ dnc27d version avec server-side processing pour le tableau des événements.
 
 <div id="plot_container">
 
-<h2>Statistiques</h2>
+<h2><:oauth:statistiques:></h2>
 
 
 
 <div style="float:right;"><p>
-        A jour le : <time datetime='#GET{date}'><span id="dtpickercontainer"><input id="dtpicker" class="hasDatepicker" type="text" name="dtpicker" value="#GET{date}"></span></time> 
+        <:oauth:a_jour_le:> : <time datetime='#GET{date}'><span id="dtpickercontainer"><input id="dtpicker" class="hasDatepicker" type="text" name="dtpicker" value="#GET{date}"></span></time> 
         [(#REM) Définir la date du premier événement compte-tenu de la valeur de total]
         <B_depuis>
-            &nbsp;-&nbsp;#GET{total}&nbsp;minutes depuis le 
+            &nbsp;-&nbsp;#GET{total}&nbsp;<:oauth:minutes_depuis_le:> 
             <BOUCLE_depuis(spip_oidc_stats) {par datetime} {inverse} {#GET{total},1}>
             #DATETIME
             </BOUCLE_depuis>
@@ -81,6 +81,7 @@ dnc27d version avec server-side processing pour le tableau des événements.
 
         var oTable;
         var Api;
+        var lang = '#ENV{lang}';
 
         oTable = $('#tbl').dataTable( {
             processing: true,
@@ -123,28 +124,28 @@ dnc27d version avec server-side processing pour le tableau des événements.
                             if ( data == '<?php echo $_SERVER['SERVER_ADDR']; ?>' ) {
                                 data2 = 'Server IP';
                             }
-                            return '<a href="/web/?page=remote-addr&remote_addr='+data+'" class="ajax">'+data2+'</a>';
+                            return '<a href="/web/?page=remote-addr&remote_addr='+data+'&lang='+lang+'" class="ajax">'+data2+'</a>';
                         } else return data;
                     }
                 },
                 { data: 3,  "width": "20%", 
                     "render": function ( data, type, row, meta ) {
                         if ( type === "display" ) {
-                            return '<a href="/web/?page=state&state='+data+'" class="ajax">'+data+'</a>';
+                            return '<a href="/web/?page=state&state='+data+'&lang='+lang+'" class="ajax">'+data+'</a>';
                         } else return data;
                     }
                 },
                 { data: 4, "width" : "15%", 
                     "render": function ( data, type, row, meta ) {
                         if ( type === "display" ) {
-                            return '<a href="/web/?page=evenements&client_id='+data+'" class="ajax">'+data+'</a>';
+                            return '<a href="/web/?page=evenements&client_id='+data+'&lang='+lang+'" class="ajax">'+data+'</a>';
                         } else return data;
                     }
                 },
                 { data: 5, "width": "10%",
                     "render": function ( data, type, row, meta ) {
                         if ( type === "display" ) {
-                            return '<a href="/web/?page=evenements&user_id='+data+'" class="ajax">'+data+'</a>';
+                            return '<a href="/web/?page=evenements&user_id='+data+'&lang='+lang+'" class="ajax">'+data+'</a>';
                         } else return data;
                     }
                 },
@@ -155,7 +156,7 @@ dnc27d version avec server-side processing pour le tableau des événements.
                 { data : 10, "width": "5%",
                     "render": function ( data, type, row, meta ) {
                         if ( type === "display" ) {
-                            return '<a href="/web/?page=evenements&errnum='+data+'" class="ajax">'+data+'</a>';
+                            return '<a href="/web/?page=evenements&errnum='+data+'&lang='+lang+'" class="ajax">'+data+'</a>';
                         } else return data;
                     } 
                 },
@@ -225,7 +226,10 @@ dnc27d version avec server-side processing pour le tableau des événements.
                     color: "#808080",
                     dataPoints: [ 
                         <BOUCLE_dp_token(DATA){source table, #GET{data_token}}>{ x: [(#GET{data_x/#CLE})],  y: #VALEUR },</BOUCLE_dp_token>
-                    ]
+                    ],
+                    click: function(e){
+                        Api.scroller.toPosition( starts[e.dataPointIndex], false );   
+                    },
                 },
                 {
                     type: "line", 

@@ -265,7 +265,7 @@ $data = array(
 );
 $redirect_uri = htmlEntities(@$_POST['redirect_uri']); 
 if ( !empty($redirect_uri) ) {
-    // if an after-login uri is defined, return it                //*****
+    // if an after-login uri is defined, return it              
     $data['redirect_uri'] = $redirect_uri;    
 }
 if ( !empty( $sub = @$_SESSION['sub']) ) {            

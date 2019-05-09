@@ -4,24 +4,13 @@ Auteur B.Degoy DnC 2017-2019
 licence GPL3
 ]
 
+[(#REM) On a ecrasé le head_js du thème!]
+[<script type="text/javascript" src="(#CHEMIN{js/bootstrap-dropdown.js})"></script>] 
+[<script type="text/javascript" src="(#CHEMIN{js/menu.dropdown.js})"></script>]
+
 <!--
 <link rel='stylesheet' type='text/css' href='#CHEMIN{lib/datatables.min.css}' />
 <script type='text/javascript' src='#CHEMIN{lib/datatables.min.js}'></script>
 <script type='text/javascript' src='#CHEMIN{lib/jquery.jeditable.mini.js}'></script>
 -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"/>
-<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-
-[(#REM) content pleine largeur ]
-<style>
-html.page_users #content {
-    float: none !important;
-    width: 100% !important;
-}
-
-html.page_users #aside {
-    display: none !important;
-}
-</style>
+#INCLURE{fond=inclure/head_datatables,env}

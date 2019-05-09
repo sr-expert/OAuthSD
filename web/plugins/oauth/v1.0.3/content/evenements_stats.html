@@ -1,13 +1,14 @@
 #CACHE{0}
 
-<div class="breadcrumb"><a href="/">Accueil</a> - <a href="/web/?page=suivre">Suivi</a> - Statistiques</div>
+<div class="breadcrumb"><a href="/"><:oauth:accueil:></a> - <a href="/web/?page=suivre"><:oauth:surveiller:></a> - <:oauth:statistiques:></div>
+                                                                                                                                       
 
 #INCLURE{fond=inclure/identification,env}
 <BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
 
 <div class="nettoyeur"></div>
 
-Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
+<:oauth:vous_etes_identifie_comme:> : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span><a href="./spip.php?page=auteur-details">#NOM</a> <br /><br />
 
 <div id="datatable_container">
     <INCLURE{fond=inclure/statistiques, env, ajax}/>

@@ -1,19 +1,19 @@
-<div class="breadcrumb"><a href="/">Accueil</a> - <a href="./spip.php?page=gerer">Gestion</a> - Clés</div>
+<div class="breadcrumb"><a href="/"><:oauth:accueil:></a> - <a href="./spip.php?page=gerer"><:oauth:gerer:></a> - <:oauth:clepublique:></div>
 
 #INCLURE{fond=inclure/identification,env}
 
 <BOUCLE_auteur (AUTEURS) {id_auteur=#SESSION{id_auteur}}{tout} >
     
-    Vous êtes identifié comme : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span>#NOM <br /><br />
+    <:oauth:vous_etes_identifie_comme:> : <span class="statut">[(#STATUT|puce_statut{auteur,#ID_AUTEUR})]</span>#NOM <br /><br />
 
     [(#ENV{id_client}|oui)
-        <h2>Gérer la paire de clés publique/privée pour l'application cliente # #ENV{id_client}</h2>
+        <h2><:oauth:gerer_cles_pub:> # #ENV{id_client}</h2>
         
         #FORMULAIRE_EDITER_PUBLIC_KEY
     ]
     
     [(#ENV{id_client}|non)
-    <p>Vous devez d'abord créer ou sélectionner une application cliente</p>
+    <p><:oauth:selectionner_client:></p>
     ]
 
     <br />

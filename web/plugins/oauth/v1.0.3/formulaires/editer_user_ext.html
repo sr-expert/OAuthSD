@@ -19,7 +19,7 @@ Il est imposé un format simple car username doit également pouvoir servir dans
 
             <div class="editer-groupe">
 
-                <h3>Vos identifiants</h3>
+                <h3><:user:vos_identifiants:></h3>
 
                 [(#SAISIE{input, email, obligatoire=oui, size=48, 
                 label=<:user:champ_email_label:>,
@@ -40,7 +40,7 @@ Il est imposé un format simple car username doit également pouvoir servir dans
 
                 [(#ENV{scopes}|match{profile}|yes)
 
-                    <h3>Votre profil</h3>
+                    <h3><:user:votre_profil:></h3>
 
                     [(#SAISIE{radio, gender, obligatoire=oui,
                     label=<:user:champ_gender_label:>,
@@ -94,7 +94,7 @@ Il est imposé un format simple car username doit également pouvoir servir dans
 
                 [(#ENV{scopes}|match{address}|yes)
 
-                    <h3>Votre adresse</h3>
+                    <h3><:user:votre_adresse:></h3>
 
                     [(#SAISIE{input, street_address, obligatoire=oui,
                     label=<:user:champ_street_address_label:>,
@@ -120,7 +120,7 @@ Il est imposé un format simple car username doit également pouvoir servir dans
 
                 [(#ENV{scopes}|match{phone}|yes)
 
-                    <h3>Votre téléphone</h3> 
+                    <h3><:user:votre_telephone:></h3> 
 
                     [(#SAISIE{input, phone_number, obligatoire=oui,
                     label=<:user:champ_phone_number_label:>,
@@ -131,7 +131,7 @@ Il est imposé un format simple car username doit également pouvoir servir dans
                 
                 [(#SESSION{statut}|=={0minirezo}|oui)
                 
-                    <h3>Administration</h3> 
+                    <h3><:user:administration:></h3> 
 
                     [(#SAISIE{textarea, profile,
                     label=<:user:champ_profile_label:>,
