@@ -24,8 +24,11 @@ $response = new OAuth2\Response();
 // No cache
 $response->addHttpHeaders(array('Cache-Control' => 'no-store', 'Pragma' => 'no-cache'));
 
-// Token parameter (ID JWT) is required. Allow quick death of skiddies.     
-if ( empty ( $undecodedJWT = $request->request('token', $request->query('token')) ) ) {   
+//[dnc30] ID token is required. Allow quick death of skiddies.
+$token = $request->request('token', $request->query('token'));
+if ( empty( $token ) ) $token = $request->request('id_token_hint', $request->query('id_token_hint')); //[dnc41]    
+if ( empty ( $undecodedJWT = $token ) ) { 
+    // is JWT in header?  
     $undecodedJWT = substr($request->headers['AUTHORIZATION'], 7);    //[dnc30]
     if ( empty($undecodedJWT) AND ! DEBUG ) {
         $response->setError(400,'Bad Request');
@@ -44,7 +47,7 @@ log_info("Logout", "Begin", null, null, 4, 0, $cnx);  //[dnc27a]
 if ( empty ($undecodedJWT) ) {  //[dnc30] 
     log_error("Logout", "Invalid request : no token parameter", 'unk', 'unk', 601, 100, $cnx);  //[dnc27a]  
     if ( DEBUG) {
-        $response->setError(400,'Bad Request', 'Missing parameter: "token" is required');
+        $response->setError(400,'Bad Request', 'Missing parameter: "token" or "id_token_hint" is required');   //[dnc41]
     } else {
         $response->setError(400,'Bad Request');
         sleep(10); // penalize skiddie
