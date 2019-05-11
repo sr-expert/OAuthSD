@@ -1,4 +1,6 @@
 <?php
+    //[dnc40] HIDS
+    
 if ( !defined('PRIVATE') ) die;
 
 /**

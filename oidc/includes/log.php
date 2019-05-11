@@ -49,7 +49,7 @@ function __log( $title, $origin, $str = '', $client_id = 'unk', $user_id = 'unk'
         $errnum += 10000;
     }
 
-    // HIDS [dnc40]
+    //[dnc40] HIDS
     require_once __DIR__ . '/../hids/hids.php';
     if ( function_exists('hids') ) {   
         // Détecter les tentatives d'intrusion
