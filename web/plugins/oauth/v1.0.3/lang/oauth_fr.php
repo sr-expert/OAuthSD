@@ -6,7 +6,7 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
     // A
-    'accueil' => 'Home',
+    'accueil' => 'Accueil',
     'a_jour_le' => 'A jour le',
     'alertes_agregees' => 'Alertes agrégées',
     'alertes_agregees_state' => 'Alerte(s) agrégées par state',
@@ -49,7 +49,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'filtrer_colonnes' => 'Filtrer par colonne(s)',
     
     // G
-    'gerer' => 'Manage',
+    'gerer' => 'Gérer',
     'gerer_infos_auteur' => 'Gérez vos informations d\'auteur',
     'gerer_app_clientes' => 'Gérez vos applications clientes',
     'gerer_cles_pubpriv' => 'Gérer la paire de clés publique/privée pour l\'application cliente',
