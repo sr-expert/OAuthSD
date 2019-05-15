@@ -1,0 +1,18 @@
+Code Release Policy
+
+The goal of DnC is twofold:
+
+- 1. Protect the code specifically created by DnC and the OAuthSD server 
+configuration to make it more difficult for criminals or malicious hacker. 
+For this, the code in the directories /commons, /oauth and /oidc is not open 
+source but subject to a particular license.
+
+- 2. Disseminate as much information and source code as possible to allow anyone 
+to integrate with the OAuthSD server authentication delegation and resource 
+protection into their applications . For that all the rest of the code, not 
+present in the directories mentioned above, is diffused under license GPLv3 or 
+another license indicated in the code, in particular that coming from other 
+developers.
+
+This policy applies both to the code present on this server and to the code 
+deployed among OAuthSD users.
