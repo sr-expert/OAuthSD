@@ -10,28 +10,39 @@ Copyright (c) 2019 B.Degoy
 ]
 
 <?php
+
 /**
 * Déterminer le login OIDC. Celui-ci peut-être différent du login SPIP. 
 * Dans ce cas, le login OIDC est précisé dans la table spip_auteurs. 
 */
 $loginspip = @$GLOBALS['visiteur_session']['login'];
 $l = sql_quote($loginspip, '', 'text');
-$login = sql_getfetsel('oidc', 'spip_auteurs',
+$loginoidc = sql_getfetsel('oidc', 'spip_auteurs',
     "statut<>'5poubelle'" .
     " AND login<>'' AND login=$l");
-if ( empty($login) ) $login = $loginspip;
+if ( empty($loginoidc) ) $loginoidc = $loginspip;
+$nom_auteur = sql_getfetsel('nom', 'spip_auteurs',
+    "statut<>'5poubelle'" .
+    " AND login<>'' AND login=$l");
 ?>
 
 <script>
 
     //[dnc28] OIDC Client Monitoring
 
-    <?php include_spip('inc/oidcclient_configuration'); ?> 
-    var login = "<?php echo @$GLOBALS['visiteur_session']['login']; ?>";
+    <?php include_spip('inc/oidcclient_configuration');
+    $serveur_url = lire_config('oidcclient/cfg_oidcclient_server_url'); 
+    $infos =
+    '<br/>' . _T('oidcclient:serveur_url') . ' : <a href="' . $serveur_url . '">' . $serveur_url . '</a>' .
+    '<br/>' . _T('oidcclient:client_id') . ' : ' . OIDC_CLIENT_ID . 
+    '<br/>' . _T('oidcclient:login_spip') . ' : ' . $loginspip .
+    '<br/>' . _T('oidcclient:login_oidc_court') . ' : ' .  $loginoidc . 
+    '<br/>' . _T('oidcclient:nom_auteur') . ' : ' .  $nom_auteur;   
+    ?>
+    var login = "<?php echo $loginoidc; ?>";
     var state = "<?php echo @$GLOBALS['visiteur_session']['state']; ?>";
     var url_logout = "<?php echo '?action=logout&url=' . $GLOBALS['REQUEST_URI']; ?>";
     var url_login_oidc = "<?php echo '?page=login_oidc&url=' . $GLOBALS['REQUEST_URI']; ?>";
-
     var timeleft = 0;
     var connected = 0;
     var connectionMsg = '';
@@ -40,16 +51,23 @@ if ( empty($login) ) $login = $loginspip;
     var tagappendto = '<?php echo OIDC_TAG_APPENDTO; ?>';
     var tagtop = '<?php echo OIDC_TAG_TOP; ?>';
     var tagleft = '<?php echo OIDC_TAG_LEFT; ?>';
+    var infos = '<?php echo  $infos; ?>';
+    var responseDelay = 'Unk';
 
     $(document).on('ready',function(){
 
         // Ajouter l'etiquette si elle n'existe pas
         if($('#oidc').length === 0){
-            $('<div id="oidc">&nbsp;OIDC&nbsp;</div>')
-            .appendTo(tagappendto)
+            $('<div id="oidc"><span id="oidctag">&nbsp;OIDC&nbsp;</span><span id="oidcinfo">&nbsp;?&nbsp;</span></div>')
+            .appendTo(tagappendto);
+            //
+            $('#oidc')
             .css('position','absolute')
             .css('top',tagtop)
-            .css('left',tagleft)
+            .css('left',tagleft);
+            //
+            $('#oidctag')
+            .attr('title','<?php echo "<:oidcclient:tooltip_oidctag:>"; ?>')
             .css('color','white')
             .css('padding','3px')
             .css('z-index','10000')
@@ -68,7 +86,28 @@ if ( empty($login) ) $login = $loginspip;
                         connectionMsg = '<?php echo "<:oidcclient:session_connected_erreur:>"; ?>';
                         break;
                 }; 
-            });     
+            });
+            //
+            $('#oidcinfo')
+            .attr('title','<?php echo "<:oidcclient:tooltip_oidcinfo:>"; ?>') 
+            .css('color','white')
+            .css('padding','3px')
+            .css('z-index','10001')
+            .css('background-color','#09f')
+            .on('click', function(){
+                $('<div></div>').appendTo('body')
+                .html('<div><h6>'+ infos +'<br/><?php echo _T('oidcclient:t_session_restant'); ?> : ' + timeleft + ' s<br/><?php echo _T('oidcclient:delai_reponse'); ?> : ' + responseDelay +' ms</h6></div>')
+                .dialog({
+                    modal: true, title: "<?php echo _T('oidcclient:infos_titre'); ?>", zIndex: 10000, autoOpen: true,
+                    width: 'auto', resizable: false,
+                    close: function (event, ui) {
+                        $(this).remove();
+                        interval = setInterval(pollOidc,pollperiod);
+                    }
+                });
+
+                } 
+            );     
         }
 
         // Si on est loge localement, surveiller qu'on l'est egalement sur OIDC
@@ -79,8 +118,8 @@ if ( empty($login) ) $login = $loginspip;
         } else {
             connected = 0; 
             // Signaler la deconnexion 
-            $('#oidc').css('background-color', 'orange');
-            $('#oidc').text(' OIDC ');
+            $('#oidctag').css('background-color', 'orange');
+            $('#oidctag').text(' OIDC ');
         }
 
         function SessionCloseDialog(message) {    //[dnc28d]
@@ -186,6 +225,9 @@ if ( empty($login) ) $login = $loginspip;
         // Tester la connexion
         function pollOidc(){
             connected = -1;
+            var d = new Date();
+            var timeStart = d.getTime();
+            var timeStop = 0;
             $.ajax({
                 type : "get",
                 url : "<?php echo OIDC_AUTHORIZATION_ENDPOINT; ?>",
@@ -199,14 +241,18 @@ if ( empty($login) ) $login = $loginspip;
                 statusCode : {
                     401 : function(){
                         connected = 0;
+                        var d = new Date();
+                        timeStop = d.getTime();
                         // Non authentifie sur OIDC, deconnecter localement
                         window.location.replace(url_logout +"&logout=local");
                     },
                     200 : function ( data, textStatus, jqXHR){
                         connected = 1;
+                        var d = new Date();
+                        timeStop = d.getTime();
                         // Signaler la connexion 
-                        $('#oidc').css('background-color', '#8f8');
-                        $('#oidc').text(' OIDC ');
+                        $('#oidctag').css('background-color', '#8f8');
+                        $('#oidctag').text(' OIDC ');
                         timeleft = data['timeleft'];
                         if ( timeleft < 600 ) {  //[dnc28d]
                             // La fin de session approche
@@ -219,9 +265,17 @@ if ( empty($login) ) $login = $loginspip;
                 error : function(obj,textStatus,errorThrown){
                     connected = -1;
                     // Signaler qu'on ne sait pas 
-                    $('#oidc').css('background-color', 'red');
-                    $('#oidc').text(textStatus + ' ' + errorThrown);
-                }
+                    $('#oidctag').css('background-color', 'red');
+                    $('#oidctag').text(textStatus + ' ' + errorThrown);
+                },
+                complete : function ( data, textStatus, jqXHR){
+                    if ( timeStop && timeStart ) {
+                        responseDelay = timeStop - timeStart;       
+                    } else {
+                        responseDelay = 'Unk';
+                    }
+                },
+
             });    
         } 
 

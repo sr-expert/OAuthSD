@@ -67,6 +67,7 @@ $nom_auteur = sql_getfetsel('nom', 'spip_auteurs',
             .css('left',tagleft);
             //
             $('#oidctag')
+            .attr('title','<?php echo "<:oidcclient:tooltip_oidctag:>"; ?>')
             .css('color','white')
             .css('padding','3px')
             .css('z-index','10000')
@@ -87,7 +88,8 @@ $nom_auteur = sql_getfetsel('nom', 'spip_auteurs',
                 }; 
             });
             //
-            $('#oidcinfo') 
+            $('#oidcinfo')
+            .attr('title','<?php echo "<:oidcclient:tooltip_oidcinfo:>"; ?>') 
             .css('color','white')
             .css('padding','3px')
             .css('z-index','10001')

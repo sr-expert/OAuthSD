@@ -28,6 +28,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
      'pass_forum_bla' => 'Register to take advantage of authentication delegation.',
      'en_savoir_plus' => 'To know more',
      'publie_le' => 'published on',
+     'publie_initialement_le' => 'originaly published on',
     
     
 );

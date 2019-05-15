@@ -77,6 +77,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     
     // T
     't_session_restant' => 'T. session restant',
+    'tooltip_oidctag' => 'Cliquer ici pour agir sur la session OIDC',
+    'tooltip_oidcinfo' => 'Cliquer ici pour obtenir des informations sur la session OIDC',
 
 	// U
     'utilisateur' => 'Utilisateur',

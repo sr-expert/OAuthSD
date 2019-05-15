@@ -30,6 +30,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'cfg_inf_oidcclient_top' => 'CSS top position of the tag. Ex.: 12px (default)',
     'cfg_lbl_oidcclient_left' => 'Left position',
     'cfg_inf_oidcclient_left' => 'CSS left position of the tag. Ex.: 3px (default)',
+    'client_id' => 'Client ID',
+    
+    // D
+    'delai_reponse' => 'Response delay', 
     
     // E
     'erreur_oidc' => 'This OpenID Connect ID seems invalid',
@@ -42,13 +46,19 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'form_login_oidcclient_pass' => 'Do not use OpenID Connect, use a login/password instead',
     
     // I
-    'information_oidcc' => '<a href="https://oa.dnc.global/60" target="_blank">Information about OpenID Connect</a>',
+    'information_oidc' => '<a href="https://oa.dnc.global/60" target="_blank">Information about OpenID Connect</a>',
+    'infos_titre' => 'Informations about OIDC',
     
     // L
-    'login_oidc' => 'OpenID Connect login',
+    'login_oidcc' => 'OpenID Connect login',
     'login_pas_lie' => 'The OIDC login %s is not linked to an acount of this application.',
 	'login_pas_lie_msg' => 'You must :<br />- either link to an application account,<br />- or create a new account with this same login.',           
-
+    'login_spip' => 'SPIP login',
+    'login_oidc_court' => 'OIDC login',
+    
+    // N
+    'nom_auteur' => 'SPIP author',
+    
     // O
 	'oidcclient' => 'OpenID Connect',
     
@@ -63,8 +73,14 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'session_extend' => 'Extend the session ?',
     'session_open' => 'Start an OpenID Connect session',
     'session_close' => 'Close the OpenID Connect session',
+    
+     // T
+    't_session_restant' => 'Remaining session time',
+    'tooltip_oidctag' => 'Click here to act on OIDC session',
+    'tooltip_oidcinfo' => 'Click here to get information on the OIDC session',
 
 	// U
+    'utilisateur' => 'User',
 	'utilisateur_inconnu' => 'Unknown user on this site',
 
 	// V

@@ -30,6 +30,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'cfg_inf_oidcclient_top' => 'CSS top de l\'étiquette. Ex.: 12px (défaut)',
     'cfg_lbl_oidcclient_left' => 'Left position',
     'cfg_inf_oidcclient_left' => 'CSS left de l\'étiquette. Ex.: 3px (défaut)',
+    'client_id' => 'Client ID',
+    
+    // D
+    'delai_reponse' => 'Délai de réponse', 
     
     // E
     'erreur_oidc' => 'Cet identifiant OpenID Connect ne semble pas valide',
@@ -43,12 +47,18 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     
     // I
     'information_oidcc' => '<a href="https://oa.dnc.global/60" target="_blank">Information sur OpenID Connect</a>',
+    'infos_titre' => 'Informations sur OIDC',
     
     // L
     'login_oidc' => 'Login OpenID Connect',
     'login_pas_lie' => 'Le login OIDC %s n\'est pas lié à un compte de cette application.',
 	'login_pas_lie_msg' => 'Vous devez :<br />- soit lier ce login à un compte,<br />- soit créer un nouveau compte avec ce login.',           
-
+    'login_spip' => 'Login SPIP',
+    'login_oidc_court' => 'Login OIDC',
+    
+    // N
+    'nom_auteur' => 'Auteur SPIP',
+    
     // O
 	'oidcclient' => 'OpenID Connect',
     
@@ -56,6 +66,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'retour_login' => 'Retourner au login',
     
     // S
+    'serveur_url' => 'Serveur',
     'session_connected_oui' => 'La session OpenID Connect est ouverte.<br/>Voulez-vous effectuer une déconnexion globale de toutes vos applications ',
     'session_connected_non' => 'Se connecter globalement par OpenID Connect',
     'session_connected_erreur' => 'La liaison avec le serveur OpenID Connect est en erreur',
@@ -63,8 +74,14 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'session_extend' => 'Prolonger la session ?',
     'session_open' => 'Ouvrir une session OpenID Connect',
     'session_close' => 'Clore la session OpenID Connect',
+    
+    // T
+    't_session_restant' => 'T. session restant',
+    'tooltip_oidctag' => 'Cliquer ici pour agir sur la session OIDC',
+    'tooltip_oidcinfo' => 'Cliquer ici pour obtenir des informations sur la session OIDC',
 
 	// U
+    'utilisateur' => 'Utilisateur',
 	'utilisateur_inconnu' => 'Utilisateur inconnu sur ce site',
 
 	// V
