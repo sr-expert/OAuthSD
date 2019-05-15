@@ -426,7 +426,10 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
         Else we will ask her to login.
         */
 
-        if ( empty($prompt) ) {  
+        if ( empty($prompt) ) {
+            
+            //DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG  
+            
             //[dnc9]
             if ( $enable_sli ) {   
 
@@ -443,21 +446,8 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
                     );
                     // Send encoded SLI cookie to user-agent in server's domain
                     $jcookiedata = json_encode($cookiedata);
-                    send_private_encoded_cookie('sli', $jcookiedata, SLI_COOKIE_LIFETIME);  
-
-                    //[dnc36b] If CORS request, process it and respond to user-agent right now. 
-                    if ( cors_allow_known_client( $client_id, $response, $cnx ) ) {
-                        // answer directly to user-agent with code 200
-                        $response->send();
-                        die(); 
-                    }           
-
-                    if ( DEBUG ) {       
-                        $trace .= '----- SRA : SLI Cookie refreshed -----' . "<br />";
-                        $trace .= 'cookie data : ' . print_r($cookiedata,true) . "<br /><br />";
-                        $response->addParameters(array('trace' => urlencode($trace)));     
-                    }
-
+                    send_private_encoded_cookie('sli', $jcookiedata, SLI_COOKIE_LIFETIME);
+                    
                     // Continue with consent ?     
                     $continue_with_consent = false;       //[dnc24]
                     if ( $prompt == 'consent' OR (empty($prompt) AND PROMPT_DEFAULT_TO_CONSENT) ) { //[dnc24a] process consent if prompt is undefined. 
@@ -466,7 +456,21 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
                             // There are scope(s) left to be granted
                             $continue_with_consent = true;
                         }   
-                    } 
+                    }   
+
+                    /*[dnc36b] If CORS request, this is SRA : respond directly to user-agent with authorization code.
+                    */ 
+                    if ( cors_allow_known_client( $client_id, $response, $cnx ) ) {
+                        // directly return autorisation code to client
+                        $continue_with_consent = false;
+                    }           
+
+                    if ( DEBUG ) {       
+                        $trace .= '----- SRA : SLI Cookie refreshed -----' . "<br />";
+                        $trace .= 'cookie data : ' . print_r($cookiedata,true) . "<br /><br />";
+                        $response->addParameters(array('trace' => urlencode($trace)));     
+                    }
+
                     if (  $continue_with_consent == false ) {
                         // No consent needed, return autorisation code to client
                         log_success("Authorize" ,"SLI (prompt = empty, none or login ) : SLI successful, cookie refreshed - client = " . $client_id . " sub = " . $sub, $client_id, $sub, 120, -10, $cnx);   
