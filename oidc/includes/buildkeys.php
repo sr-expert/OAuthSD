@@ -3,17 +3,16 @@
 buildkeys.php
 
 Construit le fichier jwks.json des déclarations JWK propres à chaque client.
-
 Remplit également le répertoire /jwks. Chaque fichier est dénommé à partir de son kid.
-
-
 Voir : https://tools.ietf.org/html/draft-ietf-jose-json-web-key-41
 
-2018/11/04
-Author : B.Degoy DnC
-Copyright (c) 2018 DnC 
-Tous droits réservés
-
+OauthSD project
+This code is not an open source!
+You can not access, dispose, modify, transmit etc. this code without the written permission of DnC.
+You can only use one coded copy provided you have a particular license from DnC.
+Auteur : Bertrand Degoy 
+Copyright (c) 2019 DnC  
+All rights reserved
 */
 
 /* [dnc5] Attention! Les clés doivent être encadrées par 

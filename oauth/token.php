@@ -6,9 +6,13 @@
 * This is the URI which returns an OpenID Token to the client
 * See : http://bshaffer.github.io/oauth2-server-php-docs/cookbook/
 *
-* Author : B.Degoy DnC
-* Copyright (c) 2018 B.Degoy
-* licence GPL V3
+* OauthSD project
+* This code is not an open source!
+* You can not access, dispose, modify, transmit etc. this code without the written permission of DnC.
+* You can only use one coded copy provided you have a particular license from DnC.
+* Auteur : Bertrand Degoy 
+* Copyright (c) 2019 DnC  
+* All rights reserved
 */
 
 // include our OAuth2 Server object

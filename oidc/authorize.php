@@ -17,11 +17,13 @@ Le fait de forcer un e-mail comme login fait que le système génère un $userid
 aléatoire de 64 caractères, pratiquement impossible à deviner.
 Même dans ce cas, on reste exposé au vol de cookie.
 
-
+OauthSD project
+This code is not an open source!
+You can not access, dispose, modify, transmit etc. this code without the written permission of DnC.
+You can only use one coded copy provided you have a particular license from DnC.
 Auteur : Bertrand Degoy 
-Copyright (c) 2016-2019 DnC  
-Tous droits réservés
-
+Copyright (c) 2016-2018 DnC  
+All rights reserved
 */
 
 //DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG
@@ -392,17 +394,9 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
         } else 
             $isconnectednow = false;
 
-        //[dnc36]
-        if ( !is_null($httporigin = @$_SERVER['HTTP_ORIGIN']) OR @$_SERVER['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest" ) {
-            // CORS (simple request, no preflight) : allow known client. See: https://zinoui.com/blog/cross-domain-ajax-request               
-            $stmt = $cnx->prepare(sprintf('SELECT * FROM %s WHERE client_id=:client_id', $storage_config['client_table']));    
-            $stmt->execute(compact('client_id'));
-            $data = $stmt->fetch(\PDO::FETCH_ASSOC);
-            $client_domain = parse_url($data['redirect_uri'], PHP_URL_HOST);
-            $response->setHttpHeader('Access-Control-Allow-Headers','x-requested-with');
-            $response->setHttpHeader('Access-Control-Allow-Origin','https://' . $client_domain);
-            $response->setHttpHeader('Vary','Origin');
-            // answer directly
+        //[dnc36] If CORS request, process it and respond to user-agent right now. 
+        if ( cors_allow_known_client( $client_id, $response, $cnx ) ) {
+            // answer directly to user-agent
             if ( ! $isconnectednow ) {
                 // user is not connected, answer with code 401.
                 $response->setError(401, 'Unauthorized');
@@ -412,7 +406,7 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
             die(); 
 
         } else {
-            // Answer to callback url
+            // Return autorisation code to client
             if ( $isconnectednow ) {
                 // Ok if subject is already connected,
                 log_info("Authorize" ,"Prompt none : user is connected - client = " . $client_id . " sub = " . $sub, $client_id, $sub, 112, 0, $cnx);     
@@ -429,7 +423,7 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
         /////////////////  prompt empty  ////////////
         /*  If prompt is empty, if SLI is enabled and if subject is seen connected 
         by SLI, we will connect user without prompting her for login. 
-        Else we will ask for login.
+        Else we will ask her to login.
         */
 
         if ( empty($prompt) ) {  
@@ -451,6 +445,13 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
                     $jcookiedata = json_encode($cookiedata);
                     send_private_encoded_cookie('sli', $jcookiedata, SLI_COOKIE_LIFETIME);  
 
+                    //[dnc36b] If CORS request, process it and respond to user-agent right now. 
+                    if ( cors_allow_known_client( $client_id, $response, $cnx ) ) {
+                        // answer directly to user-agent with code 200
+                        $response->send();
+                        die(); 
+                    }           
+
                     if ( DEBUG ) {       
                         $trace .= '----- SRA : SLI Cookie refreshed -----' . "<br />";
                         $trace .= 'cookie data : ' . print_r($cookiedata,true) . "<br /><br />";
@@ -467,7 +468,7 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
                         }   
                     } 
                     if (  $continue_with_consent == false ) {
-                        // No consent needed, return code to client
+                        // No consent needed, return autorisation code to client
                         log_success("Authorize" ,"SLI (prompt = empty, none or login ) : SLI successful, cookie refreshed - client = " . $client_id . " sub = " . $sub, $client_id, $sub, 120, -10, $cnx);   
                         if( PRTG ) oidc_increment('authentications');
                         $is_authorized = true;
@@ -482,10 +483,6 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
                     * for any reason, access_token is missing and SLI cookie is not safe 
                     * therefore should be destroyed.
                     */
-                    /*
-                    unset($_COOKIE['sli']);
-                    setcookie('sli', '', 0); 
-                    //*/
                     discard_cookie('sli');
 
                     if ( REAUTHENTICATE_NO_ROUNDTRIP ) {  //[dnc10]
@@ -835,4 +832,31 @@ function scopes_to_grant($scopes, $client_id) {
     }
 
     return ( count($scopes_to_grant)? $scopes_to_grant : null );
+}
+
+/** [dnc36b]
+* Detect a CORS request (simple request, no preflight) 
+* and allow known client. 
+* See: https://zinoui.com/blog/cross-domain-ajax-request 
+* 
+* @param mixed $client_id
+* @param mixed $stmt
+*/
+function cors_allow_known_client( $client_id, $response, $cnx ) {
+
+    if ( !is_null($httporigin = @$_SERVER['HTTP_ORIGIN']) OR @$_SERVER['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest" ) {
+        global $storage_config;              
+        $stmt = $cnx->prepare(sprintf('SELECT * FROM %s WHERE client_id=:client_id', $storage_config['client_table']));    
+        $stmt->execute(compact('client_id'));
+        $data = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $client_domain = parse_url($data['redirect_uri'], PHP_URL_HOST);
+        $response->setHttpHeader('Access-Control-Allow-Headers','x-requested-with');
+        $response->setHttpHeader('Access-Control-Allow-Origin','https://' . $client_domain);
+        $response->setHttpHeader('Vary','Origin');
+        return true;
+
+    } else {
+        // not a CORS request
+        return false;
+    }
 }

@@ -1,10 +1,13 @@
 <?php
 /* log.php
 
-Auteur : B. Degoy bertrand@degoy.com
-Copyright (c) 2018 DnC https://degoy.com
+OauthSD project
+This code is not an open source!
+You can not access, dispose, modify, transmit etc. this code without the written permission of DnC.
+You can only use one coded copy provided you have a particular license from DnC.
+Auteur : Bertrand Degoy 
+Copyright (c) 2016-2018 DnC  
 All rights reserved
-
 */
 
 //define('LOG_LEVEL', 3 ); // 3 = error + info + success, 2 = error + info, 1 = error only  

@@ -1,13 +1,15 @@
 <?php
 /*
-OAuthSD
-
+prtg.php
 Ce script est appelé périodiquement par PRTG pour le suivi des autorisations.
 
+OauthSD project
+This code is not an open source!
+You can not access, dispose, modify, transmit etc. this code without the written permission of DnC.
+You can only use one coded copy provided you have a particular license from DnC.
 Auteur : Bertrand Degoy 
 Copyright (c) 2016-2018 DnC  
-Tous droits réservés
-
+All rights reserved
 */
 
 include('./prtg_utils.php');
