@@ -70,50 +70,20 @@ if ( file_exists('my.css') ) { //[dnc37]
 } else {
     $style = '
     <style>
-    body {
-    font-family: "Century Gothic", Helvetica, Arial, sans-serif !important;
-    }
-    #container {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 360px;
-    padding: 1.5em;
-    }
-    #oauth {
-    color: white;
-    padding: 1.5em;
-    border-width: 3px;
-    border-color: #15a589;
-    background-color: #18bc9c;
-    }
-    #oauth a {
-    color : white;
-    }
-    h3.login {
-    text-align: center;
-    }
+    body {font-family: "Century Gothic", Helvetica, Arial, sans-serif !important;}
+    #container {margin-left: auto; margin-right: auto; max-width: 360px; padding: 1.5em; border: solid 1px grey; border-radius: 10px; box-shadow: 10px 5px 5px silver;}
+    .head-title {text-align: center; background-color: gray; color: white; padding: 0.5em;}
+    .error {text_align: center; color : red; background-color : white; padding: 6px;}
+    .bouton {margin:15px; background-color: #999; color: white; box-shadow:1px 1px 1px #666; cursor:pointer;}
+    .tfacode {text-align: center;}
+    #champ_tfacode {width: 64px; margin-top: 6px; padding: 3px;box-shadow: 3px 3px 3px silver;}
     #btn_submit {float: right;}
-    #submit {
-    margin:15px;
-    background-color: #999;
-    color: white;
-    box-shadow:1px 1px 1px #666;
-    cursor:pointer;
-    }
-    #bottom {
-    color : grey;
-    font-size: .8em;
-    }
-    #bottom a {
-    color : grey;
-    }
-    .error {
-    text_align: center;
-    color : red;
-    background-color : white;
-    padding: 6px;
-    }
-
+    #submit {width:100px; font-size: 1.1em;}
+    #nocode {clear: both; margin-bottom: 0.5em;}
+    #qrcode {text-align: center;}
+    #bottom {color : grey; font-size: .8em;}
+    #bottom a {color : grey;}
+    
     ' . $thecss . '
     </style>
     ';     
@@ -151,7 +121,7 @@ echo('
 
     <div id="oauth" class="grant">
 
-    <h3 class="oauth grant">'  
+    <h3 class="head-title">'  
     . $texte1 .  //[dnc16]
     '</h3> 
 
