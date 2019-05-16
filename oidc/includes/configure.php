@@ -161,6 +161,20 @@ define('PROMPT_DEFAULT_TO_CONSENT', true);
 */
 define('DONT_PROMPT_FOR_ALREADY_GRANTED_SCOPE', true);
 
+/** [dnc43] Two Factors Authentication.
+*   If this is set to true, TFA will be presented to end user after login form.
+*/
+define('LOGIN_WITH_TFA', false);
+/** [dnc43] Designate wich TFA provider will be used.
+* Enter name of directory in /oidc/identification/ where are TFA scripts.
+*/
+define('TFA_PROVIDER', 'gangsta');  // 'gangsta', ... (nothing else for now).
+/* Nom du serveur à passer à getQRCodeGoogleUrl. 
+Sera affiché sous le QR-Code.
+*/
+define('TFA_VISIBLE_APPNAME','OAuthSD Server');
+
+
 //// NO CHANGE NEEDED ////
 
 // Storage configuration. 

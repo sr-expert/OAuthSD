@@ -10,8 +10,9 @@ use OAuth2\GrantType\AuthorizationCode;
 use OAuth2\Request;
 use OAuth2\Response;
 use OAuth2\Request\TestRequest;
+use PHPUnit\Framework\TestCase;
 
-class AuthorizeControllerTest extends \PHPUnit_Framework_TestCase
+class AuthorizeControllerTest extends TestCase
 {
     public function testNoClientIdResponse()
     {
@@ -168,6 +169,22 @@ class AuthorizeControllerTest extends \PHPUnit_Framework_TestCase
         $server = $this->getTestServer();
         $request = new Request(array(
             'client_id' => 'Test Client ID with Redirect Uri', // valid client id
+            'redirect_uri' => 'http://adobe.com', // invalid redirect URI
+            'response_type' => 'code',
+        ));
+        $server->handleAuthorizeRequest($request, $response = new Response(), true);
+
+        $this->assertEquals($response->getStatusCode(), 400);
+        $this->assertEquals($response->getParameter('error'), 'redirect_uri_mismatch');
+        $this->assertEquals($response->getParameter('error_description'), 'The redirect URI provided is missing or does not match');
+    }
+
+    public function testInvalidRedirectUriApprovedByBuggyRegisteredUri()
+    {
+        $server = $this->getTestServer();
+        $server->setConfig('require_exact_redirect_uri', false);
+        $request = new Request(array(
+            'client_id' => 'Test Client ID with Buggy Redirect Uri', // valid client id
             'redirect_uri' => 'http://adobe.com', // invalid redirect URI
             'response_type' => 'code',
         ));

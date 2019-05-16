@@ -6,8 +6,9 @@ use OAuth2\Storage\Bootstrap;
 use OAuth2\Server;
 use OAuth2\Request;
 use OAuth2\Response;
+use PHPUnit\Framework\TestCase;
 
-class ImplicitTest extends \PHPUnit_Framework_TestCase
+class ImplicitTest extends TestCase
 {
     public function testImplicitNotAllowedResponse()
     {
@@ -125,7 +126,7 @@ class ImplicitTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('fragment', $parts);
         parse_str($parts['fragment'], $params);
 
-        $this->assertFalse(isset($parmas['fake']));
+        $this->assertFalse(isset($params['fake']));
         $this->assertArrayHasKey('state', $params);
         $this->assertEquals($params['state'], 'test');
     }

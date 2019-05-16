@@ -6,8 +6,9 @@ use OAuth2\Storage\Bootstrap;
 use OAuth2\Server;
 use OAuth2\Request\TestRequest;
 use OAuth2\Response;
+use PHPUnit\Framework\TestCase;
 
-class AuthorizationCodeTest extends \PHPUnit_Framework_TestCase
+class AuthorizationCodeTest extends TestCase
 {
     public function testNoCode()
     {
@@ -86,6 +87,22 @@ class AuthorizationCodeTest extends \PHPUnit_Framework_TestCase
             'client_id'     => 'Test Client ID', // valid client id
             'client_secret' => 'TestSecret', // valid client secret
             'code'          => 'testcode', // valid code
+        ));
+        $token = $server->grantAccessToken($request, new Response());
+
+        $this->assertNotNull($token);
+        $this->assertArrayHasKey('access_token', $token);
+    }
+
+    public function testValidRedirectUri()
+    {
+        $server = $this->getTestServer();
+        $request = TestRequest::createPost(array(
+            'grant_type'    => 'authorization_code', // valid grant type
+            'client_id'     => 'Test Client ID', // valid client id
+            'redirect_uri'  => 'http://brentertainment.com/voil%C3%A0', // valid client id
+            'client_secret' => 'TestSecret', // valid client secret
+            'code'          => 'testcode-redirect-uri', // valid code
         ));
         $token = $server->grantAccessToken($request, new Response());
 

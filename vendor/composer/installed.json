@@ -1,29 +1,38 @@
 [
     {
         "name": "bshaffer/oauth2-server-php",
-        "version": "v1.8.0",
-        "version_normalized": "1.8.0.0",
+        "version": "v1.11.1",
+        "version_normalized": "1.11.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/bshaffer/oauth2-server-php.git",
-            "reference": "058c98f73209f9c49495e1799d32c035196fe8b8"
+            "reference": "5a0c8000d4763b276919e2106f54eddda6bc50fa"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/bshaffer/oauth2-server-php/zipball/058c98f73209f9c49495e1799d32c035196fe8b8",
-            "reference": "058c98f73209f9c49495e1799d32c035196fe8b8",
+            "url": "https://api.github.com/repos/bshaffer/oauth2-server-php/zipball/5a0c8000d4763b276919e2106f54eddda6bc50fa",
+            "reference": "5a0c8000d4763b276919e2106f54eddda6bc50fa",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.9"
         },
-        "suggest": {
-            "aws/aws-sdk-php": "~2.8 is required to use the DynamoDB storage engine",
-            "firebase/php-jwt": "~2.2 is required to use JWT features",
-            "predis/predis": "Required to use the Redis storage engine",
-            "thobbs/phpcassa": "Required to use the Cassandra storage engine"
+        "require-dev": {
+            "aws/aws-sdk-php": "~2.8",
+            "firebase/php-jwt": "~2.2",
+            "mongodb/mongodb": "^1.1",
+            "phpunit/phpunit": "^4.0",
+            "predis/predis": "dev-master",
+            "thobbs/phpcassa": "dev-master"
         },
-        "time": "2015-09-18 18:05:10",
+        "suggest": {
+            "aws/aws-sdk-php": "~2.8 is required to use DynamoDB storage",
+            "firebase/php-jwt": "~2.2 is required to use JWT features",
+            "mongodb/mongodb": "^1.1 is required to use MongoDB storage",
+            "predis/predis": "Required to use Redis storage",
+            "thobbs/phpcassa": "Required to use Cassandra storage"
+        },
+        "time": "2018-12-04T00:29:32+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -51,85 +60,39 @@
         ]
     },
     {
-        "name": "paragonie/random_compat",
-        "version": "v2.0.4",
-        "version_normalized": "2.0.4.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/paragonie/random_compat.git",
-            "reference": "a9b97968bcde1c4de2a5ec6cbd06a0f6c919b46e"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/paragonie/random_compat/zipball/a9b97968bcde1c4de2a5ec6cbd06a0f6c919b46e",
-            "reference": "a9b97968bcde1c4de2a5ec6cbd06a0f6c919b46e",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.2.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "4.*|5.*"
-        },
-        "suggest": {
-            "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
-        },
-        "time": "2016-11-07 23:38:38",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "lib/random.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Paragon Initiative Enterprises",
-                "email": "security@paragonie.com",
-                "homepage": "https://paragonie.com"
-            }
-        ],
-        "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
-        "keywords": [
-            "csprng",
-            "pseudorandom",
-            "random"
-        ]
-    },
-    {
         "name": "defuse/php-encryption",
-        "version": "2.0.3",
-        "version_normalized": "2.0.3.0",
+        "version": "v2.2.1",
+        "version_normalized": "2.2.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/defuse/php-encryption.git",
-            "reference": "2c6fea3d9a4eaaa8cef86b2a89f3660818117b33"
+            "reference": "0f407c43b953d571421e0020ba92082ed5fb7620"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/defuse/php-encryption/zipball/2c6fea3d9a4eaaa8cef86b2a89f3660818117b33",
-            "reference": "2c6fea3d9a4eaaa8cef86b2a89f3660818117b33",
+            "url": "https://api.github.com/repos/defuse/php-encryption/zipball/0f407c43b953d571421e0020ba92082ed5fb7620",
+            "reference": "0f407c43b953d571421e0020ba92082ed5fb7620",
             "shasum": ""
         },
         "require": {
             "ext-openssl": "*",
-            "paragonie/random_compat": "~2.0",
+            "paragonie/random_compat": ">= 2",
             "php": ">=5.4.0"
         },
         "require-dev": {
-            "nikic/php-parser": "^2.0"
+            "nikic/php-parser": "^2.0|^3.0|^4.0",
+            "phpunit/phpunit": "^4|^5"
         },
-        "time": "2016-10-10 15:20:26",
+        "time": "2018-07-24T23:27:56+00:00",
+        "bin": [
+            "bin/generate-defuse-key"
+        ],
         "type": "library",
         "installation-source": "dist",
         "autoload": {
-            "classmap": [
-                "src"
-            ]
+            "psr-4": {
+                "Defuse\\Crypto\\": "src"
+            }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -159,6 +122,102 @@
             "openssl",
             "security",
             "symmetric key cryptography"
+        ]
+    },
+    {
+        "name": "paragonie/random_compat",
+        "version": "v2.0.18",
+        "version_normalized": "2.0.18.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/paragonie/random_compat.git",
+            "reference": "0a58ef6e3146256cc3dc7cc393927bcc7d1b72db"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/paragonie/random_compat/zipball/0a58ef6e3146256cc3dc7cc393927bcc7d1b72db",
+            "reference": "0a58ef6e3146256cc3dc7cc393927bcc7d1b72db",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.*|5.*"
+        },
+        "suggest": {
+            "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+        },
+        "time": "2019-01-03T20:59:08+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "lib/random.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Paragon Initiative Enterprises",
+                "email": "security@paragonie.com",
+                "homepage": "https://paragonie.com"
+            }
+        ],
+        "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+        "keywords": [
+            "csprng",
+            "polyfill",
+            "pseudorandom",
+            "random"
+        ]
+    },
+    {
+        "name": "phpgangsta/googleauthenticator",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/PHPGangsta/GoogleAuthenticator.git",
+            "reference": "505c2af8337b559b33557f37cda38e5f843f3768"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/PHPGangsta/GoogleAuthenticator/zipball/505c2af8337b559b33557f37cda38e5f843f3768",
+            "reference": "505c2af8337b559b33557f37cda38e5f843f3768",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3"
+        },
+        "time": "2019-03-20T00:55:58+00:00",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "classmap": [
+                "PHPGangsta/GoogleAuthenticator.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-4-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Michael Kliewe",
+                "email": "info@phpgangsta.de",
+                "homepage": "http://www.phpgangsta.de/",
+                "role": "Developer"
+            }
+        ],
+        "description": "Google Authenticator 2-factor authentication",
+        "keywords": [
+            "googleauthenticator",
+            "rfc6238",
+            "totp"
         ]
     }
 ]

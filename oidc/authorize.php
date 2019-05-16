@@ -644,6 +644,17 @@ if ( ! empty($password) OR 'login' == $return_from ) {
             log_error("Authorize" ,$error, $client_id, $sub, 150, 10, $cnx);
         }   
     }
+    
+    if ( $is_authorized AND LOGIN_WITH_TFA ) {
+        //[dnc43] Prompt user for Two Factors Authentication
+        log_info("Authorize" ,"Display TFA form", $client_id, $sub, 190, 1, $cnx);
+        $client_id = $_GET['client_id']; 
+        exit(
+            // Display login form
+            include './identification/' . TFA_PROVIDER . '/login.php'
+        );    
+        
+    }
 
     if ( ENABLE_SLI ) {
         //[dnc9] Create (or destroy) SLI cookie  
@@ -711,8 +722,92 @@ if ( ! empty($password) OR 'login' == $return_from ) {
 
 } // End Return from Login form
 
+if ( '2fa' == $return_from ) {
 
-if ( ! empty($grant) OR 'grant' == $return_from ) { 
+    ////////////////////////[dnc43]  Return from Two Factors Authentication  //////////////////////////////
+    
+    $answer = unserialize(decrypt(@$_GET['answer']));
+    if ( $answer ) {
+
+        $is_authorized = @$answer['is_authorized'];
+        $error = rtrim(@$answer['error'],'%');  // Remove random-length trail of '%'
+        $redo = @$answer['redo'];
+
+    } else {
+        // missing answer or decrypt() failed : forged answer, destroy all session data
+        destroy_all_session_data();
+        // die with error 
+        if ( DEBUG) {
+            $response->setError(403, 'forbidden', 'Return from TFA form with forged data');
+        } else {
+            $response->setError(403, 'forbidden');
+            sleep(10); // penalize skiddie
+        }
+        $response->send();
+        die();    
+    }
+    
+    if ( $error ) { // Error raised at TFA step
+
+        $is_authorized = false;
+
+        if ( $redo AND LOGIN_NO_ROUNDTRIP ) {
+
+            // Retry at server's
+            if ( ($attempts = @$_SESSION["tfa_attempts"]) < ALLOWED_ATTEMPTS ) {
+
+                log_info("Authorize" ,"TFA Redo : " . $error . ' Attempts left = ' . ALLOWED_ATTEMPTS - $attempts, $client_id, $sub, 193, 1, $cnx);
+                $_SESSION["tfa_attempts"] = $attempts + 1;
+                sleep(1); // penalize 
+                $data = array(
+                    'response_type' => $response_type, // comes from request
+                    'client_id' => $client_id, // comes from request
+                    'scope' => $scope,  // comes from request  
+                    'state' => decrypt($_SESSION['state']),  // the unforged one  [dnc33]
+                    'error' => $error. '. ' . _('Please retry') . '.',
+                );
+                $redirect_uri = htmlEntities(@$_GET['redirect_uri']);          
+                if ( !empty($redirect_uri) ) {
+                    $data['redirect_uri'] = $redirect_uri;    
+                }
+
+                // Return to Authorize
+                $authorization_endpoint = OIDC_SERVER_URL . '/authorize';
+                $authorization_endpoint .= '?' . http_build_query($data);
+                header('Location: ' . $authorization_endpoint);
+                exit();
+
+            } else {
+                // Attempts count exceeded
+                log_error("Authorize" ,"TFA Redo returns error to client : " . $message, $client_id, $sub, 194, 10, $cnx);
+                // Destroy all session data ???
+                destroy_all_session_data();
+                // Return to client with error
+                $server->handleAuthorizeRequest($request, $response, false, null);
+                if ( DEBUG ) {      
+                    $trace .= '----- TFA Redo -----' . "<br />";
+                    $trace .= 'TFA Redo returns error to client : ' . $message . "<br /><br />";
+                    $response->addParameters(array('trace' => urlencode($trace)));     
+                }  
+                $response->send();
+                die();
+            }
+
+        } else {
+            // Redirect with error
+            log_error("Authorize" ,$error, $client_id, $sub, 195, 10, $cnx);
+        }   
+    }
+    
+    if ( $is_authorized ) {
+        log_success("Authorize" ,"TFA success - client = " . $client_id . " sub = " . $sub, $client_id, $sub, 190, -10, $cnx);                    
+    }
+
+} // End Return from TFA form
+    
+    
+    
+    if ( ! empty($grant) OR 'grant' == $return_from ) { 
 
     /////////////////////////  Return from Grant form  /////////////////////////////
 
@@ -769,7 +864,7 @@ if ( DEBUG ) $response->addParameters(array('trace' => urlencode($trace)));
 $scopes = explode(' ', $request->query('scope'));
 if ( ! empty($scopes_to_grant = scopes_to_grant($scopes, $client_id)) AND $is_authorized AND $prompt !== 'none' ) { 
     // There are scope(s) left to be granted, re-enter Authorize to process them
-    $response->addParameters(array(        //*****
+    $response->addParameters(array(        
         'response_type' => $response_type,
         'client_id' => $client_id,
         'state' => $state,   
