@@ -95,7 +95,7 @@ $nom_auteur = sql_getfetsel('nom', 'spip_auteurs',
             .css('z-index','10001')
             .css('background-color','#09f')
             .on('click', function(){
-                $('<div></div>').appendTo('body')
+                $('<div id="infodialog"></div>').appendTo('body')
                 .html('<div><h6>'+ infos +'<br/><?php echo _T('oidcclient:t_session_restant'); ?> : ' + timeleft + ' s<br/><?php echo _T('oidcclient:delai_reponse'); ?> : ' + responseDelay +' ms</h6></div>')
                 .dialog({
                     modal: true, title: "<?php echo _T('oidcclient:infos_titre'); ?>", zIndex: 10000, autoOpen: true,
@@ -105,9 +105,7 @@ $nom_auteur = sql_getfetsel('nom', 'spip_auteurs',
                         interval = setInterval(pollOidc,pollperiod);
                     }
                 });
-
-                } 
-            );     
+            });     
         }
 
         // Si on est loge localement, surveiller qu'on l'est egalement sur OIDC
@@ -183,43 +181,45 @@ $nom_auteur = sql_getfetsel('nom', 'spip_auteurs',
         };
 
         function ExtendDialog(message) {    //[dnc28d]
-            clearInterval(interval);
-            $('<div></div>').appendTo('body')
-            .html('<div><h6>'+message+'?</h6></div>')
-            .dialog({
-                modal: true, title: "<?php echo _T('oidcclient:session_extend'); ?>", zIndex: 10000, autoOpen: true,
-                width: 'auto', resizable: false,
-                buttons: [
-                    {
-                        text: "<?php echo _T('item_oui'); ?>",
-                        click: function () {
-                            // Etendre la session
-                            $.ajax({
-                                type : "get",
-                                url : "<?php echo OIDC_AUTHORIZATION_ENDPOINT; ?>",
-                                data : { 'response_type' : 'code',
-                                    'client_id' : "<?php echo OIDC_CLIENT_ID; ?>",
-                                    'user_id' : login,
-                                    'state' :  state,
-                                    'scope' : 'openid sli',
-                                } 
-                            });
-                            $(this).dialog("close");
-                            interval = setInterval(pollOidc,pollperiod);
+            if ( !$("#extenddialog").size() ) {  //[dnc28f]
+                clearInterval(interval);
+                $('<div id="extenddialog"></div>').appendTo('body')
+                .html('<div><h6>'+message+'?</h6></div>')
+                .dialog({
+                    modal: true, title: "<?php echo _T('oidcclient:session_extend'); ?>", zIndex: 10000, autoOpen: true,
+                    width: 'auto', resizable: false,
+                    buttons: [
+                        {
+                            text: "<?php echo _T('item_oui'); ?>",
+                            click: function () {
+                                // Etendre la session
+                                $.ajax({
+                                    type : "get",
+                                    url : "<?php echo OIDC_AUTHORIZATION_ENDPOINT; ?>",
+                                    data : { 'response_type' : 'code',
+                                        'client_id' : "<?php echo OIDC_CLIENT_ID; ?>",
+                                        'user_id' : login,
+                                        'state' :  state,
+                                        'scope' : 'openid sli',
+                                    } 
+                                });
+                                $(this).dialog("close");
+                                interval = setInterval(pollOidc,pollperiod);
+                            }
+                        },{
+                            text: "<?php echo _T('item_non'); ?>",
+                            click: function () {                                                                 
+                                $(this).dialog("close");
+                                interval = setInterval(pollOidc,pollperiod);
+                            },
                         }
-                    },{
-                        text: "<?php echo _T('item_non'); ?>",
-                        click: function () {                                                                 
-                            $(this).dialog("close");
-                            interval = setInterval(pollOidc,pollperiod);
-                        },
-                    }
-                ],
-                close: function (event, ui) {
-                    $(this).remove();
-                    interval = setInterval(pollOidc,pollperiod);
-                },
-            });
+                    ],
+                    close: function (event, ui) {
+                        $(this).remove();
+                        interval = setInterval(pollOidc,pollperiod);
+                    },
+                });
+            }
         };
 
         // Tester la connexion
