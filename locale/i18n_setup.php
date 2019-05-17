@@ -17,7 +17,7 @@ function valid($locale) {
         $locales = array(    //CONFIG
             'fr' => 'fr_FR',
             'en' => 'en_US',
-            'en' => 'en_EN',
+            'en' => 'en_GB', //[dnc35c]
             'de' => 'de_DE'
         );
     } 
@@ -33,7 +33,7 @@ function valid($locale) {
 
 }
 
-// Execution start here >>>>>
+// Execution starts here >>>>>
 
 if ( isset($_GET['lang']) ) {
     // the locale can be changed through the query-string
@@ -41,7 +41,8 @@ if ( isset($_GET['lang']) ) {
     setcookie('lang', $lang); //it's stored in a cookie so it can be reused
 } elseif ( isset($_COOKIE['spip_lang']) ) {  //[dnc35b]
     // if the SPIP cookie is present instead, let's give it priority
-    $lang = valid( $_COOKIE['spip_lang'] ); 
+    $lang = valid( $_COOKIE['spip_lang'] );
+    if ( $lang == 'en_EN' ) $lang = 'en_GB'; //[dnc35c] 
 } elseif ( isset($_COOKIE['lang']) ) {
     // if the cookie is present instead, let's just keep it
     $lang = valid( $_COOKIE['lang'] ); 
