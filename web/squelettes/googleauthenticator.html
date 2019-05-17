@@ -1,0 +1,21 @@
+<?php
+/*
+Projet OAuthSD
+Aide sur l'identification avec Google Authenticator.
+Rediriger vers la documentation le lien /web/?page=googleauthenticator&...  
+Voir /oidc/identification/gangsta/login.php .
+[dnc43]
+Auteur : B. Degoy DnC
+Copyright (c) 2019 DnC
+*/
+switch ( $_GET['lang'] ) {
+    case 'fr_FR' :
+        header('Status: 301 Moved Permanently', false, 301);
+        header('Location: /web/-fr-.html?page=unarticle&id_article=116&lang=fr'); 
+        break;
+    default:
+    case 'en_GB' :
+        header('Status: 301 Moved Permanently', false, 301);
+        header('Location: /web/-en-.html?page=unarticle&id_article=115&lang=en'); 
+        break;
+}

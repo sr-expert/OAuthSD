@@ -35,7 +35,7 @@ if ( isset($_GET['error']) AND (!empty($error = $_GET['error'])) ) {
     unset($_GET['error']);
 }
 
-$texte1 = _('Please do 2fa') ;
+$texte1 = _('Please identify yourself with Google Authenticator') ;
 
 if ( empty($lang) ) $lang = 'fr';
 
@@ -125,7 +125,7 @@ if ( !is_null($ga) ) {
     }
     echo (' 
                     <div class="editer tfacode">
-                        <label for="champ_tfacode">' . _('tfacode') . ' ' . $websiteTitle . ' : </label>
+                        <label for="champ_tfacode">' . _('Enter code for') . ' ' . $websiteTitle . ' : </label>
                         <input class="champ_tfacode" id="champ_tfacode" type="text" name="tfacode"/>
                     </div>
                     <div id="btn_submit" class="bouton"><input type="submit" id="submit" value="' . _('Submit') .'" /></div>
@@ -138,7 +138,7 @@ if ( !is_null($ga) ) {
                 <div id="qrcode"><img src="' . $qrCodeUrl . '" /></div>
                 
                 <div class="bottom">' .
-                    _('You do not know 2FAGA') . ': <a href="/?page=about_google_authenticator&id_client=' . $client_id . '&lang=' . $lang . '">' . _('Learn about 2FAGA') . '</a>
+                    _('You do not know how to use Google Authenticator with your smartphone? See there') . ': <a href="/?page=googleauthenticator&id_client=' . $client_id . '&lang=' . $lang . '">' . _('Learn about 2FAGA') . '</a>
                 . </div>
             </div>
             
