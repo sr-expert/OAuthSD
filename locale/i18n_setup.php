@@ -1,6 +1,7 @@
 <?php
 /** Projet OAuthSD
 * See : https://www.toptal.com/php/build-multilingual-app-with-gettext
+* [dnc35]
 */
 
 /**
@@ -32,10 +33,15 @@ function valid($locale) {
 
 }
 
+// Execution start here >>>>>
+
 if ( isset($_GET['lang']) ) {
     // the locale can be changed through the query-string
     $lang = valid( $_GET['lang'] );
     setcookie('lang', $lang); //it's stored in a cookie so it can be reused
+} elseif ( isset($_COOKIE['spip_lang']) ) {  //[dnc35b]
+    // if the SPIP cookie is present instead, let's give it priority
+    $lang = valid( $_COOKIE['spip_lang'] ); 
 } elseif ( isset($_COOKIE['lang']) ) {
     // if the cookie is present instead, let's just keep it
     $lang = valid( $_COOKIE['lang'] ); 
