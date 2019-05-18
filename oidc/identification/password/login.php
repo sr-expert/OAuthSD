@@ -72,7 +72,7 @@ if ( file_exists('my.css') ) { //[dnc37]
     border-color: #15a589;
     background-color: #18bc9c;
     }
-    #oauth a {
+    #page a {
     color : white;
     }
     h3.login {
@@ -132,8 +132,10 @@ echo ('
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta name="robots" content="noindex, nofollow"> 
         ' . $style .   //[dnc37]    
-    '<div id="container">
-    <div id="oauth" class="login">
+    '<div id="page" class="password">
+    <div id="container">
+    <div id="top"></div>
+    
     <h3 class="oauth login">'  
     . $texte1 .  //[dnc16]
     '</h3> 

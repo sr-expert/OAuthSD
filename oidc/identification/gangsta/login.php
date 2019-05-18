@@ -46,7 +46,7 @@ if ( file_exists('my.css') ) { //[dnc37]
     $style = '
     <style>
     body {font-family: "Century Gothic", Helvetica, Arial, sans-serif !important;}
-    #container {margin-left: auto; margin-right: auto; max-width: 360px; padding: 1.5em; border: solid 1px grey; border-radius: 10px; box-shadow: 10px 5px 5px silver;}
+    #page {margin-left: auto; margin-right: auto; max-width: 360px; padding: 1.5em; border: solid 1px grey; border-radius: 10px; box-shadow: 10px 5px 5px silver;}
     .head-title {text-align: center; background-color: gray; color: white; padding: 0.5em;}
     .error {text_align: center; color : red; background-color : white; padding: 6px;}
     .bouton {margin:15px; background-color: #999; color: white; box-shadow:1px 1px 1px #666; cursor:pointer;}
@@ -93,9 +93,10 @@ if ( !is_null($ga) ) {
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Cache-Control" content="no-cache">
         <meta name="robots" content="noindex, nofollow"> 
-        ' . $style .   //[dnc37]    
-        '<div id="container" class="2fa gangsta">
-            <div id="2fa" class="login">
+        ' . $style .   //[dnc37] 
+        '<div id="page" class="gangsta">
+            <div id="top"></div>   
+            <div id="container" class="2fa gangsta">
                 <h3 class="head-title">' . $texte1 . '</h3> 
     ');
 
@@ -136,10 +137,9 @@ if ( !is_null($ga) ) {
                     _('You do not have code') 
                 . ': </div>
                 <div id="qrcode"><img src="' . $qrCodeUrl . '" /></div>
-                
-                <div class="bottom">' .
-                    _('You do not know how to use Google Authenticator with your smartphone? See there') . ': <a href="/?page=googleauthenticator&id_client=' . $client_id . '&lang=' . $lang . '">' . _('Learn about 2FAGA') . '</a>
-                . </div>
+            </div>
+            <div class="bottom">' .
+                _('You do not know how to use Google Authenticator with your smartphone? See there') . ': <a href="/?page=googleauthenticator&id_client=' . $client_id . '&lang=' . $lang . '">' . _('Learn about 2FAGA') . '</a> . 
             </div>
             
         </div> 

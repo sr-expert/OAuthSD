@@ -71,7 +71,7 @@ if ( file_exists('my.css') ) { //[dnc37]
     $style = '
     <style>
     body {font-family: "Century Gothic", Helvetica, Arial, sans-serif !important;}
-    #container {margin-left: auto; margin-right: auto; max-width: 360px; padding: 1.5em; border: solid 1px grey; border-radius: 10px; box-shadow: 10px 5px 5px silver;}
+    #page {margin-left: auto; margin-right: auto; max-width: 360px; padding: 1.5em; border: solid 1px grey; border-radius: 10px; box-shadow: 10px 5px 5px silver;}
     .head-title {text-align: center; background-color: gray; color: white; padding: 0.5em;}
     .error {text_align: center; color : red; background-color : white; padding: 6px;}
     .bouton {margin:15px; background-color: #999; color: white; box-shadow:1px 1px 1px #666; cursor:pointer;}
@@ -117,42 +117,41 @@ if ( !empty($error) ) {
 
 // Display Grant Form
 echo('   
-    <div id="container">
+    <div id="page" class="grant">
+        <div id="top"></div>
+        <div id="container">
+            <h3 class="head-title">'  
+            . $texte1 .  //[dnc16]
+            '</h3> 
 
-    <div id="oauth" class="grant">
+            <div id="scopes">' . $scopes_html . '</div>
 
-    <h3 class="head-title">'  
-    . $texte1 .  //[dnc16]
-    '</h3> 
+            <form id="'. $form_id .'" name="'. $form_id .'" method="post">
+                <input type="hidden" name="return_from" value="'. $form_id .'">
 
-    <div id="scopes">' . $scopes_html . '</div>
+                <input type="hidden" name="state" value="' . $_GET['state'] . '">
+                <input type="hidden" name="client_id" value="' . $_GET['client_id'] . '">
+                <input type="hidden" name="just_granted_scopes" value="' . $being_granted_scopes . '">
+                <input type="hidden" name="redirect_uri" value="' . @$_GET['redirect_uri'] . '">
 
-    <form id="'. $form_id .'" name="'. $form_id .'" method="post">
-    <input type="hidden" name="return_from" value="'. $form_id .'">
+                <br />
+                <input type="checkbox" id="grant" name="grant"><label for="checkbox">' . _('I agree') . '</label>
 
-    <input type="hidden" name="state" value="' . $_GET['state'] . '">
-    <input type="hidden" name="client_id" value="' . $_GET['client_id'] . '">
-    <input type="hidden" name="just_granted_scopes" value="' . $being_granted_scopes . '">
-    <input type="hidden" name="redirect_uri" value="' . @$_GET['redirect_uri'] . '">
+                <div id="btn_submit" class="bouton"><button type="submit" >' . _('Submit') . '</button></div>
 
-    <br />
-    <input type="checkbox" id="grant" name="grant"><label for="checkbox">' . _('I agree') . '</label>
+            </form>
 
-    <div id="btn_submit" class="bouton"><button type="submit" >' . _('Submit') . '</button></div>
+            <br />
 
-    </form>
-
-    <br />
-
-    </div>
-    <div id="bottom">
-    <p>
-    ' . $explain . '
-    </p>   
-    <p>'
-    . $texte2 . //[dnc16]
-    '</p>
-    </div>
+        </div>
+        <div id="bottom">
+            <p>
+            ' . $explain . '
+            </p>   
+            <p>'
+            . $texte2 . //[dnc16]
+            '</p>
+        </div>
     </div>
     </body>
     </html> 
