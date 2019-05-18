@@ -298,9 +298,7 @@ if ( $enable_sli AND !empty($slidata['sub']) ) {     //[dnc9] SLI
         $sub = $slidata['sub'];     
     }
 }
-// Store subject in session 
-$_SESSION['sub'] = $sub; //*****
-
+// At this step, $sub may still be null and should be determined later with login.
 
 if ( empty($password) AND empty($grant) AND empty($return_from) ) { 
 
@@ -444,6 +442,9 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
                         'ufp' => $slidata['ufp'],           // user fingerprint at last login time    //ufp
                         'authtime' => time(),               // check server time zone is UTC !
                     );
+                    
+                    $sub = $slidata['sub'];
+
                     // Send encoded SLI cookie to user-agent in server's domain
                     $jcookiedata = json_encode($cookiedata);
                     send_private_encoded_cookie('sli', $jcookiedata, SLI_COOKIE_LIFETIME);
@@ -503,7 +504,9 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
                         // Redirect to client, it knows what to do, hu?
                         log_info("Authorize" ,"SLI (prompt empty) : user was not connected, return to client", $client_id, $sub, 122, 0, $cnx); 
                         $is_authorized = false;    
-                    }    
+                    } 
+                    
+                    $sub = null;   
                 } 
                 // From there we go to "End with redirection". Access and ID Token will be re-initiated if $is_authorized is True.
 
@@ -540,6 +543,7 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
 
         } // end prompt contains login
 
+        
         /////// prompt == consent only or $continue_with_consent == true ///////
 
         if ( $prompt == 'consent' OR $continue_with_consent == true ) {  //[dnc24]
@@ -578,6 +582,9 @@ if ( ! empty($password) OR 'login' == $return_from ) {
         $error = rtrim(@$answer['error'],'%');  // Remove random-length trail of '%'
         $sub = @$answer['sub'];
         $redo = @$answer['redo'];
+        
+        // Store authenticated subject in session 
+        $_SESSION['sub'] = $is_authorized ? $sub : null;
 
     } else {
         // missing answer or decrypt() failed : forged answer, destroy all session data
@@ -648,7 +655,7 @@ if ( ! empty($password) OR 'login' == $return_from ) {
     if ( $is_authorized AND LOGIN_WITH_TFA ) {
         //[dnc43] Prompt user for Two Factors Authentication
         log_info("Authorize" ,"Display TFA form", $client_id, $sub, 190, 1, $cnx);
-        $client_id = $_GET['client_id']; 
+        $client_id = $_GET['client_id'];
         exit(
             // Display login form
             include './identification/' . TFA_PROVIDER . '/login.php'
@@ -714,8 +721,6 @@ if ( ! empty($password) OR 'login' == $return_from ) {
 
     if ( $is_authorized ) {
         log_success("Authorize" ,"Success - client = " . $client_id . " sub = " . $sub, $client_id, $sub, 159, -10, $cnx);    
-        // Set subject in session. Is needed by Grant.
-        $_SESSION['sub'] = $sub;
         // PRTG
         if( PRTG ) oidc_increment('authentications');             
     }
@@ -725,13 +730,14 @@ if ( ! empty($password) OR 'login' == $return_from ) {
 if ( '2fa' == $return_from ) {
 
     ////////////////////////[dnc43]  Return from Two Factors Authentication  //////////////////////////////
-    
+    //DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG
     $answer = unserialize(decrypt(@$_GET['answer']));
     if ( $answer ) {
-
         $is_authorized = @$answer['is_authorized'];
         $error = rtrim(@$answer['error'],'%');  // Remove random-length trail of '%'
         $redo = @$answer['redo'];
+        // Store authenticated subject in session 
+        $_SESSION['sub'] = $is_authorized ? $sub : null;
 
     } else {
         // missing answer or decrypt() failed : forged answer, destroy all session data
@@ -807,13 +813,14 @@ if ( '2fa' == $return_from ) {
     
     
     
-    if ( ! empty($grant) OR 'grant' == $return_from ) { 
+if ( ! empty($grant) OR 'grant' == $return_from ) { 
 
     /////////////////////////  Return from Grant form  /////////////////////////////
-
+    //DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG
+    
     if ( ($sub = @$_SESSION['sub'])  ) {         
         // End-user should have been authentified before Grant
-
+        
         $is_authorized = ( htmlspecialchars(@$_POST['grant']) == 'on' );   // user should accept all grant requests in one piece (or not)
 
         $just_granted_scopes = htmlspecialchars(@$_POST['just_granted_scopes']); // string of just granted scopes
@@ -873,6 +880,9 @@ if ( ! empty($scopes_to_grant = scopes_to_grant($scopes, $client_id)) AND $is_au
     ));
     $response->setRedirect(302, '/oidc/authorize.php');
 } 
+
+// Store authenticated subject in session 
+$_SESSION['sub'] = $is_authorized ? $sub : null; 
 
 // redirect to client with authorization or error
 $response->send();
