@@ -1,60 +1,44 @@
-<?php //ICB0 56:0 71:f88                                                      ?><?php //004fb
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-=
-HR+cPy8NJtgiuxDzsQ/QML48oqhoI9wsNR7UJf784C7ycZt0+pDodIIYp9/qmDyeMzyhoYnYywOW
-9Rat/eJkpGhJ18qOg70IW44xruIUNDqRAsZz341Lo/14kFBbNIEcvSt04lq4aWB349KlQKbrHtpP
-440RmMwpqvVaFlxOsTP14Z6IohclZmycoTrOAFZvjiIHQmrJLDyTfdKuBMUzyhwlzaLMf2WfFkAM
-ndrF3WKpKrZvcjqgYl8kZKNyO26MX1KhNgfvDJMUwiDU3RFHZpgo8NugWpCIOGfyusS0YCbmvAzz
-2YiWSOXGkfW5YbuYC0ONkbBWKnwy+bB5DZlnVI2CVGlysxSp1zBXvi1wK0Mw8lhEC0AJ2M/PDvNL
-2oqdetpuUVYzwepRYs8r0Gq9QW59SMo83hYODSkcDnLjW0bw9JuMDgcE2YRoKiGiho5/ou2Aq7mK
-vX52ghSJbyFadICcCGLE8vDHD7eV4kcJ/lhYR6r3sxXjzC+eMXzUPQ9AXoocs1kJ4P0SVTPpXsnR
-zIt94C16MnZCMbewdJvSOC7k4nuj3WiAi5h/Xm7KWTEpjHynBLYX89WxFke2e4zXVFSVoQusWDSC
-k/dYH3/a6uAa72uRjR+12oUa1WbzWQ2yXWEfjgvGZkUI/xtdBDDb+HaTpOzZ7WQaqEiRMeywBeHy
-O/xVsHJAoavSEyiXAcGHjcChhWDft7nC9pvOaU4gl8FkTPKLz49rdpRi3bMQTL7GpxRGc4TsYDS5
-wEL8xcXgzL+K8aTGcFXFaWwQr6WTH6YysXwWIdqZLjuk2CcOQfTYgGJJ5ZQoS0sZBdL5sa1RMisr
-YjaCNB05ZCbWrRr+ghL7jfco8AwUJrE0faextPQ1QQ8DbFK3lnRlfyesc8MasCx+w9aMz3FOB+PX
-MMzOFYe7PoWep0g0Da0BiiZxSvog3/aPf+JRDot9FQwNuE0L4htRmn82nFyFpmqFMU1IJ77EzOaC
-zHpddCxdeVKjs/rY8uvKl/pcg+rR0dsGBV+v6HJ/gRgNqXc+nCd5ncrOrFBkGfPIoHsKNbHn5443
-hdkf2d8M2agXoe/NdSgGLFAtbw8tO58Nm5AO7ArrCPPdvNlA6ka3/CacRcePKJbyOYxqbPCllrd9
-ZkhZAUjD/3XO7BZ47veAnv/QtMhi1QTEdeOgg8f6wnLhV08UeTnMX1wt4ufqu49tn+00Shb0Cnz8
-sy0fdKWfulSqHspNL/yGKntcYZEVBBk3zECusNGPCyyDpG6BRs55opQkDaCitcMdZCVTrHLQBqG6
-v9aREZORX3Ll8jCNY8XsGh1H6RGUAGsfoAI3h+Unm0V+EM8VAtcloRKOlEqbq0ohDlR6QhK5ex3z
-7fjV0NMSk+GxbyFCWwBSqVvkZdCzfa4m6UQqZ+wc/OW1cAdDn1s5Te4rb1wsQu/bM9SBYBQmGnZs
-Eun1j868gX64SWwIgQsbRHwF7sYmxl8Vf+iiMPI6icGRcBFBcL+58aBjw9+CSNVLoESky8hKXrp1
-4iHP0T3L/4KlGmlnjJbvDaXVKW4ObXaCCKyApdEaq9mLBPSd3XK1DkANvAvHnGjU
+<?php
+/* commons/configure.php
+Configuration values common to oauth and oidc servers.
+
+OauthSD project
+This code is not an open source!
+You can not access, dispose, modify, transmit etc. this code without the written permission of DnC.
+You can only use one coded copy provided you have a particular license from DnC.
+Auteur : Bertrand Degoy 
+Copyright (c) 2016-2019 DnC  
+All rights reserved
+*/
+
+// Error reporting (this is a demo, after all!)
+ini_set('display_errors',1);error_reporting(E_ALL);
+//ini_set('display_errors',0);error_reporting(0);
+define('DEBUG',true); // DEBUG
+
+define('OIDC_SERVER_DOMAIN', 'oa.dnc.global');     // oa.dnc.global, oidc.intergros.com
+define('OIDC_SERVER_URL', 'https://' . OIDC_SERVER_DOMAIN );     // https://oa.dnc.global, https://oidc.intergros.com
+
+
+//[dnc9] Client ID du serveur vu comme une application cliente. 
+define('SERVER_CLIENT_ID', 'oadncserver');
+
+//[dnc9] session storage on server 
+define('SLI_SESSION_DIR', '/home/oadnc/sessions_oauthsd'); // best place is above web root
+
+/** Database
+* $dsn is the Data Source Name for your database, for exmaple "mysql:dbname=my_oauth2_db;host=localhost"
+*/
+//* MySQL
+$connection = array(
+'dsn' => 'mysql:dbname=dnc_oauth2;host=localhost',   
+'username' => 'dnc_user_oa', 
+'password' => 'oaY10CWrB9!'
+); //*/
+/* PostgreSQL
+$connection = array(
+    'dsn' => 'pgsql:dbname=oidcdnc_server;host=localhost;port=5432', 
+    'username' => 'oidcdnc_admin', 
+    'password' => 'oidcY10CWrB9!'
+); //*/  
+

@@ -1,9 +1,0 @@
-<li class="editer pleine_largeur">
-	[<p class="explication">(#ENV*{explications})</p>]
-</li>
-#SET{name,pas_pagination#ENV{suffixe}}#SET{defaut,#ENV{defaut_pas}}#SET{obli,''}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
-<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
-	<label for="#GET{name}"><:sarkaspip_config:cfg_lbl_pas_pagination:></label>[
-	<span class='erreur_message'>(#GET{erreurs})</span>
-	]<input type="text" name="#GET{name}" class="text" value="#ENV*{#GET{name},#GET{defaut}}" id="#GET{name}" [(#HTML5|et{#GET{obli}})required='required']/>
-</li>

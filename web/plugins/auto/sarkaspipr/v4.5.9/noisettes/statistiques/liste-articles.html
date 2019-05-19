@@ -1,9 +1,0 @@
-[(#REM) <!-- affichage du hit-parade des articles (top X et/ou au hasard) --> ]
-<div id="noisette_hitparade" class="noisette noisette_hitparade">
-	[(#CONFIG{sarkaspip/noisettes/composition_stats_2, 3}|match{^(1|3)$}|oui)
-		<INCLURE{fond=noisettes/statistiques/liste-articles_populaires}>
-	]
-	[(#CONFIG{sarkaspip/noisettes/composition_stats_2, 3}|match{^(2|3)$}|oui)
-		<INCLURE{fond=noisettes/statistiques/liste-articles_hasard}>
-	]
-</div>

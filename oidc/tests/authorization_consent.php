@@ -26,7 +26,7 @@ $introspection_endpoint = 'https://' . $oidc_server . '/introspect';
 $userinfo_endpoint = 'https://' . $oidc_server . '/userinfo';
 
 define('PRIVATE', true);
-require_once __DIR__.'/../../oidc/includes/configure.php'; 
+require_once __DIR__.'/../../oidc/../../commons/configure_oidc.php'; 
 require_once __DIR__.'/../../oidc/includes/server.php';     
 require_once __DIR__.'/../../oidc/includes/utils.php';
 

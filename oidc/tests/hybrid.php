@@ -6,7 +6,7 @@ Seul 'response_type' => 'code id_token' fonctionne.
 */
 
 define('PRIVATE', true);
-require_once __DIR__.'/../../oidc/includes/configure.php'; 
+require_once __DIR__.'/../../oidc/../../commons/configure_oidc.php'; 
 require_once __DIR__.'/../../oidc/includes/server.php';     
 
 // create a request object to mimic an authorization code request

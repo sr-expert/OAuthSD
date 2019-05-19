@@ -1,8 +1,0 @@
-<div class="liste twidget">
-[(#CONFIG{sarkaspip/noisettes/twidget_user,''}|match{^@}|oui)
-#INCLURE{fond=inclure/twidget_profile,user=#CONFIG{sarkaspip/noisettes/twidget_user}|ltrim{@},shell_background=inherit,shell_color=inherit,tweets_links=auto}
-]
-[(#CONFIG{sarkaspip/noisettes/twidget_user,''}|match{^@}|non)
-#INCLURE{fond=inclure/twidget_search,search=#CONFIG{sarkaspip/noisettes/twidget_user},title=Twitter,subject=#CONFIG{sarkaspip/noisettes/twidget_user},shell_background=inherit,shell_color=inherit,tweets_links=auto}
-]
-</div>

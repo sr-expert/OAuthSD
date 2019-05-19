@@ -33,7 +33,6 @@ Licence : GPL 3
 
 #SET{users_recherche,#LISTE{1,2,3,4,6,7}}
 
-<B_table1>
 
     <table id="tbl" class="display datatable">
 
@@ -48,28 +47,36 @@ Licence : GPL 3
                     <th>origine</th> 
                     <th>profile</th>
                     <th>scope</th>
+                    <th><:oauth:details:></th>
                     
                 </tr>
             </thead>
 
         <tbody>
+        
+        <BOUCLE_o (spip_auteurs_liens) {objet = user} {id_auteur=#SESSION{id_auteur}} {0,1000} >
 
-             <BOUCLE_table1(USERS) {username?} {email?} {par username} {0,1000}>
+             <BOUCLE_table1(USERS) {id_user = #ID_OBJET} {par username} {tout} >
                 <tr>
                     <td>#ID_USER</td>
                     <td>#USERNAME</td>
                     <td>#EMAIL</td>
-                    <td>#CREATED_TIME</td>
+                    <td>#UPDATED_TIME</td>
                     <td>#MAJ</td>
-                    <td>#STATUT]
+                    <td>#STATUT
                     <td>#ORIGINE</td>
                     <td>#PROFILE</td>
                     <td>#SCOPE</td>
                     <td>
-                    <b><:oauth:details:> : </b><a href="/web/?page=editer_user_ext&id_user=#ID_USER">id_user</a>&nbsp;-&nbsp;
+                    <a href="/web/?page=editer_user_ext&id_user=#ID_USER"><:oauth:details:></a>
                     </td>
                 </tr>   
             </BOUCLE_table1>
+            
+        </BOUCLE_o>
+        </B_o>
+        <p><:oauth:aucun_utilisateur:></p>
+        <//B_o>
 
         </tbody>
 
@@ -84,13 +91,14 @@ Licence : GPL 3
                     <th>origine</th> 
                     <th>profile</th>
                     <th>scope</th>
+                    <th><:oauth:details:></th>
                 </tr>
             </tfoot>
 
     </table>
-</B_table1>
-<p><:oauth:aucun_utilisateur:></p>
-<//B_table1>
+    
+    
+
 
 </div>
 
@@ -178,16 +186,14 @@ Licence : GPL 3
             "aaSorting": [[ 0, "desc" ]],
             "createdRow": function ( row, data, index ) {   //o4
                 // coloration de la ligne
-                var level;
-                level = data[3];
+                var statut;
+                statut = data[5];
                 index +=1;
                 str = ':nth-child(' + index + ')';
-                if ( level  < 7 ) {
+                if ( statut == 'publie' ) {
                     $('tbody tr' + str).css('background-color','#d4ffff');
-                } else if ( level  < 10 ) {
+                } else if ( statut == 'prepa' ) {
                     $('tbody tr' + str).css('background-color','#ffffd4');
-                } else if ( level < 15 ) {
-                    $('tbody tr' + str).css('background-color','#ffd4ff');
                 } else {
                     $('tbody tr' + str).css('background-color','#000').css('color','#fff');
                 }

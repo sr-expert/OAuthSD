@@ -1,5 +1,0 @@
-[(#SET{meta_description, [(#ENV{meta_description}|sinon{#DESCRIPTIF_SITE_SPIP})]})]
-<title>[(#ENV{meta_titre}|supprimer_numero|textebrut) - ][(#NOM_SITE_SPIP|textebrut)]</title>
-<meta name="description" content="[(#GET{meta_description}|textebrut|attribut_html)]" />
-[(#REM) <!-- Syndication du contenu du site. En option la syndication des rubriques --> ]
-[(#ENV*{meta_options})]

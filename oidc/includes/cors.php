@@ -8,7 +8,7 @@
 * 
 */ 
 
-if ( !defined('PRIVATE') ) die;  
+if ( !defined('__AUTHORIZE') ) die;  
 
 // apache_request_headers replacement for nginx 
 if (!function_exists('apache_request_headers')) { 

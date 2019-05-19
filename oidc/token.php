@@ -15,12 +15,12 @@
 * All rights reserved
 */
 
-DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG 
+//DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG 
 
 // include our OAuth2 Server object
 define('PRIVATE', true);
 require_once __DIR__.'/includes/server.php';
-require_once __DIR__.'/includes/log.php';    
+require_once __DIR__.'/../commons/log.php';    
 
 // Handle a request for an OAuth2.0 Access Token and send the response to the client
 //$server->handleTokenRequest(OAuth2\Request::createFromGlobals())->send();

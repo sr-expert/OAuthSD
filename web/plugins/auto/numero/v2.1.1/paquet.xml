@@ -1,0 +1,18 @@
+<paquet
+	prefix="numero"
+	categorie="navigation"
+	version="2.1.1"
+	etat="stable"
+	compatibilite="[3.0.0;3.2.*]"
+	logo="prive/themes/spip/images/numeroter-32.png"
+	documentation="https://contrib.spip.net/Numerotation-Rapide"
+>
+
+	<nom>Numérotation Rapide</nom>
+	<!-- Gérer facilement la numérotation des articles et rubriques -->
+
+	<auteur lien="http://www.nursit.com">Cedric Morin</auteur>
+
+	<pipeline nom="autoriser" inclure="numero_autoriser.php" />
+	<pipeline nom="affiche_droite" inclure="numero_pipeline.php" />
+</paquet>

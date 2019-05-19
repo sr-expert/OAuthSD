@@ -1,79 +1,198 @@
 <?php
+/**
+ * SPIP Loader recupere et installe SPIP
+ * 
+ * Configuration
+ * -------------
+ * Pour les mises a jour effectuees avec ce script,
+ * toutes les constantes ci-dessous peuvent etre surchargees
+ * dans config/mes_options.php
+ */
 
-#
-# SPIP_LOADER recupere et installe la version stable de SPIP
-#
+if (file_exists('spip_loader_config.php')) {
+  include_once('spip_loader_config.php');
+}
+/** 
+ * Auteur(s) autorise(s) a proceder aux mises a jour : '1:2:3'
+ * 
+ * @note En tete, sinon defini trop tard !
+ */
+if (!defined('_SPIP_LOADER_UPDATE_AUTEURS')) {
+    define('_SPIP_LOADER_UPDATE_AUTEURS', '1');
+}
 
-# auteur(s) autorise(s) a proceder aux mises a jour : '1:2:3'
-# (en tete, sinon defini trop tard !)
-define('_SPIP_LOADER_UPDATE_AUTEURS', '1');
+/** 
+ * Branche installee par defaut.
+ * 
+ * Au choix parmi la liste des branches déclarées ('dev', '3.2', '3.1', ...)
+ * @see lister_branches_proposees()
+ */
+if (!defined('_DEFAUT_BRANCHE_MAJ')) {
+    define('_DEFAUT_BRANCHE_MAJ', '3.2');
+}
+
+/**
+ * Liste des branches possibles 
+ * (avec l’adresse du zip et la version minimale de PHP)
+ * 
+ * @param string|null $branche 
+ *     Pour retourner l’info d’une branche spécifique
+ * @return array|false 
+ *     Descriptif des branches, ou d’une seule branche
+ */
+function lister_branches_proposees($branche = null) {
+    $branches = array(
+        'dev' => array(
+            'zip' => 'spip/dev/SPIP-svn.zip',
+            'php' => '5.4.0',
+        ),
+        '3.2' => array(
+            'zip' => 'spip/stable/spip-3.2.zip',
+            'php' => '5.4.0',
+        ),
+        '3.1' => array(
+            'zip' => 'spip/stable/spip-3.1.zip',
+            'php' => '5.1.0',
+        ),
+        '3.0' => array(
+            'zip' => 'spip/stable/spip-3.0.zip',
+            'php' => '5.1.0',
+        ),
+        '2.1' => array(
+            'zip' => 'spip/stable/spip-2.1.zip',
+            'php' => '4.0.8',
+        ),
+    );
+
+    if (!is_null($branche)) {
+        return isset($branches[$branche]) ? $branches[$branche] : false;
+    }
+    return $branches;
+}
+
+/**
+ * Version de SPIP Loader
+ * 
+ * Historique
+ * ----------
+ * - 2.1    : introduction du parametre d'URL chemin
+ * - 2.2    : introduction du parametre d'URL dest
+ * - 2.3    : introduction du parametre d'URL range
+ * - 2.4    : redirection par meta refresh au lieu de header Location
+ * - 2.5    : affichage de la version à installer, de la version déjà installée (si elle existe),
+ * -          compatibilite PHP, loader obsolete
+ * - 2.5.10 : on télécharge maintenant SPIP 3.2 
+ * - 2.5.11 : coquille empechant des mises à jour
+ * - 2.6.0  : déclaration simplifiée des branches / zips + sélecteur de branche
+ * - 3.0.0  : le SPIP loader analyse et déplace les fichiers obsolètes dans un répertoire 'fichiers_obsoletes_{date}'
+ *            pour les répertoires appartenant à SPIP (ecrire, prive, plugins-dist, squelettes-dist).
+ *            /!\ si vous avez ajouté des plugins dans plugins-dist, ils seront aussi déplacés !!
+ * - 3.0.1  : le sélecteur choisit par défaut la branche actuel du SPIP déjà installé, s’il la connait.
+ * - 3.0.2  : Un répertoire obsolète n’est pas déplacé s’il contient un fichier '.spip_loader_keep'
+ * - 3.0.3  : Isoler les define dans une fichier de configuration dédié spip_loader.php
+ *            spip_loader peut se mettre à jour
+ * - 3.0.4  : Correction d’une URL.
+ * - 3.0.5  : Création des dossiers plugins/auto et lib
+ */
+define('_SPIP_LOADER_VERSION', '3.0.5');
+
+
+
+/** 
+ * Notre branche de destination par défaut 
+ * 
+ * - ignoré si la constante _CHEMIN_FICHIER_ZIP est forcée
+ * - ignoré si un SPIP est déjà installé (tentera de rester sur la même branche par défaut)
+ */
+$notre_branche = lister_branches_proposees(_DEFAUT_BRANCHE_MAJ);
+if (!$notre_branche) {
+    die("Mauvaise définition de la constante _DEFAUT_BRANCHE_MAJ. <code>Branche " . _DEFAUT_BRANCHE_MAJ . " inconnue</code>");
+}
+
+
+if (!defined('_CHEMIN_FICHIER_ZIP')) {
+    /**
+     * Chemin du zip installé par défaut
+     * 
+     * Si la constante _CHEMIN_FICHIER_ZIP est déjà définie, 
+     * alors le zip défini sera utilisé.
+     * 
+     * Sinon, on prend par défaut le zip de la branche installée par défaut.
+     */
+    define('_CHEMIN_FICHIER_ZIP', $notre_branche['zip']);
+} else {
+    // éviter d’afficher le sélecteur de branche dans ces cas là.
+    define('_CHEMIN_FICHIER_ZIP_FORCEE', true);
+}
+
 
 # repertoires d'installation
-define('_DIR_BASE', './');
-define('_DIR_PLUGINS', _DIR_BASE . 'plugins/');
+if (!defined('_DIR_BASE')) {
+    define('_DIR_BASE', './');
+}
+if (!defined('_DIR_PLUGINS')) {
+    define('_DIR_PLUGINS', _DIR_BASE . 'plugins/');
+}
 
 # adresse du depot
-define('_URL_SPIP_DEPOT', 'http://files.spip.org/');
+if (!defined('_URL_SPIP_DEPOT')) {
+    define('_URL_SPIP_DEPOT', 'https://files.spip.net/');
+}
 
-######################### CONFIGURATION #
-#
-# pour les mises a jour effectuees avec ce script,
-# toutes les constantes ci-dessous peuvent etre surchargees
-# dans config/mes_options.php
-#
-# decommenter la ligne ci-dessous
-# pour charger la version de developpement (nightly build SVN)
-# et commenter la ligne de telechargement de la version STABLE
-# define('_CHEMIN_FICHIER_ZIP', 'spip/dev/SPIP-svn.zip');
-
-# decommenter la ligne ci-dessous
-# pour charger la version stable de la branche 2.1
-# et commenter la ligne de telechargement de la version STABLE
-# define('_CHEMIN_FICHIER_ZIP', 'spip/stable/spip-2.1.zip');
-
-# decommenter la ligne ci-dessous
-# pour charger la version stable de la branche 3.0
-# et commenter la ligne de telechargement de la version STABLE
-# define('_CHEMIN_FICHIER_ZIP', 'spip/stable/spip-3.0.zip');
-
-# Chemin du paquet de la version STABLE a telecharger
-# pointe sur une branche donnee pour eviter les changements de branche involontaires et violents
-define('_CHEMIN_FICHIER_ZIP', 'spip/stable/spip-3.1.zip');
 
 # Adresse des librairies necessaires a spip_loader
 # (pclzip et fichiers de langue)
-define('_URL_LOADER_DL', 'http://www.spip.net/spip-dev/INSTALL/');
+if (!defined('_URL_LOADER_DL')) {
+    define('_URL_LOADER_DL', 'https://www.spip.net/spip-dev/INSTALL/');
+}
 # telecharger a travers un proxy
-define('_URL_LOADER_PROXY', '');
+if (!defined('_URL_LOADER_PROXY')) {
+    define('_URL_LOADER_PROXY', '');
+}
 
 # surcharger le script
-define('_NOM_PAQUET_ZIP', 'spip');
+if (!defined('_NOM_PAQUET_ZIP')) {
+    define('_NOM_PAQUET_ZIP', 'spip');
+}
 // par defaut le morceau de path a enlever est le nom : spip
-define('_REMOVE_PATH_ZIP', _NOM_PAQUET_ZIP);
+if (!defined('_REMOVE_PATH_ZIP')) {
+    define('_REMOVE_PATH_ZIP', _NOM_PAQUET_ZIP);
+}
 
-define('_SPIP_LOADER_PLUGIN_RETOUR', 'ecrire/?exec=admin_plugin&voir=tous');
-define('_SPIP_LOADER_SCRIPT', 'spip_loader.php');
+if (!defined('_SPIP_LOADER_PLUGIN_RETOUR')) {
+    define('_SPIP_LOADER_PLUGIN_RETOUR', 'ecrire/?exec=admin_plugin&voir=tous');
+}
+if (!defined('_SPIP_LOADER_SCRIPT')) {
+    define('_SPIP_LOADER_SCRIPT', 'spip_loader.php');
+}
 
 // "habillage" optionnel
 // liste separee par virgules de fichiers inclus dans spip_loader
 // charges a la racine comme spip_loader.php et pclzip.php
 // selon l'extension: include .php , .css et .js dans le <head> genere par spip_loader
-define('_SPIP_LOADER_EXTRA', '');
+if (!defined('_SPIP_LOADER_EXTRA')) {
+    define('_SPIP_LOADER_EXTRA', '');
+}
 
-define('_DEST_PAQUET_ZIP', '');
-define('_PCL_ZIP_SIZE', 249587);
-define('_PCL_ZIP_RANGE', 200);
 
-// version de spip-loader
-// v 2.1 : introduction du parametre d'URL chemin
-// v 2.2 : introduction du parametre d'URL dest
-// v 2.3 : introduction du parametre d'URL range
-// v 2.4 : redirection par meta refresh au lieu de header Location
-// v 2.5 : affichage de la version Ã  installer, de la version dÃ©jÃ  installÃ©e (si elle existe),
-//           compatibilite PHP, loader obsolete
-// v 2.7 : on tÃ©lÃ©charge maintenant SPIP 3.1 
-define('_SPIP_LOADER_VERSION', '2.5.9');
-#
+if (!defined('_DEST_PAQUET_ZIP')) {
+    define('_DEST_PAQUET_ZIP', '');
+}
+if (!defined('_PCL_ZIP_SIZE')) {
+    define('_PCL_ZIP_SIZE', 249587);
+}
+if (!defined('_PCL_ZIP_RANGE')) {
+    define('_PCL_ZIP_RANGE', 200);
+}
+/** 
+ * Le SPIP Loader ne place pas dans le répertoire obsolète
+ * un répertoire qui contiendrait un fichier avec ce nom.
+ */
+if (!defined('_SPIP_LOADER_KEEP')) {
+    define('_SPIP_LOADER_KEEP', '.spip_loader_keep');
+}
+
+
 #######################################################################
 
 # langues disponibles
@@ -110,29 +229,23 @@ $langues = array (
     'zh_tw' => "&#21488;&#28771;&#20013;&#25991;", // chinois taiwan (ecr. traditionnelle)
 );
 
-// Configuration des versions minimales de PHP en fonction des branches SPIP
-$versions_php = array(
-    '2.1' => '4.0.8',
-    '3.0' => '5.1.0',
-    '3.1' => '5.1.0',
-    'dev' => '5.3.0',
-);
-
-// Url du fichier archivelist permettant de crÃ©er les zips de spip
-define('_URL_ARCHIVELIST', 'http://core.spip.org/projects/spip/repository/raw/archivelist.txt');
-
+// Url du fichier archivelist permettant de créer les zips de spip
+if (!defined('_URL_ARCHIVELIST')) {
+    define('_URL_ARCHIVELIST', 'https://core.spip.net/projects/spip/repository/raw/archivelist.txt');
+}
 // Url du fichier spip_loader permettant de tester sa version distante
-define('_URL_SPIP_LOADER', _URL_LOADER_DL . 'spip_loader.php');
-
+if (!defined('_URL_SPIP_LOADER')) {
+    define('_URL_SPIP_LOADER', _URL_LOADER_DL . 'spip_loader.php');
+}
 //
-// Renvoie un tableau des versions SPIP dont l'index correspond Ã  au chemin du fichier zip tel
-// qu'utilisÃ© par spip_loader
+// Renvoie un tableau des versions SPIP dont l'index correspond à au chemin du fichier zip tel
+// qu'utilisé par spip_loader
 //
 function lister_versions_spip() {
 
     $versions = array();
 
-    // RÃ©cupÃ©ration du fichier archivelist.txt du core
+    // Récupération du fichier archivelist.txt du core
     $archivelist = recuperer_page(_URL_ARCHIVELIST);
     $contenu = explode("\n", $archivelist);
 
@@ -152,7 +265,7 @@ function lister_versions_spip() {
                 $version = str_replace('spip-', '', basename($arbo_svn));
                 // - on separe calcul le nom complet du zip
                 $chemin = 'spip/' . $parametres[1] . '.zip';
-                // - on determine l'Ã©tat de l'archive (stable, dev, archives)
+                // - on determine l'état de l'archive (stable, dev, archives)
                 $etat = substr($parametres[1], 0, strpos($parametres[1], '/'));
                 // Ajout au tableau des versions
                 $versions[$chemin] = array(
@@ -174,12 +287,12 @@ function branche_spip($version) {
     return $branche;
 }
 
-// faut il mettre Ã  jour le spip_loader ?
+// faut il mettre à jour le spip_loader ?
 function spip_loader_necessite_maj() {
     return version_compare(_SPIP_LOADER_VERSION, spip_loader_recupere_version(), '<');
 }
 
-// trouver le numÃ©ro de version du dernier spip_loader
+// trouver le numéro de version du dernier spip_loader
 function spip_loader_recupere_version() {
     static $version = null;
     if (is_null($version)) {
@@ -314,6 +427,32 @@ function menu_languesT($lang, $script = '', $hidden = array()) {
     return $r;
 }
 
+/**
+ * Affiche un sélecteur de menu pour choisir le zip (la branche) à utiliser.
+ * 
+ * @param array $active Chemin du paquet à télécharger actuellement sélectionné
+ * @param string $version_installee Version de SPIP actuellement installée
+ * @return string
+ */
+function menu_branches($active, $version_installee) {
+    $select = '';
+    if (!defined('_CHEMIN_FICHIER_ZIP_FORCEE')) {
+        $script = _DIR_BASE . _SPIP_LOADER_SCRIPT . '?';
+        $select .= "<div style='float:" . $GLOBALS['spip_lang_right'] . "'>";
+        $select .= '<select name="chemin" onchange="window.location=\'' . $script . 'chemin=\'+this.value;">';
+        foreach (lister_branches_proposees() as $branche => $desc) {
+            if ($branche == 'dev' or !$version_installee or version_compare(branche_spip($version_installee), $branche, '<=')) {
+                $select .= '<option value="' . $desc['zip'] . '"' . ($active == $desc['zip'] ? ' selected="selected"' : '') . '>'
+                    . 'SPIP ' . $branche 
+                    . "</option>\n";
+            }
+        }
+        $select .= '</select> <noscript><div><input type="submit" name="ok" value="ok" /></div></noscript>';
+        $select .= '</div>';
+    }
+    return $select;
+}
+
 
 //
 // Gestion des droits d'acces
@@ -354,12 +493,27 @@ function tester_repertoire() {
 
     @mkdir('test', $chmod);
     @chmod('test', $chmod);
-    $ok = is_dir('test') && is_writable('test');
+    $ok = (is_dir('test') && is_writable('test')) ? $chmod : false;
     @rmdir('test');
 
     return $ok;
 }
-
+// creer repertoire
+function creer_repertoires_plugins($chmod) {
+     // créer les répertoires plugins/auto et lib
+     
+    if (!is_dir('plugins')) {
+        @mkdir('plugins', $chmod);
+    }
+    if (!is_dir('plugins/auto')) {
+        @mkdir('plugins/auto', $chmod);
+    }
+    if (!is_dir('lib')) {
+        @mkdir('lib', $chmod);
+    }
+    
+    return     'cretion des repertoires tentee';
+}
 //
 // Demarre une transaction HTTP (s'arrete a la fin des entetes)
 // retourne un descripteur de fichier
@@ -415,7 +569,7 @@ function init_http($get, $url, $refuse_gz = false) {
         }
         $version_affichee = isset($GLOBALS['spip_version_affichee'])?$GLOBALS['spip_version_affichee']:"xx";
         fputs($f, "Host: $host\r\n");
-        fputs($f, "User-Agent: SPIP-$version_affichee (http://www.spip.net/)\r\n");
+        fputs($f, "User-Agent: SPIP-$version_affichee (https://www.spip.net/)\r\n");
 
         // Proxy authentifiant
         if (isset($proxy_user) and $proxy_user) {
@@ -601,7 +755,7 @@ function debut_html($corps = '', $hidden = array()) {
     }
     $script = _DIR_BASE . _SPIP_LOADER_SCRIPT;
     echo
-    "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+    "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
     <html 'xml:lang=$lang' dir='$spip_lang_dir'>
     <head>
     <title>$titre</title>
@@ -663,7 +817,7 @@ function debut_html($corps = '', $hidden = array()) {
     menu_languesT($lang, $script, $hidden) .
     "</div>
     <div>
-  <h1>" . $titre . "</h1>". $corps .
+    <h1>" . $titre . "</h1>". $corps .
     $hid .
     "</div></form>";
 }
@@ -677,7 +831,7 @@ function fin_html()
     <p style="text-align:right;font-size:x-small;">spip_loader '
     . _SPIP_LOADER_VERSION
     .'</p>
-  </div>
+    </div>
     </body>
     </html>
     ';
@@ -704,6 +858,127 @@ function nettoyer_racine($fichier) {
     closedir($d);
     return true;
 }
+
+
+/**
+ * Déplace les fichiers qui sont en trop entre le contenu du zip et le répertoire destination.
+ * 
+ * @param array $content Liste des fichiers issus de pclZip
+ * @param string $dir Répertoire où ils ont été copiés.
+ */
+function nettoyer_superflus($content, $dir) {
+    global $chmod;
+    $diff = comparer_contenus($content, $dir);
+    if ($diff) {
+        @mkdir($old = _DIR_BASE . 'fichiers_obsoletes_' . date('Ymd_His'), $chmod);
+        if (!is_dir($old)) {
+            return false;
+        }
+        $old .= '/';
+        foreach ($diff as $file => $isDir) {
+            $root = $isDir ? $file : dirname($file);
+            if (!is_dir($old . $root)) {
+                mkdir_recursif($old . $root, $chmod);
+            }
+            if ($isDir) {
+                move_all(_DIR_BASE . $root, $old . $root);
+                rmdir(_DIR_BASE . $root);
+            } else {
+                rename(_DIR_BASE . $file, $old . $file);
+            }
+        }
+    }
+}
+
+/**
+ * Retourne la liste des fichiers/répertoires en trop entre le zip et la destination,
+ * pour certains répertoires seulement.
+ */
+function comparer_contenus($content, $dir) {
+    $base = _REMOVE_PATH_ZIP . "/";
+    if ($content[0]['filename'] !== $base) {
+        return false;
+    }
+
+    $len = strlen($base);
+
+    // On se considère dans SPIP et on vérifie seulement ces répertoires
+    $repertoires_testes = array(
+        'ecrire', 
+        'prive', 
+        'plugins-dist', 
+        'squelettes-dist',
+        'extensions', // spip 2.1 hum.
+    );
+
+    // Liste des contenus sources (chemin => isdir?)
+    $contenus_source = array();
+    foreach ($content as $c) {
+        $fichier = substr($c['filename'], $len);
+        $root = explode('/', $fichier, 2);
+        $root = reset($root);
+        if (!in_array($root, $repertoires_testes)) {
+            continue;
+        }
+        $contenus_source[substr($c['filename'], $len)] = $c['folder'];
+    }
+
+    // Liste des contenus destination (chemin => isdir?)
+    $diff = lister_contenus_superflus($contenus_source, $dir, '', $repertoires_testes);
+    return $diff;
+}
+
+/**
+ * Liste les contenus en trop dans certains répertoires, en fonction d’une liste de fichiers 
+ * 
+ * Un répertoire superflu, mais contenant un fichier .spip_loader_keep est conservé,
+ * c'est à dire qu’il ne sera pas retourné dans cette liste de fichiers/répertoire obsolètes.
+ * 
+ * @param array $contenus_source liste(chemin => isDir?)
+ * @param string $dir Chemin du répertoire à tester
+ * @param string $base Répertoire en cours d’analyse (pour récursivité)
+ * @param array|null $repertoires_testes Liste de répertoires à uniquement parcourrir si défini.
+ * @return array liste(chemin => isDir?) des fichiers/répertoire en trop.
+ */
+function lister_contenus_superflus($contenus_source, $dir, $base, $repertoires_testes = null) {
+    $liste = array();
+    // trop gentils de gerer PHP 4...
+    if ($dh = opendir($dir)) {
+        while (($file = readdir($dh)) !== false) {
+            if (in_array($file, array('.', '..', '.ok'))) {
+                continue;
+            }
+            if ($repertoires_testes and !in_array($file, $repertoires_testes)) {
+                continue;
+            }
+            $_base = $base . $file;
+            if (is_dir($dir . '/' . $file)) {
+                // répertoire présent ou en trop ?
+                if (!isset($contenus_source[$_base . '/'])) {
+                    // ne pas rendre obsolète si un fichier de conservation est présent.
+                    if (file_exists($dir . '/' . $file. '/' . _SPIP_LOADER_KEEP)) {
+                        continue;
+                    }
+                    $liste[$_base . '/'] = true;
+                } else {
+                    $liste = array_merge(
+                        $liste, 
+                        lister_contenus_superflus($contenus_source, $dir . '/' . $file, $_base . '/')
+                    );
+                }
+            } else {
+                // fichier présent ou en trop ?
+                if (!isset($contenus_source[$_base])) {
+                    $liste[$_base] = false;
+                }
+            }
+        }
+        closedir($dh);
+    }
+    return $liste;
+}
+
+
 // un essai pour parer le probleme incomprehensible des fichiers pourris
 function touchCallBack($p_event, &$p_header)
 {
@@ -820,13 +1095,14 @@ function spip_deballe_paquet($paquet, $fichier, $dest, $range) {
         if ($dest) {
             @mkdir(_DIR_PLUGINS, $chmod);
             $dir = _DIR_PLUGINS . $dest;
-            $url = _DIR_BASE._SPIP_LOADER_PLUGIN_RETOUR;
+            $url = _DIR_BASE . _SPIP_LOADER_PLUGIN_RETOUR;
         } else {
             $dir =  _DIR_BASE;
-            $url = _DIR_BASE._SPIP_LOADER_URL_RETOUR;
+            $url = _DIR_BASE . _SPIP_LOADER_URL_RETOUR;
         }
         move_all($tmp, $dir);
         rmdir($tmp);
+        nettoyer_superflus($content, $dir);
         nettoyer_racine($fichier);
         header("Location: $url");
     }
@@ -850,27 +1126,30 @@ function spip_redirige_boucle($url, $progres = ''){
 }
 
 function spip_presente_deballe($fichier, $paquet, $dest, $range) {
-    global $version_installee, $versions_php;
+    global $version_installee;
 
     $nom = (_DEST_PAQUET_ZIP == '') ?
             _TT('tradloader:ce_repertoire') :
             (_TT('tradloader:du_repertoire').
                 ' <tt>'._DEST_PAQUET_ZIP.'</tt>');
 
-    $hidden = array('chemin' => $paquet,
-            'dest' => $dest,
-            'range' => $range,
-            'etape' => file_exists($fichier) ? 'fichier' : 'charger');
+    $hidden = array(
+        'chemin' => $paquet,
+        'dest' => $dest,
+        'range' => $range,
+        'etape' => file_exists($fichier) ? 'fichier' : 'charger'
+    );
 
-    // Version proposÃ©e Ã  l'installation par dÃ©faut
+    // Version proposée à l'installation par défaut
     $versions_spip = lister_versions_spip();
-    $version_future = 'SPIP ' . $versions_spip[_CHEMIN_FICHIER_ZIP]['version'];
-    if ($versions_spip[_CHEMIN_FICHIER_ZIP]['etat'] == 'dev') {
+    $version_future = $versions_spip[$paquet]['version'];
+    if ($versions_spip[$paquet]['etat'] == 'dev') {
         $version_future .= '-dev';
     }
+    $version_future_affichee = 'SPIP ' . $version_future;
 
     if ($version_installee) {
-        // Mise Ã  jour
+        // Mise à jour
         $bloc_courant =
             '<div class="version-courante">'
             . _TT('tradloader:titre_version_courante')
@@ -883,16 +1162,23 @@ function spip_presente_deballe($fichier, $paquet, $dest, $range) {
         $bouton = _TT('tradloader:bouton_suivant');
     }
 
-    // DÃ©tection d'une incompatibilitÃ© avec la version de PHP installÃ©e
-    $branche_future = branche_spip($versions_spip[_CHEMIN_FICHIER_ZIP]['version']);
+    // Détection d'une incompatibilité avec la version de PHP installée
+    $branche_future = branche_spip($versions_spip[$paquet]['version']);
     $version_php_installee = phpversion();
-    $version_php_spip = $versions_php[$branche_future];
-    $php_incompatible = version_compare($version_php_spip, $version_php_installee, '>');
+    $version_php_spip = lister_branches_proposees($branche_future);
+    $version_php_spip = $version_php_spip['php'];
 
+    $php_incompatible = version_compare($version_php_spip, $version_php_installee, '>');
     if ($php_incompatible) {
         $bouton =
             '<div class="erreur">'
             . _TT('tradloader:echec_php', array('php1' => $version_php_installee, 'php2' => $version_php_spip))
+            . '</div>';
+    } elseif (version_compare($version_installee, $version_future, '>') and ($version_future !== 'spip-dev')) {
+        // Épargnons un downgrade aux personnes étourdies
+        $bouton =
+            "<div style='text-align:".$GLOBALS['spip_lang_right']."'>"
+            . '<input type="submit" disabled="disabled" value="' . $bouton . '" />'
             . '</div>';
     } else {
         $bouton =
@@ -908,7 +1194,8 @@ function spip_presente_deballe($fichier, $paquet, $dest, $range) {
         . $bloc_courant
         . '<div class="version-future">'
         . _TT('tradloader:titre_version_future')
-        . '<strong>'. $version_future. '</strong>'
+        . '<strong>'. $version_future_affichee. '</strong>'
+        . menu_branches($paquet, $version_installee)
         . '</div>'
         . '</div>'
         . $bouton;
@@ -917,7 +1204,10 @@ function spip_presente_deballe($fichier, $paquet, $dest, $range) {
         $corps .=
             "<div class='info'><a href='" . _URL_SPIP_LOADER . "'>"
             . _TT('tradloader:spip_loader_maj', array('version' => spip_loader_recupere_version()))
-            . "</a></div>";
+            . "</a>"
+            . "<div style='text-align:".$GLOBALS['spip_lang_right']."'>"
+            . "<input type='submit' name='spip_loader_update' value='"._TT('tradloader:bouton_suivant_maj')."' />"
+            . "</div></div>";
     }
 
     debut_html($corps, $hidden);
@@ -1019,6 +1309,20 @@ if (!$GLOBALS['lang']) {
     die('fonctions zip non disponibles');
 } else {
 
+    //Update himself
+    if (!empty($_REQUEST['spip_loader_update'])) {
+        $spip_loader = recuperer_page(_URL_SPIP_LOADER);
+        if (defined('_SPIP_LOADER_UPDATE_AUTEURS')) {
+            $spip_loader = preg_replace(
+                "/(define\(['\"]_SPIP_LOADER_UPDATE_AUTEURS['\"],).*/",
+                "$1'"._SPIP_LOADER_UPDATE_AUTEURS."');",
+                $spip_loader
+            );
+        }
+        ecrire_fichierT(_SPIP_LOADER_SCRIPT, $spip_loader);
+        spip_redirige_boucle(_DIR_BASE._SPIP_LOADER_SCRIPT);
+    }
+
     // y a tout ce qu'il faut pour que cela marche
     $dest = '';
     $paquet = _CHEMIN_FICHIER_ZIP;
@@ -1027,6 +1331,12 @@ if (!$GLOBALS['lang']) {
     }
     if (isset($_REQUEST['chemin']) and $_REQUEST['chemin']) {
         $paquet = urldecode($_REQUEST['chemin']);
+    } elseif ($version_installee and !defined('_CHEMIN_FICHIER_ZIP_FORCEE')) {
+        if ($branche = lister_branches_proposees(branche_spip($version_installee))) {
+            $paquet = $branche['zip'];
+        } elseif ((strpos($version_installee, '-dev') !== false) and $branche = lister_branches_proposees('dev')) {
+            $paquet = $branche['zip'];
+        }
     }
 
     if ((strpos($paquet, '../') !== false) or (substr($paquet, -4, 4) != '.zip')) {
@@ -1036,7 +1346,9 @@ if (!$GLOBALS['lang']) {
             $paquet,
             (isset($_REQUEST['etape']) ? $_REQUEST['etape'] : ''),
             $dest,
-            intval(isset($_REQUEST['range']) ? $_REQUEST['range'] : 0)
+            intval(isset($_REQUEST['range']) ? $_REQUEST['range'] : 0) 
         );
+        
+        creer_repertoires_plugins($droits);
     }
 }

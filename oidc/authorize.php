@@ -299,6 +299,9 @@ if ( $enable_sli AND !empty($slidata['sub']) ) {     //[dnc9] SLI
     }
 }
 // At this step, $sub may still be null and should be determined later with login.
+// Store authenticated subject in session 
+$_SESSION['sub'] = $sub;
+
 
 if ( empty($password) AND empty($grant) AND empty($return_from) ) { 
 
@@ -356,6 +359,8 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
 
         }
         if ( ! $isconnected ) $sub = null;  // do'nt display user in login form if she is not connected
+        // Store authenticated subject in session 
+        $_SESSION['sub'] = $isconnected ? $sub : null;
     }
 
 
@@ -444,6 +449,8 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
                     );
                     
                     $sub = $slidata['sub'];
+                    // Store authenticated subject in session 
+                    $_SESSION['sub'] = $sub;
 
                     // Send encoded SLI cookie to user-agent in server's domain
                     $jcookiedata = json_encode($cookiedata);
@@ -506,7 +513,9 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
                         $is_authorized = false;    
                     } 
                     
-                    $sub = null;   
+                    $sub = null;
+                    // Store  no authenticated subject in session 
+                    $_SESSION['sub'] = null;   
                 } 
                 // From there we go to "End with redirection". Access and ID Token will be re-initiated if $is_authorized is True.
 
@@ -736,8 +745,6 @@ if ( '2fa' == $return_from ) {
         $is_authorized = @$answer['is_authorized'];
         $error = rtrim(@$answer['error'],'%');  // Remove random-length trail of '%'
         $redo = @$answer['redo'];
-        // Store authenticated subject in session 
-        $_SESSION['sub'] = $is_authorized ? $sub : null;
 
     } else {
         // missing answer or decrypt() failed : forged answer, destroy all session data

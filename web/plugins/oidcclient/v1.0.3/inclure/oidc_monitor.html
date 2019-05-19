@@ -2,8 +2,8 @@
 [(#REM)
 Plugin OpenID Connect client pour SPIP
 OIDC Client Monitoring
-Interroge le controleur OIDC Authorize avec prompt=none pour afficher l'état de connexion.
-Voir également action_logout() dans oidcclient_options.php.
+Interroge le controleur OIDC Authorize avec prompt=none pour afficher l'Ã©tat de connexion.
+Voir Ã©galement action_logout() dans oidcclient_options.php.
 dnc28, dnc36
 Auteur : B.Degoy DnC
 Copyright (c) 2019 B.Degoy
@@ -12,8 +12,8 @@ Copyright (c) 2019 B.Degoy
 <?php
 
 /**
-* Déterminer le login OIDC. Celui-ci peut-être différent du login SPIP. 
-* Dans ce cas, le login OIDC est précisé dans la table spip_auteurs. 
+* D?terminer le login OIDC. Celui-ci peut-?tre diff?rent du login SPIP. 
+* Dans ce cas, le login OIDC est pr?cis? dans la table spip_auteurs. 
 */
 $loginspip = @$GLOBALS['visiteur_session']['login'];
 $l = sql_quote($loginspip, '', 'text');

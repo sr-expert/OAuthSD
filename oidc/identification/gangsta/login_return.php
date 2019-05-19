@@ -28,7 +28,7 @@ OAuth2\Autoloader::register();
 // We use PHPGangsta https://github.com/PHPGangsta/GoogleAuthenticator
 
 // Server configuration
-require_once '../../includes/configure.php';
+require_once '../../../commons/configure_oidc.php';
 require_once '../../includes/utils.php';
 
 // Some initialization

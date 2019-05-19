@@ -29,7 +29,7 @@ OAuth2\Autoloader::register();
 require_once __DIR__ . '/../../locale/i18n_setup.php';
 
 // Overrides
-require_once __DIR__ . '/../includes/configure.php';
+require_once __DIR__ . '/../../commons/configure_oidc.php';
 
 // Initialize database storage
 $storage = new OAuth2\Storage\Pdo( $connection, $storage_config );

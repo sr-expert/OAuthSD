@@ -16,7 +16,7 @@ All rights reserved
 // include our OAuth2 Server object
 define('PRIVATE', true);
 require_once __DIR__.'/includes/server.php';
-require_once __DIR__.'/includes/log.php';    
+require_once __DIR__.'/../commons/log.php';   
 
 $request = OAuth2\Request::createFromGlobals();
 $response = new OAuth2\Response();

@@ -1,7 +1,0 @@
-[(#REM)	<!-- On diffuse les albums des n derniers jours --> ]
-<BOUCLE_albums_recents(ALBUMS){lang ?}{id_mot ?}{id_auteur ?}{par date}{inverse}{0, #CONFIG{sarkaspip/backend/nb_albums, 5}}{doublons ALBUM}>
-	<INCLURE{fond=inc-rss-item-album}{id_album}>
-</BOUCLE_albums_recents>
-<BOUCLE_albums_tres_recents(ALBUMS){lang ?}{id_mot ?}{id_auteur ?}{par date}{inverse}{age<#CONFIG{sarkaspip/backend/age_albums, 3}}{doublons ALBUM}>
-	<INCLURE{fond=inc-rss-item-album}{id_album}>
-</BOUCLE_albums_tres_recents>

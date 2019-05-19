@@ -1,7 +1,0 @@
-<composition>
-	<nom>Forums</nom>
-	<description>Cette rubrique contient des Forums</description>
-	<icon>images/composition-forums-24.png</icon>
-	<branche type="article" composition="forum" />
-	<branche type="rubrique" composition="forums" />
-</composition>
