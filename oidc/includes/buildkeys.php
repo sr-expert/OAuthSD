@@ -4,7 +4,10 @@ buildkeys.php
 
 Construit le fichier jwks.json des déclarations JWK propres à chaque client.
 Remplit également le répertoire /jwks. Chaque fichier est dénommé à partir de son kid.
+
 Voir : https://tools.ietf.org/html/draft-ietf-jose-json-web-key-41
+
+usage : https://oa.dnc.global/oidc/includes/buildkeys.php
 
 OauthSD project
 This code is not an open source!
@@ -30,9 +33,8 @@ ini_set('display_errors', 0);
 
 // include our OAuth2 Server object
 define('PRIVATE', true);
-chdir('/home/dnc/oa/oidc/');         //CONFIG
-require_once './includes/server.php';
-require_once './includes/utils.php';
+require_once './server.php';
+require_once './utils.php';
 
 $cnx = new \PDO($connection['dsn'], $connection['username'], $connection['password']);
 
@@ -49,14 +51,14 @@ function writekeys ( $publickeys ) {
     // Créer le fichier jwks.json
     $aresult = array('keys' => $publickeys);
     $jresult = json_encode( $aresult );
-    $fp = fopen('./jwks.json', 'w');                  
+    $fp = fopen('../../jwks/jwks.json', 'w');                  
     fwrite($fp, $jresult); 
     fclose($fp);
 
     $n = 0;
     foreach ( $publickeys as $void => $jwk ) {
         // Créer (ou écraser) le fichier /jwks/<kid>.json
-        $file = './jwks/' . $jwk['kid'] . '.json';
+        $file = '../../jwks/' . $jwk['kid'] . '.json';
         $fp = fopen($file, 'w');                  
         fwrite($fp, json_encode($jwk)); 
         fclose($fp);
@@ -67,9 +69,10 @@ function writekeys ( $publickeys ) {
 }
 
 function buildkeys( $cnx ) {
+    global $storage_config;
 
     // Public key of all active clients   //TODO: use Storage Object
-    $stmt = $cnx->prepare(sprintf("SELECT pk.* FROM %s pk, %s c WHERE c.client_id = pk.client_id AND c.statut='publie'", $storage_config['public_key_table'], $storage_config['client_table']));    //*****
+    $stmt = $cnx->prepare(sprintf("SELECT pk.* FROM %s pk, %s c WHERE c.client_id = pk.client_id AND c.statut='publie'", $storage_config['public_key_table'], $storage_config['client_table']));  
     $stmt->execute();
 
     $publickeys = array();

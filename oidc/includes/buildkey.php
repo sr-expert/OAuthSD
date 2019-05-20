@@ -46,12 +46,12 @@ fclose($fp); //*/
 //
 
 function buildkey( $cnx ) {
+    global $storage_config;
 
     // Public key of one client  //TODO: use Storage Object
     $stmt = $cnx->prepare(sprintf("SELECT pk.* FROM %s pk, %s c WHERE c.client_id = pk.client_id AND c.statut='publie'", $storage_config['public_key_table'], $storage_config['client_table']));    //*****
     $stmt->execute();
 
-    //$publickeys = "";
     $publickeys = array();
 
     while ( $keyinfo = $stmt->fetch(\PDO::FETCH_ASSOC) ) {

@@ -105,6 +105,7 @@ class IdToken implements IdTokenInterface
             'iat'        => time(),
             'exp'        => time() + $this->config['id_lifetime'],
             'auth_time'  => $auth_time,
+            'kid'        => $kid, //[dnc4']
         );
 
         if ($nonce) {
