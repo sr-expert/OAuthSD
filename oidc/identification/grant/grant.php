@@ -110,10 +110,6 @@ echo ('
 if ( isset($_GET['error']) AND (!empty($error = $_GET['error'])) ) {
     unset($_GET['error']);
 }
-if ( !empty($error) ) {
-    $errormsg = '<div class="error">' . $error . '</div><br/><br/>';
-    echo $errormsg;
-}
 
 // Display Grant Form  
 echo('   
@@ -123,7 +119,12 @@ echo('
             <h3 class="head-title">'  
             . $texte1 .  //[dnc16]
             '</h3> 
-
+');            
+if ( !empty($error) ) {
+    $errormsg = '<div class="error">' . $error . '</div><br/><br/>';
+    echo $errormsg;
+}
+echo ('
             <div id="scopes">' . $scopes_html . '</div>
 
             <form id="'. $form_id .'" name="'. $form_id .'" method="post">

@@ -95,7 +95,6 @@ echo ('
 
 if ( !empty($error) ) {
     $errormsg = '<div class="error">' . $error . '</div><br/><br/>';
-    echo $errormsg;
 }
 
 echo('   
@@ -103,9 +102,11 @@ echo('
 
     <div id="oauth" class="grant">
 
-    <h3 class="oauth login">L\'application ' . $theclient . ' de ' . $thename . ' demande votre autorisation</h3>
+    <h3 class="oauth login">L\'application ' . $theclient . ' de ' . $thename . ' demande votre autorisation</h3>'
+    
+    . $errormsg . 
 
-    <div id="scopes">' . $scopes_html . '</div>
+    '<div id="scopes">' . $scopes_html . '</div>
 
     <form id="grant" name="grant" method="post">
 
