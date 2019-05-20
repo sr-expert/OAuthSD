@@ -1,4 +1,17 @@
-Code Release Policy
+*** Acknowledgment ***
+
+Thanks to thoose without whom I couldn't have go trough this work :
+
+- For OpenID Connect : 
+Brent Schaffer https://github.com/bshaffer
+Jhonathan Daggerhart https://github.com/daggerhart
+Filip Skokan certification@oidf.org
+
+- Les "devs" de la "Team" de SPIP : https://www.spippourlesnuls.fr/le-vocabulaire-spip/terminologie-en-spip/les-devs-de-la-team,164.html
+
+
+
+*** Code Release Policy ***
 
 The goal of DnC is twofold:
 
