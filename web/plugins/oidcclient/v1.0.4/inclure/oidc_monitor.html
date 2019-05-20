@@ -254,7 +254,7 @@ $nom_auteur = sql_getfetsel('nom', 'spip_auteurs',
                         $('#oidctag').css('background-color', '#8f8');
                         $('#oidctag').text(' OIDC ');
                         timeleft = data['timeleft'];
-                        if ( timeleft < 600 ) {  //[dnc28d]
+                        if ( timeleft != 0 && timeleft < 600 ) {  //[dnc28d]
                             // La fin de session approche
                             clearInterval(interval); 
                             ExtendDialog("<?php echo _T('oidcclient:session_expire'); ?>");
