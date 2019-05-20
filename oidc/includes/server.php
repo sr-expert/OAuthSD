@@ -49,7 +49,7 @@ $server_config = array(
     'enforce_state' => true,    // Always true with OAuthSD.
     'allow_implicit' => true,
     'use_openid_connect' => true,
-    'issuer' => $_SERVER['HTTP_HOST'],
+    'issuer' => 'https://' . $_SERVER['HTTP_HOST'] . '/',  //[dnc45]
     //'use_jwt_access_tokens' => true,    // Attention : nécessite d'augmenter le champ access_token.    TODO: ???
     // lifetimes
     'id_lifetime'              => ID_TOKEN_LIFETIME,
