@@ -36,6 +36,7 @@ $sub = 'Unk';
 $response = new \OAuth2\Response();
 
 $login = htmlEntities(@$_POST['login'], ENT_QUOTES);
+$nonce = htmlEntities(@$_POST['nonce'], ENT_QUOTES); //[dnc44]
 
 // A few easy cheks
 $response_type = htmlEntities(@$_POST['response_type'], ENT_QUOTES);
@@ -268,6 +269,7 @@ $data = array(
     'client_id' => $client_id,
     'scope' => $scope,    
     'state' => $state,
+    'nonce' => $nonce,  //[dnc44]
     'return_from' => 'login',
     'answer' => $answer,   // crypted payload.
 );

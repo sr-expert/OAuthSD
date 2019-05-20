@@ -115,7 +115,7 @@ if ( !empty($error) ) {
     echo $errormsg;
 }
 
-// Display Grant Form
+// Display Grant Form  
 echo('   
     <div id="page" class="grant">
         <div id="top"></div>
@@ -133,6 +133,7 @@ echo('
                 <input type="hidden" name="client_id" value="' . $_GET['client_id'] . '">
                 <input type="hidden" name="just_granted_scopes" value="' . $being_granted_scopes . '">
                 <input type="hidden" name="redirect_uri" value="' . @$_GET['redirect_uri'] . '">
+                 <input type="hidden" name="nonce" value="' . $nonce . '">
 
                 <br />
                 <input type="checkbox" id="grant" name="grant"><label for="checkbox">' . _('I agree') . '</label>
@@ -156,4 +157,4 @@ echo('
     </body>
     </html> 
     '
-); 
+); //[dnc44] nonce

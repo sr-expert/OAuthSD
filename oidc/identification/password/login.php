@@ -145,8 +145,9 @@ echo ('
     <input type="hidden" name="client_id" value="' . $client_id . '">
     <input type="hidden" name="scope" value="' . $scope . '">
     <input type="hidden" name="state" value="' . $state . '">
+    <input type="hidden" name="nonce" value="' . $nonce . '">
     <br />
-'); 
+'); //[dnc44]
 
 if ( !empty($error) ) {
     $errormsg = '<div class="error">' . $error . '</div><br/><br/>';

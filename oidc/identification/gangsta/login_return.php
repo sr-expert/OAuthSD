@@ -42,6 +42,7 @@ $response = new \OAuth2\Response();
 
 $login = htmlEntities(@$_POST['login'], ENT_QUOTES);
 $form_id = htmlEntities(@$_POST['return_from'], ENT_QUOTES);
+$nonce = htmlEntities(@$_POST['nonce'], ENT_QUOTES); //[dnc44]
 
 // A few easy cheks
 $tfacode = htmlEntities(@$_POST['tfacode'], ENT_QUOTES);
@@ -166,6 +167,7 @@ $data = array(
     'client_id' => $client_id,
     'scope' => $scope,    
     'state' => $state,
+    'nonce' => $nonce,  //[dnc44]
     'return_from' => $form_id,
     'answer' => $answer,   // crypted payload.
 );
