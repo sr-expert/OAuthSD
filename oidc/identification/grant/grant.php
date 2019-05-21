@@ -109,7 +109,7 @@ echo ('
 /* Display error if any
 if ( isset($_GET['error']) AND (!empty($error = $_GET['error'])) ) {
     unset($_GET['error']);
-} *//
+} */
 
 // Display Grant Form  
 echo('   
