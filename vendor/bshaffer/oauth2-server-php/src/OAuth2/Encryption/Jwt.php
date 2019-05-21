@@ -203,14 +203,14 @@ class Jwt implements EncryptionInterface
                 'typ' => 'JWT',
                 'alg' => $algorithm,
                 'kid' => $payload['kid'],
-                'jwk' => OIDC_SERVER_URL . '/oidc/jwks/' . $payload['kid'] . '.json',
+                'jwk' => OIDC_SERVER_URL . '/jwks/jwks/' . $payload['kid'] . '.json',
             ); 
         } else if ( JKU_IN_JWT_HEADER AND !is_null(@$payload['kid']) ) {  
             $jh = array(
                 'typ' => 'JWT',
                 'alg' => $algorithm,
                 'kid' => $payload['kid'],
-                'jku' => OIDC_SERVER_URL . '/oidc/jwks.json',
+                'jku' => OIDC_SERVER_URL . '/jwks/jwks.json',
             );
         } else {
             $jh = array(
