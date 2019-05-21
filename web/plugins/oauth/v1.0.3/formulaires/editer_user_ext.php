@@ -123,6 +123,19 @@ function formulaires_editer_user_ext_verifier_dist($id_user='new', $retour='', $
 
 
     $erreurs = formulaires_editer_objet_verifier('user', $id_user, $oblis);
+    
+    //[dnc47] Vérifier que l'username est un nom court sans espaces ni caractères spéciaux
+    $username = _request('username'); 
+    if(preg_match("#[^A-Za-z0-9_\.]#", $username)) {
+        // Erreur
+        $erreurs['username'] = _T('user:username_mauvais');     
+    } else {
+        // Vérifier l'unicité de l'username
+        $res = sql_fetsel('id_user, username', 'spip_users', "username='" . $username . "'");
+        if ( !empty($res['username']) AND $res['id_user'] !== $id_user ) {
+            $erreurs['username'] = _T('user:username_exists');
+        }  
+    } 
 
     // Vérifier l'unicité de l'E-mail
     $email = _request('email');

@@ -2,10 +2,7 @@
 /**
 * Gestion du formulaire de d'édition de user, version étendue.
 * 
-* Le paramètre id_client définit l'application. 
-* S'il n'est pas nul, on lit les scopes de l'application pour en déduire les 
-* champs de profil à afficher.
-* S'il est nul, on affiche un formulaire minimal.
+* Traite tous les champs sans tenir compte de la portée (scope).
 *
 * @plugin     OAuth 2.0
 * @copyright  2016
@@ -100,7 +97,7 @@ function formulaires_editer_user_final_verifier_dist($id_user='new', $retour='',
 
     $erreurs = formulaires_editer_objet_verifier('user', $id_user, $oblis);
 
-    // Vérifier que l'username est un nom court sans espaces ni caractères spéciaux
+    //[dnc47] Vérifier que l'username est un nom court sans espaces ni caractères spéciaux
     $username = _request('username'); 
     if(preg_match("#[^A-Za-z0-9_\.]#", $username)) {
         // Erreur
