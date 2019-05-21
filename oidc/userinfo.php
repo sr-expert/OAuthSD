@@ -116,7 +116,7 @@ $claims = array(
     'sub' => $token['user_id'],
 );
 
-//[dnc45c] The sub Name is expected by OpenID Connect Provider Certification Test OP-claims-essential
+//[dnc45c,d]
 $user_id = $token['user_id'];
 $cnx = new \PDO($connection['dsn'], $connection['username'], $connection['password']);
 //$stmt = $cnx->prepare($sql = "SELECT * FROM spip_users WHERE username=:user_id");
@@ -125,9 +125,28 @@ $stmt->execute(compact('user_id'));
 $userinfo = $stmt->fetch(\PDO::FETCH_ASSOC);
 unset($userinfo['password']);
 
+//[dnc45c] The sub Name is expected by OpenID Connect Provider Certification Test OP-claims-essential
 $claims += array(
     'name' => strtoupper($userinfo['family_name']) . ' ' . $userinfo['given_name'],   //TODO to be completed
 );
+
+if ( strpos($token['scope'],'address') !== false ) {    
+    //[dnc45d] Build the address claim if requested by scope
+    $address = array(
+        'formatted' => 'ND',    //TODO to be completed
+        'street_address' =>  $userinfo['street_address'],
+        'locality' => $userinfo['locality'],
+        'region' => $userinfo['region'],
+        'postal_code' => $userinfo['postal_code'],
+        'country' => $userinfo['country']   
+    );
+    $jaddress= json_encode($address);
+    $claims += array('address' => $jaddress);
+    
+    //[dnc45e] No boolean in MySQL : a quick and dirty trick ...
+    if ( isset($userinfo['email_verified'] ) )  $claims['email_verified'] = boolval($userinfo['email_verified']);
+    if ( isset($userinfo['phone_number_verified'] ) )  $claims['phone_number_verified'] = boolval($userinfo['email_verified']);    
+}
 
 $response->addParameters($claims);
 
