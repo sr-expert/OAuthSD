@@ -52,11 +52,11 @@ function oauth_declarer_tables_objets_sql($tables) {
             'middle_name'       => 'varchar(255) NULL',
             'family_name'       => 'varchar(255) NULL',
             'nickname'          => 'varchar(255) NULL',
-            'profil'             => 'varchar(255) DEFAULT NULL',
+            'profile'             => 'varchar(255) DEFAULT NULL',
             'picture'           => 'varchar(255) NULL',
             'website'           => 'varchar(255) NULL',
             'email'             => 'varchar(256) NOT NULL',
-            'verified'          => 'tinyint(1) NULL',
+            'email_verified'          => 'tinyint(1) NULL',   //[dnc46]
             'gender'           => 'varchar(16) NULL',
             'birthday'         => 'varchar(64) NULL',
             'zoneinfo'           => 'varchar(64) NULL',
@@ -71,11 +71,12 @@ function oauth_declarer_tables_objets_sql($tables) {
             'created_time'   => 'datetime NOT NULL DEFAULT "0000-00-00 00:00:00"',
             'composition'        => 'varchar(255) NOT NULL DEFAULT ""',
             'composition_lock'   => 'tinyint(1) NOT NULL DEFAULT "0"',
-            'profile'            => 'text NULL',
+            'profil'            => 'text NULL',
             'comment'            => 'text NULL',
             'date_publication'   => 'datetime NOT NULL DEFAULT "0000-00-00 00:00:00"',  
             'statut'             => 'varchar(20)  DEFAULT "0" NOT NULL', 
-            'maj'                => 'TIMESTAMP'
+            'maj'                => 'TIMESTAMP',
+            'verified'      =>  'tinyint(1) NULL'
         ),
         'key' => array(
             'PRIMARY KEY'        => 'id_user',

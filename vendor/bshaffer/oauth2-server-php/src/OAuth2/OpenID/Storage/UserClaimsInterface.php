@@ -14,8 +14,7 @@ interface UserClaimsInterface
     // fields returned for the claims above
     //[dnc2]const PROFILE_CLAIM_VALUES  = 'name family_name given_name middle_name nickname preferred_username profile picture website gender birthdate zoneinfo locale updated_at';
     const PROFILE_CLAIM_VALUES  = 'name family_name given_name middle_name nickname profile picture website gender birthday zoneinfo locale updated_at'; //[dnc2]
-    //[dnc2]const EMAIL_CLAIM_VALUES    = 'email email_verified';
-    const EMAIL_CLAIM_VALUES    = 'email verified'; //[dnc2]
+    const EMAIL_CLAIM_VALUES    = 'email email_verified';  //[dnc46]
     //[dnc2]const ADDRESS_CLAIM_VALUES  = 'formatted street_address locality region postal_code country';
     const ADDRESS_CLAIM_VALUES  = 'address street_address locality region postal_code country';  //[dnc2]
     //[dnc2]const PHONE_CLAIM_VALUES    = 'phone_number phone_number_verified';
