@@ -1,4 +1,4 @@
-{ "issuer"                                : "https://oa.dnc.global/",
+{ "issuer"                                : "https://oa.dnc.global",
   "token_endpoint"                        : "https://oa.dnc.global/token",
   "introspection_endpoint"                : "https://oa.dnc.global/introspect",
   "revocation_endpoint"                   : "https://oa.dnc.global/revoke",

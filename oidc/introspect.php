@@ -154,7 +154,7 @@ if ( DEBUG ) {
 if ( !empty($payload) ) {
 
     // Verify validity of token
-    if ( $payload['iss'] != 'https://' . $_SERVER['HTTP_HOST'] . '/' ) {  //[dnc45]
+    if ( $payload['iss'] != 'https://' . $_SERVER['HTTP_HOST'] ) {  //[dnc45]
         $error = 'JWT has wrong iss ' ;
         $weight = 500;
     }
