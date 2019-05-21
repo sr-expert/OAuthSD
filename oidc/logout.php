@@ -106,7 +106,7 @@ if ( ! $payload = $jwtUtil->decode($undecodedJWT, $keyinfo['public_key'], $keyin
 if ( !empty($payload) ) {
     // Verify validity of token
 
-    if ( $payload['iss'] != $_SERVER['HTTP_HOST'] . '/' ) {  //[dnc45]
+    if ( $payload['iss'] != $_SERVER['HTTP_HOST']) {  //[dnc45]
         $error = 'JWT has wrong iss ' ;
         $weight = 500;
     }
