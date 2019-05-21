@@ -60,11 +60,11 @@ RewriteRule ^revoke   /oauth/revoke.php [QSA,L,skip=100]
 
 RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
 RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^keys   /oidc/jwks.json [QSA,L,skip=100]
+RewriteRule ^keys   /jwks/jwks.json [QSA,L,skip=100]
 
 RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
 RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^jwks.json   /oidc/jwks.json [QSA,L,skip=100]
+RewriteRule ^jwks.json   /jwks/jwks.json [QSA,L,skip=100]
 
 RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
 RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
