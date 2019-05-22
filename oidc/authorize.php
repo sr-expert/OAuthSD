@@ -132,7 +132,7 @@ if ( !is_valid_session_id($state) ) {
 //[dnc9'] Compute a session UFP with state
 $ufp = compute_user_fingerprint( $state );  //[ufp]
 
-// Start session
+// Set a session for each state = each instance of client application
 $void = that_session_start('oauthsd', $state, SLI_SESSION_DIR); //[dnc34]  //TODO: en cas d'erreur?
 
 // Some parameters from dialog
@@ -184,11 +184,11 @@ $_SESSION['ufp'] = encrypt($ufp);
 //[dnc9] Process SLI cookie if exists
 $slidata = null;
 $enable_sli = false;
-if ( ENABLE_SLI AND $slidata_crypted = @$_COOKIE['sli'] ) {
+if ( (ENABLE_SLI OR FORCE_SLI) AND $slidata_crypted = @$_COOKIE['sli'] ) {   //[dnc48]
     // We have a Single Login Identification cookie
     // is SLI allowed by client?
     $requested_scopes = $request->query('scope'); 
-    if ( strpos($requested_scopes, 'sli') !== false ) { 
+    if ( strpos($requested_scopes, 'sli') !== false OR FORCE_SLI) { 
         // decrypt, get SLI data
         $jslidata = private_decode( $slidata_crypted );
         if ( ! empty($jslidata) ) { 
@@ -211,11 +211,11 @@ if ( ENABLE_SLI AND $slidata_crypted = @$_COOKIE['sli'] ) {
             die();
         }
     } else {
-        // SLI not granted by application : use state
+        // SLI not granted by application : use state as sliID
         $sliID = $state;
     }
 } else {
-    // SLI not enabled by server, or no valid SLI cookie : use state
+    // SLI not enabled by server, or no valid SLI cookie : use state as sliID
     $sliID = $state;
 }
 
@@ -363,6 +363,25 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
         $_SESSION['sub'] = $isconnected ? $sub : null;
     }
 
+    $isconnectednow = false;
+    // test subject for actual connexion to current client and compute times.       
+    if ( ! empty($client_id) AND ! empty($sub) ) {
+        // if sub is defined, verify wheter subject is connected or not
+        $stmt = $cnx->prepare(sprintf('SELECT * FROM %s WHERE user_id=:sub AND client_id=:client_id ORDER BY expires DESC', $storage_config['access_token_table']));    
+        $stmt->execute(compact('client_id', 'sub'));
+        $authdata = $stmt->fetch(\PDO::FETCH_ASSOC);
+        if ( $authdata ) {
+            //* verify access token not expired
+            $expire_time = strtotime($authdata['expires']);
+            $timeleft = $expire_time - time();   //[dnc28d]   le fuseau horaire du serveur doit être Z (UTC)!
+            $isconnectednow = (bool)( $timeleft > 0 );   
+            $true_auth_time = $expire_time - ACCESS_TOKEN_LIFETIME; //[dnc49]
+        } else 
+            $isconnectednow = false;
+
+    } else 
+        $isconnectednow = false;
+
 
     /* Start processing Authorization.
     Login/grant form is generated at authentification time by this server, not by the application. 
@@ -385,18 +404,6 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
         We will return immediately to caller, avoiding the redirection of Authorization Code Flow.
         */    
 
-        // test subject for present connexion to current client.       
-        if ( ! empty($client_id) AND ! empty($sub) ) {
-            // if sub is defined, verify wheter subject is connected or not
-            $stmt = $cnx->prepare(sprintf('SELECT * FROM %s WHERE user_id=:sub AND client_id=:client_id ORDER BY expires DESC', $storage_config['access_token_table']));    
-            $stmt->execute(compact('client_id', 'sub'));
-            $authdata = $stmt->fetch(\PDO::FETCH_ASSOC);
-            //* verify access token not expired
-            $timeleft = strtotime($authdata['expires']) - time();   //[dnc28d]   le fuseau horaire du serveur doit être Z (UTC)!
-            $isconnectednow = (bool)( $timeleft > 0 );   
-        } else 
-            $isconnectednow = false;
-
         //[dnc36] If CORS request, process it and respond to user-agent right now. 
         if ( cors_allow_known_client( $client_id, $response, $cnx ) ) {
             // answer directly to user-agent
@@ -409,7 +416,7 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
             die(); 
 
         } else {
-            // Return autorisation code to client
+            // Return authorization code to client
             if ( $isconnectednow ) {
                 // Ok if subject is already connected,
                 log_info("Authorize" ,"Prompt none : user is connected - client = " . $client_id . " sub = " . $sub, $client_id, $sub, 112, 0, $cnx);     
@@ -430,9 +437,7 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
         */
 
         if ( empty($prompt) ) {
-            
-            //DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG  
-            
+
             //[dnc9]
             if ( $enable_sli ) {   
 
@@ -445,9 +450,9 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
                         'sub' => $slidata['sub'],           // value at last login time
                         'client_id' => $client_id,          // client_id might change
                         'ufp' => $slidata['ufp'],           // user fingerprint at last login time    //ufp
-                        'authtime' => time(),               // check server time zone is UTC !
+                        'authtime' => $true_auth_time,      //[dnc49] keep time of real authentication
                     );
-                    
+
                     $sub = $slidata['sub'];
                     // Store authenticated subject in session 
                     $_SESSION['sub'] = $sub;
@@ -455,7 +460,7 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
                     // Send encoded SLI cookie to user-agent in server's domain
                     $jcookiedata = json_encode($cookiedata);
                     send_private_encoded_cookie('sli', $jcookiedata, SLI_COOKIE_LIFETIME);
-                    
+
                     // Continue with consent ?     
                     $continue_with_consent = false;       //[dnc24]
                     if ( $prompt == 'consent' OR (empty($prompt) AND PROMPT_DEFAULT_TO_CONSENT) ) { //[dnc24a] process consent if prompt is undefined. 
@@ -512,7 +517,7 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
                         log_info("Authorize" ,"SLI (prompt empty) : user was not connected, return to client", $client_id, $sub, 122, 0, $cnx); 
                         $is_authorized = false;    
                     } 
-                    
+
                     $sub = null;
                     // Store  no authenticated subject in session 
                     $_SESSION['sub'] = null;   
@@ -552,7 +557,7 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
 
         } // end prompt contains login
 
-        
+
         /////// prompt == consent only or $continue_with_consent == true ///////
 
         if ( $prompt == 'consent' OR $continue_with_consent == true ) {  //[dnc24]
@@ -591,7 +596,7 @@ if ( ! empty($password) OR 'login' == $return_from ) {
         $error = rtrim(@$answer['error'],'%');  // Remove random-length trail of '%'
         $sub = @$answer['sub'];
         $redo = @$answer['redo'];
-        
+
         // Store authenticated subject in session 
         $_SESSION['sub'] = $is_authorized ? $sub : null;
 
@@ -660,7 +665,7 @@ if ( ! empty($password) OR 'login' == $return_from ) {
             log_error("Authorize" ,$error, $client_id, $sub, 150, 10, $cnx);
         }   
     }
-    
+
     if ( $is_authorized AND LOGIN_WITH_TFA ) {
         //[dnc43] Prompt user for Two Factors Authentication
         log_info("Authorize" ,"Display TFA form", $client_id, $sub, 190, 1, $cnx);
@@ -669,10 +674,10 @@ if ( ! empty($password) OR 'login' == $return_from ) {
             // Display login form
             include './identification/' . TFA_PROVIDER . '/login.php'
         );    
-        
+
     }
 
-    if ( ENABLE_SLI ) {
+    if ( ENABLE_SLI OR FORCE_SLI) {  //[dnc48]
         //[dnc9] Create (or destroy) SLI cookie  
 
         if ( $is_authorized ) {
@@ -680,12 +685,13 @@ if ( ! empty($password) OR 'login' == $return_from ) {
             $client_id = @$_SESSION['client_id'];  // get it from session, safer than from form 
             if ( !empty($client_id) ) {
                 // Create SLI Cookie
+                $true_auth_time = time(); //[dnc49] Make sure tokens and SLI Cookie have same authtime
                 $cookiedata = array(    
                     'sliID' => $sliID,   // sliID is the value of state at creation time
                     'sub' => $sub,       // value whose credential have been checked
                     'client_id' => $client_id,
                     'ufp' => compute_user_fingerprint($state), // user's fingerprint
-                    'authtime' => time(),
+                    'authtime' => $true_auth_time,  //[dnc49]
                 );
                 // send encoded SLI cookie to user-agent in server's domain
                 $jcookiedata = json_encode($cookiedata);
@@ -759,7 +765,7 @@ if ( '2fa' == $return_from ) {
         $response->send();
         die();    
     }
-    
+
     if ( $error ) { // Error raised at TFA step
 
         $is_authorized = false;
@@ -811,23 +817,22 @@ if ( '2fa' == $return_from ) {
             log_error("Authorize" ,$error, $client_id, $sub, 195, 10, $cnx);
         }   
     }
-    
+
     if ( $is_authorized ) {
         log_success("Authorize" ,"TFA success - client = " . $client_id . " sub = " . $sub, $client_id, $sub, 190, -10, $cnx);                    
     }
 
 } // End Return from TFA form
-    
-    
-    
+
+
+
 if ( ! empty($grant) OR 'grant' == $return_from ) { 
 
     /////////////////////////  Return from Grant form  /////////////////////////////
-    //DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG
-    
+
     if ( ($sub = @$_SESSION['sub'])  ) {         
         // End-user should have been authentified before Grant
-        
+
         $is_authorized = ( htmlspecialchars(@$_POST['grant']) == 'on' );   // user should accept all grant requests in one piece (or not)
 
         $just_granted_scopes = htmlspecialchars(@$_POST['just_granted_scopes']); // string of just granted scopes
@@ -871,7 +876,15 @@ if ( ! empty($grant) OR 'grant' == $return_from ) {
 
 //////////////  End with redirection  ///////////////////
 
-$server->handleAuthorizeRequest($request, $response, $is_authorized, $sub);
+if ( !is_null(@$true_auth_time) ) {  //[dnc49]
+    $userInfo = array(
+        'user_id' => $sub,
+        'auth_time' => $true_auth_time
+    );
+} else {
+    $userInfo = $sub;
+}
+$server->handleAuthorizeRequest($request, $response, $is_authorized, $userInfo);
 
 if ( DEBUG ) $response->addParameters(array('trace' => urlencode($trace)));
 
