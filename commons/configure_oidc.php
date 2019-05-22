@@ -78,6 +78,13 @@ define('CHECK_NONCE_AS_UFP', false);       //ufp
 */
 define('ENABLE_SLI', true);
 
+/** [dnc48] Force Single Login Identification? 
+* Will enforce SLI even with missing scope 'sli'.
+* Has priority over ENABLE_SLI.
+* Usefull for testing, avoid in production.
+*/
+define('FORCE_SLI', true);
+
 /** SLI cookie lifetime.
 * SLI cookie is refreshed with this value each time authorize is successful, including SRA. 
 * So it is the duration of cookie survival after last successful authorize request.
