@@ -142,11 +142,12 @@ if ( strpos($token['scope'],'address') !== false ) {
     );
     $jaddress= json_encode($address);
     $claims += array('address' => $jaddress);
-    
-    //[dnc45e] No boolean in MySQL : a quick and dirty trick ...
-    if ( isset($userinfo['email_verified'] ) )  $claims['email_verified'] = boolval($userinfo['email_verified']);
-    if ( isset($userinfo['phone_number_verified'] ) )  $claims['phone_number_verified'] = boolval($userinfo['email_verified']);    
+
 }
+
+//[dnc45e] No boolean in MySQL : a quick and dirty trick ...
+if ( isset($userinfo['email_verified'] ) )  $claims['email_verified'] = boolval($userinfo['email_verified']);
+if ( isset($userinfo['phone_number_verified'] ) )  $claims['phone_number_verified'] = boolval($userinfo['email_verified']);    
 
 $response->addParameters($claims);
 
