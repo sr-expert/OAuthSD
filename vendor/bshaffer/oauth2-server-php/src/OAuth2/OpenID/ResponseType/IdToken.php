@@ -119,6 +119,11 @@ class IdToken implements IdTokenInterface
         if ($access_token) {
             $token['at_hash'] = $this->createAtHash($access_token, $client_id);
         }
+        
+        //[dnc4a] 
+        $acr = ( LOGIN_WITH_TFA )? '2' : '1';
+        $token['acr'] = $acr;
+        
 
         return $this->encodeToken($token, $client_id);
     }
