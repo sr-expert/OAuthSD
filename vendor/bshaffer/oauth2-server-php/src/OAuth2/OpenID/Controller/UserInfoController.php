@@ -12,24 +12,24 @@ use OAuth2\RequestInterface;
 use OAuth2\ResponseInterface;
 
 /**
- * @see OAuth2\Controller\UserInfoControllerInterface
- */
+* @see OAuth2\Controller\UserInfoControllerInterface
+*/
 class UserInfoController extends ResourceController implements UserInfoControllerInterface
 {
     /**
-     * @var UserClaimsInterface
-     */
+    * @var UserClaimsInterface
+    */
     protected $userClaimsStorage;
 
     /**
-     * Constructor
-     *
-     * @param TokenTypeInterface   $tokenType
-     * @param AccessTokenInterface $tokenStorage
-     * @param UserClaimsInterface  $userClaimsStorage
-     * @param array                $config
-     * @param ScopeInterface       $scopeUtil
-     */
+    * Constructor
+    *
+    * @param TokenTypeInterface   $tokenType
+    * @param AccessTokenInterface $tokenStorage
+    * @param UserClaimsInterface  $userClaimsStorage
+    * @param array                $config
+    * @param ScopeInterface       $scopeUtil
+    */
     public function __construct(TokenTypeInterface $tokenType, AccessTokenInterface $tokenStorage, UserClaimsInterface $userClaimsStorage, $config = array(), ScopeInterface $scopeUtil = null)
     {
         parent::__construct($tokenType, $tokenStorage, $config, $scopeUtil);
@@ -38,12 +38,12 @@ class UserInfoController extends ResourceController implements UserInfoControlle
     }
 
     /**
-     * Handle the user info request
-     *
-     * @param RequestInterface $request
-     * @param ResponseInterface $response
-     * @return void
-     */
+    * Handle the user info request
+    *
+    * @param RequestInterface $request
+    * @param ResponseInterface $response
+    * @return void
+    */
     public function handleUserInfoRequest(RequestInterface $request, ResponseInterface $response)
     {
         if (!$this->verifyResourceRequest($request, $response, 'openid')) {
@@ -52,6 +52,7 @@ class UserInfoController extends ResourceController implements UserInfoControlle
 
         $token = $this->getToken();
         $claims = $this->userClaimsStorage->getUserClaims($token['user_id'], $token['scope']);
+        
         // The sub Claim MUST always be returned in the UserInfo Response.
         // http://openid.net/specs/openid-connect-core-1_0.html#UserInfoResponse
         $claims += array(
