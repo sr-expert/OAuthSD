@@ -26,7 +26,7 @@ Copyright (c) 2016-2018 DnC
 All rights reserved
 */
 
-//DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG
+DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG
 
 $trace = null;
 $client_id = null; 
@@ -302,10 +302,15 @@ if ( $enable_sli AND !empty($slidata['sub']) ) {     //[dnc9] SLI
 // Store authenticated subject in session 
 $_SESSION['sub'] = $sub;
 
-//[dnc49] Determine time of actual authentication. It may be the SLI authtime. 
+/*[dnc49] Determine time of authentication.
+If two successive authentications occurs in a short time, ID Tokens will have 
+different authtime and we will get "Not one autnentication" error. 
+So, we will adopt SLI authtime for the second.
+But doing so, SLI cookie will keep authtime equal to the very first.
+*/ 
 $authtime = time();
 if ( @$slidata['authtime'] )   
-    $authtime = $slidata['authtime'];   //[dnc49]
+    $authtime = $slidata['authtime']; 
 
 if ( empty($password) AND empty($grant) AND empty($return_from) ) { 
 
@@ -447,7 +452,7 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
                         'sub' => $slidata['sub'],           // value at last login time
                         'client_id' => $client_id,          // client_id might change
                         'ufp' => $slidata['ufp'],           // user fingerprint at last login time    //ufp
-                        'authtime' => $authtime,      //[dnc49] keep time of real authentication
+                        'authtime' => $authtime,            //[dnc49] keep time of real authentication
                     );
 
                     $sub = $slidata['sub'];
@@ -872,6 +877,7 @@ if ( ! empty($grant) OR 'grant' == $return_from ) {
 
 //////////////  End with redirection  ///////////////////
 
+
 if ( !empty(@$authtime) ) {  //[dnc49]
     $userInfo = array(
         'user_id' => $sub,
@@ -880,7 +886,7 @@ if ( !empty(@$authtime) ) {  //[dnc49]
 } else {
     $userInfo = $sub;
 }
-$server->handleAuthorizeRequest($request, $response, $is_authorized, $userInfo);
+$server->handleAuthorizeRequest($request, $response, $is_authorized, $userInfo); 
 
 if ( DEBUG ) $response->addParameters(array('trace' => urlencode($trace)));
 
