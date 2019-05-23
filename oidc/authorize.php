@@ -26,7 +26,7 @@ Copyright (c) 2016-2018 DnC
 All rights reserved
 */
 
-DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG
+//DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG
 
 $trace = null;
 $client_id = null; 
@@ -839,10 +839,9 @@ if ( ! empty($grant) OR 'grant' == $return_from ) {
         $just_granted_scopes = htmlspecialchars(@$_POST['just_granted_scopes']); // string of just granted scopes
 
         if ( $is_authorized ) {
-            //[dnc24] Granted : update granted scopes in session data
-            $already_granted_scopes = unserialize(@$_SESSION['granted_scopes']);   
-            //$already_granted_scopes = explode(' ', @$_COOKIE['granted_scopes']);   // array of client_id, already granted scope for the client
-            if (@$already_granted_scopes[$client_id]) { 
+            //[dnc24] Granted : update granted scopes in cookie data
+            $already_granted_scopes = unserialize(@$_COOKIE['granted_scopes']);  
+            if (@$already_granted_scopes[$client_id]) {   // array of client_id, already granted scope for the client
                 if ( $just_granted_scopes ) {
                     $just_granted_scopes_array = explode(' ', $just_granted_scopes);
                     foreach ( $just_granted_scopes_array as $thescope) {
@@ -856,8 +855,8 @@ if ( ! empty($grant) OR 'grant' == $return_from ) {
                 // We are the first
                 $already_granted_scopes[$client_id] = $just_granted_scopes;    
             }
-            $_SESSION['granted_scopes'] = serialize($already_granted_scopes);
-            //setcookie('granted_scopes', implode(' ', $already_granted_scopes), time() + SLI_COOKIE_LIFETIME, '/', OIDC_SERVER_DOMAIN, true, true);
+            $_COOKIE['granted_scopes'] = serialize($already_granted_scopes);
+            setcookie('granted_scopes', serialize($already_granted_scopes), time() + SLI_COOKIE_LIFETIME, '/', OIDC_SERVER_DOMAIN, true, true);
             // Granted
             log_info("Authorize" ,"Return from Grant : " . $just_granted_scopes . ' granted', $client_id, $sub, 161, 0, $cnx);
 
@@ -943,8 +942,7 @@ function scopes_to_grant($scopes, $client_id) {
         Make array of client_id => already granted scope for the client    
         */
         $scopes_to_grant = array();
-        $already_granted_scopes = unserialize(@$_SESSION['granted_scopes']);
-        //$already_granted_scopes = explode(' ', @$_COOKIE['granted_scopes']);   
+        $already_granted_scopes = unserialize(@$_COOKIE['granted_scopes']);   
         if ( @$already_granted_scopes[$client_id]) {
             foreach ( $scopes_to_retain as $thescope) {
                 if ( strpos($already_granted_scopes[$client_id], $thescope) === false ) {
