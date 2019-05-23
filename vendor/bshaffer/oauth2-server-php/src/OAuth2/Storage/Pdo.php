@@ -7,45 +7,45 @@ use OAuth2\OpenID\Storage\AuthorizationCodeInterface as OpenIDAuthorizationCodeI
 use InvalidArgumentException;
 
 /**
- * Simple PDO storage for all storage types
- *
- * NOTE: This class is meant to get users started
- * quickly. If your application requires further
- * customization, extend this class or create your own.
- *
- * NOTE: Passwords are stored in plaintext, which is never
- * a good idea.  Be sure to override this for your application
- *
- * @author Brent Shaffer <bshafs at gmail dot com>
- */
+* Simple PDO storage for all storage types
+*
+* NOTE: This class is meant to get users started
+* quickly. If your application requires further
+* customization, extend this class or create your own.
+*
+* NOTE: Passwords are stored in plaintext, which is never
+* a good idea.  Be sure to override this for your application
+*
+* @author Brent Shaffer <bshafs at gmail dot com>
+*/
 class Pdo implements
-    AuthorizationCodeInterface,
-    AccessTokenInterface,
-    ClientCredentialsInterface,
-    UserCredentialsInterface,
-    RefreshTokenInterface,
-    JwtBearerInterface,
-    ScopeInterface,
-    PublicKeyInterface,
-    UserClaimsInterface,
-    OpenIDAuthorizationCodeInterface
+AuthorizationCodeInterface,
+AccessTokenInterface,
+ClientCredentialsInterface,
+UserCredentialsInterface,
+RefreshTokenInterface,
+JwtBearerInterface,
+ScopeInterface,
+PublicKeyInterface,
+UserClaimsInterface,
+OpenIDAuthorizationCodeInterface
 {
     /**
-     * @var \PDO
-     */
+    * @var \PDO
+    */
     protected $db;
 
     /**
-     * @var array
-     */
+    * @var array
+    */
     protected $config;
 
     /**
-     * @param mixed $connection
-     * @param array $config
-     *
-     * @throws InvalidArgumentException
-     */
+    * @param mixed $connection
+    * @param array $config
+    *
+    * @throws InvalidArgumentException
+    */
     public function __construct($connection, $config = array())
     {
         if (!$connection instanceof \PDO) {
@@ -63,7 +63,7 @@ class Pdo implements
                 'username' => null,
                 'password' => null,
                 'options' => array(),
-            ), $connection);
+                ), $connection);
             $connection = new \PDO($connection['dsn'], $connection['username'], $connection['password'], $connection['options']);
         }
         $this->db = $connection;
@@ -81,20 +81,20 @@ class Pdo implements
             'jti_table'  => 'oauth_jti',
             'scope_table'  => 'oauth_scopes',
             'public_key_table'  => 'oauth_public_keys',
-        ), $config);
+            ), $config);
     }
 
     /**
-     * @param string $client_id
-     * @param null|string $client_secret
-     * @return bool
-     */
+    * @param string $client_id
+    * @param null|string $client_secret
+    * @return bool
+    */
     public function checkClientCredentials($client_id, $client_secret = null)
     {
         //[dnc3]
         $client_id = urldecode($client_id);
         $client_secret = urldecode($client_secret);
-        
+
         $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id', $this->config['client_table']));
         $stmt->execute(compact('client_id'));
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -104,9 +104,9 @@ class Pdo implements
     }
 
     /**
-     * @param string $client_id
-     * @return bool
-     */
+    * @param string $client_id
+    * @return bool
+    */
     public function isPublicClient($client_id)
     {
         $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id', $this->config['client_table']));
@@ -120,9 +120,9 @@ class Pdo implements
     }
 
     /**
-     * @param string $client_id
-     * @return array|mixed
-     */
+    * @param string $client_id
+    * @return array|mixed
+    */
     public function getClientDetails($client_id)
     {
         $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id', $this->config['client_table']));
@@ -132,14 +132,14 @@ class Pdo implements
     }
 
     /**
-     * @param string $client_id
-     * @param null|string $client_secret
-     * @param null|string $redirect_uri
-     * @param null|array  $grant_types
-     * @param null|string $scope
-     * @param null|string $user_id
-     * @return bool
-     */
+    * @param string $client_id
+    * @param null|string $client_secret
+    * @param null|string $redirect_uri
+    * @param null|array  $grant_types
+    * @param null|string $scope
+    * @param null|string $user_id
+    * @return bool
+    */
     public function setClientDetails($client_id, $client_secret = null, $redirect_uri = null, $grant_types = null, $scope = null, $user_id = null)
     {
         // if it exists, update it.
@@ -153,10 +153,10 @@ class Pdo implements
     }
 
     /**
-     * @param $client_id
-     * @param $grant_type
-     * @return bool
-     */
+    * @param $client_id
+    * @param $grant_type
+    * @return bool
+    */
     public function checkRestrictedGrantType($client_id, $grant_type)
     {
         $details = $this->getClientDetails($client_id);
@@ -171,9 +171,9 @@ class Pdo implements
     }
 
     /**
-     * @param string $access_token
-     * @return array|bool|mixed|null
-     */
+    * @param string $access_token
+    * @return array|bool|mixed|null
+    */
     public function getAccessToken($access_token)
     {
         $stmt = $this->db->prepare(sprintf('SELECT * from %s where access_token = :access_token', $this->config['access_token_table']));
@@ -188,17 +188,19 @@ class Pdo implements
     }
 
     /**
-     * @param string $access_token
-     * @param mixed  $client_id
-     * @param mixed  $user_id
-     * @param int    $expires
-     * @param string $scope
-     * @return bool
-     */
-    public function setAccessToken($access_token, $client_id, $user_id, $expires, $scope = null)
+    * @param string $access_token
+    * @param mixed  $client_id
+    * @param mixed  $userinfo  //[dnc49] keep $user_id notation for scalar
+    * @param int    $expires
+    * @param string $scope
+    * @return bool
+    */
+    public function setAccessToken($access_token, $client_id, $userinfo, $expires, $scope = null)
     {
         // convert expires to datestring
         $expires = date('Y-m-d H:i:s', $expires);
+
+        $user_id = (is_array($userinfo)? $userinfo['user_id'] : $userinfo);   //[dnc49]
 
         // if it exists, update it.
         if ($this->getAccessToken($access_token)) {
@@ -211,9 +213,9 @@ class Pdo implements
     }
 
     /**
-     * @param $access_token
-     * @return bool
-     */
+    * @param $access_token
+    * @return bool
+    */
     public function unsetAccessToken($access_token)
     {
         $stmt = $this->db->prepare(sprintf('DELETE FROM %s WHERE access_token = :access_token', $this->config['access_token_table']));
@@ -225,9 +227,9 @@ class Pdo implements
 
     /* OAuth2\Storage\AuthorizationCodeInterface */
     /**
-     * @param string $code
-     * @return mixed
-     */
+    * @param string $code
+    * @return mixed
+    */
     public function getAuthorizationCode($code)
     {
         $stmt = $this->db->prepare(sprintf('SELECT * from %s where authorization_code = :code', $this->config['code_table']));
@@ -242,17 +244,19 @@ class Pdo implements
     }
 
     /**
-     * @param string $code
-     * @param mixed  $client_id
-     * @param mixed  $user_id
-     * @param string $redirect_uri
-     * @param int    $expires
-     * @param string $scope
-     * @param string $id_token
-     * @return bool|mixed
-     */
-    public function setAuthorizationCode($code, $client_id, $user_id, $redirect_uri, $expires, $scope = null, $id_token = null)
+    * @param string $code
+    * @param mixed  $client_id
+    * @param mixed  $userinfo  //[dnc49] keep $user_id notation for scalar
+    * @param string $redirect_uri
+    * @param int    $expires
+    * @param string $scope
+    * @param string $id_token
+    * @return bool|mixed
+    */
+    public function setAuthorizationCode($code, $client_id, $userinfo, $redirect_uri, $expires, $scope = null, $id_token = null)
     {
+        $user_id = (is_array($userinfo)? $userinfo['user_id'] : $userinfo);   //[dnc49]
+
         /* [dnc1] 
         if (func_num_args() > 6) {
         // we are calling with an id token
@@ -276,17 +280,19 @@ class Pdo implements
     }
 
     /**
-     * @param string $code
-     * @param mixed  $client_id
-     * @param mixed  $user_id
-     * @param string $redirect_uri
-     * @param string $expires
-     * @param string $scope
-     * @param string $id_token
-     * @return bool
-     */
-    private function setAuthorizationCodeWithIdToken($code, $client_id, $user_id, $redirect_uri, $expires, $scope = null, $id_token = null)
+    * @param string $code
+    * @param mixed  $client_id
+    * @param mixed  $userinfo  //[dnc49] keep $user_id notation for scalar
+    * @param string $redirect_uri
+    * @param string $expires
+    * @param string $scope
+    * @param string $id_token
+    * @return bool
+    */
+    private function setAuthorizationCodeWithIdToken($code, $client_id, $userinfo, $redirect_uri, $expires, $scope = null, $id_token = null)
     {
+        $user_id = (is_array($userinfo)? $userinfo['user_id'] : $userinfo);   //[dnc49]
+
         // convert expires to datestring
         $expires = date('Y-m-d H:i:s', $expires);
 
@@ -301,21 +307,22 @@ class Pdo implements
     }
 
     /**
-     * @param string $code
-     * @return bool
-     */
+    * @param string $code
+    * @return bool
+    * [dnc50] Instead of deleting, set expires to Null.
+    */
     public function expireAuthorizationCode($code)
     {
-        $stmt = $this->db->prepare(sprintf('DELETE FROM %s WHERE authorization_code = :code', $this->config['code_table']));
-
+        //[dnc50] $stmt = $this->db->prepare(sprintf('DELETE FROM %s WHERE authorization_code = :code', $this->config['code_table']));
+        $stmt = $this->db->prepare(sprintf('UPDATE %s SET expires=NULL WHERE authorization_code = :code', $this->config['code_table']));
         return $stmt->execute(compact('code'));
     }
 
     /**
-     * @param string $username
-     * @param string $password
-     * @return bool
-     */
+    * @param string $username
+    * @param string $password
+    * @return bool
+    */
     public function checkUserCredentials($username, $password)
     {
         if ($user = $this->getUser($username)) {
@@ -326,21 +333,23 @@ class Pdo implements
     }
 
     /**
-     * @param string $username
-     * @return array|bool
-     */
+    * @param string $username
+    * @return array|bool
+    */
     public function getUserDetails($username)
     {
         return $this->getUser($username);
     }
 
     /**
-     * @param mixed  $user_id
-     * @param string $claims
-     * @return array|bool
-     */
-    public function getUserClaims($user_id, $claims)
+    * @param mixed  $userinfo  //[dnc49] keep $user_id notation for scalar
+    * @param string $claims
+    * @return array|bool
+    */
+    public function getUserClaims($userinfo, $claims)
     {
+        $user_id = (is_array($userinfo)? $userinfo['user_id'] : $userinfo);   //[dnc49]
+
         if (!$userDetails = $this->getUserDetails($user_id)) {
             return false;
         }
@@ -365,10 +374,10 @@ class Pdo implements
     }
 
     /**
-     * @param string $claim
-     * @param array  $userDetails
-     * @return array
-     */
+    * @param string $claim
+    * @param array  $userDetails
+    * @return array
+    */
     protected function getUserClaim($claim, $userDetails)
     {
         $userClaims = array();
@@ -383,9 +392,9 @@ class Pdo implements
     }
 
     /**
-     * @param string $refresh_token
-     * @return bool|mixed
-     */
+    * @param string $refresh_token
+    * @return bool|mixed
+    */
     public function getRefreshToken($refresh_token)
     {
         $stmt = $this->db->prepare(sprintf('SELECT * FROM %s WHERE refresh_token = :refresh_token', $this->config['refresh_token_table']));
@@ -400,15 +409,17 @@ class Pdo implements
     }
 
     /**
-     * @param string $refresh_token
-     * @param mixed  $client_id
-     * @param mixed  $user_id
-     * @param string $expires
-     * @param string $scope
-     * @return bool
-     */
-    public function setRefreshToken($refresh_token, $client_id, $user_id, $expires, $scope = null)
+    * @param string $refresh_token
+    * @param mixed  $client_id
+    * @param mixed  $userinfo  //[dnc49] keep $user_id notation for scalar
+    * @param string $expires
+    * @param string $scope
+    * @return bool
+    */
+    public function setRefreshToken($refresh_token, $client_id, $userinfo, $expires, $scope = null)
     {
+        $user_id = (is_array($userinfo)? $userinfo['user_id'] : $userinfo);   //[dnc49]
+        
         // convert expires to datestring
         $expires = date('Y-m-d H:i:s', $expires);
 
@@ -418,9 +429,9 @@ class Pdo implements
     }
 
     /**
-     * @param string $refresh_token
-     * @return bool
-     */
+    * @param string $refresh_token
+    * @return bool
+    */
     public function unsetRefreshToken($refresh_token)
     {
         $stmt = $this->db->prepare(sprintf('DELETE FROM %s WHERE refresh_token = :refresh_token', $this->config['refresh_token_table']));
@@ -431,12 +442,12 @@ class Pdo implements
     }
 
     /**
-     * plaintext passwords are bad!  Override this for your application
-     *
-     * @param array $user
-     * @param string $password
-     * @return bool
-     */
+    * plaintext passwords are bad!  Override this for your application
+    *
+    * @param array $user
+    * @param string $password
+    * @return bool
+    */
     protected function checkPassword($user, $password)
     {
         return $user['password'] == $this->hashPassword($password);
@@ -449,9 +460,9 @@ class Pdo implements
     }
 
     /**
-     * @param string $username
-     * @return array|bool
-     */
+    * @param string $username
+    * @return array|bool
+    */
     public function getUser($username)
     {
         $stmt = $this->db->prepare($sql = sprintf('SELECT * from %s where username=:username', $this->config['user_table']));
@@ -464,18 +475,18 @@ class Pdo implements
         // the default behavior is to use "username" as the user_id
         return array_merge(array(
             'user_id' => $username
-        ), $userInfo);
+            ), $userInfo);
     }
 
     /**
-     * plaintext passwords are bad!  Override this for your application
-     *
-     * @param string $username
-     * @param string $password
-     * @param string $firstName
-     * @param string $lastName
-     * @return bool
-     */
+    * plaintext passwords are bad!  Override this for your application
+    *
+    * @param string $username
+    * @param string $password
+    * @param string $firstName
+    * @param string $lastName
+    * @return bool
+    */
     public function setUser($username, $password, $firstName = null, $lastName = null)
     {
         // do not store in plaintext
@@ -492,9 +503,9 @@ class Pdo implements
     }
 
     /**
-     * @param string $scope
-     * @return bool
-     */
+    * @param string $scope
+    * @return bool
+    */
     public function scopeExists($scope)
     {
         $scope = explode(' ', $scope);
@@ -510,9 +521,9 @@ class Pdo implements
     }
 
     /**
-     * @param mixed $client_id
-     * @return null|string
-     */
+    * @param mixed $client_id
+    * @return null|string
+    */
     public function getDefaultScope($client_id = null)
     {
         $stmt = $this->db->prepare(sprintf('SELECT scope FROM %s WHERE is_default=:is_default', $this->config['scope_table']));
@@ -521,7 +532,7 @@ class Pdo implements
         if ($result = $stmt->fetchAll(\PDO::FETCH_ASSOC)) {
             $defaultScope = array_map(function ($row) {
                 return $row['scope'];
-            }, $result);
+                }, $result);
 
             return implode(' ', $defaultScope);
         }
@@ -530,10 +541,10 @@ class Pdo implements
     }
 
     /**
-     * @param mixed $client_id
-     * @param $subject
-     * @return string
-     */
+    * @param mixed $client_id
+    * @param $subject
+    * @return string
+    */
     public function getClientKey($client_id, $subject)
     {
         $stmt = $this->db->prepare($sql = sprintf('SELECT public_key from %s where client_id=:client_id AND subject=:subject', $this->config['jwt_table']));
@@ -544,9 +555,9 @@ class Pdo implements
     }
 
     /**
-     * @param mixed $client_id
-     * @return bool|null
-     */
+    * @param mixed $client_id
+    * @return bool|null
+    */
     public function getClientScope($client_id)
     {
         if (!$clientDetails = $this->getClientDetails($client_id)) {
@@ -561,13 +572,13 @@ class Pdo implements
     }
 
     /**
-     * @param mixed $client_id
-     * @param $subject
-     * @param $audience
-     * @param $expires
-     * @param $jti
-     * @return array|null
-     */
+    * @param mixed $client_id
+    * @param $subject
+    * @param $audience
+    * @param $expires
+    * @param $jti
+    * @return array|null
+    */
     public function getJti($client_id, $subject, $audience, $expires, $jti)
     {
         $stmt = $this->db->prepare($sql = sprintf('SELECT * FROM %s WHERE issuer=:client_id AND subject=:subject AND audience=:audience AND expires=:expires AND jti=:jti', $this->config['jti_table']));
@@ -588,13 +599,13 @@ class Pdo implements
     }
 
     /**
-     * @param mixed $client_id
-     * @param $subject
-     * @param $audience
-     * @param $expires
-     * @param $jti
-     * @return bool
-     */
+    * @param mixed $client_id
+    * @param $subject
+    * @param $audience
+    * @param $expires
+    * @param $jti
+    * @return bool
+    */
     public function setJti($client_id, $subject, $audience, $expires, $jti)
     {
         $stmt = $this->db->prepare(sprintf('INSERT INTO %s (issuer, subject, audience, expires, jti) VALUES (:client_id, :subject, :audience, :expires, :jti)', $this->config['jti_table']));
@@ -603,9 +614,9 @@ class Pdo implements
     }
 
     /**
-     * @param mixed $client_id
-     * @return mixed
-     */
+    * @param mixed $client_id
+    * @return mixed
+    */
     public function getPublicKey($client_id = null)
     {
         $stmt = $this->db->prepare($sql = sprintf('SELECT public_key FROM %s WHERE client_id=:client_id OR client_id IS NULL ORDER BY client_id IS NOT NULL DESC', $this->config['public_key_table']));
@@ -615,7 +626,7 @@ class Pdo implements
             return $result['public_key'];
         }
     }
-    
+
     /**
     * @param mixed $client_id
     * @return mixed
@@ -631,9 +642,9 @@ class Pdo implements
     }
 
     /**
-     * @param mixed $client_id
-     * @return mixed
-     */
+    * @param mixed $client_id
+    * @return mixed
+    */
     public function getPrivateKey($client_id = null)
     {
         $stmt = $this->db->prepare($sql = sprintf('SELECT private_key FROM %s WHERE client_id=:client_id OR client_id IS NULL ORDER BY client_id IS NOT NULL DESC', $this->config['public_key_table']));
@@ -645,9 +656,9 @@ class Pdo implements
     }
 
     /**
-     * @param mixed $client_id
-     * @return string
-     */
+    * @param mixed $client_id
+    * @return string
+    */
     public function getEncryptionAlgorithm($client_id = null)
     {
         $stmt = $this->db->prepare($sql = sprintf('SELECT encryption_algorithm FROM %s WHERE client_id=:client_id OR client_id IS NULL ORDER BY client_id IS NOT NULL DESC', $this->config['public_key_table']));
@@ -661,91 +672,91 @@ class Pdo implements
     }
 
     /**
-     * DDL to create OAuth2 database and tables for PDO storage
-     *
-     * @see https://github.com/dsquier/oauth2-server-php-mysql
-     *
-     * @param string $dbName
-     * @return string
-     */
+    * DDL to create OAuth2 database and tables for PDO storage
+    *
+    * @see https://github.com/dsquier/oauth2-server-php-mysql
+    *
+    * @param string $dbName
+    * @return string
+    */
     public function getBuildSql($dbName = 'oauth2_server_php')
     {
         $sql = "
         CREATE TABLE {$this->config['client_table']} (
-          client_id             VARCHAR(80)   NOT NULL,
-          client_secret         VARCHAR(80),
-          redirect_uri          VARCHAR(2000),
-          grant_types           VARCHAR(80),
-          scope                 VARCHAR(4000),
-          user_id               VARCHAR(80),
-          PRIMARY KEY (client_id)
+        client_id             VARCHAR(80)   NOT NULL,
+        client_secret         VARCHAR(80),
+        redirect_uri          VARCHAR(2000),
+        grant_types           VARCHAR(80),
+        scope                 VARCHAR(4000),
+        user_id               VARCHAR(80),
+        PRIMARY KEY (client_id)
         );
 
-            CREATE TABLE {$this->config['access_token_table']} (
-              access_token         VARCHAR(40)    NOT NULL,
-              client_id            VARCHAR(80)    NOT NULL,
-              user_id              VARCHAR(80),
-              expires              TIMESTAMP      NOT NULL,
-              scope                VARCHAR(4000),
-              PRIMARY KEY (access_token)
-            );
+        CREATE TABLE {$this->config['access_token_table']} (
+        access_token         VARCHAR(40)    NOT NULL,
+        client_id            VARCHAR(80)    NOT NULL,
+        user_id              VARCHAR(80),
+        expires              TIMESTAMP      NOT NULL,
+        scope                VARCHAR(4000),
+        PRIMARY KEY (access_token)
+        );
 
-            CREATE TABLE {$this->config['code_table']} (
-              authorization_code  VARCHAR(40)    NOT NULL,
-              client_id           VARCHAR(80)    NOT NULL,
-              user_id             VARCHAR(80),
-              redirect_uri        VARCHAR(2000),
-              expires             TIMESTAMP      NOT NULL,
-              scope               VARCHAR(4000),
-              id_token            VARCHAR(1000),
-              PRIMARY KEY (authorization_code)
-            );
+        CREATE TABLE {$this->config['code_table']} (
+        authorization_code  VARCHAR(40)    NOT NULL,
+        client_id           VARCHAR(80)    NOT NULL,
+        user_id             VARCHAR(80),
+        redirect_uri        VARCHAR(2000),
+        expires             TIMESTAMP      NOT NULL,
+        scope               VARCHAR(4000),
+        id_token            VARCHAR(1000),
+        PRIMARY KEY (authorization_code)
+        );
 
-            CREATE TABLE {$this->config['refresh_token_table']} (
-              refresh_token       VARCHAR(40)    NOT NULL,
-              client_id           VARCHAR(80)    NOT NULL,
-              user_id             VARCHAR(80),
-              expires             TIMESTAMP      NOT NULL,
-              scope               VARCHAR(4000),
-              PRIMARY KEY (refresh_token)
-            );
+        CREATE TABLE {$this->config['refresh_token_table']} (
+        refresh_token       VARCHAR(40)    NOT NULL,
+        client_id           VARCHAR(80)    NOT NULL,
+        user_id             VARCHAR(80),
+        expires             TIMESTAMP      NOT NULL,
+        scope               VARCHAR(4000),
+        PRIMARY KEY (refresh_token)
+        );
 
-            CREATE TABLE {$this->config['user_table']} (
-              username            VARCHAR(80),
-              password            VARCHAR(80),
-              first_name          VARCHAR(80),
-              last_name           VARCHAR(80),
-              email               VARCHAR(80),
-              email_verified      BOOLEAN,
-              scope               VARCHAR(4000)
-            );
+        CREATE TABLE {$this->config['user_table']} (
+        username            VARCHAR(80),
+        password            VARCHAR(80),
+        first_name          VARCHAR(80),
+        last_name           VARCHAR(80),
+        email               VARCHAR(80),
+        email_verified      BOOLEAN,
+        scope               VARCHAR(4000)
+        );
 
-            CREATE TABLE {$this->config['scope_table']} (
-              scope               VARCHAR(80)  NOT NULL,
-              is_default          BOOLEAN,
-              PRIMARY KEY (scope)
-            );
+        CREATE TABLE {$this->config['scope_table']} (
+        scope               VARCHAR(80)  NOT NULL,
+        is_default          BOOLEAN,
+        PRIMARY KEY (scope)
+        );
 
-            CREATE TABLE {$this->config['jwt_table']} (
-              client_id           VARCHAR(80)   NOT NULL,
-              subject             VARCHAR(80),
-              public_key          VARCHAR(2000) NOT NULL
-            );
+        CREATE TABLE {$this->config['jwt_table']} (
+        client_id           VARCHAR(80)   NOT NULL,
+        subject             VARCHAR(80),
+        public_key          VARCHAR(2000) NOT NULL
+        );
 
-            CREATE TABLE {$this->config['jti_table']} (
-              issuer              VARCHAR(80)   NOT NULL,
-              subject             VARCHAR(80),
-              audiance            VARCHAR(80),
-              expires             TIMESTAMP     NOT NULL,
-              jti                 VARCHAR(2000) NOT NULL
-            );
+        CREATE TABLE {$this->config['jti_table']} (
+        issuer              VARCHAR(80)   NOT NULL,
+        subject             VARCHAR(80),
+        audiance            VARCHAR(80),
+        expires             TIMESTAMP     NOT NULL,
+        jti                 VARCHAR(2000) NOT NULL
+        );
 
-            CREATE TABLE {$this->config['public_key_table']} (
-              client_id            VARCHAR(80),
-              public_key           VARCHAR(2000),
-              private_key          VARCHAR(2000),
-              encryption_algorithm VARCHAR(100) DEFAULT 'RS256'
-            )
+        CREATE TABLE {$this->config['public_key_table']} (
+        client_id            VARCHAR(80),
+        public_key           VARCHAR(2000),
+        private_key          VARCHAR(2000),
+        encryption_algorithm VARCHAR(100) DEFAULT 'RS256'
+        )
         ";
 
         return $sql;
