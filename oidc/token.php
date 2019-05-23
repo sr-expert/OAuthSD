@@ -30,35 +30,45 @@ $response = new OAuth2\Response();
 
 $message = "";
 
-if ( CHECK_CLIENT_IP AND @$_POST['grant_type'] !== "urn:ietf:params:oauth:grant-type:jwt-bearer" ) {   //[dnc14'']
-
-    $cnx = new \PDO($connection['dsn'], $connection['username'], $connection['password']);
+$cnx = new \PDO($connection['dsn'], $connection['username'], $connection['password']);
 
     log_info("Token", "Begin", null, null, 3, 0, $cnx);  //[dnc27a] 
 
-    //[dnc14] Check client IP if feasible                
-    if ( $code = @$_POST['code'] ) {       
-        // Authorization Code : get client_id from authorization_codes
-        $stmt = $cnx->prepare(sprintf('SELECT * FROM %s WHERE authorization_code=:code', $storage_config['code_table']));    
-        $stmt->execute(compact('code'));
-        $data = $stmt->fetch(\PDO::FETCH_ASSOC);
-        if ( $data ) {   //[dnc45f]
-            $client_id = ( empty($data['client_id'])? null : trim(htmlspecialchars($data['client_id'])) );
-            $user_id = $data['user_id'];
-            $message = "Checking client IP for code = " . $code;
+//[dnc45f] Mitigate "use authorization code twice" attack.                
+if ( $code = @$_POST['code'] ) {      
+    // Authorization Code : get client_id from authorization_codes
+    $stmt = $cnx->prepare(sprintf('SELECT * FROM %s WHERE authorization_code=:code', $storage_config['code_table']));    
+    $stmt->execute(compact('code'));
+    $data = $stmt->fetch(\PDO::FETCH_ASSOC);
+    if ( $data AND !is_null($data['expires']) ) {   //[dnc50]
+        $client_id = ( empty($data['client_id'])? null : trim(htmlspecialchars($data['client_id'])) );
+        $user_id = $data['user_id'];
+        $message = "Checking client IP for code = " . $code;
+    } else if ( $data ) {   //[dnc45f]
+        // Missing Authorization Code in storage (trying to use authorization code twice?)
+        // Revoke (all) dependant access token(s)
+        $user_id = $data['user_id'];
+        $client_id = $data['client_id']; 
+        $stmt = $cnx->prepare(sprintf('DELETE FROM %s WHERE client_id=:client_id AND user_id=:user_id', $storage_config['access_token_table']));    
+        $stmt->execute(compact('client_id','user_id'));
+        // End with error
+        log_error("Token" , "Missing Authorization Code in storage", null, null, 306, 200, $cnx);
+        if ( DEBUG ) {
+            $response->setError(401, 'invalid_grant', 'Authorization code doesn\'t exist');
         } else {
-            // Missing Authorization Code in storage
-            log_error("Token" , "Missing Authorization Code in storage", null, null, 306, 100, $cnx);
-            if ( DEBUG ) {
-                $response->setError(401, 'invalid_grant', 'Authorization code doesn\'t exist');
-            } else {
-                $response->setError(401, 'invalid_grant');
-                sleep(2); // penalize skiddie
-            }
-            $response->send();    
-            die();    
+            $response->setError(401, 'invalid_grant');
+            sleep(2); // penalize skiddie
         }
+        $response->send();    
+        die();    
+    } // else code doesn't exist, will be treated by handleTokenRequest
+}
 
+if ( CHECK_CLIENT_IP AND @$_POST['grant_type'] !== "urn:ietf:params:oauth:grant-type:jwt-bearer" ) {   //[dnc14'']
+
+    //[dnc14] Check client IP if feasible. [dnc45f] By the way, mitigate "use authorization code twice" attack.                
+    if ( $code = @$_POST['code'] ) {       
+        // Authorization Code : $client_id has already been obtained
     } else if ( 
     ('client_credentials' == @$_POST['grant_type'] OR 'password' == @$_POST['grant_type'])  
     AND (bool)@$_SERVER['PHP_AUTH_USER']
