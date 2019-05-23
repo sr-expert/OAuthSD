@@ -272,7 +272,7 @@ $stmt->execute(compact('client_id'));
 $data = $stmt->fetch(\PDO::FETCH_ASSOC);
 
 /** Define subject (unique ID of end user), 
-* May be imposed by client or passed in query.
+* May be imposed by client, passed in query or recovered by SLI.
 * May be null at this step.
 */
 $sub = null; 
@@ -302,10 +302,14 @@ if ( $enable_sli AND !empty($slidata['sub']) ) {     //[dnc9] SLI
 // Store authenticated subject in session 
 $_SESSION['sub'] = $sub;
 
+//[dnc49] Determine time of actual authentication. It may be the SLI authtime. 
+$authtime = time();
+if ( @$slidata['authtime'] )   
+    $authtime = $slidata['authtime'];   //[dnc49]
 
 if ( empty($password) AND empty($grant) AND empty($return_from) ) { 
 
-    //////////////////////  Prepare authorisation forms  ///////////////////////
+    //////////////////////  Prepare authorization forms  ///////////////////////
     $theclient = ( empty($data['client_id'])? 'Unk' : htmlspecialchars($data['client_id']) );
     $id_client = (int)($data['id_client']);   // client unique ID in table clients
     $thename = ( empty($data['nom'])? 'Unk' : htmlspecialchars($data['nom']) );
@@ -349,8 +353,8 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
         } else {  
             // client has not changed, test subject connexion to current client.
             if ( ! $isconnected AND ! empty($sub) ) {
-                // if sub is defined, verify wheter subject is (was) already connected or not
-                $stmt = $cnx->prepare(sprintf('SELECT * FROM %s WHERE user_id=:sub AND client_id=:client_id ORDER BY expires DESC', $storage_config['access_token_table']));    //*****
+                // if sub is defined, verify whether subject is (was) already connected or not
+                $stmt = $cnx->prepare(sprintf('SELECT * FROM %s WHERE user_id=:sub AND client_id=:client_id ORDER BY expires DESC', $storage_config['access_token_table']));   
                 $stmt->execute(compact('client_id', 'sub'));
                 $authdata = $stmt->fetch(\PDO::FETCH_ASSOC);
                 //* verify access token not expired for more than SRA_REPARATION_TIME  + 1mn
@@ -362,26 +366,6 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
         // Store authenticated subject in session 
         $_SESSION['sub'] = $isconnected ? $sub : null;
     }
-
-    $isconnectednow = false;
-    // test subject for actual connexion to current client and compute times.       
-    if ( ! empty($client_id) AND ! empty($sub) ) {
-        // if sub is defined, verify wheter subject is connected or not
-        $stmt = $cnx->prepare(sprintf('SELECT * FROM %s WHERE user_id=:sub AND client_id=:client_id ORDER BY expires DESC', $storage_config['access_token_table']));    
-        $stmt->execute(compact('client_id', 'sub'));
-        $authdata = $stmt->fetch(\PDO::FETCH_ASSOC);
-        if ( $authdata ) {
-            //* verify access token not expired
-            $expire_time = strtotime($authdata['expires']);
-            $timeleft = $expire_time - time();   //[dnc28d]   le fuseau horaire du serveur doit être Z (UTC)!
-            $isconnectednow = (bool)( $timeleft > 0 );   
-            $true_auth_time = $expire_time - ACCESS_TOKEN_LIFETIME; //[dnc49]
-        } else 
-            $isconnectednow = false;
-
-    } else 
-        $isconnectednow = false;
-
 
     /* Start processing Authorization.
     Login/grant form is generated at authentification time by this server, not by the application. 
@@ -402,7 +386,20 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
         /* Never display any form  
         Disregard any other value in prompt list. OIDC specs says we should return an error.
         We will return immediately to caller, avoiding the redirection of Authorization Code Flow.
-        */    
+        */  
+
+        //* test subject for present connexion to current client.       
+        if ( ! empty($client_id) AND ! empty($sub) ) {
+        // if sub is defined, verify wheter subject is connected or not
+        $stmt = $cnx->prepare(sprintf('SELECT * FROM %s WHERE user_id=:sub AND client_id=:client_id ORDER BY expires DESC', $storage_config['access_token_table']));    
+        $stmt->execute(compact('client_id', 'sub'));
+        $authdata = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $expire_time = strtotime($authdata['expires']);
+        //* verify access token not expired
+        $timeleft = $expire_time - time();   //[dnc28d]   le fuseau horaire du serveur doit être Z (UTC)!
+        $isconnectednow = (bool)( $timeleft > 0 );   
+        } else 
+        $isconnectednow = false;  //*/
 
         //[dnc36] If CORS request, process it and respond to user-agent right now. 
         if ( cors_allow_known_client( $client_id, $response, $cnx ) ) {
@@ -410,7 +407,7 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
             if ( ! $isconnectednow ) {
                 // user is not connected, answer with code 401.
                 $response->setError(401, 'Unauthorized');
-            } // else subject is already connected, answer with code 200 and time left.
+            } // else subject is already connected, answer with code 200 and time left.            
             $response->addParameters(array('timeleft'=>$timeleft)); //[dnc28d]
             $response->send();
             die(); 
@@ -450,7 +447,7 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
                         'sub' => $slidata['sub'],           // value at last login time
                         'client_id' => $client_id,          // client_id might change
                         'ufp' => $slidata['ufp'],           // user fingerprint at last login time    //ufp
-                        'authtime' => $true_auth_time,      //[dnc49] keep time of real authentication
+                        'authtime' => $authtime,      //[dnc49] keep time of real authentication
                     );
 
                     $sub = $slidata['sub'];
@@ -685,13 +682,12 @@ if ( ! empty($password) OR 'login' == $return_from ) {
             $client_id = @$_SESSION['client_id'];  // get it from session, safer than from form 
             if ( !empty($client_id) ) {
                 // Create SLI Cookie
-                $true_auth_time = time(); //[dnc49] Make sure tokens and SLI Cookie have same authtime
                 $cookiedata = array(    
                     'sliID' => $sliID,   // sliID is the value of state at creation time
                     'sub' => $sub,       // value whose credential have been checked
                     'client_id' => $client_id,
                     'ufp' => compute_user_fingerprint($state), // user's fingerprint
-                    'authtime' => $true_auth_time,  //[dnc49]
+                    'authtime' => $authtime,  //[dnc49]
                 );
                 // send encoded SLI cookie to user-agent in server's domain
                 $jcookiedata = json_encode($cookiedata);
@@ -876,10 +872,10 @@ if ( ! empty($grant) OR 'grant' == $return_from ) {
 
 //////////////  End with redirection  ///////////////////
 
-if ( !is_null(@$true_auth_time) ) {  //[dnc49]
+if ( !empty(@$authtime) ) {  //[dnc49]
     $userInfo = array(
         'user_id' => $sub,
-        'auth_time' => $true_auth_time
+        'auth_time' => $authtime
     );
 } else {
     $userInfo = $sub;
