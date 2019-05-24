@@ -43,7 +43,7 @@ if ( !isset($_GET['error']) ) {
         $data = array(
             'response_type' => 'code',
             'client_id' => $client_id,
-            'scope' => 'openid sli privileges',        // granted scopes, must be in available scopes
+            'scope' => 'openid sli tfa privileges',        // granted scopes, must be in available scopes
             'state' => $state,
             //'prompt' => 'login', 
         );
