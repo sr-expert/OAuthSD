@@ -229,3 +229,4 @@ $reservedscopes = array(
 'privileges', //[dnc19]
 'tfa' //[dnc43b]
 ); //[dnc31]
+$supportedScopes = array_merge($supportedScopes,$reservedscopes);
