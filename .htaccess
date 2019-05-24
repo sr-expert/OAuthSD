@@ -7,12 +7,6 @@ RewriteCond %{SERVER_PORT} 80
 RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
 RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
 RewriteRule ^(.*)$ https://oa.dnc.global/$1 [QSA,L,R=301]
-    
-    # 2018/02/13 NON //j : Assurer www (pour que le sous-domaine static puisse être différencié par setcookie)
-    #RewriteCond %{HTTP_HOST} ^oa.dnc.global$
-    #RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
-    #RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-    #RewriteRule ^(.*) https://www.oa.dnc.global/$1  [QSA,L,R=301]
 
 # HTTP Strict Transport Security (HSTS)
 Header add Strict-Transport-Security "max-age=157680000; includeSubDomains"
