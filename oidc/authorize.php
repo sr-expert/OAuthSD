@@ -668,7 +668,9 @@ if ( ! empty($password) OR 'login' == $return_from ) {
         }   
     }
 
-    if ( $is_authorized AND LOGIN_WITH_TFA ) {
+    $scopes = explode(' ', $request->query('scope'));
+    $login_with_tfa = (LOGIN_WITH_TFA OR $scopes['tfa']);  //[dnc43c]
+    if ( $is_authorized AND $login_with_tfa ) {
         //[dnc43] Prompt user for Two Factors Authentication
         log_info("Authorize" ,"Display TFA form", $client_id, $sub, 190, 1, $cnx);
         $client_id = $_GET['client_id'];
@@ -676,7 +678,6 @@ if ( ! empty($password) OR 'login' == $return_from ) {
             // Display login form
             include './identification/' . TFA_PROVIDER . '/login.php'
         );    
-
     }
 
     if ( ENABLE_SLI OR FORCE_SLI) {  //[dnc48]
