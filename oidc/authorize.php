@@ -923,11 +923,10 @@ die();
 * @return : array of scopes or null 
 */
 function scopes_to_grant($scopes, $client_id) {
+    
+    global $reservedscopes;
 
     // Eliminate reserved scopes
-    /* //[dnc31] $Scope = new \OAuth2\Scope();     //*****
-    $reservedscopes = $Scope->getReservedScopes();    */
-    $reservedscopes = array('openid', 'offline_access', 'sli', 'kerberos', 'privileges'); //[dnc31]
     $scopes_to_retain = array();
     foreach ( $scopes as $thescope) {
         if ( ! in_array($thescope, $reservedscopes) ) {

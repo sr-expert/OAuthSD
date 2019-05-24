@@ -54,8 +54,8 @@ define ('REFRESH_TOKEN_LIFETIME', 2592000); // 30 jours
 ///// OPTIONS /////
 
 /** NEEDS_OPENID_SCOPE      
-* If true, all calls to Othaurize should have scope openid.
-* Setting this to true block Oauth native controllers.
+* If true, all calls to Authorize should have scope openid.
+* Setting this to true block Oauth 2.0 native controllers.
 */
 define('NEEDS_OPENID_SCOPE', false);     
 
@@ -175,7 +175,8 @@ define('PROMPT_DEFAULT_TO_CONSENT', true);
 define('DONT_PROMPT_FOR_ALREADY_GRANTED_SCOPE', true);
 
 /** [dnc43] Two Factors Authentication.
-*   If this is set to true, TFA will be presented to end user after login form.
+* TFA may be presented to end user if scope 'tfa' is present in the authorization request.
+* If this is set to true, TFA will always be presented to end user after login form.
 */
 define('LOGIN_WITH_TFA', false);
 /** [dnc43] Designate wich TFA provider will be used.
@@ -217,7 +218,14 @@ $supportedScopes = array(
     'email',
     'address',
     'phone',
-    'sli',    //[dnc9] est-ce utile ici ?
-    'kerberos', //[dnc12]
-    'privileges', //[dnc19]
 );
+
+// Reserved scopes
+$reservedscopes = array(
+'openid', 
+'offline_access', 
+'sli',       //[dnc9] est-ce utile ici ?
+'kerberos',  //[dnc12]
+'privileges', //[dnc19]
+'tfa' //[dnc43b]
+); //[dnc31]
