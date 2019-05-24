@@ -2,3 +2,5 @@
 /web/tmp/*
 /web/local/*
 **/sources/*
+*.log
+*.log
