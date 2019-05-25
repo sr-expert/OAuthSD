@@ -453,7 +453,7 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
                     // Re-create SLI Cookie
                     $tfa = ( !empty($slidata['tfa'])? $slidata['tfa'] : false );
                     $ufp = $slidata['ufp'];  // user fingerprint at last login time    //ufp
-                    create_sli_cookie( $slidata['sliID'], $sub, $client_id, $ufp, $authtime);
+                    $cookiedata = create_sli_cookie( $slidata['sliID'], $sub, $client_id, $ufp, $authtime);
 
                     // Continue with consent ?     
                     $continue_with_consent = false;       //[dnc24]
@@ -670,8 +670,8 @@ if ( ! empty($password) OR 'login' == $return_from ) {
             // Display login form
             include './identification/' . TFA_PROVIDER . '/login.php'
         );    
+    
     } else {  //[dnc52]
-
         if ( ENABLE_SLI OR FORCE_SLI) {  //[dnc48]
             //[dnc9] Create (or destroy) SLI cookie  (we may die there)
             createOrDestroySLIcookie($cnx, $response, $is_authorized, $sliID, $sub, $client_id, $state, $authtime, $trace);
@@ -766,6 +766,7 @@ if ( '2fa' == $return_from ) {
 
     if ( ENABLE_SLI OR FORCE_SLI) {  //[dnc48][dnc52]
         //[dnc9] Create (or destroy) SLI cookie  (we may die there)
+        $tfa = ( $is_authorized? 2 : false );  // Keep tfa value in accordance with acr_values 
         createOrDestroySLIcookie($cnx, $response, $is_authorized, $sliID, $sub, $client_id, $state, $authtime, $trace, $tfa);
     }
 
@@ -951,6 +952,8 @@ function create_sli_cookie( $sliID, $sub, $client_id, $ufp, $authtime, $tfa=null
     // send encoded SLI cookie to user-agent in server's domain
     $jcookiedata = json_encode($cookiedata);
     send_private_encoded_cookie('sli', $jcookiedata, SLI_COOKIE_LIFETIME);
+    
+    return $cookiedata;
 
 }
 
