@@ -11,7 +11,7 @@ Copyright (c) 2018 DnC
 All rights reserved
 */
 
-DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG
+//DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG
 
 // La demande de déconnexion centralisée (Single LogOut, SLO) commence comme l'introspection.
 
@@ -154,7 +154,7 @@ if ( ! $error ) {
                 }  
             } //*/   
 
-        }
+        } // else ???
 
         // Effacer tous les jetons d'accès du sujet
         $sub = $jwt['sub']; 
