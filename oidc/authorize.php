@@ -669,7 +669,7 @@ if ( ! empty($password) OR 'login' == $return_from ) {
     }
 
     $scopes = explode(' ', $request->query('scope'));
-    $login_with_tfa = (LOGIN_WITH_TFA OR $scopes['tfa']);  //[dnc43c]
+    $login_with_tfa = ( LOGIN_WITH_TFA OR in_array('tfa', $scopes, true) );  //[dnc43c]
     if ( $is_authorized AND $login_with_tfa ) {
         //[dnc43] Prompt user for Two Factors Authentication
         log_info("Authorize" ,"Display TFA form", $client_id, $sub, 190, 1, $cnx);
