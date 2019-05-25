@@ -183,10 +183,27 @@ define('LOGIN_WITH_TFA', false);
 * Enter name of directory in /oidc/identification/ where are TFA scripts.
 */
 define('TFA_PROVIDER', 'gangsta');  // 'gangsta', ... (nothing else for now).
-/* Nom du serveur à passer à getQRCodeGoogleUrl. 
-Sera affiché sous le QR-Code.
+/** Nom du serveur à passer à getQRCodeGoogleUrl. 
+* Sera affiché sous le QR-Code.
 */
 define('TFA_VISIBLE_APPNAME','OAuthSD Server');
+
+/** [dnc51] Two Factors Authentication with OVH SMS API
+* 2FA SMS may be presented to end user if scope 'sms' is present in the authorization request.
+* If this is set to true, 2FA SMS will always be presented to end user after login form.
+*/
+define('LOGIN_WITH_SMS', false);
+
+/** Obtain credential from :
+* https://api.ovh.com/createToken/index.cgi?GET=/sms&GET=/sms/*&PUT=/sms/*&DELETE=/sms/*&POST=/sms/
+*/
+define('OVHSMSAPI_APPLICATIONKEY','Dfh5WUMbon91xtC1');
+define('OVHSMSAPI_APPLICATIONSECRET','4P2sPbiQygc6JMtXB1F3phAfs2wmD8ca');
+define('OVHSMSAPI_CONSUMER_KEY','YXBD9wjslgIpMx5DKQIgoLvA9L2vqb33');
+
+/** OVH SMS API End point.
+*/
+define('OVHSMSAPI_ENDPOINT','ovh-eu');
 
 
 //// NO CHANGE NEEDED ////

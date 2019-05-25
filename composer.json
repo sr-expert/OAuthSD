@@ -1,9 +1,12 @@
 {
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "bshaffer/oauth2-server-php": "~1.8",
         "defuse/php-encryption": "^2.0",
         "phpgangsta/googleauthenticator": "dev-master",
-        "ovh/ovh": "dev-master"
+        "ovh/ovh": "~2.0.1",
+        "ovh/php-ovh-sms": "dev-master"
     },
     "autoload": {
         "php-encryption": {"Defuse\\": "src/"}
