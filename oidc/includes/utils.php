@@ -139,7 +139,7 @@ function destroy_all_session_data() {
     */
     if (!empty($_COOKIE)) {
         foreach($_COOKIE as $name => $cookie) {
-            if ( $name !== 'DBGSESSID') {   // keep this one
+            if ( $name !== 'DBGSESSID' AND $name !== 'granted_scopes' ) {   //[dnc53] keep this two
                 discard_cookie($name);
             }
         }
