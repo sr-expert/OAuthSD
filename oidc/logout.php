@@ -11,7 +11,7 @@ Copyright (c) 2018 DnC
 All rights reserved
 */
 
-//DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG
+DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG
 
 // La demande de déconnexion centralisée (Single LogOut, SLO) commence comme l'introspection.
 
@@ -106,7 +106,7 @@ if ( ! $payload = $jwtUtil->decode($undecodedJWT, $keyinfo['public_key'], $keyin
 if ( !empty($payload) ) {
     // Verify validity of token
 
-    if ( $payload['iss'] != $_SERVER['HTTP_HOST']) {  //[dnc45]
+    if ( $payload['iss'] != OIDC_SERVER_URL) {  //[dnc45a]
         $error = 'JWT has wrong iss ' ;
         $weight = 500;
     }

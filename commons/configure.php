@@ -17,7 +17,7 @@ ini_set('display_errors',1);error_reporting(E_ALL);
 define('DEBUG',true); // DEBUG
 
 define('OIDC_SERVER_DOMAIN', 'oa.dnc.global');     // oa.dnc.global, oidc.intergros.com
-define('OIDC_SERVER_URL', 'https://' . OIDC_SERVER_DOMAIN );     // https://oa.dnc.global, https://oidc.intergros.com
+define('OIDC_SERVER_URL', 'https://' . OIDC_SERVER_DOMAIN );     // https://oa.dnc.global, https://oidc.intergros.com  //[dnc45a]
 
 
 //[dnc9] Client ID du serveur vu comme une application cliente. 
