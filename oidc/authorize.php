@@ -395,16 +395,16 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
 
         //* test subject for present connexion to current client.       
         if ( ! empty($client_id) AND ! empty($sub) ) {
-        // if sub is defined, verify wheter subject is connected or not
-        $stmt = $cnx->prepare(sprintf('SELECT * FROM %s WHERE user_id=:sub AND client_id=:client_id ORDER BY expires DESC', $storage_config['access_token_table']));    
-        $stmt->execute(compact('client_id', 'sub'));
-        $authdata = $stmt->fetch(\PDO::FETCH_ASSOC);
-        $expire_time = strtotime($authdata['expires']);
-        //* verify access token not expired
-        $timeleft = $expire_time - time();   //[dnc28d]   le fuseau horaire du serveur doit être Z (UTC)!
-        $isconnectednow = (bool)( $timeleft > 0 );   
+            // if sub is defined, verify wheter subject is connected or not
+            $stmt = $cnx->prepare(sprintf('SELECT * FROM %s WHERE user_id=:sub AND client_id=:client_id ORDER BY expires DESC', $storage_config['access_token_table']));    
+            $stmt->execute(compact('client_id', 'sub'));
+            $authdata = $stmt->fetch(\PDO::FETCH_ASSOC);
+            $expire_time = strtotime($authdata['expires']);
+            //* verify access token not expired
+            $timeleft = $expire_time - time();   //[dnc28d]   le fuseau horaire du serveur doit être Z (UTC)!
+            $isconnectednow = (bool)( $timeleft > 0 );   
         } else 
-        $isconnectednow = false;  //*/
+            $isconnectednow = false;  //*/
 
         //[dnc36] If CORS request, process it and respond to user-agent right now. 
         if ( cors_allow_known_client( $client_id, $response, $cnx ) ) {
@@ -441,27 +441,19 @@ if ( empty($password) AND empty($grant) AND empty($return_from) ) {
         if ( empty($prompt) ) {
 
             //[dnc9]
-            if ( $enable_sli ) {   
+            if ( $enable_sli ) {
+
+                $sub = $slidata['sub'];
+                // Store authenticated subject in session ???
+                $_SESSION['sub'] = $sub;   
 
                 // When SLI cookie verified and SLI allowed by client
                 if ( $isconnected ) {
                     // if subject is (was) already connected, extend SLI cookie. This makes SRA too !
-                    // Refresh SLI Cookie
-                    $cookiedata = array(    
-                        'sliID' => $slidata['sliID'],       // sliID is state at last login time
-                        'sub' => $slidata['sub'],           // value at last login time
-                        'client_id' => $client_id,          // client_id might change
-                        'ufp' => $slidata['ufp'],           // user fingerprint at last login time    //ufp
-                        'authtime' => $authtime,            //[dnc49] keep time of real authentication
-                    );
-
-                    $sub = $slidata['sub'];
-                    // Store authenticated subject in session 
-                    $_SESSION['sub'] = $sub;
-
-                    // Send encoded SLI cookie to user-agent in server's domain
-                    $jcookiedata = json_encode($cookiedata);
-                    send_private_encoded_cookie('sli', $jcookiedata, SLI_COOKIE_LIFETIME);
+                    // Re-create SLI Cookie
+                    $tfa = ( !empty($slidata['tfa'])? $slidata['tfa'] : false );
+                    $ufp = $slidata['ufp'];  // user fingerprint at last login time    //ufp
+                    create_sli_cookie( $slidata['sliID'], $sub, $client_id, $ufp, $authtime);
 
                     // Continue with consent ?     
                     $continue_with_consent = false;       //[dnc24]
@@ -678,69 +670,21 @@ if ( ! empty($password) OR 'login' == $return_from ) {
             // Display login form
             include './identification/' . TFA_PROVIDER . '/login.php'
         );    
+    } else {  //[dnc52]
+
+        if ( ENABLE_SLI OR FORCE_SLI) {  //[dnc48]
+            //[dnc9] Create (or destroy) SLI cookie  (we may die there)
+            createOrDestroySLIcookie($cnx, $response, $is_authorized, $sliID, $sub, $client_id, $state, $authtime, $trace);
+
+        } // Note that, if we have a SLI cookie with client not allowing SLI, we keep the cookie for other clients.
     }
-
-    if ( ENABLE_SLI OR FORCE_SLI) {  //[dnc48]
-        //[dnc9] Create (or destroy) SLI cookie  
-
-        if ( $is_authorized ) {
-
-            $client_id = @$_SESSION['client_id'];  // get it from session, safer than from form 
-            if ( !empty($client_id) ) {
-                // Create SLI Cookie
-                $cookiedata = array(    
-                    'sliID' => $sliID,   // sliID is the value of state at creation time
-                    'sub' => $sub,       // value whose credential have been checked
-                    'client_id' => $client_id,
-                    'ufp' => compute_user_fingerprint($state), // user's fingerprint
-                    'authtime' => $authtime,  //[dnc49]
-                );
-                // send encoded SLI cookie to user-agent in server's domain
-                $jcookiedata = json_encode($cookiedata);
-                send_private_encoded_cookie('sli', $jcookiedata, SLI_COOKIE_LIFETIME);
-
-                log_info("Authorize" ,"SLI successful : cookie created - client = " . $client_id . " sub = " . $sub, $client_id, $sub, 156, -10, $cnx);   
-
-                if ( DEBUG ) {    
-                    $trace .= '----- New SLI Cookie -----' . "<br />";
-                    $trace .= 'cookie data : ' . print_r($cookiedata,true) . "<br /><br />";    
-                }
-
-            } else {
-                log_error("Authorize" ,"SLI error : null client ID : cookie destroyed", $client_id, $sub, 157, 100, $cnx);
-                // Destroy all session data
-                destroy_all_session_data();
-                // die with error
-                if ( DEBUG) {
-                    $response->setError(400,'Bad Request', 'SLI error : null client ID');
-                    $trace .= '----- SLI Cookie destroyed (case 1) -----' . "<br /><br />";    
-                } else {
-                    $response->setError(400,'Bad Request');
-                    sleep(10); // penalize skiddie
-                }
-                $response->send();
-                die(); 
-            }
-
-        } else {
-
-            log_info("Authorize" ,"SLI : client was not connected : cookie destroyed", $client_id, $sub, 158, 10, $cnx);
-            // Destroy all session data
-            destroy_all_session_data();
-            // die with error 
-
-            if ( DEBUG ) {
-                $trace .= '----- SLI Cookie destroyed (case 2) -----' . "<br /><br />";   
-            }
-        }
-
-    } // Note that, if we have a SLI cookie with client not allowing SLI, we keep the cookie for other clients.
 
     if ( $is_authorized ) {
         log_success("Authorize" ,"Success - client = " . $client_id . " sub = " . $sub, $client_id, $sub, 159, -10, $cnx);    
         // PRTG
         if( PRTG ) oidc_increment('authentications');             
     }
+
 
 } // End Return from Login form
 
@@ -818,6 +762,11 @@ if ( '2fa' == $return_from ) {
             // Redirect with error
             log_error("Authorize" ,$error, $client_id, $sub, 195, 10, $cnx);
         }   
+    } 
+
+    if ( ENABLE_SLI OR FORCE_SLI) {  //[dnc48][dnc52]
+        //[dnc9] Create (or destroy) SLI cookie  (we may die there)
+        createOrDestroySLIcookie($cnx, $response, $is_authorized, $sliID, $sub, $client_id, $state, $authtime, $trace, $tfa);
     }
 
     if ( $is_authorized ) {
@@ -914,6 +863,97 @@ die();
 
 ////////////////////////////////  Utilities  ///////////////////////////////////
 
+/** [dnc9]
+* Create (or destroy) SLI cookie
+* 
+* @param mixed $cnx
+* @param mixed $response
+* @param mixed $is_authorized
+* @param mixed $sliID
+* @param mixed $sub
+* @param mixed $client_id
+* @param mixed $state
+* @param mixed $authtime
+* @param boolean $tfa  Not False if authenticated with TFA. May be numeric in accordance with acr_values.
+* 
+* We may die there !
+*/
+
+function createOrDestroySLIcookie($cnx, $response, $is_authorized, $sliID, $sub, $client_id, $state, $authtime, $trace, $tfa=false) {
+
+    if ( $is_authorized ) {
+
+        // Create SLI cookie
+        $client_id = @$_SESSION['client_id'];  // get it from session, safer than from form 
+        if ( !empty($client_id) ) {
+            // Create SLI Cookie
+            $ufp = compute_user_fingerprint($state); // user's fingerprint
+            create_sli_cookie( $sliID, $sub, $client_id, $ufp, $authtime, $tfa); //[dnc52]
+
+            log_info("Authorize" ,"SLI successful : cookie created - client = " . $client_id . " sub = " . $sub, $client_id, $sub, 156, -10, $cnx);   
+            if ( DEBUG ) {    
+                $trace .= '----- New SLI Cookie -----' . "<br />";
+                $trace .= 'cookie data : ' . print_r($cookiedata,true) . "<br /><br />";    
+            }
+
+        } else {
+            log_error("Authorize" ,"SLI error : null client ID : cookie destroyed", $client_id, $sub, 157, 100, $cnx);
+            // Destroy all session data
+            destroy_all_session_data();
+            // die with error
+            if ( DEBUG) {
+                $response->setError(400,'Bad Request', 'SLI error : null client ID');
+                $trace .= '----- SLI Cookie destroyed (case 1) -----' . "<br /><br />";    
+            } else {
+                $response->setError(400,'Bad Request');
+                sleep(10); // penalize skiddie
+            }
+            $response->send();
+            die(); 
+        }
+
+    } else {
+        // Destroy all and die !
+        log_info("Authorize" ,"SLI : client was not connected : cookie destroyed", $client_id, $sub, 158, 10, $cnx);
+        // Destroy all session data
+        destroy_all_session_data();
+        // die with error 
+
+        if ( DEBUG ) {
+            $trace .= '----- SLI Cookie destroyed (case 2) -----' . "<br /><br />";   
+        }
+    }
+}
+
+/**
+* Create SLI Cookie
+* 
+* @param mixed $sliID
+* @param mixed $sub
+* @param mixed $client_id
+* @param mixed $state
+* @param mixed $authtime
+* @param boolean $tfa  Not False if authenticated with TFA. May be numeric in accordance with acr_values.
+*/
+function create_sli_cookie( $sliID, $sub, $client_id, $ufp, $authtime, $tfa=null ) {
+
+    $cookiedata = array(    
+        'sliID' => $sliID,   // sliID is the value of state at creation time
+        'sub' => $sub,       // value whose credential have been checked
+        'client_id' => $client_id,
+        'ufp' => $ufp, // user's fingerprint
+        'authtime' => $authtime,  //[dnc49]
+    );
+    $tfa = ( !empty($slidata['tfa'])? $slidata['tfa'] : false );
+    if ( $tfa )    //[dnc52]
+        $cookiedata['tfa'] = $tfa;
+
+    // send encoded SLI cookie to user-agent in server's domain
+    $jcookiedata = json_encode($cookiedata);
+    send_private_encoded_cookie('sli', $jcookiedata, SLI_COOKIE_LIFETIME);
+
+}
+
 /** [dnc24]
 * Après avoir éliminé les scopes réservés, la fonction examine si les scopes 
 * demandés ont déjà été consentis au cours de la session de l'utilisateur final.
@@ -924,7 +964,7 @@ die();
 * @return : array of scopes or null 
 */
 function scopes_to_grant($scopes, $client_id) {
-    
+
     global $reservedscopes;
 
     // Eliminate reserved scopes
