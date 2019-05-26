@@ -171,21 +171,6 @@ if ( !empty($payload) ) {
 
 } 
 
-/*
-//[dnc8] If JWT has nonce, Check User's FingerPrint ( don't say we are processing nonce ! )
-If ( CHECK_NONCE_AS_UFP ) {        //ufp
-if ( isset($payload['nonce']) ) {
-$posted_ufp = $payload['nonce'];
-// compute actual finger
-$actual_ufp = compute_user_fingerprint($payload['sliID']);   //[dnc9]
-if ( ! hash_equals($posted_ufp, $actual_ufp) ) {
-$error = 'Bad user fingerprint';    
-}
-
-} 
-}//*/
-
-
 if ( DEBUG ) {
     $fp = fopen('./debug.txt', 'a');                  
     fwrite($fp, '-------- introspect.php : 5 -----------' . "\n");
