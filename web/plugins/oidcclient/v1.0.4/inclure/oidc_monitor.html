@@ -12,10 +12,11 @@ Copyright (c) 2019 B.Degoy
 <?php
 
 /**
-* Déterminer le login OIDC. Celui-ci peut-être différent du login SPIP. 
-* Dans ce cas, le login OIDC est précisé dans la table spip_auteurs. 
+* Determiner le login OIDC. Celui-ci peut etre different du login SPIP. 
+* Dans ce cas, le login OIDC est precise dans la table spip_auteurs. 
 */
-$loginspip = @$GLOBALS['visiteur_session']['login'];
+include_spip('inc/session');
+$loginspip = session_get('login');
 $l = sql_quote($loginspip, '', 'text');
 $loginoidc = sql_getfetsel('oidc', 'spip_auteurs',
     "statut<>'5poubelle'" .
@@ -24,6 +25,9 @@ if ( empty($loginoidc) ) $loginoidc = $loginspip;
 $nom_auteur = sql_getfetsel('nom', 'spip_auteurs',
     "statut<>'5poubelle'" .
     " AND login<>'' AND login=$l");
+
+$loggedbyoidc = (bool)session_get('loggedby');  //[dnc54]
+
 ?>
 
 <script>
@@ -39,6 +43,8 @@ $nom_auteur = sql_getfetsel('nom', 'spip_auteurs',
     '<br/>' . _T('oidcclient:login_oidc_court') . ' : ' .  $loginoidc . 
     '<br/>' . _T('oidcclient:nom_auteur') . ' : ' .  $nom_auteur;   
     ?>
+    var loggedbyoidc = true;
+    loggedbyoidc = "<?php echo $loggedbyoidc; ?>";
     var login = "<?php echo $loginoidc; ?>";
     var state = "<?php echo @$GLOBALS['visiteur_session']['state']; ?>";
     var url_logout = "<?php echo '?action=logout&url=' . $GLOBALS['REQUEST_URI']; ?>";
@@ -58,14 +64,14 @@ $nom_auteur = sql_getfetsel('nom', 'spip_auteurs',
 
         // Ajouter l'etiquette si elle n'existe pas
         if($('#oidc').length === 0){
-            $('<div id="oidc"><span id="oidctag">&nbsp;OIDC&nbsp;</span><span id="oidcinfo">&nbsp;?&nbsp;</span></div>')
+            $('<div id="oidc"><span id="oidctag">&nbsp;OIDC&nbsp;</span><span id="oidcinfo"></span></div>')
             .appendTo(tagappendto);
             //
             $('#oidc')
             .css('position','absolute')
             .css('top',tagtop)
             .css('left',tagleft);
-            //
+            // 
             $('#oidctag')
             .attr('title','<?php echo "<:oidcclient:tooltip_oidctag:>"; ?>')
             .css('color','white')
@@ -88,28 +94,31 @@ $nom_auteur = sql_getfetsel('nom', 'spip_auteurs',
                 }; 
             });
             //
-            $('#oidcinfo')
-            .attr('title','<?php echo "<:oidcclient:tooltip_oidcinfo:>"; ?>') 
-            .css('color','white')
-            .css('padding','3px')
-            .css('z-index','10001')
-            .css('background-color','#09f')
-            .on('click', function(){
-                $('<div id="infodialog"></div>').appendTo('body')
-                .html('<div><h6>'+ infos +'<br/><?php echo _T('oidcclient:t_session_restant'); ?> : ' + timeleft + ' s<br/><?php echo _T('oidcclient:delai_reponse'); ?> : ' + responseDelay +' ms</h6></div>')
-                .dialog({
-                    modal: true, title: "<?php echo _T('oidcclient:infos_titre'); ?>", zIndex: 10000, autoOpen: true,
-                    width: 'auto', resizable: false,
-                    close: function (event, ui) {
-                        $(this).remove();
-                        interval = setInterval(pollOidc,pollperiod);
-                    }
+            if ( loggedbyoidc ) {
+                $('#oidcinfo')
+                .html('&nbsp;?&nbsp;')
+                .attr('title','<?php echo "<:oidcclient:tooltip_oidcinfo:>"; ?>') 
+                .css('color','white')
+                .css('padding','3px')
+                .css('z-index','10001')
+                .css('background-color','#09f')
+                .on('click', function(){
+                    $('<div id="infodialog"></div>').appendTo('body')
+                    .html('<div><h6>'+ infos +'<br/><?php echo _T('oidcclient:t_session_restant'); ?> : ' + timeleft + ' s<br/><?php echo _T('oidcclient:delai_reponse'); ?> : ' + responseDelay +' ms</h6></div>')
+                    .dialog({
+                        modal: true, title: "<?php echo _T('oidcclient:infos_titre'); ?>", zIndex: 10000, autoOpen: true,
+                        width: 'auto', resizable: false,
+                        close: function (event, ui) {
+                            $(this).remove();
+                            interval = setInterval(pollOidc,pollperiod);
+                        }
+                    });
                 });
-            });     
+            }     
         }
 
         // Si on est loge localement, surveiller qu'on l'est egalement sur OIDC
-        if ( login !== "" ) {
+        if ( login !== "" && loggedbyoidc ) {
             pollOidc();
             interval = setInterval(pollOidc,pollperiod);
 
@@ -239,6 +248,13 @@ $nom_auteur = sql_getfetsel('nom', 'spip_auteurs',
                     'prompt' : 'none',
                 },
                 statusCode : {
+                    400 : function(){
+                        connected = 0;
+                        var d = new Date();
+                        timeStop = d.getTime();
+                        // Non authentifie sur OIDC, deconnecter localement
+                        window.location.replace(url_logout +"&logout=local");
+                    },
                     401 : function(){
                         connected = 0;
                         var d = new Date();
@@ -247,18 +263,24 @@ $nom_auteur = sql_getfetsel('nom', 'spip_auteurs',
                         window.location.replace(url_logout +"&logout=local");
                     },
                     200 : function ( data, textStatus, jqXHR){
-                        connected = 1;
                         var d = new Date();
                         timeStop = d.getTime();
-                        // Signaler la connexion 
-                        $('#oidctag').css('background-color', '#8f8');
                         $('#oidctag').text(' OIDC ');
                         timeleft = data['timeleft'];
-                        if ( timeleft != 0 && timeleft < 600 ) {  //[dnc28d]
-                            // La fin de session approche
-                            clearInterval(interval); 
-                            ExtendDialog("<?php echo _T('oidcclient:session_expire'); ?>");
-                            interval = setInterval(pollOidc,pollperiod);
+                        if ( typeof timeleft === 'undefined' ) {  //[dnc54b]
+                            connected = 0;
+                            // Signaler l'erreur 
+                            $('#oidctag').css('background-color', 'red');  
+                        } else {
+                            connected = 1;
+                            // Signaler la connexion 
+                            $('#oidctag').css('background-color', '#8f8');
+                            if ( timeleft != 0 && timeleft < 600 ) {  //[dnc28d]
+                                // La fin de session approche
+                                clearInterval(interval); 
+                                ExtendDialog("<?php echo _T('oidcclient:session_expire'); ?>");
+                                interval = setInterval(pollOidc,pollperiod);
+                            }
                         }
                     },
                 },
