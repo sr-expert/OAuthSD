@@ -16,16 +16,17 @@ $time_start = microtime(true);
 $client_id = 'essai2';
 $client_secret = 'qsDr43!Ml@';
 
-$oidc_server = 'oa.dnc.global';
-$authorization_endpoint = 'https://' . $oidc_server . '/authorize';
-$token_endpoint = 'https://' . $oidc_server . '/token';
-$introspection_endpoint = 'https://' . $oidc_server . '/introspect'; 
-$userinfo_endpoint = 'https://' . $oidc_server . '/userinfo';
+$server = 'oa.dnc.global';
+$authorization_endpoint = 'https://' . $server . '/authorize';
+$token_endpoint = 'https://' . $server . '/token';
+$introspection_endpoint = 'https://' . $server . '/introspect'; 
+$userinfo_endpoint = 'https://' . $server . '/userinfo';
 
 define('PRIVATE', true);
-require_once __DIR__.'/../../oidc/../../commons/configure_oidc.php'; 
+require_once __DIR__.'/../../commons/configure_oidc.php'; 
 require_once __DIR__.'/../../oidc/includes/server.php';     
 require_once __DIR__.'/../../oidc/includes/utils.php';
+
 
 //*** End of configuration ***
 
