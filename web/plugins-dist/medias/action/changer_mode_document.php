@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -18,7 +18,7 @@ if (!defined("_ECRIRE_INC_VERSION")) {
 /**
  * Cette action permet de basculer du mode image au mode document et vice versa
  *
- * http://code.spip.net/@action_changer_mode_document_dist
+ * https://code.spip.net/@action_changer_mode_document_dist
  *
  * @param int $id_document
  * @param string $mode
@@ -45,7 +45,7 @@ function action_changer_mode_document_dist($id_document = null, $mode = null) {
 	}
 }
 
-// http://code.spip.net/@action_changer_mode_document_post
+// https://code.spip.net/@action_changer_mode_document_post
 function action_changer_mode_document_post($id_document, $mode) {
 	// - id_document le doc a modifier
 	// - mode le mode a lui donner

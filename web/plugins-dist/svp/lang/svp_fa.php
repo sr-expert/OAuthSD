@@ -1,6 +1,6 @@
 <?php
 // This is a SPIP language file  --  Ceci est un fichier langue de SPIP
-// extrait automatiquement de http://trad.spip.net/tradlang_module/svp?lang_cible=fa
+// extrait automatiquement de https://trad.spip.net/tradlang_module/svp?lang_cible=fa
 // ** ne pas modifier le fichier **
 
 if (!defined('_ECRIRE_INC_VERSION')) {
@@ -112,7 +112,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_admin_plugin_verrou_non' => 'اين صفحه تمام پلاگين‌هاي قفل‌نشده‌ي سايت، فعال يا غيرفعال را فهرست مي‌كند. ',
 	'info_admin_plugin_verrou_tous' => 'اين صفحه تمام پلاگين‌هاي سايت را فهرست مي‌كند.',
 	'info_admin_plugin_verrouille' => 'اين صفحه پلاگين‌هاي فعال و قفل شده را فهرست مي‌كند (قرار گرفته در پوشه‌ي <code>@dir_plugins_dist@</code>).
-اگر مايليد آن‌ها را غيرفعال كنيد لطفاً با وب مستر سايت تماس بگيريد، يا به  <a href="http://programmer.spip.org/repertoire_plugins_dist">à la documentation</a> گزارش كنيد. ', # MODIF
+اگر مايليد آن‌ها را غيرفعال كنيد لطفاً با وب مستر سايت تماس بگيريد، يا به  <a href="https://programmer.spip.net/repertoire_plugins_dist">à la documentation</a> گزارش كنيد. ', # MODIF
 	'info_adresse_spipzone' => 'SPIP-Zone - Plugins',
 	'info_ajouter_depot' => 'در جريان افزودن مخازن به پايگاه خود، امكان كسب اطلاعات و جستجو روي تمام پاكت‌هاي ذخيره شده به وسيله‌ي مخازن افزوده شده را خواهيد داشت. يك مخزن به وسيله‌ي يك پرونده‌ي ايكس.ام.ال نوشته شده كه شامل تمام اطلاعات در مورد مخزن و تمام پاكت‌هاي آن است. ‌ ',
 	'info_aucun_depot' => 'هيچ مخزن',

@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -227,7 +227,7 @@ function calculer_visites($t) {
 								array(
 									'visites' => $num,
 									'visites_jour' => $num,
-									'visites_veille' => $num,
+									'visites_veille' => 0,
 									'date' => $date,
 									'referer' => $referer,
 									'referer_md5' => $referer_md5

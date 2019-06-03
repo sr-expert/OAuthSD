@@ -16,10 +16,10 @@
 					<label for="xml_paquets"><:svp:label_xml_depot:></label>
 					<p class="explication">
 						<:svp:info_fichier_depot:>
-						<a class="spip_out" title="<:svp:bulle_ajouter_spipzone:>" href="http://plugins.spip.net/depots/principal.xml" onclick="$('#xml_paquets').attr('value',$(this).attr('href')).focus();return false;"><:svp:info_adresse_spipzone:></a>
+						<a class="spip_out" title="<:svp:bulle_ajouter_spipzone:>" href="https://plugins.spip.net/depots/principal.xml" onclick="$('#xml_paquets').attr('value',$(this).attr('href')).focus();return false;"><:svp:info_adresse_spipzone:></a>
 					</p>
 					[<span class="erreur_message">(#ENV{erreurs}|table_valeur{xml_paquets})</span>]
-					<input type="text" name="xml_paquets" id="xml_paquets" value="[http://plugins.spip.net/depots/principal.xml(#VAL{depot}|svp_compter|table_valeur{depot}|=={0}|oui)]" class="text" />
+					<input type="text" name="xml_paquets" id="xml_paquets" value="[https://plugins.spip.net/depots/principal.xml(#VAL{depot}|svp_compter|table_valeur{depot}|=={0}|oui)]" class="text" />
 				</div>
 			</div>
 	

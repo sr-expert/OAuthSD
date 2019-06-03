@@ -1,6 +1,6 @@
 <?php
 // This is a SPIP language file  --  Ceci est un fichier langue de SPIP
-// extrait automatiquement de http://trad.spip.net/tradlang_module/svp?lang_cible=en
+// extrait automatiquement de https://trad.spip.net/tradlang_module/svp?lang_cible=en
 // ** ne pas modifier le fichier **
 
 if (!defined('_ECRIRE_INC_VERSION')) {
@@ -113,7 +113,7 @@ is not created or is not writable.
 	'info_admin_plugin_verrou_non' => 'This page lists all unlocked plugins of the site, active or not.',
 	'info_admin_plugin_verrou_tous' => 'This page lists all the plugins of the website.',
 	'info_admin_plugin_verrouille' => 'This page lists the active and locked plugins (stored in the <code>@dir_plugins_dist@</code> directory). 
-	If you wish to disable them, please contact the webmaster of the site or see <a href="http://programmer.spip.net/repertoire_plugins-dist">the documentation</a>.',
+	If you wish to disable them, please contact the webmaster of the site or see <a href="https://programmer.spip.net/repertoire_plugins-dist">the documentation</a>.',
 	'info_adresse_spipzone' => 'SPIP-Zone - Plugins',
 	'info_ajouter_depot' => 'By adding repositories to your base, you will have the possibility to get information and to search on all packages hosted by the added repositories.<br />A repository is described by an XML file containing the informations on the deposit and on all its packages.',
 	'info_aucun_depot' => 'No repository',

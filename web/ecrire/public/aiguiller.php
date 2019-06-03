@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -194,6 +194,19 @@ function traiter_formulaires_dynamiques($get = false) {
 		include_spip('public/parametrer');
 		// ainsi que l'API SQL bien utile dans verifier/traiter
 		include_spip('base/abstract_sql');
+
+		/**
+		 * Pipeline exécuté lors de la soumission d'un formulaire,
+		 * mais avant l'appel de la fonction de vérification.
+		 */
+		pipeline(
+			'formulaire_receptionner',
+			array(
+				'args' => array('form' => $form, 'args' => $args),
+				'data' => null,
+			)
+		);
+
 		$verifier = charger_fonction("verifier", "formulaires/$form/", true);
 		$post["erreurs_$form"] = pipeline(
 			'formulaire_verifier',

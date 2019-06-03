@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -35,8 +35,8 @@ include_spip('inc/forum');
  * de référence est OK, la liste des mots-clés est alors proposée.
  *
  * @balise
- * @link http://www.spip.net/3969 Balise `#FORMULAIRE_FORUM`
- * @link http://www.spip.net/1827 Les formulaires
+ * @link https://www.spip.net/3969 Balise `#FORMULAIRE_FORUM`
+ * @link https://www.spip.net/1827 Les formulaires
  * @example
  *     ```
  *     #FORMULAIRE_FORUM seul calcule (objet, id_objet) depuis la boucle parente

@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -71,7 +71,7 @@ function suivre_lien($url, $lien) {
 	if (preg_match(',^(mailto|javascript|data):,iS', $lien)) {
 		return $lien;
 	}
-	if (preg_match(';^((?:[a-z]{3,7}:)?//.*?)(/.*)?$;iS', $lien, $r)) {
+	if (preg_match(';^((?:[a-z]{3,33}:)?//.*?)(/.*)?$;iS', $lien, $r)) {
 		$r = array_pad($r, 3, null);
 
 		return $r[1] . resolve_path($r[2]);
@@ -142,6 +142,24 @@ function url_absolue($url, $base = '') {
  */
 function protocole_implicite($url_absolue) {
 	return preg_replace(";^[a-z]{3,7}://;i", "//", $url_absolue);
+}
+
+/**
+ * Verifier qu'une url est absolue et que son protocole est bien parmi une liste autorisee
+ * @param string $url_absolue
+ * @param array $protocoles_autorises
+ * @return bool
+ */
+function protocole_verifier($url_absolue, $protocoles_autorises = array('http','https')) {
+
+	if (preg_match(';^([a-z]{3,7})://;i', $url_absolue, $m)) {
+		$protocole = $m[1];
+		if (in_array($protocole, $protocoles_autorises)
+		  or in_array(strtolower($protocole), array_map('strtolower', $protocoles_autorises))) {
+			return true;
+		}
+	}
+	return false;
 }
 
 /**

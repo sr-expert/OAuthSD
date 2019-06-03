@@ -40,18 +40,11 @@
 				]<textarea name='descriptif' id='descriptif'[ lang='(#LANGUE)'] rows='2' cols='40'>[(#ENV**{descriptif})]</textarea>
 			</div>]
 			[(#ENV**{config}|table_valeur{articles_chapeau}|=={non}|?{#ENV**{chapo,''},' '}|oui)
-			[<div class='editer editer_virtuel[ (#ENV**{erreurs}|table_valeur{virtuel}|oui)erreur]'>(#ENV**{chapo}|match{^=,Uis}|oui)
-				<label for='virtuel'><:info_redirection:><em class="aide">#AIDER{virtuel}</em></label>[
-				<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{virtuel})</span>
-				]<input type='text' class='text' name='virtuel' id='virtuel' value="[(#ENV**{chapo}|replace{^=,''})]" />
-				<input type='hidden' name='changer_virtuel' value='oui' />
-				<p class='explication'><:texte_article_virtuel_reference:></p>
-			</div>]
-			[<div class="editer editer_chapo[ (#ENV**{erreurs}|table_valeur{chapo}|oui)erreur]">(#ENV**{chapo}|match{^=,Uis}|non)
+			<div class="editer editer_chapo[ (#ENV**{erreurs}|table_valeur{chapo}|oui)erreur]">
 				<label for="chapo"><:info_chapeau:><em class="aide">#AIDER{chapo}</em></label>[
 				<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{chapo})</span>
 				]<textarea name='chapo' id='chapo'[ lang='(#LANGUE)'][ rows='(#ENV**{config}|table_valeur{lignes})'] cols='40'>[(#ENV**{chapo})]</textarea>
-			</div>]]
+			</div>]
 
 			[(#ENV**{config}|table_valeur{articles_urlref}|=={non}|?{#ENV**{url_site,#ENV**{nom_site,''}},' '}|oui)
 			<div class="editer editer_liens_sites fieldset">

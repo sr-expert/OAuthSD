@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -34,6 +34,12 @@ function action_telecharger_dump_dist($arg = null) {
 		file_exists($file)
 		and autoriser('webmestre')
 	) {
+
+		// Vider tous les tampons pour ne pas provoquer de Fatal memory exhausted
+		$level = @ob_get_level();
+		while ($level--) {
+			@ob_end_clean();
+		}
 
 		$f = basename($file);
 		// ce content-type est necessaire pour eviter des corruptions de zip dans ie6

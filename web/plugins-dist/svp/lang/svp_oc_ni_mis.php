@@ -1,6 +1,6 @@
 <?php
 // This is a SPIP language file  --  Ceci est un fichier langue de SPIP
-// extrait automatiquement de http://trad.spip.net/tradlang_module/svp?lang_cible=oc_ni_mis
+// extrait automatiquement de https://trad.spip.net/tradlang_module/svp?lang_cible=oc_ni_mis
 // ** ne pas modifier le fichier **
 
 if (!defined('_ECRIRE_INC_VERSION')) {
@@ -114,7 +114,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_admin_plugin_verrou_tous' => 'Aquela pàgina lista toui lu plugin dóu sit.',
 	'info_admin_plugin_verrouille' => 'Aquela pàgina lista lu plugin atiéu e ferouiat (situat en lou repertori <code>@dir_plugins_dist@</code>).
 	Se lu auguràs desativà, vourguès countatà lou webmestre dóu sit,
-	o vi repourtà <a href="http://programmer.spip.net/repertoire_plugins-dist">a la doucumentacioun</a>.',
+	o vi repourtà <a href="https://programmer.spip.net/repertoire_plugins-dist">a la doucumentacioun</a>.',
 	'info_adresse_spipzone' => 'SPIP-Zone - Plugin',
 	'info_ajouter_depot' => 'En ajustant dei depòsiti a vouòstra basa, aurès la poussibilità d’outenì dei infourmacioun e d’efetuà dei recerca soubre toui lu paquet oustelat dai depòsiti ajustat.<br />Un depòsiti es descrich da un fichié XML countenent li infourmacioun soubre lu depòsiti e soubre toui lu siéu paquet.',
 	'info_aucun_depot' => 'mìnga depòsiti',

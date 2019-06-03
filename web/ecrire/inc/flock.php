@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -509,6 +509,7 @@ function spip_attend_invalidation_opcode_cache() {
 		and @ini_get('opcache.validate_timestamps')
 		and $duree = @ini_get('opcache.revalidate_freq')
 	) {
+		spip_log('Probleme de configuration opcache.revalidate_freq '. $duree .'s', _LOG_INFO_IMPORTANTE);
 		sleep($duree + 1);
 	}
 }
@@ -577,7 +578,10 @@ function sous_repertoire($base, $subdir = '', $nobase = false, $tantpis = false)
 	$base = str_replace("//", "/", $base);
 
 	# suppr le dernier caractere si c'est un / ou un _
-	$base = rtrim($base, '/_');
+	$base = rtrim($base, '/');
+	if (_CREER_DIR_PLAT) {
+		$base = rtrim($base, '_');
+	}
 
 	if (!strlen($subdir)) {
 		$n = strrpos($base, "/");
@@ -589,6 +593,9 @@ function sous_repertoire($base, $subdir = '', $nobase = false, $tantpis = false)
 	} else {
 		$base .= '/';
 		$subdir = str_replace("/", "", $subdir);
+		if (_CREER_DIR_PLAT) {
+			$subdir = rtrim($subdir, '_');
+		}
 	}
 
 	$baseaff = $nobase ? '' : $base;

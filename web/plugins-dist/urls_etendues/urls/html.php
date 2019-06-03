@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -38,7 +38,7 @@ if (!defined("_ECRIRE_INC_VERSION")) {
 # donner un exemple d'url pour le formulaire de choix
 define('URLS_HTML_EXEMPLE', 'article12.html');
 
-// http://code.spip.net/@_generer_url_html
+// https://code.spip.net/@_generer_url_html
 function _generer_url_html($type, $id, $args = '', $ancre = '') {
 	if ($generer_url_externe = charger_fonction("generer_url_$type", 'urls', true)) {
 		$url = $generer_url_externe($id, $args, $ancre);
@@ -51,7 +51,7 @@ function _generer_url_html($type, $id, $args = '', $ancre = '') {
 }
 
 // retrouver les parametres d'une URL dite "html"
-// http://code.spip.net/@urls_html_dist
+// https://code.spip.net/@urls_html_dist
 function urls_html_dist($i, $entite, $args = '', $ancre = '') {
 
 	if (is_numeric($i)) {

@@ -1,12 +1,12 @@
 <paquet
 	prefix="porte_plume"
 	categorie="edition"
-	version="1.15.14"
+	version="1.15.15"
 	etat="stable"
 	compatibilite="[3.1.0;3.1.*]"
 	logo="images/porte-plume-32.png"
-	documentation="http://contrib.spip.net/Porte-plume,3117"
->	
+	documentation="https://contrib.spip.net/Porte-plume,3117"
+>
 
 	<nom>Porte plume</nom>
 	<!-- Une barre d'outil pour bien écrire -->

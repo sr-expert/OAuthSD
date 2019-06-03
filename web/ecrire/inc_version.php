@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -209,6 +209,14 @@ $debut_date_publication = null;
 //
 // Prendre en compte les entetes HTTP_X_FORWARDED_XX
 //
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) and $_SERVER['HTTP_X_FORWARDED_PROTO']==='https'){
+	if (empty($_SERVER['HTTP_X_FORWARDED_HOST'])) {
+		$_SERVER['HTTP_X_FORWARDED_HOST'] = $_SERVER['HTTP_HOST'];
+	}
+	if (empty($_SERVER['HTTP_X_FORWARDED_PORT'])) {
+		$_SERVER['HTTP_X_FORWARDED_PORT'] = 443;
+	}
+}
 if (isset($_SERVER['HTTP_X_FORWARDED_HOST'])){
 	if (isset($_SERVER['HTTP_X_FORWARDED_PORT']) and is_numeric($_SERVER['HTTP_X_FORWARDED_PORT'])){
 		$_SERVER['SERVER_PORT'] = $_SERVER['HTTP_X_FORWARDED_PORT'];
@@ -225,7 +233,7 @@ if (isset($_SERVER['HTTP_X_FORWARDED_HOST'])){
 		$host = trim(reset($h));
 	}
 	// securite sur le contenu de l'entete
-	$host = strtr($host, "<>?\"' \r\n", '________');
+	$host = strtr($host, "<>?\"\{\}\$'` \r\n", '____________');
 	$_SERVER['HTTP_HOST'] = $host;
 }
 //
@@ -365,7 +373,7 @@ $liste_des_authentifications = array(
 // pour specifier les versions de SPIP necessaires
 // il faut s'en tenir a un nombre de decimales fixe
 // ex : 2.0.0, 2.0.0-dev, 2.0.0-beta, 2.0.0-beta2
-$spip_version_branche = "3.1.3";
+$spip_version_branche = "3.1.10";
 // version des signatures de fonctions PHP
 // (= numero SVN de leur derniere modif cassant la compatibilite et/ou necessitant un recalcul des squelettes)
 $spip_version_code = 22653;
@@ -489,7 +497,10 @@ if (isset($_REQUEST['var_memotri'])
 	if (!function_exists('session_set')) {
 		include_spip('inc/session');
 	}
-	session_set($t, _request($t));
+	$t = preg_replace(",\W,","_", $t);
+	if ($v = _request($t)) {
+		session_set($t, $v);
+	}
 }
 
 /**
@@ -501,7 +512,7 @@ if (isset($_REQUEST['var_memotri'])
 if (!defined('_HEADER_COMPOSED_BY')) {
 	define('_HEADER_COMPOSED_BY', "Composed-By: SPIP");
 }
-if (!headers_sent()) {
+if (!headers_sent() and _HEADER_COMPOSED_BY) {
 	header("Vary: Cookie, Accept-Encoding");
 	if (!isset($GLOBALS['spip_header_silencieux']) or !$GLOBALS['spip_header_silencieux']) {
 		header(_HEADER_COMPOSED_BY . " $spip_version_affichee @ www.spip.net" . (isset($GLOBALS['meta']['plugin_header']) ? (" + " . $GLOBALS['meta']['plugin_header']) : ""));

@@ -1,0 +1,106 @@
+[(#REM)
+	Si _MLL_LANGUES_MULTILINGUE est definie, on utilise la variable meta langues_multilingue (langues à disposition des rédacteurs, comportement natif de SPIP).
+	Sinon, on utilise langues_utilisees (langues reellement utilisees dans les articles).
+	
+	Les langues "invisibles" sont les langues que le webmestre peut choisir de ne pas afficher dans le menu,
+	a partir du formulaire de configuration du plugin.
+]
+[(#VAL{_MLL_LANGUES_MULTILINGUE}|defined|et{#VAL{_MLL_LANGUES_MULTILINGUE}|constant|=={true}}|?{
+	#SET{mll_langues,langues_multilingue}
+,
+	#SET{mll_langues,langues_utilisees}
+})]
+[(#SET{langues_a_afficher,[(#CONFIG{#GET{mll_langues}}|explode{","}|array_diff{#CONFIG{menu_lang_liens/langues_invisibles, #ARRAY}})]})]
+
+#SET{redirections, #ARRAY}
+
+[(#REM) 
+	Stocker les traductions eventuelles de la rubrique en cours si le plugin Tradrub est installe (permet l'utilisation du
+	critere traduction sur les rubriques)
+]
+<BOUCLE_tradrub(CONDITION){si #PLUGIN{tradrub}}>
+	<BOUCLE_rubrique(RUBRIQUES){id_rubrique}>
+		<BOUCLE_TraductionRubriqueCourante(RUBRIQUES){traduction}{lang IN #GET{langues_a_afficher}}>
+			#SET_MERGE{redirections,#GET{redirections},#ARRAY{#LANG,#URL_RUBRIQUE}}
+		</BOUCLE_TraductionRubriqueCourante>
+	</BOUCLE_rubrique>
+</BOUCLE_tradrub>
+
+[(#REM) 
+	Stocker les traductions eventuelles de l'article en cours
+]
+<BOUCLE_article(ARTICLES){id_article}>
+	<BOUCLE_TraductionArticleCourant(ARTICLES){traduction}{lang IN #GET{langues_a_afficher}}>
+		#SET_MERGE{redirections,#GET{redirections},#ARRAY{#LANG,#URL_ARTICLE}}
+	</BOUCLE_TraductionArticleCourant>
+</BOUCLE_article>
+
+[(#REM)
+	Pour chaque langue à afficher on finit de définir où ça doit amener
+]
+<BOUCLE_liens(POUR){tableau #GET{langues_a_afficher}}>
+	[(#REM)
+		Chercher l'accueil où rediriger si la config le demande sinon on reste sur #SELF
+	]
+	<BOUCLE_test_accueil(CONDITION){si #CONFIG{menu_lang_liens/redirection}|=={accueil}}>
+		<BOUCLE_chercher_secteur_langue(RUBRIQUES){id_parent=0}{lang=#_liens:VALEUR}{0,1}{par num titre,titre}>
+		#SET_MERGE{redirections,#ARRAY{#_liens:VALEUR,#URL_RUBRIQUE},#GET{redirections}}
+		</BOUCLE_chercher_secteur_langue>
+		#SET_MERGE{redirections,#ARRAY{#_liens:VALEUR,#URL_SITE_SPIP},#GET{redirections}}
+		<//BOUCLE_chercher_secteur_langue>
+	</BOUCLE_test_accueil>
+	#SET_MERGE{redirections,#ARRAY{#_liens:VALEUR,#SELF},#GET{redirections}}
+	<//B_test_accueil>
+</BOUCLE_liens>
+
+#SET{liste,#CONFIG{menu_lang_liens/formatliste,bloc}}
+#SET{format,#CONFIG{menu_lang_liens/format,abrege}}
+#SET{separateur,#CONFIG{menu_lang_liens/separateur,''}}
+
+[(#REM) Seulement s'il y a au moins deux langues à afficher (dont la courante sera peut-être masquée ensuite) ]
+<BOUCLE_PlusieursLanguesUtilisees(POUR){tableau #GET{redirections}}{1,1}>
+	[<(#GET{liste}|=={liste}|?{ul,[(#GET{liste}|=={bloc}|?{div,''})]}) id="menu_lang">][(#REM)
+
+		On liste les langues utilisees dans le site
+		
+	]<BOUCLE_ListeLanguessite_enpremier(POUR){tableau #GET{redirections}}{cle=#CONFIG{menu_lang_liens/langue_site_enpremier}|?{#CONFIG{langue_site},''}}>#SET{nom_langue,#GET{format}|!={complet}|?{#CLE,#CLE|traduire_nom_langue}}[
+		(#GET{liste}|match{^liste}|oui)<li class="first menu_lang_item">
+		][(#REM)
+			
+			Si la langue n'est pas celle en cours, on fait un lien qui fait 2 actions :
+			- fixer le cookie de langue sur la langue demandee
+			- rediriger sur l'article dans la langue demandee si opportun
+				sinon, revenir sur la page en cours
+			
+			url_absolue pour éviter des problèmes en urls arbo
+		]
+		[[[[(#GET{separateur})](#GET{liste}|match{^liste}|non)](#COMPTEUR_BOUCLE|>{1}|oui)][<a href="[(#SELF|parametre_url{action,converser}|parametre_url{var_lang,#CLE}|parametre_url{redirect,#VALEUR|url_absolue})]" rel="alternate" lang="#CLE"[(#GET{format}|=={'abrege'}|oui) title="[(#CLE|traduire_nom_langue|attribut_html)]"] class="langue_#CLE">(#GET{nom_langue})</a>](#CLE|=={#ENV{lang}}|non)][
+		(#REM)
+		
+			Si la langue est celle en cours, afficher celle-ci en gras, sans lien
+
+			][[[[[(#GET{separateur})](#GET{liste}|match{^liste}|non)](#COMPTEUR_BOUCLE|>{1}|oui)]<strong class="langue_#CLE" title="[(#CLE|traduire_nom_langue|attribut_html)]">(#GET{nom_langue})</strong>](#CLE|=={#ENV{lang}}|oui|et{#CONFIG{menu_lang_liens/langue_courante_invisible}|non})][
+		(#GET{liste}|match{^liste}|oui)</li>
+	]</BOUCLE_ListeLanguessite_enpremier><BOUCLE_ListeLangues(POUR){tableau #GET{redirections}}{par cle}{cle!=#CONFIG{menu_lang_liens/langue_site_enpremier}|?{#CONFIG{langue_site},''}}>#SET{nom_langue,#GET{format}|!={complet}|?{#CLE,#CLE|traduire_nom_langue}}[
+		(#GET{liste}|match{^liste}|oui)<li [(#COMPTEUR_BOUCLE|=={1}|oui)[class="(#CONFIG{menu_lang_liens/langue_site_enpremier}|?{'',first menu_lang_item})"]] [(#COMPTEUR_BOUCLE|=={#TOTAL_BOUCLE}|oui)class="last menu_lang_item"]>
+		][(#REM)
+			
+			Si la langue n'est pas celle en cours, on fait un lien qui fait 2 actions :
+			- fixer le cookie de langue sur la langue demandee
+			- rediriger sur l'article dans la langue demandee si opportun
+				sinon, revenir sur la page en cours
+			
+			url_absolue pour éviter des problèmes en urls arbo
+		]
+		[[[[(#GET{separateur})](#GET{liste}|match{^liste}|non)](#COMPTEUR_BOUCLE|>{1}|oui)][<a href="[(#SELF|parametre_url{action,converser}|parametre_url{var_lang,#CLE}|parametre_url{redirect,#VALEUR|url_absolue})]" rel="alternate" lang="#CLE"[(#GET{format}|=={'abrege'}|oui) title="[(#CLE|traduire_nom_langue|attribut_html)]"] class="langue_#CLE">(#GET{nom_langue})</a>](#CLE|=={#ENV{lang}}|non)][
+		(#REM)
+		
+			Si la langue est celle en cours, afficher celle-ci en gras, sans lien
+
+			][[[[[(#GET{separateur})](#GET{liste}|match{^liste}|non)](#COMPTEUR_BOUCLE|>{1}|oui)]<strong class="langue_#CLE" title="[(#CLE|traduire_nom_langue|attribut_html)]">(#GET{nom_langue})</strong>](#CLE|=={#ENV{lang}}|oui|et{#CONFIG{menu_lang_liens/langue_courante_invisible}|non})][
+		(#GET{liste}|match{^liste}|oui)</li>
+	]</BOUCLE_ListeLangues>
+	[</(#GET{liste}|=={liste}|?{ul,[(#GET{liste}|=={bloc}|?{div,''})]})>]
+</BOUCLE_PlusieursLanguesUtilisees>
+
+#FILTRE{trim}

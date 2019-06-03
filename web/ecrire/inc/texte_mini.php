@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -456,10 +456,33 @@ function echapper_faux_tags($letexte) {
  * si safehtml ne renvoie pas la meme chose on echappe les < en &lt; pour montrer le contenu brut
  *
  * @param string $texte
+ * @param bool $strict
  * @return string
  */
-function echapper_html_suspect($texte) {
-	if (strpos($texte, '<') === false or strpos($texte, '=') === false) {
+function echapper_html_suspect($texte, $strict=true) {
+	static $echapper_html_suspect;
+	if (!$texte or !is_string($texte)) {
+		return $texte;
+	}
+
+	if (!isset($echapper_html_suspect)) {
+		$echapper_html_suspect = charger_fonction('echapper_html_suspect', 'inc', true);
+	}
+	// si fonction personalisee, on delegue
+	if ($echapper_html_suspect) {
+		return $echapper_html_suspect($texte, $strict);
+	}
+
+	if (strpos($texte, '<') === false
+	  or strpos($texte, '=') === false) {
+		return $texte;
+	}
+
+	// quand c'est du texte qui passe par propre on est plus coulant tant qu'il y a pas d'attribut du type onxxx=
+	// car sinon on declenche sur les modeles ou ressources
+	if (!$strict and
+	  (strpos($texte,'on') === false or !preg_match(",<\w+.*\bon\w+\s*=,UimsS", $texte))
+	  ){
 		return $texte;
 	}
 
@@ -468,6 +491,10 @@ function echapper_html_suspect($texte) {
 	// donc un test d'egalite est trop strict
 	if (strlen(safehtml($texte)) !== strlen($texte)) {
 		$texte = str_replace("<", "&lt;", $texte);
+		if (!function_exists('attribut_html')) {
+			include_spip('inc/filtres');
+		}
+		$texte = "<mark title='".attribut_html(_T('erreur_contenu_suspect'))."'>⚠️</mark> ".$texte;
 	}
 
 	return $texte;

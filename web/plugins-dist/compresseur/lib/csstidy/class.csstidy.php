@@ -73,7 +73,7 @@ define('DEFAULT_AT', 41);
 /**
  * Contains a class for printing CSS code
  *
- * @version 1.0
+ * @version 1.1.0
  */
 require('class.csstidy_print.php');
 
@@ -94,7 +94,7 @@ require('class.csstidy_optimise.php');
  * An online version should be available here: http://cdburnerxp.se/cssparse/css_optimiser.php
  * @package csstidy
  * @author Florian Schmitz (floele at gmail dot com) 2005-2006
- * @version 1.5.5
+ * @version 1.6.3
  */
 class csstidy {
 
@@ -147,7 +147,7 @@ class csstidy {
 	 * @var string
 	 * @access private
 	 */
-	public $version = '1.5.5';
+	public $version = '1.6.3';
 	/**
 	 * Stores the settings
 	 * @var array
@@ -318,6 +318,10 @@ class csstidy {
 		/* is dangeroues to be used: CSS is broken sometimes */
 		$this->settings['merge_selectors'] = 0;
 		/* preserve or not browser hacks */
+
+		/* Useful to produce a rtl css from a ltr one (or the opposite) */
+		$this->settings['reverse_left_and_right'] = 0;
+
 		$this->settings['discard_invalid_selectors'] = false;
 		$this->settings['discard_invalid_properties'] = false;
 		$this->settings['css_level'] = 'CSS3.0';
@@ -1080,7 +1084,7 @@ class csstidy {
 			return $media;
 		}
 		end($this->css);
-		list($at,) = each($this->css);
+		$at = key($this->css);
 		if ($at == $media) {
 			return $media;
 		}
@@ -1119,7 +1123,7 @@ class csstidy {
 
 			// if last is the same, keep it
 			end($this->css[$media]);
-			list($sel,) = each($this->css[$media]);
+			$sel = key($this->css[$media]);
 			if ($sel == $selector) {
 				return $selector;
 			}

@@ -1047,14 +1047,15 @@ class Decideur {
 			foreach ($info['dn'] as $n) {
 
 				$p = $n['nom'];
-				$v = $n['compatibilite'];
+				$v = isset($n['compatibilite']) ? $n['compatibilite'] : '';
 
 				if ($p == 'SPIP') {
 					// c'est pas la que ça se fait !
 					// ca ne devrait plus apparaitre comme dependence a un plugin.
 				} // le core procure le paquet que l'on demande !
-				elseif ((array_key_exists($p, $this->procure))
-					and (plugin_version_compatible($v, $this->procure[$p], 'spip'))
+				elseif (
+					array_key_exists($p, $this->procure)
+					and plugin_version_compatible($v, $this->procure[$p])
 				) {
 					// rien a faire...
 					$this->log("-- est procure par le core ($p)");

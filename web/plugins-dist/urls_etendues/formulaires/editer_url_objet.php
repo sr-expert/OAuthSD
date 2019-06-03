@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -21,13 +21,13 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  * @param int $id
  * @return array
  */
-function formulaires_editer_url_objet_charger($type, $id) {
+function formulaires_editer_url_objet_charger_dist($type, $id) {
 	$valeurs = array('url' => '', '_objet' => $type, '_id_objet' => $id);
 
 	return $valeurs;
 }
 
-function formulaires_editer_url_objet_verifier($type, $id) {
+function formulaires_editer_url_objet_verifier_dist($type, $id) {
 	$erreurs = array();
 	include_spip('action/editer_url');
 	if (!$url = _request('url')) {
@@ -64,7 +64,7 @@ function formulaires_editer_url_objet_verifier($type, $id) {
  * @param int $id
  * @return array
  */
-function formulaires_editer_url_objet_traiter($type, $id) {
+function formulaires_editer_url_objet_traiter_dist($type, $id) {
 	$valeurs = array('editable' => true);
 
 	include_spip('action/editer_url');

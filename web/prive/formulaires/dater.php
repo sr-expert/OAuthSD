@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -34,6 +34,12 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  *     Options. Si string, unserialize pour obtenir un tableau.
  *
  *     - date_redac : Permet de modifier en plus la date de rédaction antérieure
+ *     - champ_date : permet de preciser le champ date qu'on utilise
+ *     - label_date : label optionnel pour la saisie du champ date
+ *     - champ_date_redac : permet de preciser le champ date_redac qu'on utilise
+ *     - label_date_redac : label optionnel pour la saisie du champ date_redac
+ *     - texte_sans_date_redac : texte optionnel affiche pour vider la date_redac
+ *     - class : une classe ajoutable au formulaire pour le distinguer si on a plusieurs occurences
  * @return array
  *     Environnement du formulaire
  **/
@@ -58,6 +64,9 @@ function formulaires_dater_charger_dist($objet, $id_objet, $retour = '', $option
 	}
 
 	$champ_date = $desc['date'] ? $desc['date'] : 'date';
+	if (isset($options['champ_date']) and $options['champ_date']) {
+		$champ_date = $options['champ_date'];
+	}
 	if (!isset($desc['field'][$champ_date])) {
 		return false;
 	}
@@ -70,8 +79,12 @@ function formulaires_dater_charger_dist($objet, $id_objet, $retour = '', $option
 
 
 	$select = "$champ_date as date";
-	if (isset($desc['field']['date_redac'])) {
-		$select .= ",date_redac";
+	$champ_date_redac = 'date_redac';
+	if (isset($options['champ_date_redac']) and $options['champ_date_redac']) {
+		$champ_date_redac = $options['champ_date_redac'];
+	}
+	if (isset($desc['field'][$champ_date_redac])) {
+		$select .= ",$champ_date_redac as date_redac";
 	}
 	if (isset($desc['field']['statut'])) {
 		$select .= ",statut";
@@ -132,6 +145,19 @@ function formulaires_dater_charger_dist($objet, $id_objet, $retour = '', $option
 		$valeurs['_editer_date_anterieure'] = ($objet == 'article' and ($GLOBALS['meta']["articles_redac"] != 'non' or $possedeDateRedac));
 	}
 	$valeurs['_label_date'] = (($statut == 'publie') ? _T('texte_date_publication_objet') : _T('texte_date_creation_objet'));
+	if (isset($options['label_date']) and $options['label_date']) {
+		$valeurs['_label_date'] = $options['label_date'];
+	}
+	if (isset($options['label_date_redac']) and $options['label_date_redac']) {
+		$valeurs['_label_date_redac'] = $options['label_date_redac'];
+	}
+	if (isset($options['texte_sans_date_redac']) and $options['texte_sans_date_redac']) {
+		$valeurs['_texte_sans_date_redac'] = $options['texte_sans_date_redac'];
+	}
+	if (isset($options['class']) and $options['class']) {
+		$valeurs['_class'] = $options['class'];
+	}
+
 	$valeurs['_saisie_en_cours'] = (_request('_saisie_en_cours') !== null or _request('date_jour') !== null);
 
 	// cas ou l'on ne peut pas dater mais on peut modifier la date de redac anterieure
@@ -261,6 +287,9 @@ function formulaires_dater_traiter_dist($objet, $id_objet, $retour = '', $option
 		} #impossible en principe
 
 		$champ_date = $desc['date'] ? $desc['date'] : 'date';
+		if (isset($options['champ_date']) and $options['champ_date']) {
+			$champ_date = $options['champ_date'];
+		}
 
 		$set = array();
 
@@ -278,9 +307,13 @@ function formulaires_dater_traiter_dist($objet, $id_objet, $retour = '', $option
 			$set[$champ_date] = sql_format_date($d[0], $d[1], $d[2], $h[0], $h[1]);
 		}
 
-		if (isset($desc['field']['date_redac']) and $v['_editer_date_anterieure']) {
+		$champ_date_redac = 'date_redac';
+		if (isset($options['champ_date_redac']) and $options['champ_date_redac']) {
+			$champ_date_redac = $options['champ_date_redac'];
+		}
+		if (isset($desc['field'][$champ_date_redac]) and $v['_editer_date_anterieure']) {
 			if (!_request('date_redac_jour') or _request('sans_redac')) {
-				$set['date_redac'] = sql_format_date(0, 0, 0, 0, 0, 0);
+				$set[$champ_date_redac] = sql_format_date(0, 0, 0, 0, 0, 0);
 			} else {
 				if (!$d = dater_recuperer_date_saisie(_request('date_redac_jour'), "date_redac")) {
 					$d = array(date('Y'), date('m'), date('d'));
@@ -288,7 +321,7 @@ function formulaires_dater_traiter_dist($objet, $id_objet, $retour = '', $option
 				if (!$h = dater_recuperer_heure_saisie(_request('date_redac_heure'))) {
 					$h = array(0, 0);
 				}
-				$set['date_redac'] = sql_format_date($d[0], $d[1], $d[2], $h[0], $h[1]);
+				$set[$champ_date_redac] = sql_format_date($d[0], $d[1], $d[2], $h[0], $h[1]);
 			}
 		}
 

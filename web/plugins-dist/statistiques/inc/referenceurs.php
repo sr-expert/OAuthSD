@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -19,7 +19,7 @@ if (!defined("_ECRIRE_INC_VERSION")) {
  * Adaptees du code des "Visiteurs",
  * par Jean-Paul Dezelus (http://www.phpinfo.net/applis/visiteurs/)
  *
- * http://code.spip.net/@stats_load_engines
+ * https://code.spip.net/@stats_load_engines
  *
  * @return array
  */
@@ -49,7 +49,7 @@ function stats_load_engines() {
  * Adaptees du code des "Visiteurs",
  * par Jean-Paul Dezelus (http://www.phpinfo.net/applis/visiteurs/)
  *
- * http://code.spip.net/@stats_show_keywords
+ * https://code.spip.net/@stats_show_keywords
  *
  * @param string $kw_referer
  * @return array
@@ -69,9 +69,9 @@ function stats_show_keywords($kw_referer) {
 
 	if ($url = @parse_url($kw_referer)) {
 		$query = isset($url['query']) ? $url['query'] : "";
-		$host = strtolower($url['host']);
-		$path = $url['path'];
-		$scheme = $url['scheme'];
+		$host = isset($url['host']) ? strtolower($url['host']) : "";
+		$path =  isset($url['path']) ? $url['path'] : "";
+		$scheme = isset($url['scheme']) ? $url['scheme'] : "";
 	} else {
 		$scheme = $query = $host = $path = '';
 	}
@@ -152,7 +152,7 @@ function stats_show_keywords($kw_referer) {
 
 /**
  * Recherche des articles pointes par le referer
- * http://code.spip.net/@referes
+ * https://code.spip.net/@referes
  *
  * @param  $referermd5
  * @param string $serveur

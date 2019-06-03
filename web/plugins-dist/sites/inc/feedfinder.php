@@ -107,7 +107,7 @@ function is_feed($url) {
 }
 
 /*****************test is_feed******************************
- * echo is_feed("http://contrib.spip.net/spip.php?page=backend" _EXTENSIO_PHP") . "<br />"; //retourne rss
+ * echo is_feed("https://contrib.spip.net/spip.php?page=backend" _EXTENSIO_PHP") . "<br />"; //retourne rss
  * echo is_feed("http://liberation.fr/rss.php") . "<br />"; //retourne rss
  * echo is_feed("http://liberation.fr/rss.php") . "<br />"; //retourne rss
  * echo is_feed("http://willy.boerland.com/myblog/atom/feed") //retourne atom
@@ -132,7 +132,7 @@ function is_feed($url) {
 function get_feed_from_url($url, $buffer = false) {
 	global $verif_complete;
 	//j'ai prevenu ce sera pas fin
-	if (!preg_match("/^http:\/\/.*/", $url)) {
+	if (!preg_match("/^https?:\/\/.*/", $url)) {
 		$url = "http://" . $url;
 	}
 	if (!$buffer) {
@@ -212,7 +212,7 @@ function get_feed_from_url($url, $buffer = false) {
  *****************************    Resultat *****************************************
  * Array
  * (
- * [0] => http://contrib.spip.net/backend.php
+ * [0] => https://contrib.spip.net/backend.php
  * )
  * Array
  * (

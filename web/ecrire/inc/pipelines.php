@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -250,7 +250,7 @@ function f_recuperer_fond($flux) {
  * @param string $texte Contenu de la page envoyée au navigateur
  * @return string         Contenu de la page envoyée au navigateur
  */
-function f_queue(&$texte) {
+function f_queue($texte) {
 
 	// eviter une inclusion si rien a faire
 	if (_request('action') == 'cron'

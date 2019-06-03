@@ -1,18 +1,10 @@
 <?php
-/***************************************************************************\
-*  SPIP, Systeme de publication pour l'internet                           *
-*                                                                         *
-*  Copyright (c) 2001-2016                                                *
-*  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
-*                                                                         *
-*  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
-*  Pour plus de details voir le fichier COPYING.txt ou l'aide en ligne.   *
-\***************************************************************************/
-
 /* auth/oidcclient.php
-* Plugin OpenID Connect client pour SPIP
+* Plugin OpenID Connect client pour SPIP 
 * Auteur : B.Degoy DnC
-* Copyright (c) 2018 B.Degoy
+* Copyright (c) 2018 B.Degoy    
+* d'après plugin OpenID pour SPIP
+* Licence GPL (c) 2007-2012 Edouard Lafargue, Mathieu Marcillaud, Cedric Morin, Fil 
 */
 
 if (!defined('_ECRIRE_INC_VERSION')) {

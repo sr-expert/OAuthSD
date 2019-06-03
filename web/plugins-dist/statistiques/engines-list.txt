@@ -92,13 +92,6 @@ delicious\.com
 q=
 (.*\.|)delta-search\.com
 
-#
-# Dmoz
-#
-[dmoz.org]
-rien=
-(.*\.)?dmoz\.org
-
 [EO]
 q=
 www\.eo\.st
@@ -171,13 +164,17 @@ q=
 q=
 (.*\.|)globososo\.com
 
-[Haosou]
+[so]
 q=
-www\.haosou\.com
+www\.so\.com
 
 [HolaSearch]
 q=
 (.*\.|)holasearch\.com
+
+[HelloSearch]
+q=
+(.*\.|)hellosearch\.fr
 
 [HooSeek]
 recherche=
@@ -209,7 +206,7 @@ arianna\.libero\.it
 
 [Lilo]
 q=
-(.*\.|)uselilo\.org
+(.*\.|)(uselilo|search\.lilo)\.org
 
 [Lost]
 x_query=
@@ -244,6 +241,7 @@ www\.moteur-recherche\.net
 (q|s)=
 search(.*)\.msn\.([a-z.]+)$
 leguide(.*)\.msn\.([a-z]+)$
+(.*)\.msn\.([a-z]+)$
 search\.ninemsn\.com\.au
 
 [mySearchDial]
@@ -252,7 +250,7 @@ q=
 
 [MyWay]
 searchfor=
-kf\.mysearch\.myway\.com
+(.*)\.myway\.com
 www\.mywebsearch\.com
 (.*)\.mysearch\.com
 
@@ -346,10 +344,6 @@ q=
 qs=
 search\.virgilio\.it
 
-[Voila]
-(kw|rdata)=
-(search|moteur)(.*)\.voila\.(fr|com)
-
 [Yahoo!]
 p=
 (.*)(m|search|ink|dir|google)\.yahoo\.([a-z]+)$
@@ -391,6 +385,14 @@ q=
 q=
 recherche\.club-internet\.fr
 
+[dmoz.org]
+rien=
+(.*\.)?dmoz\.org
+
+[Haosou]
+q=
+www\.haosou\.com
+
 [n9uf]
 ((K|k)eywords|query)=
 (www\.)?neuf\.fr
@@ -412,3 +414,7 @@ www\.overture\.com
 [Reacteur.com]
 kw=
 www\.reacteur\.com
+
+[Voila]
+(kw|rdata)=
+(search|moteur)(.*)\.voila\.(fr|com)

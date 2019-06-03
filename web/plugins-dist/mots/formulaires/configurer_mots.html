@@ -16,14 +16,14 @@
 				]<div class="choix">
 					<input type="radio" name="#GET{name}" id="#GET{name}_oui" value="oui"
 						onclick="$(this).blur();"
-						onchange="if ($(this).prop('checked')) $('li.editer_articles_mots').siblings('li').show('fast');"
+						onchange="if ($(this).prop('checked')) $('.editer_articles_mots').siblings('.editer').show('fast');"
 						[(#ENV{#GET{name}}|=={oui}|oui)checked="checked"]
 					/><label for="#GET{name}_oui"><:mots:item_utiliser_mots_cles:></label>
 				</div>
 				<div class="choix">
 					<input type="radio" name="#GET{name}" id="#GET{name}_non" value="non"
 						onclick="$(this).blur();"
-						onchange="if ($(this).prop('checked')) $('li.editer_articles_mots').siblings('li').hide('fast');"
+						onchange="if ($(this).prop('checked')) $('.editer_articles_mots').siblings('.editer').hide('fast');"
 						[(#ENV{#GET{name}}|=={oui}|non)checked="checked"]
 					/><label for="#GET{name}_non"><:mots:item_non_utiliser_mots_cles:></label>
 				</div>

@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -372,10 +372,18 @@ function test_previsualiser_objet_champ($type = null, $id = 0, $qui = array(), $
 				} // pas de champ passe a la demande => NIET
 				$previsu = explode(',', $c['previsu']);
 				// regarder si ce statut est autorise pour l'auteur
-				if (in_array($opt[$champ] . "/auteur", $previsu)) {
-					if (!sql_countsel("spip_auteurs_liens",
-						"id_auteur=" . intval($qui['id_auteur']) . " AND objet=" . sql_quote($type) . " AND id_objet=" . intval($id))
-					) {
+				if (in_array($opt[$champ] . '/auteur', $previsu)) {
+					if (!isset($GLOBALS['visiteur_session']['id_auteur'])
+						or !intval($GLOBALS['visiteur_session']['id_auteur'])) {
+						return false;
+					}
+					elseif(autoriser('previsualiser'.$opt[$champ], $type)) {
+						// dans ce cas (admin en general), pas de filtrage sur ce statut
+					}
+					elseif (!sql_countsel(
+						'spip_auteurs_liens',
+						'id_auteur=' . intval($qui['id_auteur']) . ' AND objet=' . sql_quote($type) . ' AND id_objet=' . intval($id)
+					)) {
 						return false;
 					}  // pas auteur de cet objet => NIET
 				} elseif (!in_array($opt[$champ], $previsu)) // le statut n'est pas dans ceux definis par la previsu => NIET
@@ -1421,6 +1429,28 @@ function autoriser_auteurcreer_menu_dist($faire, $type, $id, $qui, $opt) {
 }
 
 /**
+ * Autorisation de voir le menu "afficher les visiteurs"
+ *
+ * Être admin complet et il faut qu'il en existe ou que ce soit activé en config
+ *
+ * @param  string $faire Action demandée
+ * @param  string $type Type d'objet sur lequel appliquer l'action
+ * @param  int $id Identifiant de l'objet
+ * @param  array $qui Description de l'auteur demandant l'autorisation
+ * @param  array $opt Options de cette autorisation
+ * @return bool          true s'il a le droit, false sinon
+ **/
+function autoriser_visiteurs_menu_dist($faire, $type, $id, $qui, $opt) {
+	include_spip('base/abstract_sql');
+	return 
+		$qui['statut'] == '0minirezo' and !$qui['restreint']
+		and (
+			$GLOBALS['meta']["accepter_visiteurs"] != 'non'
+			or sql_countsel('spip_auteurs', 'statut in ("6forum", "nouveau")') > 0
+		);
+}
+
+/**
  * Autorisation de voir le menu suiviedito
  *
  * Il faut être administrateur (y compris restreint).
@@ -1504,7 +1534,7 @@ function autoriser_echafauder_dist($faire, $type, $id, $qui, $opt) {
  */
 function auteurs_article($id_article, $cond = '') {
 	return sql_allfetsel("id_auteur", "spip_auteurs_liens",
-		"objet='article' AND id_objet=$id_article" . ($cond ? " AND $cond" : ''));
+		"objet='article' AND id_objet=" . intval($id_article) . ($cond ? " AND $cond" : ''));
 }
 
 

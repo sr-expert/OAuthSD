@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -126,7 +126,7 @@ $GLOBALS['codes_langues'] = array(
 	'mi' => "Maori",
 	'mk' => "&#1084;&#1072;&#1082;&#1077;&#1076;&#1086;&#1085;&#1089;&#1082;&#1080; &#1112;&#1072;&#1079;&#1080;&#1082;",
 	'ml' => "Malayalam",
-	'mn' => "Mongolian",
+	'mn' => "Монгол хэл",
 	'mo' => "Moldavian",
 	'mos' => "Mor&eacute;",
 	'mr' => "&#2350;&#2352;&#2366;&#2336;&#2368;",

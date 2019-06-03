@@ -1,18 +1,18 @@
 <paquet
 	prefix="medias"
 	categorie="multimedia"
-	version="2.10.35"
+	version="2.11.48"
 	etat="stable"
 	compatibilite="[3.1.0;3.1.*]"
 	logo="prive/themes/spip/images/portfolio-32.png"
-	schema="1.2.7"
+	schema="1.2.10"
 >
 
 	<nom>Medias</nom>
 	<!-- Gestion des medias dans SPIP -->
 
 	<auteur>Collectif SPIP</auteur>
-	<credit>C&#233;dric Morin, Romy Duhem-Verdi&#232;re pour la m&#233;diath&#232;que</credit>
+	<credit>Cédric Morin, Romy Duhem-Verdière pour la médiathèque</credit>
 	<credit lien="http://www.getid3.org/">getID3()</credit>
 	<credit lien="http://mediaelementjs.com/">MediaElement.js</credit>
 

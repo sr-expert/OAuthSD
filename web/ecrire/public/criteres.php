@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -1629,15 +1629,18 @@ function calculer_critere_infixe($idb, &$boucles, $crit) {
 					}
 					// si le champ n'est pas trouvé dans la table,
 					// on cherche si une jointure peut l'obtenir
-					elseif (@!array_key_exists($col, $desc['field'])
+					elseif (@!array_key_exists($col, $desc['field'])) {
 						// Champ joker * des iterateurs DATA qui accepte tout
-						and @!array_key_exists('*', $desc['field'])
-					) {
-						$r = calculer_critere_infixe_externe($boucle, $crit, $op, $desc, $col, $col_alias, $table);
-						if (!$r) {
-							return '';
+						if (@array_key_exists('*', $desc['field'])) {
+							$desc['field'][$col_vraie ? $col_vraie : $col] = ''; // on veut pas de cast INT par defaut car le type peut etre n'importe quoi dans les boucles DATA
 						}
-						list($col, $col_alias, $table, $where_complement, $desc) = $r;
+						else {
+							$r = calculer_critere_infixe_externe($boucle, $crit, $op, $desc, $col, $col_alias, $table);
+							if (!$r) {
+								return '';
+							}
+							list($col, $col_alias, $table, $where_complement, $desc) = $r;
+						}
 					}
 				}
 			}
@@ -1663,12 +1666,13 @@ function calculer_critere_infixe($idb, &$boucles, $crit) {
 		// sinon expliciter les
 		// sql_quote(truc) en sql_quote(truc,'',type)
 		// sql_quote(truc,serveur) en sql_quote(truc,serveur,type)
+		// sql_quote(truc,serveur,'') en sql_quote(truc,serveur,type)
 		// sans toucher aux
 		// sql_quote(truc,'','varchar(10) DEFAULT \'oui\' COLLATE NOCASE')
 		// sql_quote(truc,'','varchar')
 		elseif (preg_match('/\Asql_quote[(](.*?)(,[^)]*?)?(,[^)]*(?:\(\d+\)[^)]*)?)?[)]\s*\z/ms', $val[0], $r)
 			// si pas deja un type
-			and (!isset($r[3]) or !$r[3])
+			and (!isset($r[3]) or !$r[3] or !trim($r[3],", '"))
 		) {
 			$r = $r[1]
 				. ((isset($r[2]) and $r[2]) ? $r[2] : ",''")

@@ -2,7 +2,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -148,14 +148,14 @@ function image_valeurs_trans($img, $effet, $forcer_format = false, $fonction_cre
 
 // Pour assurer la compatibilite avec les anciens nom des filtres image_xxx
 // commencent par "image_"
-// http://code.spip.net/@reduire_image
+// https://code.spip.net/@reduire_image
 function reduire_image($texte, $taille = -1, $taille_y = -1) {
 	return filtrer('image_graver',
 		filtrer('image_reduire', $texte, $taille, $taille_y)
 	);
 }
 
-// http://code.spip.net/@valeurs_image_trans
+// https://code.spip.net/@valeurs_image_trans
 function valeurs_image_trans($img, $effet, $forcer_format = false) {
 	include_spip('inc/filtres_images_lib_mini');
 

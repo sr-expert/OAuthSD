@@ -1,6 +1,6 @@
 <?php
 // This is a SPIP language file  --  Ceci est un fichier langue de SPIP
-// extrait automatiquement de http://trad.spip.net/tradlang_module/svp?lang_cible=nl
+// extrait automatiquement de https://trad.spip.net/tradlang_module/svp?lang_cible=nl
 // ** ne pas modifier le fichier **
 
 if (!defined('_ECRIRE_INC_VERSION')) {
@@ -111,7 +111,7 @@ Je moet deze actie bevestigen.',
 	'info_admin_plugin_actif_oui_verrou_tous' => 'Deze bladzijde toont alle actieve plugins van de site, al dan niet vergrendeld.',
 	'info_admin_plugin_verrou_non' => 'Deze bladzijde toont alle niet-vergrendelde plugins van de site, al dan niet actief.',
 	'info_admin_plugin_verrou_tous' => 'Deze pagina toont alle plugins van de site.',
-	'info_admin_plugin_verrouille' => 'Deze bladzijde toont de actieve, vergrendelde plugins (geplaatst in map <code>@dir_plugins_dist@</code>). De webmaster kan ze inactief maken. Lees <a href="http://programmer.spip.org/directory_extensions">de documentatie</a>.',
+	'info_admin_plugin_verrouille' => 'Deze bladzijde toont de actieve, vergrendelde plugins (geplaatst in map <code>@dir_plugins_dist@</code>). De webmaster kan ze inactief maken. Lees <a href="https://programmer.spip.net/directory_extensions">de documentatie</a>.',
 	'info_adresse_spipzone' => 'SPIP-Zone - Plugins',
 	'info_ajouter_depot' => 'Door depots toe te voegen, kun je hieruit informatie krijgen en er opgeslagen pakketten zoeken.<br />Een depot wordt omschreven in een XML-bestand waarin ook de pakketten omschreven en gelokaliseerd worden.',
 	'info_aucun_depot' => 'geen enkel depot',

@@ -16,7 +16,7 @@
 	    [<div class="editer editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
 	    	<label for="#GET{name}"><:dump:label_nom_fichier_sauvegarde:></label>
 				(#ENV{choisi})
-				&#91;<a href="#" onclick="jQuery('li.editer_fichier,li.editer_nom_sauvegarde').show('fast');jQuery('li.editer_choisi').hide('fast');return false;"
+				&#91;<a href="#" onclick="jQuery('.editer_fichier,.editer_nom_sauvegarde').show('fast');jQuery('.editer_choisi').hide('fast');return false;"
 				><:bouton_changer:></a>&#93;
 	    </div>]
 	  	#SET{name,fichier}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}#SET{obli,obligatoire}

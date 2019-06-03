@@ -1,0 +1,33 @@
+[(#REM)
+  Copie du 2015-11-20 16:53:11 par DnC
+  Fichier original plugins/auto/spipr_dist/v0.4.13/footer/dist.html
+  2017/01/11 - ajout Contact d'après poletechno52.fr
+]
+
+<small class="generator"><a href="http://degoy.com/" rel="generator" title="Site réalisé par DnC sarl" class="spip_out" target="new"><img src="[(#CHEMIN{img/dnc_relief.gif})]"></a></small>
+
+<p class="colophon">
+&copy; <BOUCLE_annee(ARTICLES){par date}{0,1}>[(#DATE|annee|!={#VAL{Y}|date}|oui)[(#DATE|annee)]]</BOUCLE_annee>-</B_annee>[(#DATE|annee) ] &mdash; Bertrand Degoy <a href="http://degoy.com">DnC sarl</a> <br />
+<a rel="contents" href="#URL_PAGE{plan}"><:plan_site:></a>
+
+<span class="sep"> | </span><a rel="mentions" href="article10">Mentions légales</a>
+
+<span class="sep"> | </span><a href="auteur1">Contact</a>
+
+<?php
+if (isset($GLOBALS['visiteur_session']['id_auteur']) AND $GLOBALS['visiteur_session']['id_auteur']) {
+?><span class="sep"> | </span><a href="#URL_LOGOUT" rel="nofollow"><:icone_deconnecter:></a><?php
+	if (include_spip('inc/autoriser') AND autoriser('ecrire')){
+	?><span class="sep"> | </span><a href="#EVAL{_DIR_RESTREINT_ABS}"><:espace_prive:></a><?php
+	}
+}
+else {
+?><span class="sep"> | </span><a href="[(#URL_PAGE{login}|parametre_url{url,#SELF})]" rel="nofollow" class='login_modal'><:lien_connecter:></a><?php
+}
+?>
+
+<span class="sep"> |
+</span><a href="#URL_PAGE{backend}" rel="alternate" title="<:syndiquer_site:>">[(#CHEMIN{img/feed.png}|balise_img{<:icone_suivi_activite:>})]&nbsp;RSS&nbsp;2.0</a>
+<br />
+<a href="https://degoy.com/nos-techniques/spip-systeme-de-publication-pour-l-internet.html/" rel="generator" title="<:site_realise_avec_spip:>" class="spip_out"><:site_realise_avec_spip:></a>
+</p>

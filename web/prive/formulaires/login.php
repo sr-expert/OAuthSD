@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -110,7 +110,7 @@ function formulaires_login_charger_dist($cible = "", $login = "", $prive = null)
 
 	// Si on est connecte, appeler traiter()
 	// et lancer la redirection si besoin
-	if (!$valeurs['editable'] and $loge) {
+	if (!$valeurs['editable'] and $loge and _request('formulaire_action')!=='login') {
 		$traiter = charger_fonction('traiter', 'formulaires/login');
 		$res = $traiter($cible, $login, $prive);
 		$valeurs = array_merge($valeurs, $res);
@@ -313,15 +313,12 @@ function formulaires_login_traiter_dist($cible = "", $login = "", $prive = null)
 
 	// Si on est connecte, envoyer vers la destination
 	if ($cible and ($cible != self('&')) and ($cible != self())) {
-		if (!headers_sent() and !isset($_GET['var_mode'])) {
-			include_spip('inc/headers');
-			$res['redirect'] = $cible;
-		} else {
-			$res['message_ok'] = inserer_attribut(
-				"<a>" . _T('login_par_ici') . "</a>",
-				'href', $cible
-			);
-		}
+		$res['redirect'] = $cible;
+		$res['message_ok'] = inserer_attribut(
+			'<a>' . _T('login_par_ici') . '</a>',
+			'href',
+			$cible
+		);
 	}
 
 	return $res;

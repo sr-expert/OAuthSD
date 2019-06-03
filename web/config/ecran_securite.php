@@ -5,7 +5,7 @@
  * ------------------
  */
 
-define('_ECRAN_SECURITE', '1.2.7'); // 2016-09-30
+define('_ECRAN_SECURITE', '1.3.11'); // 2019-04-08
 
 /*
  * Documentation : http://www.spip.net/fr_article4200.html
@@ -23,24 +23,217 @@ if (isset($_GET['test_ecran_securite']))
  * var_isbot=1 peut etre utilise pour monitorer la disponibilite pour les bots (sujets a 503 de delestage si
  * le load depasse ECRAN_SECURITE_LOAD)
  */
-if (!defined('_IS_BOT') and isset($_GET['var_isbot']))
-		define('_IS_BOT',$_GET['var_isbot']?true:false);
+if (!defined('_IS_BOT') and isset($_GET['var_isbot'])){
+	define('_IS_BOT', $_GET['var_isbot'] ? true : false);
+}
 
 /*
  * Détecteur de robot d'indexation
  */
-if (!defined('_IS_BOT'))
+if (!defined('_IS_BOT')){
 	define('_IS_BOT',
 		isset($_SERVER['HTTP_USER_AGENT'])
-		and preg_match(
-	    // mots generiques
-	    ',bot|slurp|crawler|spider|webvac|yandex|'
-	    // MSIE 6.0 est un botnet 99,9% du temps, on traite donc ce USER_AGENT comme un bot
-	    . 'MSIE 6\.0|'
-	    // UA plus cibles
-	    . '80legs|accoona|AltaVista|ASPSeek|Baidu|Charlotte|EC2LinkFinder|eStyle|flipboard|hootsuite|FunWebProducts|Google|Genieo|INA dlweb|InfegyAtlas|Java VM|LiteFinder|Lycos|MegaIndex|MetaURI|Moreover|Rambler|Scooter|ScrubbyBloglines|Yahoo|Yeti'
-	    . ',i', (string) $_SERVER['HTTP_USER_AGENT'])
+		and preg_match(','
+		. implode ('|', array(
+			// mots generiques
+			'bot',
+			'slurp',
+			'crawler',
+			'crwlr',
+			'java',
+			'monitoring',
+			'spider',
+			'webvac',
+			'yandex',
+			'MSIE 6\.0', // botnet 99,9% du temps
+			// UA plus cibles 
+			'200please',
+			'80legs',
+			'a6-indexer',
+			'aboundex',
+			'accoona',
+			'acrylicapps',
+			'addthis',
+			'adressendeutschland',
+			'alexa',
+			'altavista',
+			'analyticsseo',
+			'antennapod',
+			'arachnys',
+			'archive',
+			'argclrint',
+			'aspseek',
+			'baidu',
+			'begunadvertising',
+			'bing',
+			'bloglines',
+			'buck',
+			'browsershots',
+			'bubing',
+			'butterfly',
+			'changedetection',
+			'charlotte',
+			'chilkat',
+			'china',
+			'coccoc',
+			'crowsnest',
+			'dataminr',
+			'daumoa',
+			'dlvr\.it',
+			'dlweb',
+			'drupal',
+			'ec2linkfinder',
+			'eset\.com',
+			'estyle',
+			'exalead',
+			'ezooms',
+			'facebookexternalhit',
+			'facebookplatform',
+			'fairshare',
+			'feedfetcher',
+			'feedfetcher-google',
+			'feedly',
+			'fetch',
+			'flipboardproxy',
+			'genieo',
+			'google',
+			'go-http-client',
+			'grapeshot',
+			'hatena-useragent',
+			'head',
+			'hosttracker',
+			'hubspot',
+			'ia_archiver',
+			'ichiro',
+			'iltrovatore-setaccio',
+			'immediatenet',
+			'ina',
+			'inoreader',
+			'infegyatlas',
+			'infohelfer',
+			'instapaper',
+			'jabse',
+			'james',
+			'jersey',
+			'kumkie',
+			'linkdex',
+			'linkfluence',
+			'linkwalker',
+			'litefinder',
+			'loadimpactpageanalyzer',
+			'ltx71',
+			'luminate',
+			'lycos',
+			'lycosa',
+			'mediapartners-google',
+			'msai',
+			'myapp',
+			'nativehost',
+			'najdi',
+			'netcraftsurveyagent',
+			'netestate',
+			'netseer',
+			'netnewswire',
+			'newspaper',
+			'newsblur',
+			'nuhk',
+			'nuzzel',
+			'okhttp',
+			'otmedia',
+			'owlin',
+			'owncloud',
+			'panscient',
+			'paper\.li',
+			'parsijoo',
+			'protopage',
+			'plukkie',
+			'proximic',
+			'pubsub',
+			'python',
+			'qirina',
+			'qoshe',
+			'qualidator',
+			'qwantify',
+			'rambler',
+			'readability',
+			'ruby',
+			'sbsearch',
+			'scoop\.it',
+			'scooter',
+			'scoutjet',
+			'scrapy',
+			'scrubby',
+			'scrubbybloglines',
+			'shareaholic',
+			'shopwiki',
+			'simplepie',
+			'sistrix',
+			'sitechecker',
+			'siteexplorer',
+			'snapshot',
+			'sogou',
+			'special_archiver',
+			'speedy',
+			'spinn3r',
+			'spreadtrum',
+			'steeler',
+			'subscriber',
+			'suma',
+			'superdownloads',
+			'svenska-webbsido',
+			'teoma',
+			'the knowledge AI',
+			'thumbshots',
+			'tineye',
+			'traackr',
+			'trendiction',
+			'trendsmap',
+			'tweetedtimes',
+			'tweetmeme',
+			'universalfeedparser',
+			'uaslinkchecker',
+			'undrip',
+			'unwindfetchor',
+			'upday',
+			'vedma',
+			'vkshare',
+			'vm',
+			'wch',
+			'webalta',
+			'webcookies',
+			'webparser',
+			'webthumbnail',
+			'wesee',
+			'wise-guys',
+			'woko',
+			'wordpress',
+			'wotbox',
+			'y!j-bri',
+			'y!j-bro',
+			'y!j-brw',
+			'y!j-bsc',
+			'yahoo',
+			'yahoo!',
+			'yahooysmcm',
+			'ymobactus',
+			'yats',
+			'yeti',
+			'zeerch'
+		)) . ',i',
+		(string)$_SERVER['HTTP_USER_AGENT'])
 	);
+}
+if (!defined('_IS_BOT_FRIEND')){
+	define('_IS_BOT_FRIEND',
+		isset($_SERVER['HTTP_USER_AGENT'])
+		and preg_match(',' . implode ('|', array(
+			'facebookexternalhit',
+			'flipboardproxy',
+			'wordpress'
+		)) . ',i',
+		(string)$_SERVER['HTTP_USER_AGENT'])
+	);
+}
 
 /*
  * Interdit de passer une variable id_article (ou id_xxx) qui ne
@@ -49,17 +242,18 @@ if (!defined('_IS_BOT'))
  * (sauf pour id_table, qui n'est pas numérique jusqu'à [5743])
  * (id_base est une variable de la config des widgets de WordPress)
  */
+$_exceptions = array('id_table','id_base','id_parent','id_article_pdf');
 foreach ($_GET as $var => $val)
 	if ($_GET[$var] and strncmp($var, "id_", 3) == 0
-	and !in_array($var, array('id_table', 'id_base')))
+		and !in_array($var, $_exceptions))
 		$_GET[$var] = is_array($_GET[$var])?@array_map('intval', $_GET[$var]):intval($_GET[$var]);
 foreach ($_POST as $var => $val)
 	if ($_POST[$var] and strncmp($var, "id_", 3) == 0
-	and !in_array($var, array('id_table', 'id_base')))
+		and !in_array($var, $_exceptions))
 		$_POST[$var] = is_array($_POST[$var])?@array_map('intval', $_POST[$var]):intval($_POST[$var]);
 foreach ($GLOBALS as $var => $val)
 	if ($GLOBALS[$var] and strncmp($var, "id_", 3) == 0
-	and !in_array($var, array('id_table', 'id_base')))
+		and !in_array($var, $_exceptions))
 		$GLOBALS[$var] = is_array($GLOBALS[$var])?@array_map('intval', $GLOBALS[$var]):intval($GLOBALS[$var]);
 
 /*
@@ -71,7 +265,7 @@ $cjpeg_command = '';
 /*
  * Contrôle de quelques variables (XSS)
  */
-foreach(array('lang', 'var_recherche', 'aide', 'var_lang_r', 'lang_r', 'var_ajax_ancre') as $var) {
+foreach(array('lang', 'var_recherche', 'aide', 'var_lang_r', 'lang_r', 'var_ajax_ancre', 'nom_fichier') as $var) {
 	if (isset($_GET[$var]))
 		$_REQUEST[$var] = $GLOBALS[$var] = $_GET[$var] = preg_replace(',[^\w\,/#&;-]+,', ' ', (string)$_GET[$var]);
 	if (isset($_POST[$var]))
@@ -116,6 +310,15 @@ if (isset($_REQUEST['exec'])
 and $_REQUEST['exec'] == 'auteurs'
 and preg_match(',[<],', (string)$_REQUEST['recherche']))
 	$ecran_securite_raison = "recherche";
+if (isset($_REQUEST['exec'])
+and $_REQUEST['exec'] == 'info_plugin'
+and preg_match(',[<],', (string)$_REQUEST['plugin']))
+	$ecran_securite_raison = "plugin";
+if (isset($_REQUEST['exec'])
+and $_REQUEST['exec'] == 'puce_statut'
+and isset($_REQUEST['id'])
+and !intval($_REQUEST['id']))
+	$ecran_securite_raison = "puce_statut";
 if (isset($_REQUEST['action'])
 and $_REQUEST['action'] == 'configurer') {
 	if (@file_exists('inc_version.php')
@@ -164,6 +367,8 @@ if (isset($_REQUEST['GLOBALS']))
 if (_IS_BOT and (
 	(isset($_REQUEST['echelle']) and isset($_REQUEST['partie_cal']) and isset($_REQUEST['type']))
 	or (strpos((string)$_SERVER['REQUEST_URI'], 'debut_') and preg_match(',[?&]debut_.*&debut_,', (string)$_SERVER['REQUEST_URI']))
+		or (isset($_REQUEST['calendrier_annee']) and strpos((string)$_SERVER['REQUEST_URI'], 'debut_') )
+		or (isset($_REQUEST['calendrier_annee']) and preg_match(',[?&]calendrier_annee=.*&calendrier_annee=,', (string)$_SERVER['REQUEST_URI']))
 )
 )
 	$ecran_securite_raison = "robot agenda/double pagination";
@@ -217,6 +422,7 @@ if (isset($_REQUEST['var_url']) and $_REQUEST['var_url'] and isset($_REQUEST['ex
 	$url = trim($_REQUEST['var_url']);
 	if (strncmp($url,'/',1)==0
 	  or (($p=strpos($url,'..'))!==false AND strpos($url,'..',$p+3)!==false)
+	  or (($p=strpos($url,'..'))!==false AND strpos($url,'IMG',$p+3)!==false)
 		or (strpos($url,'://')!==false or strpos($url,':\\')!==false)) {
 		$ecran_securite_raison = 'URL interdite pour var_url';
 	}
@@ -274,10 +480,18 @@ and $_REQUEST['reinstall'] == 'oui')
 if (isset($_SERVER['HTTP_REFERER']))
 	$_SERVER['HTTP_REFERER'] = strtr($_SERVER['HTTP_REFERER'], '<>"\'', '[]##');
 
+
+/*
+ * Echappement HTTP_X_FORWARDED_HOST
+ */
+if (isset($_SERVER['HTTP_X_FORWARDED_HOST']))
+	$_SERVER['HTTP_X_FORWARDED_HOST'] = strtr($_SERVER['HTTP_X_FORWARDED_HOST'], "<>?\"\{\}\$'` \r\n", '____________');
+
+
 /*
  * Réinjection des clés en html dans l'admin r19561
  */
-if (strpos($_SERVER['REQUEST_URI'], "ecrire/") !== false){
+if (strpos($_SERVER['REQUEST_URI'], "ecrire/") !== false or isset($_REQUEST['var_memotri'])){
 	$zzzz = implode("", array_keys($_REQUEST));
 	if (strlen($zzzz) != strcspn($zzzz, '<>"\''))
 		$ecran_securite_raison = 'Cle incorrecte en $_REQUEST';
@@ -337,6 +551,7 @@ if (
 	defined('_ECRAN_SECURITE_LOAD')
 	and _ECRAN_SECURITE_LOAD > 0
 	and _IS_BOT
+	and !_IS_BOT_FRIEND
 	and $_SERVER['REQUEST_METHOD'] === 'GET'
 	and (
 		(function_exists('sys_getloadavg')
@@ -353,11 +568,12 @@ if (
 	and $load > _ECRAN_SECURITE_LOAD // eviter l'evaluation suivante si de toute facon le load est inferieur a la limite
 	and rand(0, $load * $load) > _ECRAN_SECURITE_LOAD * _ECRAN_SECURITE_LOAD
 ) {
-	header("HTTP/1.0 503 Service Unavailable");
+	//https://webmasters.stackexchange.com/questions/65674/should-i-return-a-429-or-503-status-code-to-a-bot
+	header("HTTP/1.0 429 Too Many Requests");
 	header("Retry-After: 300");
 	header("Expires: Wed, 11 Jan 1984 05:00:00 GMT");
 	header("Cache-Control: no-cache, must-revalidate");
 	header("Pragma: no-cache");
 	header("Content-Type: text/html");
-	die("<html><title>Status 503: Site temporarily unavailable</title><body><h1>Status 503</h1><p>Site temporarily unavailable (load average $load)</p></body></html>");
+	die("<html><title>Status 429: Too Many Requests</title><body><h1>Status 429</h1><p>Too Many Requests (try again soon)</p></body></html>");
 }

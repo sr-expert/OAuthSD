@@ -1,3 +1,290 @@
+SPIP-Core spip-3.1.9 -> spip-3.1.10  08 avril 2019
+-------------------------------------------------------------
+
+r24222 | Cerdic     |  (mar. 12 févr. 2019) | Ecran de securite :* les id_ exceptions dans une variable et on ajoute id_parent et id_article_pdf qui posent parfois problemes* bloquer les paginations croisees dans les calendrier egalement pour les bots (sur certains squelettes genere des tonnes de requetes)* envoyer une 429 Too Many Requests plutot qu'une 503 cf https://webmasters.stackexchange.com/questions/65674/should-i-return-a-429-or-503-status-code-to-a-bot et c'est mieux pour le referencement et GoogleBot qui a tendance a penser que 503 vient d'un serveur mal gere
+r24225 | Cerdic     |  (mar. 12 févr. 2019) | Retour a une liste complete de bots telle qu'elle etait sur la version non incremente de la zone, et on incremente
+r24231 | Cerdic     |  (mer. 20 févr. 2019) | Fix : quand on essaye d'activer un plugin qui n'est pas compatible avec la version de SPIP, il faut remonter une erreur d'activationOn modifie pour cela les fonctions* plugin_valide_resume() pour qu'elle renvoie le prefixe du plugin accepte ou la description short du plugin refuse pour incompatibilite ou erreur* liste_plugin_valides() pour qu'elle renvoie en plus la liste des plugins invalides qu'on voulait* plugins_erreurs() pour gerer le cas xml en erreur ou incompatibilite avec la version de SPIP* (pas sur la branche 3.1)<del>plugin_message_incompatibilite() pour generer un message d'erreur approprie quand il s'agit de SPIP et pas d'un plugin</del>Aucune rupture de compat, ce ne sont que des ajouts : du code qui utilisait les anciennes signatures de fonction continue a fonctionner sans probleme(Dans l'interface on ne peut pas cocher un plugin non compatible avec la version de SPIP, mais en spip-cli on peut le faire et ca echouait silencieusement)
+r24259 | Cerdic     |  (mer. 13 mars 2019) | Attention au cas ou * en second argument de l'appel de la fonction objet_trouver_lien(), ce qui se produit malheureusement dans la fonction objet_dupliquer_liens()
+r24260 | Cerdic     |  (mer. 13 mars 2019) | respecter les arguments  et  dans objet_dupliquer_liens(), y compris quand ca concerne un lien qui part de l'objet source
+r24278 | Cerdic |  (lun. 08 avril 2019) | utiliser var_export qui fait le job plus surement
+r24279 | Cerdic |  (lun. 08 avril 2019) | sanitizer var_memotri avant de l'utiliser (G0uz)
+r24280 | Cerdic |  (lun. 08 avril 2019) | v1.3.11 (securiser var_memotri)
+
+SPIP-plugins-dist spip-3.1.9 -> spip-3.1.10  08 avril 2019
+-------------------------------------------------------------
+
+r113550 | cedric    |  (lun. 21 janv. 2019) | Report de r105250 : Il arrive parfois que des documents images soient téléversés avec la mauvaise extension par rapport à leur contenu réel. Par exemple recevoir un fichier.jpg alors que son contenu est du png.On corrige cette subtilité lorsqu’on ajoute un document. Dans ce cas le nom du fichier reçoit en complément la nouvelle extension (il devient donc ici fichier.jpg.png), et on le stocke dans le bon répertoire (ie: IMG/png/fichier.jpg.png). Quelques logs au passage de ces cas.
+r113879 | cedric    |  (mar. 12 févr. 2019) | Report de r113877 : Fix https://core.spip.net/issues/4282 casse par r87494 qui avait renomme par erreur la boucle _forum en _forums (JLuc)
+r113885 | cedric    |  (mar. 12 févr. 2019) | Report de r113883 : une indirection manquante signalee dans https://core.spip.net/issues/4282 (JLuc)
+r114015 | cedric    |  (ven. 22 févr. 2019) | Report de r114013 : Envoyer des mails en from d'un inconnu c'est de l'usurpation d'identite et ca peut vous conduire au commissariat, en plus d'etre vu comme un SPAM par beaucoup de fournisseur de mail. On laisse donc le from par defaut du site, mais un mets un Reply-To a l'envoyeur et l'email de l'envoyeur suppose (mais pas verifie) en signature du message. C'est plus robuste et moins sujet a litige
+
+
+
+SPIP-Core spip-3.1.8 -> spip-3.1.9  18 janvier 2019
+-------------------------------------------------------------
+
+r23952 | cedric    |  (ven. 16 mars 2018) | Report de r23950 : Up ecran securite pour valider_xml encore
+r23960 | erational |  (lun. 26 mars 2018) | Bonne année 2018
+r23970 | cedric    |  (mer. 18 avril 2018) | Report de r23968 : cet espace ajoute a tort par r22569 casse l'affichage des tags dans les articles syndiques de l'espace prive
+r23987 | ben       |  (mar. 15 mai 2018) | Dites 33 ! prendre en compte un protocole plus long que d'habitude pour les urls maSuperAppli:// ... On passe de 7 à 33 ce qui devrait largement convenir https://core.spip.net/issues/4135
+r24001 | cedric    |  (mar. 12 juin 2018) | Report de r23999 : intval ici, c'est pas plus mal
+r24006 | b_b       |  (ven. 15 juin 2018) | report de r24004Fix #4151 : passer l'id_groupe en paramètre lors de la "création rapide" d'un mot depuis une page mot... en passant id_groupe dans le contexte du bandeaupatch temporaire en attendant que #3844 soit réglé
+r24016 | cedric    |  (ven. 29 juin 2018) | Report de r24012 : Retablir le support des sockets dans connect.php que le passage a mysqli avait casse (syntaxe differente entre mysql_connect() et mysqli_connect())
+r24017 | cedric    |  (ven. 29 juin 2018) | Report de r24013 : complement de r24012 pour la connexion en mysqli par socket : il faut mettre null dans le port, fournir login et pass et le host peut etre 'localhost'
+r24020 | cedric    |  (mar. 03 juil. 2018) | Report de r24018 : Fix #4157 : les inconsistances de PHP nous avaient enduit en erreur. On croyait bien faire en explicitant tls:// comme protocole pour l'ouverture des sockets, grave erreur cela limitait a SSLv1.0.Il faut revenir a ssl:// pour avoir une negociation sans limite du protocole crypto et donv pouvoir acceder a TLSv1.1 ou TLSv1.2 pour les serveurs qui ne supportent que cela les autres etant non securises
+r24035 | cedric    |  (jeu. 02 août 2018) | Report de r24033 : Appel du cron non bloquant :L'appel du cron de secours via une image background bloque certains scripts JS le temps que le cron s'execute, ce qui peut etre genantOn modernise via un appel en JS+xhr simple (pas grave si ne marche pas sur des vieux navigateurs) et un <noscript> avec l'ancien code en fallback
+r24078 | cedric    |  (jeu. 27 sept. 2018) | Report de r24050 : debut de solution pour #4173 mais il manque les tests unitaires pour verifier que ca marche bien
+r24079 | cedric    |  (jeu. 27 sept. 2018) | Report de r24062 : fix protocole_verifier (copier-coller abusif)
+r24080 | cedric    |  (jeu. 27 sept. 2018) | Report de r24063 : debug fonction valider_url_distante() https://core.spip.net/issues/4173
+r24111 | cedric    |  (sam. 29 sept. 2018) | Report de r24109 : Fix #3564 : en statut propose c'est la date de publi de l'article qu'on regle
+r24125 | b_b       |  (sam. 13 oct. 2018) | report de r24123
+r24130 | cedric    |  (ven. 19 oct. 2018) | Report de r24128 : des scories historiques sur le formulaire de login le rendait un peu disgracieux et pas super fonctionnel en mode ajax, avec double message de redirection + quand on allait sur la page de login en etant connecte on avait un lien 'par ici...' au lieu d'une redirection directs plus efficace
+r24133 | cedric    |  (jeu. 25 oct. 2018) | Report de r24131 : la fonction echapper_html_suspect() peut etre surchargee par une fonction inc_echapper_html_suspect_dist() dans un plugin, pour traiter specifiquement certains use case
+r24138 | fil       |  (mer. 31 oct. 2018) | report de l'ecran de secu 1.3.8
+r24154 | cedric    |  (mar. 04 déc. 2018) | Report de r24152 : Quand on fait une requete http/https sur un port non standard il faut suffixer le host envoye dans l'entete tcp, sinon le $[SERVER_PORT] n'est pas renseigne a l'arrivee(fix le fait qu'on avait un resultat different entre un curl http://localhost:8888/ et un recuperer_url() sur la meme url)
+r24157 | cedric    |  (mer. 05 déc. 2018) | Report de r24155 : pour certaines API il est vital d'etre a la racine du site, et pas dans un sous repertoire. On permet donc d'utiliser indifferement un . ou un / dans les URLs d'appel aux APIex : https://site/offline.api.sw.js
+r24160 | cedric    |  (mer. 05 déc. 2018) | Report de r24158 : Suite de r24152 : quand le cron est sur un port non standard il faut ajouter le port au host envoye en TCP pour que le SERVER_PORT soit bien renseigne a l'arrivee (localhost:8888 dans mon cas)
+r24164 | marcimat  |  (mar. 11 déc. 2018) | Report de r24163 : Ticket #4245 : Correction empêchant la création de certains répertoires, s’ils ont un souligné final dans leur nom.Lorsque la constante CREER_DIR_PLAT n’est pas définie, ne pas supprimer les soulignés finaux des répertoires.À l’inverse, par contre le faire aussi pour $subdir si la constante est là (sinon, on a une incohérence entre les appels `sous_repertoire('a/b')` et `sous_repertoire('a', 'b_')`.Note: on ne gèrera plus ce vieux _CREER_DIR_PLAT à partir de SPIP 3.3-dev.Corrige, entre autres un bug dans le plugin Bigup empêchant la réception de certains fichiers.
+r24173 | cedric    |  (dim. 23 déc. 2018) | Report de r24171 : Comme plus haut en ligne 494, si on recupere le contenu de l'URL par un moyen detourne, il faut mettre un status 200 et ne pas le laisser vide (Arno*)
+r24182 | cedric    |  (lun. 07 janv. 2019) | Un .gitignore qui fait le job
+r24195 | marcimat  |  (ven. 11 janv. 2019) | Ticket #4222 : Report oublié de r21880 pour id_table_objet() sur tables non SPIP. (RealET)
+r24196 | cedric    |  (lun. 14 janv. 2019) | le futur c'est maintenant
+r24200 | cedric    |  (mer. 16 janv. 2019) | eviter d'envoyer un header invalide qui fait planter apache+php-fpm si jamais on fait un define('_HEADER_COMPOSED_BY','') (mod_apache ignorait silencieusement le probleme)
+
+SPIP-plugins-dist spip-3.1.8 -> spip-3.1.9  18 janvier 2019
+-------------------------------------------------------------
+
+r109645 | Teddy     |  (ven. 23 mars 2018) | Report de r109644 : Ne pas envoyer la chaine traduite ici. C'est label_champ() qui s'en occupera.
+r109648 | Teddy     |  (ven. 23 mars 2018) | Report de r109647 : Pouvoir cibler une révision d'un type d'objet précis en CSS.
+r109750 | Francky   |  (dim. 01 avril 2018) | Bonne année aussi aux plugins-dist :-D
+r109862 | cedric    |  (mar. 10 avril 2018) | Report de r109860 : Mise a jour de CSSTidy
+r109871 | real3t    |  (mer. 11 avril 2018) | r107073 avait casse le traitement des expression regulieres dans les query (ex : Google). Il est bien possible que ca remette un notice
+r110647 | cedric    |  (mer. 13 juin 2018) | Afficher le rang dans la liste des documents
+r110687 | real3t    |  (ven. 15 juin 2018) | fix #3976 : (Report r110686) Pouvoir revenir au mot clef nouvellement créé au  lieu du comportement dérogatoire natif consistant à revenir à la page où était le bouton de création du mot.Dans mes_options.php :if (!defined('_MOTS_CREATION_RETOUR_MOT_CREE'))	define('_MOTS_CREATION_RETOUR_MOT_CREE', true);
+r111485 | marcimat  |  (mer. 05 sept. 2018) | Report de r111483 : Compat PHP 7 et coquille.
+r111714 | cedric    |  (jeu. 27 sept. 2018) | Report de r111687 : https://core.spip.net/issues/4173 : ne pas permettre d'acceder a des URLs locales du serveur via l'upload de documents distants
+r111767 | cedric    |  (sam. 29 sept. 2018) | Maj de CSSTidy en v1.6.3
+r111768 | cedric    |  (sam. 29 sept. 2018) | Report de r111750 : Report de r109858 : Ticket #3991 : préserver les ressources encodées en base64. Lorsqu'une valeur est égale à zéro (ex 0px), s'assurer qu'il s'agit d'une unité avant de retirer celle-ci (une chaîne encodée en base64 peut également contenir des parties '0px')
+r111770 | cedric    |  (sam. 29 sept. 2018) | Report de r111695 : Fix https://core.spip.net/issues/4132 : une fonction escape/unescape avec de la croute pour echapper sans risque ni failure et ne pas casser le code JS qu'on compresse
+r112457 | b_b       |  (ven. 16 nov. 2018) | version 1.7.7 : report de r112455
+r113163 | Francky   |  (dim. 30 déc. 2018) | Mise à jour de la lib getid en version 1.9.16, nous étions en 1.9.12https://github.com/JamesHeinrich/getID3/blob/master/changelog.txt
+r113164 | Francky   |  (dim. 30 déc. 2018) | Oubli de faire un z+1 pour la peine
+r113380 | Francky   |  (sam. 12 janv. 2019) | Bonne année spip 3.1
+
+SPIP-Core spip-3.1.7 -> spip-3.1.8  14 mars 2018
+-------------------------------------------------------------
+
+r23782 | erational |  (mer. 18 oct. 2017)  | report de r23780 passer la requête http://query.yahooapis.com en https://
+r23785 | marcimat  |  (jeu. 19 oct. 2017)  | Report de r23783 : Cet argument pour sqlite est un tableau et provoque sinon des warnings lors des mises à jours.
+r23789 | rasta     |  (mar. 24 oct. 2017)  | Backport de r23787 : Franck proposait de mettre les versions min tout comme PHP dans ce fichier d'install pour ne pas avoir à se poser de questions.
+r23793 | b_b       |  (mar. 31 oct. 2017)  | report de r23792retour sur r23686 : $streamContext n'est pas un tableau mais un contexte de fluxref #3751 thx to Thierry Voyat
+r23797 | kent1     |  (ven. 10 nov. 2017)  | Report de r23796Les Mongols utilisent en général le cyrillique (cf http://www.mfa.gov.mn/ par exemple)
+r23807 | fil       |  (jeu. 16 nov. 2017)  | merge r23806 ne pas donner le menu 'afficher les visiteurs' si les visiteurs ne sont pas souhaités ou s'il n'y en a aucun
+r23812 | rasta     |  (dim. 19 nov. 2017)  | Backport de la correction de r23810 : pas que webmestre et un OR
+r23818 | b_b       |  (jeu. 07 déc. 2017)  | report de r23816Fix #3418 again : ajouter un log pour signaler le problème de conf opcache
+r23821 | b_b       |  (ven. 08 déc. 2017)  | report de r23819
+r23838 | cedric    |  (jeu. 14 déc. 2017)  | Report de r23836 : Meme si _VAR_MODE est deja definie, il faut exclure calcul et recalcul de l'analyse pour ne pas provoquer une redirection erronnee
+r23863 | cedric    |  (ven. 05 janv. 2018) | Report de r23862 : Fix indentation du selecteur de rubrique dans FF :Finie l'exception de Firefox : le padding/margin ne marche plus, au moins sur Mac OSX recent, on simplfie donc le code et traite tous les navigateurs de la meme facon+ petit ajustement sur l'indentation de base pour eviter trop de decalage entre 1er et 2nd niveau, le 1er niveau etant bien distingue par la couleur
+r23872 | marcimat  |  (lun. 08 janv. 2018) | Report de r23870 : petite correction sur certains create table sqlite.
+r23875 | b_b       |  (lun. 08 janv. 2018) | report de r23873Fix #3626 : installation, ne pas permettre un prefixe qui commence par des chiffres puisqu'on ne le prend pas en charge
+r23878 | cedric    |  (mar. 09 janv. 2018) | Report de r23876 : Amelioration du #FORMULAIRE_DATER a qui on peut passer explicitement le champ date et le champ date_redac que l'on veut utiliser ainsi que les labels associes, ce qui permet d'en etendre l'usage et la reutilisation possible
+r23881 | b_b       |  (mar. 09 janv. 2018) | report de r23879Fix #3426 : enrichir la détection des robots
+r23884 | marcimat  |  (mer. 10 janv. 2018) | Report de r23882 :  Ticket #3426, Correction de r23879, éviter un ||.
+r23887 | rasta     |  (jeu. 11 janv. 2018) | backport de r23885 : les admins doivent voir les comptes à confirmer aussi (peetdu)
+r23889 | marcimat  |  (jeu. 11 janv. 2018) | Report de r23888 : Ticket #3426, Correction de r23879, 'web' attrape webkit, qui n’est pas un bot. On l’enlève !
+r23909 | cedric    |  (ven. 09 févr. 2018) | Report de r23908 : Prise en compte amelioree du flag process
+r23928 | booz      |  (mer. 28 févr. 2018) | Report de [23926] ; voir aussi https://core.spip.net/issues/3924
+
+SPIP-plugins-dist spip-3.1.7 -> spip-3.1.8  14 mars 2018
+-------------------------------------------------------------
+
+r107072 | chankalan |  (ven. 20 oct. 2017)  | éviter des notices php
+r107283 | fil       |  (jeu. 02 nov. 2017)  | _EXTRAIRE_DOMAINE pas defini au bon endroit
+r107342 | maieul    |  (sam. 04 nov. 2017)  | Afficher les documents les plus récents en haut dans la colonne des documents liés à un objet.Cela permet de ne pas scroller tout en bas pour trouver le document qu'on vient d'ajouter.Notes:  - J'espère avoir commité aux bon en endroits (entre les branches et le trunk, je suis perdu). En tout cas, je commit pas sur la v3.0 car n'est plus maintenu que pour raison de sécurité. - On se base sur l'idée document et pas sur la date associée au document, pour éviter une jointure peut utile dans le cas présent.fix #4039
+r107345 | maieul    |  (sam. 04 nov. 2017)  | dans un premier tps, r107342 n'aurait du être que sur le trunk
+r107569 | fil       |  (mar. 14 nov. 2017)  | report de 107509 : possibilité d'une virgule dans les mots et tri par points de la liste
+r108517 | cedric    |  (lun. 15 janv. 2018) | Eviter un fatal memory si jamais un tampon est ouvert
+r108692 | cedric    |  (mar. 30 janv. 2018) | le titrage des documents a partir du nom de fichier est un peu restritif, on donne la possibilite de definir sa regle via une fonction inc_titrer_document_dist surchargeable
+r108736 | cedric    |  (ven. 02 févr. 2018) | Report de r108734 : mise a jour du test unitaire suite au changement de serveur math : la taille de l'image test change de 1px
+r108737 | cedric    |  (ven. 02 févr. 2018) | Report de r100150 : Tolérer PHP7 tout de même pour les tests SimpleTest.
+r108738 | cedric    |  (ven. 02 févr. 2018) | Report de r100156 : Des fins de PHP en moins
+r108741 | cedric    |  (ven. 02 févr. 2018) | Report de r108740 : Plus de img/spip.png sur SPIP.net, tout fout le camp...
+r108743 | cedric    |  (ven. 02 févr. 2018) | Report de r108742 : Plus de img/spip.png sur SPIP.net, tout fout le camp...
+r108744 | cedric    |  (ven. 02 févr. 2018) | Report de r100149 : Mise à jour de SimpleTest à la version 1.1.8-dev commit 03db272pour fonctionner sous PHP7.
+r108786 | jluc      |  (sam. 03 févr. 2018) | suite fix couleur_saturation dans le cas où couleur est FFFFFF ou #ffffff
+r109385 | real3t    |  (jeu. 08 mars 2018)  | Report de r109375 : la premiere fois qu'on voit un referer, on lui pose 0 visites pour la veille (et non pas  visites du jour même)
+r109387 | real3t    |  (jeu. 08 mars 2018)  | Backport du lien d'archivage des statistiques, la fonctionnalité ayant été codée en 3.1, mais sans le lien pour le faire. (Et les chaînes de langue étaient déjà là).
+
+
+SPIP-Core spip-3.1.6 -> spip-3.1.7  12 octobre 2017
+-------------------------------------------------------------
+
+r23606 | marcimat  |  (mar. 13 juin 2017) | Report de r23605 : ne pas indiquer la version de PHP dans les headers.
+r23612 | cedric    |  (jeu. 15 juin 2017) | Report de r23611 : fix r23588 qui avait casse les criteres implicites des boucles DATA quand ils ne sont pas de type int :<BOUCLE_pages(DATA) {source table, #NOIZETIER_PAGE_INFOS}{est_page_objet?}{par cle}>(Eric)
+r23623 | cedric    |  (mar. 27 juin 2017) | Report de r23622 : Fix #3751 (et #3967) : directives SNI dans le proxy pour les sites en https
+r23634 | marcimat  |  (lun. 03 juil. 2017) | Report de r23632 et r23632 : utiliser le même identifiant pour les images traités par les filtres d’images, qu’on soit dans l’espace privé ou dans l’espace public. Un même traitement graphique ne crée pas 2 images dans local inutilement.
+r23660 | cedric    |  (mer. 12 juil. 2017) | Report de r23659 : coquille dans la condition de statut quand rien ne matche
+r23665 | Nicod     |  (mer. 12 juil. 2017) | Report de c23664 : Ne pas afficher les plugins lors d'une recherche
+r23679 | b_b       |  (jeu. 20 juil. 2017) | report de r23678Bugfix dans recup_date() quand on lui passe une chaîne du type 2017-07
+r23688 | b_b       |  (jeu. 24 août 2017) | report de r23686 et r23687Ref #3751 : compat PHP 5.6+
+r23691 | b_b       |  (mer. 30 août 2017) | report de r23690Fix #3981 : permettre aux rédacteurs de créer une nouvelle traductionSuite aux modifications relatives à #2746 un rédacteur ne pouvait plus créer de traduction sur un article dont il n'était pas l'auteur, on corrige ce bug.
+r23695 | cedric    |  (ven. 08 sept. 2017) | Report de r23694 : Revert de r23632 r23633 r23693 :	// les images calculees dependent du chemin du fichier source	// pour une meme image source et un meme filtre on aboutira a 2 fichiers selon si l'appel est dans le public ou dans le prive	// ce n'est pas totalement optimal en terme de stockage, mais chaque image est associee a un fichier .src	// qui contient la methode de reconstrucion (le filtre + les arguments d'appel) et les arguments different entre prive et public	// la mise en commun du fichier image cree donc un bug et des problemes qui necessiteraient beaucoup de complexite de code	// alors que ca concerne peu de site au final	// la release de r23632+r23633+r23634 a provoque peu de remontee de bug attestant du peu de sites impactes
+r23697 | cedric    |  (ven. 08 sept. 2017) | Report de r23696 : Securiser l'URL qu'on insere sur les ancres en url arborescentes (xdjuj)
+r23708 | cedric    |  (ven. 15 sept. 2017) | Report de r23707 : Securiser les URLs renvoyees par self() et #SELF qui sont souvent reinjectees dans le HTML (Jarrod Farncomb)
+r23711 | cedric    |  (ven. 15 sept. 2017) | Report de r23710 : Echapper le charset dans le message d'erreur (Jarrod Farncomb)
+r23714 | cedric    |  (ven. 15 sept. 2017) | Report de r23713 : Permettre de passer le mode de filtrage en second argument de interdire_script, et on utilise la valeur de la globale sinon (comportement par defaut inchange)
+r23717 | cedric    |  (ven. 15 sept. 2017) | Report de r23716 : Pas de onclick ni de popup JS dans le pied de page
+r23725 | cedric    |  (dim. 17 sept. 2017) | Report de r23724 : Fix #3598 #3731 #3850 : quelques echappements manquants
+r23727 | cedric    |  (dim. 17 sept. 2017) | Report de r23719 : Les arguments passes a _T() et _L() sont securises car ce sont souvent des contenu utilisateurs affiches (Jarrod Farncomb)
+r23733 | cedric    |  (ven. 29 sept. 2017) | Report de r23731 : Suite de r23719 : les fonctions _T et _L prennent une option sanitize qui par defaut vaut true pour dire qu'on veut nettoyer le html suspect des arguments des chaines de languepasser cette option a false permet de debrayer ce nettoyage pour les cas ou ils poserait probleme (exceptions)
+r23734 | cedric    |  (ven. 29 sept. 2017) | Report de r23732 : Les arguments des chaines de langue utilises dans le filtre affdate_debut_fin sont surs, on peut desactiver la sanitization de _T qui se declenche betement sur le abbr du microformat
+r23738 | b_b       |  (lun. 02 oct. 2017) | report de r23737prise en charge des clés partielles dans split_key (thx marcimat)permet d'éviter une erreur avec les index du type text(60) qui étaient à tort insérés tels quels dans le group by des requêtes sqlref https://github.com/seenthis/seenthis_squelettes/issues/149
+r23739 | marcimat  |  (mar. 03 oct. 2017) | Report de r23735 et r23736 : Complément à r23731 : en présence du plugin 'dev' ou du mode 'traductions' ne pas prendre toutes les chaines de langues comme non traduites !(Eric)
+r23741 | marcimat  |  (mer. 04 oct. 2017) | Report de r23740 1) Éviter des notices PHP en CLI2) Éviter de prendre 'PHP_SELF', en CLI comme étant l’URL (c’est le chemin du script), sinon, notamment le calcul des urls absolues devient faussé.
+r23742 | cedric    |  (ven. 06 oct. 2017) | Report de r23701 : #3371 (suite de r22428) on complete la fonction echapper_html_suspect pour permettre de l'appeler sur du contenu qui passe par propre sans declencher trop de faux positif en lui ajoutant un argument $strict+ appel de la fonction en filtre dans l'affichage de #PGP+ chaine de langue pour signaler le texte mal forme quand on l'echappe(et du coup on integre un emoji unicode dans le code pour afficher un signe warning qui porte le message en title)
+r23754 | marcimat  |  (mer. 11 oct. 2017) | Report de r23752 : On ajoute sur le lien du pied de page privé un attribut rel (noopener noreferrer)
+
+SPIP-plugins-dist spip-3.1.6 -> spip-3.1.7  12 octobre 2017
+-------------------------------------------------------------
+
+r104899 | chankalan |  (lun. 19 juin 2017) | lorsqu'on fait "modifier" un document, ne pas proposer un multi upload lorsqu'on veut juste changer le fichier https://core.spip.net/issues/3961
+r104900 | chankalan |  (lun. 19 juin 2017) | up de z pour le multi upload que quand c'est nécessaire
+r104904 | chankalan |  (lun. 19 juin 2017) | report correct de r104901 (RealET et b_b)
+r104992 | b_b       |  (mar. 27 juin 2017) | report de r104991Fix #3959 : réparer la box sur les images insérées dans le contenu, retour sur r103219
+r105480 | marcimat  |  (jeu. 27 juil. 2017) | Report très très partiel de r105476 sur la regexp de nettoyage des notes. On la simplifie, ce qui évite de tuer PCRE sur des textes longs avec des notes mal fermées.
+r106018 | b_b       |  (ven. 01 sept. 2017) | report de r106017Fix #3992 : rétablir la classe microformat sur le titre des articlesRef ​https://core.spip.net/issues/3992
+r106238 | cedric    |  (mer. 13 sept. 2017) | Report de r106237 : echapper quelque caracteres sur les URLs des documents distants (Chen Ruiqi)
+r106293 | cedric    |  (ven. 15 sept. 2017) | Report de r106292 : Permettre de passer le mode de filtrage en second argument de interdire_script, et on utilise la valeur de la globale sinon (comportement par defaut inchange)
+r106366 | b_b       |  (jeu. 21 sept. 2017) | report de r106365Fix #4001 : rétablir la mise à jour de la date_thread pour les forums du privéretour sur r89165
+r106460 | cedric    |  (ven. 29 sept. 2017) | Report de r106234 : Complement de https://core.spip.net/projects/spip/repository/revisions/23701 pour https://core.spip.net/issues/3371 : on appelle la fonction echapper_html_suspect() sur les contenus qui passent dans propre() si on est dans l'espace prive (repere par espace_prive ou wysiwyg dans le env ou le flag automatique interdire_script leve en cas d'appel a propre() depuis du code php
+r106462 | cedric    |  (ven. 29 sept. 2017) | Report de r106461 : Mise a jour de la librairie CSSTidy
+
+SPIP-Core spip-3.1.5 -> spip-3.1.6  12 juin 2017
+-------------------------------------------------------------
+
+r23581 | b_b       |  (jeu. 08 juin 2017) | report de r23580Fix #3956 : retour sur r22230 qui remplaçait par erreur une fermeture d'ul par une fermeture de div
+r23589 | cedric    |  (ven. 09 juin 2017) | Report de r23588 : corriger l'utilisation du critere {annee_relatif} et autres relatif, utilise sans valeur, qui produisait par exemple unYEAR("2002-09-24 16:28:00")-YEAR(articles.date) = ''au lieu deYEAR("2002-09-24 16:28:00")-YEAR(articles.date) = 0Le premier marchant en mysql mais pas en sqlite(Par contre un {annee_relatif=0} marchait bien dans tous les cas)
+r23593 | cedric    |  (lun. 12 juin 2017) | Report de r23590 : Utiliser des simples quotes dans la fonction anonyme, c'est preferable
+r23594 | cedric    |  (lun. 12 juin 2017) | Report de r23591 : Meilleure sanitization du host pour eviter des choses exotiques
+r23595 | cedric    |  (lun. 12 juin 2017) | Report de r23592 : Version 1.3.2 : Sanitizer HTTP_X_FORWARDED_HOST quand il est envoye en en-tete
+
+
+SPIP-Core spip-3.1.4 -> spip-3.1.5  08 juin 2017
+-------------------------------------------------------------
+
+r23473 | marcimat  |  (dim. 12 mars 2017) | Non exécutable.
+r23488 | b_b       |  (sam. 25 mars 2017) | report de r23487Fix #3925 : réparer la validation du dateur quand il est validé par la touche entrée
+r23490 | cedric    |  (mar. 28 mars 2017) | Fix syntaxe jQuery.ajax(url,settings) qui etait cassee par la surcharge de spip
+r23493 | marcimat  |  (sam. 08 avril 2017) | Report de r23492 : Depuis r17563 il était devenu impossible d'éditer un champ 'chapo' commençant par un signe =, car un bout de code autour des anciennes redirections était discrètement resté dans le formulaire d'édition d'article.
+r23496 | marcimat  |  (sam. 08 avril 2017) | Report de r23495 : Permettre de surcharger la fonction qui teste les redirections d'articles (un plugin arrive qui gère d'autres objets éditoriaux)
+r23497 | marcimat  |  (ven. 14 avril 2017) | r21289 introduisait un bug avec le sélecteur générique avec les articles. Les rubriques avaient déjà été corrigées par r22737. On reporte cette correction sur la hiérarchie des articles également.
+r23500 | rasta     |  (mer. 26 avril 2017) | Correction d'une régression en 3.1 : pour generer_info_entite() l'application des traitements a été déporté dans une fonction dédiée appliquer_traitement_champ() mais en oubliant d'y reporter le chargement des filtres de texte qui était toujours là en 3.0. Car la plupart des traitements pré-définis en ont besoin (propre, typo etc) et il ne faut pas partir du principe que c'est déjà chargé (form ajax ou autre) : c'est quand on les applique qu'on doit être sûr de les avoir. Du coup ça faisait erreur PHP bien sûr.
+r23503 | marcimat  |  (ven. 28 avril 2017) | Report de r23502 : Correction d'un problème avec url_de_() depuis r23077 : une URL dans la query string faisait echouer le calcul correct.On enlève la query string avant d'analyser si on a affaire à un "vieux mode http" …Test unitaire ajouté aussi en https://zone.spip.org/trac/spip-zone/changeset/104118 du coup.
+r23516 | erational |  (jeu. 04 mai 2017) | report de r23515 : double definition CSS
+r23524 | cedric    |  (ven. 05 mai 2017) | Report de r23521 : Fix #3631 : les articles en cours de redaction sont visualisables en previsu par les admins (autorisation surchargeable autoriser(previsualiserredac,article)
+r23525 | cedric    |  (ven. 05 mai 2017) | Report de r23523 : Fix #3655 : on peut utiliser une class noscroll sur les boutons action des listes ajax, ou sur les submit des forms ajax (complete donc r18894)
+r23527 | cedric    |  (ven. 05 mai 2017) | Report de r23526 : Fix #3763 : la page exec=infos_perso est redirigee vers la page exec=auteur&id_auteur=xx de l'auteur connecte, qui reprend les nglets d'acces aux pages de preference perfoDans le header, on met l'id_auteur de l'auteur connecte au survol de son nom (dans le title) pour permettre de le retrouver. L'url reste  exec=infos_perso car elle n'est de toute facon pas visible dans tous les navigateurs. On a garde cette URL car on ne sait pas definir exec=auteur&id_auteur=xx  dans la definition de l'onglet dans le paquet.xml
+r23533 | cedric    |  (sam. 06 mai 2017) | Report de r23532 : Fix #3562 : jQuery.load appelle jQuery.ajax, et dans ce cas ce dernier ne doit pas appeler triggerAjaxLoadPour corriger ca on passe un triggerAjaxLoad:false en data, qui est ensuite vide par jQuery.ajax
+r23535 | cedric    |  (sam. 06 mai 2017) | Report de r23534 : Fix cas borderline si dans mes_options on appelle redirige_par_entete qui utilise _T et charge un fichier de langue on a pas encore inclus flock.php
+r23546 | cedric    |  (dim. 07 mai 2017) | Report de r23545 : Fix #3807 : limiter le nombre de sessions maxi d'un auteur quand on en ouvre une nouvelle ou quand on actualise les sessionsSi plus que le seuil defini par la constante _NB_SESSIONS_MAX les plus anciennes sont supprimees
+r23550 | cedric    |  (mar. 09 mai 2017) | la fonction jQuery.fn.load peut etre appellee avec une fonction en argument, et il ne faut pas casser ce cas d'usage (ce que faisait r23533 par erreur) - on retablit aussi le try/catch sur le caller pour le cas ajaxSubmit
+r23553 | marcimat  |  (lun. 15 mai 2017) | Report de r23552 : Coquille dans r23545 (Francky)
+r23559 | guytarr   |  (sam. 20 mai 2017) | report de 23308 : Introduction d'un pipeline 'formulaire_receptionner' qui est exécuté au moment où une personne poste un formulaire, mais avant de passer dans la fonction de vérification prévu par ce formulaire.Cela permet pour l'usage que j'ai, de modifier $_FILES (sauvegarder / compléter) avant que la fonction verifier() s'en occupe. Notamment, si on utilisait le pipeline 'verifier' on arrivait trop tard.La clé 'data' du pipeline n'a pas d'utilité pour l'instant et pour mon usage, du coup je la laisse à null. Peut être que quelqu'un·e trouvera un usage un jour :)(et bigup pour marcimat)
+r23564 | b_b       |  (mer. 31 mai 2017) | report de r23563une classe webmestre_(oui|non) sur le body de l'espace privé
+r23566 | cedric    |  (mer. 31 mai 2017) | Report de r23565 : On reintegre facebookexternalhit dans la liste des bots, car on ne veut pas le compter en statistiques, mais on ajoute une constante _IS_BOT_FRIEND qui matche facebookexternalhitLes botfriend ne sont pas rejetes d'un coup de 503 en cas de surcharge serveur, pour eviter les partages sociaux rates
+
+SPIP-plugins-dist spip-3.1.4 -> spip-3.1.5  08 juin 2017
+-------------------------------------------------------------
+
+r103218 | cedric    |  (ven. 10 mars 2017) | 2 bugfixes : selecteur image n'etait pas pris en compte, et il faut passer aussi speed et transition quand on utilise $.mediabox()
+r103243 | Francky   |  (sam. 11 mars 2017) | DMOZ ferme le 14/03/2017http://www.generation-nt.com/dmoz-fermeture-annuaire-sites-web-actualite-1940186.html
+r103292 | real3t    |  (ven. 17 mars 2017) | Autre url pour le moteur de recherche Lilo
+r103328 | Francky   |  (sam. 18 mars 2017) | Accents + ajout du "s" au lien de doc + suppression d'une balise qui avait été ajouté au moment ou spip 3.1 était en dev et dont les borne de comptabilité étaient n'importe quoi
+r103416 | Francky   |  (lun. 20 mars 2017) | Un fichier de langue qui ne sert à rien
+r103990 | marcimat  |  (mar. 18 avril 2017) | Le champ crédits est parfois un peu court (ici j'avais des lonnnngues URLs dedans) et elles étaient coupées.On passe ce champ en 'text' déjà (65000 caractères). Ça sera déjà mieux.
+r104164 | marcimat  |  (jeu. 04 mai 2017) | Report de r104161 : Fixes #3756 : Utiliser le bon événement sur la restauration de l'état des dépliements dans le plan du site : l'événement 'restore_state' ne se chargeaitque si un état avait déjà été sauvegardé. Il faut utiliser 'state_ready' à la place. Du coup, les liens sont bien clicables dans tous les cas. (merci b_b pour le soutien)
+r104181 | erational |  (ven. 05 mai 2017) | report de r104180 - en cas d'appel en pop-in, on ajoute un bouton enregistrer en haut pour l'ergonomie
+r104187 | erational |  (ven. 05 mai 2017) | report de r104186 - en responsive, on linéarise les tableaux (au lieu du scroll proposé par tinytypo)
+r104216 | cedric    |  (sam. 06 mai 2017) | Report de r104215 : Fix https://core.spip.net/issues/3633 : un appel de mediabox sur une collection vide jQuery().mediabox(...) ou jQuery('#truc').mediabox() n'ouvre plus la box. On peut le faire par le shorthand jQuery.mediabox()
+r104359 | Francky   |  (lun. 08 mai 2017) | spip.net est maintenant en https, donc j'ajoute le "s" à http
+r104360 | Francky   |  (lun. 08 mai 2017) | code.spip est maintenant en https, donc j'ajoute le "s" à http
+r104361 | Francky   |  (lun. 08 mai 2017) | - Ce n'est plus http://programmer.spip.org mais http://programmer.spip.net- programmer.spip est maintenant en https, donc, j'ajoute le"s"
+r104362 | Francky   |  (lun. 08 mai 2017) | plugins.spip est maintenant en https, donc j'ajoute le "s" à http
+r104363 | Francky   |  (lun. 08 mai 2017) | contrib.spip est maintenant en https, donc, j'ajoute le "s" à http
+r104364 | Francky   |  (lun. 08 mai 2017) | trad.spip est maintenant en https, donc j'ajoute le "s" à http
+r104422 | real3t    |  (mar. 09 mai 2017) | Compatibilité avec http://core.spip.org/projects/spip/repository/revisions/23533
+r104621 | b_b       |  (mar. 23 mai 2017) | report de r104620 / Fix #3951 : réparer la détection automatique des sites en https
+r104642 | Francky   |  (jeu. 25 mai 2017) | Report de https://zone.spip.org/trac/spip-zone/changeset/104221/ et https://zone.spip.org/trac/spip-zone/changeset/104224 de guytarr
+r104643 | Francky   |  (jeu. 25 mai 2017) | Il manquait encore des report https://zone.spip.org/trac/spip-zone/changeset/104236 et https://zone.spip.org/trac/spip-zone/changeset/104237 ( guytarr )
+
+SPIP-Core spip-3.1.3 -> spip-3.1.4  06 mars 2017
+-------------------------------------------------------------
+
+r23220 | marcimat  |  (sam. 01 oct. 2016) | Report de r23219 : Retour sur r23197 : faire fonctionner correctement les commentaires de debug des slow queries :il faut transmettre $link à la fonction !
+r23226 | marcimat  |  (mer. 26 oct. 2016) | Formattage du code.
+r23227 | marcimat  |  (mer. 26 oct. 2016) | Lorsque des plugins sont en erreurs pour s'activer, pour des raisons d'absence de dépendance,Si A nécessite B et B nécessite C et C nécessite D, que A, B et C sont à activer, mais D n'est pas là,le message d'erreur était vide pour les plugins A et B, car la fonction pensait à tord que A et B étaient actifs. La liste qui sert au calcul du message d'erreur doit prendre en compte le fait que les plugins en erreur ne sont pas activés,et donc, le message d'erreur indique bien maintenant que A nécessite B, et B nécessite C.
+r23238 | cedric    |  (ven. 04 nov. 2016) | Report de r23237 : Fix #3832 : encoder en ascii les URLs internationales avec caracteres UTF avant de faire une requete http dessus
+r23244 | marcimat  |  (ven. 04 nov. 2016) | Report de r23243 : L'enregistrement des fichiers des plugins demandés, mais introuvables, ne listait que le dernier fichier en erreur,depuis l'introduction de la fonction en r18023 . Correction de la coquille donc.
+r23246 | b_b       |  (dim. 06 nov. 2016) | Fix #3855 : report tardif de r22711
+r23248 | marcimat  |  (mer. 09 nov. 2016) | Séparer dans une fonction le calcul de la durée du cookie de session, mettre un phpdoc qui explique, et reformatter pour plus de clarté.
+r23250 | marcimat  |  (mer. 09 nov. 2016) | Fin de if trop précoce, qui faisait (a priori) que les bablises script, genie et style des paquet.xmlne fonctionnaient que si une balise pipeline au moins était présente dedans.
+r23277 | eric      |  (sam. 19 nov. 2016) | Report de 23276.On ajoute une option à la fonction table_valeur() pour permettre de renvoyer la valeur null d'un index existant.
+r23278 | eric      |  (sam. 19 nov. 2016) | On incrémente le numéro de la version SPIP de la branche 3.1 à 3.1.4-dev.En effet, la dernière version stable de cette branche est la 3.1.3 et laisser cette version sur la version en dev est confusionnant mais aussi empêche un plugin de mettre un nécessite sur cette version.On en profite aussi pour mettre à jour en cohérence le paquet.xml.
+r23292 | cedric    |  (dim. 04 déc. 2016) | Report de r23291 : une fonction match_langue pour verifier qu'une chaine est bien une langue. On l'utilise dans le reperage des langues pour eviter de confondre certains fichiers de langue de plugin mal nommes avec une langue qui n'existe pas (spip_xxxxxxx_fr.php)
+r23295 | cedric    |  (lun. 05 déc. 2016) | Report de r23293 : Une fonction objet_T qui permet de chercher une chaine de langue contextuelle a un objet et sinon de se rabattre sur la chaine de langue par defaut - utile pour rendre certaines interfaces personalisables sans devoir tout surcharger
+r23296 | cedric    |  (lun. 05 déc. 2016) | Report de r23294 : Utiliser la fonction objet_T pour permettre la personalisation de l'interface de traduction pour un objet specifique + selectionner le statut et afficher la puce de statut si l'objet a un champ statut
+r23301 | cedric    |  (mar. 06 déc. 2016) | Report de r23300 : Avec le laxisme qu'il y avait sur sur la saisie de url_site avant r23061 les utilisateurs avaient pris la mauvaise habitude d'eluder le http:// dans la saisieOn gere donc le cas le plus courant : si l'url n'a pas de : et commence par www. on ajoute automatiquement http:// devant, cela simplifie la vie
+r23303 | marcimat  |  (jeu. 08 déc. 2016) | Report de r23286 : Pas besoin de chercher des fichiers de langue en .php3
+r23304 | marcimat  |  (jeu. 08 déc. 2016) | Report de r23258 : Ticket #3860 : Lors du calcul du fichier de caches des pipelines,notamment et particulièrement lorsqu'on utilise la balise `<genie>` dans un paquet.xml,bien faire en sorte d'avoir les chemins des plugins actifs (ou à activer) chargés pourtester la présence de la fonction demandée dans la balise `<genie>`.Sinon, si on vide le cache (depuis l'admin, ou brutalement tmp/cache/*), les crons déclarés dans les balises `<genie>` ne sont plus activés tant qu'on ne repasse pas sur la page d'administrationdes plugins. Du coup, on déplace le chargement des chemins de plugins et options un peu au dessus, pour quela précompilation des pipelines ait accès aux fichiers des plugins activés.Le petit hic, c'est un léger changement de comportement :  les fichiers d'options des plugins n'ont plus accès, dans la globale 'spip_pipeline', aux fonctions ajoutés par les balises `<pipeline>` des paquet.xml et plugin.xml, (infos complétées après le chargement des fichiers d'options donc). Je ne pense pas que ce changement soit gênant.
+r23309 | cy.altern |  (jeu. 22 déc. 2016) | correction d'une coquille pour tester un changement de login SVN
+r23311 | b_b       |  (jeu. 22 déc. 2016) | report de r23310Fix #3879 : retour sur r23061 qui bloquait l'usage des raccourcis SPIP pour les liens dans le champ url_site de l'auteur
+r23315 | rasta     |  (lun. 02 janv. 2017) | On corrige date_ical, qui pour l'immense majorité des cas DOIT avoir une date avec horaires précises (ce qui se matérialise soit avec l'heure GMT + Z à la fin, soit en donnant le timezone), surtout pour tous les trucs générés par un site (publication d'articles, événement qui se passent à tel endroit, etc). Les seuls rares cas où les horaires dites "flottantes" sont acceptables c'est quand on parle d'une occupation d'un truc qui vaut peu importe l'endroit du genre "ce salarié sera occupé de 8h à 18h, qu'il se trouve à new-york ou paris", bref ça reste rare et surtout sans rapport avec ce qu'on génère nous par défaut, le core et nos plugins.
+r23316 | rasta     |  (lun. 02 janv. 2017) | Et la doc au dessus un peu
+r23319 | marcimat  |  (jeu. 05 janv. 2017) | Notice PHP en moins lorsque Convert est utilisé comme moteur d'image.
+r23323 | Nicod     |  (mar. 10 janv. 2017) | Pas de petis carrés en background des icônes de documents. Report de r23321 et r23322
+r23345 | marcimat  |  (mer. 18 janv. 2017) | Compatibilité PHP 7.1 : éviter un warning sur la fonction f_queue appelée par le pipeline affichage_final. (call_user_func() appelé par minipipe() ne peut pas transmettre par référence).
+r23351 | marcimat  |  (jeu. 26 janv. 2017) | report de r23350 pour PHP 7.1 : S’assurer que `$row` est array ici.
+r23369 | cedric    |  (mer. 01 févr. 2017) | La fonction logo_survol utilisee pour construire la balise #LOGO delegue a quete_logo la recherche du fichier image logo.On peut maintenant personaliser cette fonction pour chaque type d'objet avec une fonction quete_logo_{type}_dist() ou quete_logo_{type}Ces fonctions personalisees ont la meme signature que la fonction generique quete_logo.Elles peuvent permettre d'introduire une logique metier propre a chaque site sans modifier les squelettes. Ex : aller chercher l'image jointe avec telle propriete si disponible, sinon le logo d'origineLa perenite de cela s'arretera probablement a la refonte de la gestion des logos, mais ca peut servir d'ici la
+r23371 | cedric    |  (mer. 01 févr. 2017) | Revert de r23369 qui fait double emploi avec le pipeline quete_logo_objet introduit par r23039
+r23404 | marcimat  |  (mer. 08 févr. 2017) | Report de r23403 : Ticket #3386 : Dans des configurations HTTPS avec des reverses proxy, parfois SPIP ne pouvait pas retrouverqu'une connexion HTTPS était utilisée. On se permet de tester en plus la variable `$_SERVER['HTTP_X_FORWARDED_PROTO']`qui sera utilisée, mais uniquement si l'adresse principale du site est déclarée en https en configuration.On ajoute une note pour le cas du port 80.
+r23405 | marcimat  |  (mer. 08 févr. 2017) | Report de r23399 et r23400 : Ticket #3898 : permettre à la fonction traiter_math() défaire les `&amp;` des expressions mathématiques(en espérant que les expressions en question ne voulaient pas réellement afficher de `&amp;`). PHPDoc sur traiter_math().
+r23407 | marcimat  |  (mer. 08 févr. 2017) | Report de r23406 : Correction différente pour #3386 (Cerdic) afin de regrouper les choses autour de HTTP_X_FORWARDED au même endroit.
+r23409 | cedric    |  (jeu. 09 févr. 2017) | |affdate{Y-m-d} qui utilise la fonction PHP est un peu plus smart et sait traiter une date d/m/Y en entree, comme les autres variantes de |affdate. Si la fonction recup_date() ne permet pas de retrouver une date licite, on retombe sur strtotime mais qui a peu de chance de faire mieux
+r23415 | marcimat  |  (sam. 11 févr. 2017) | Report de r23414 : Ticket #3768 : Autoriser les recherches qui utilisent un / (ce / étant utilisé comme délimiteur pour la regexp faisait planter).
+r23430 | Nicod     |  (jeu. 23 févr. 2017) | Autoriser un slash à la fin des chaines de langue <:cle:chaine:/> pour une meilleure intégration dans certains IDE. (report de r23429)
+r23442 | ben       |  (lun. 06 mars 2017) | report de 23440 / 23441 bloquer les attaques sur spipdf (realet) 
+
+SPIP-plugins-dist spip-3.1.3 -> spip-3.1.4  06 mars 2017
+-------------------------------------------------------------
+
+r100311 | marcimat  |  (mar. 01 nov. 2016) | Report de r100310 : Lorsqu'on teste la version des procure, ce n'est pas une version de 'spip' qui est testée ! (RealET)
+r100357 | b_b       |  (ven. 04 nov. 2016) | report de r100356retour sur r99431 : réparer le lien du form d'oubli de mot de passe quand le site est dans un sous dossiersignalé par johan sur spip-dev + merci à cedric pour la solution
+r100571 | eric      |  (sam. 19 nov. 2016) | Report de 100570.Ajout d'une option dans bel_env pour afficher clairement les valeurs chaine vide et null
+r100647 | b_b       |  (jeu. 24 nov. 2016) | report de r100646Portfolio : marge basse sur le bloc .infos plutôt qu'une marge haute sur les éléments qui suiventPermet d'éviter que les boutons soient collés aux infos quand _BOUTON_MODE_IMAGE est à false ; Ref ​https://core.spip.net/issues/3864
+r100675 | b_b       |  (ven. 25 nov. 2016) | report de r100674Ajout du critère {id_plugin?}. Evite, lors d’un recherche d’une valeur numérique dans le B.O., l’affichage inutile de la liste complète des plugins.
+r100687 | kent1     |  (sam. 26 nov. 2016) | report de r100686Il n'y a pas d'auteurs sur les documents, autant récupérer cette colonne pour lister le nombre d'utilisations dans le site Sur une page de visualisation de documents, mettre le nombre d'utilisations dans un bloc
+r100789 | tcharlss  |  (mer. 30 nov. 2016) | Report sur la branche 3.1 de https://core.spip.net/projects/medias/repository/revisions/100788 : lorsqu'on édite un document, ne pas réassocier les objets qui sont déjà liés au document, cela évite de perdre des informations en refaisant les liaisons (des rôles par exemple).
+r100809 | cedric    |  (sam. 03 déc. 2016) | Report de r100808 : _dist sur les fonctions de ce formulaire, par principe
+r100913 | maieul    |  (jeu. 08 déc. 2016) | report de r100911: première révision d'un objet: prendre effectivement en priorité le champ date_modif ou maj comme date de révision
+r100993 | maieul    |  (sam. 10 déc. 2016) | report de r100992: à partir de spip 3.1, les formulaires sont structurés par div, et non par li > adapter les réglages css des erreurs
+r101074 | maieul    |  (lun. 12 déc. 2016) | report de r101073Si les formulaires sont normalement structurés en div, ce n'est pas obligatoire.La référence est la classe .editer plutôt que l'élément HTML.
+r101821 | marcimat  |  (jeu. 19 janv. 2017) | Report partiel de r101820 : éviter une mauvaise écriture du fichier de visite lorsqu'il n'existe pas au préalable.
+r102441 | b_b       |  (mar. 24 janv. 2017) | report de r102440Fix effet afficher/masquer du formulaire de config des mots clés (cf suivre la nouvelle structure HTML des formulaires)
+r102589 | real3t    |  (jeu. 02 févr. 2017) | Des crayons qui manquaient un peu partout (cohérence avec ceux qui étaient déjà là)
+r102604 | marcimat  |  (ven. 03 févr. 2017) | Report de r102603 : On ne permet d'afficher dans la "colonne documents" (qui s'affiche lorsqu'on édite un article), qu'une seule fois chaque document.Effectivement si une liaison de document est présente plusieurs fois (notamment avec le plugin roles_documents), le documentétait autant de fois listé.
+r102663 | tetue  et |  (dim. 05 févr. 2017) | debug a11y : alternative non pertinente
+r102684 | teddy     |  (lun. 06 févr. 2017) | C'est inc/charsets avec un 's' et non inc/charset. :-)
+r102735 | real3t    |  (mar. 07 févr. 2017) | Mise à jour de la reconnaissance des moteurs de recherche dans les stats de SPIP
+r102742 | Francky   |  (mar. 07 févr. 2017) | haosou est se nomme maintenant so
+r102756 | marcimat  |  (mer. 08 févr. 2017) | Report de r102746 : Ticket #3898 : Défaire les &amp; dans les expressions mathématiques, en utilisant l'option de traiter_math()introduite en ​http://core.spip.org/projects/spip/repository/revisions/23399 et ​http://core.spip.org/projects/spip/repository/revisions/23400
+r102815 | Francky   |  (sam. 11 févr. 2017) | report de https://zone.spip.org/trac/spip-zone/changeset/102814
+r102942 | marcimat  |  (dim. 19 févr. 2017) | Cette notice PHP m'agace. Report de r95518.
+r103036 | marcimat  |  (jeu. 23 févr. 2017) | Report de r103035 : notice php en moins.
+r103094 | tofulm    |  (mer. 01 mars 2017) | On ajoute un champ pour filtrer la liste des pluginsOn en profite pour ajouter une information sur le nombre de plugins de la liste.
+r103095 | tofulm    |  (mer. 01 mars 2017) | up de z
+r103099 | tofulm    |  (mer. 01 mars 2017) | revert de 103094On propose sur la branche de dev ! Désolé
+r103157 | b_b       |  (lun. 06 mars 2017) | report de r103156notice php sur id_auteur dans medias_post_insertion()
+
 SPIP-Core spip-3.1.2 -> spip-3.1.3  30 septembre 2016
 -------------------------------------------------------------
 

@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -43,7 +43,7 @@ function moyenne_glissante($valeur = false, $glisse = 0) {
 /**
  * Calculer la moyenne d'un tableau de valeurs
  *
- * http://code.spip.net/@statistiques_moyenne
+ * https://code.spip.net/@statistiques_moyenne
  *
  * @param array $tab
  * @return float

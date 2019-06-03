@@ -2,7 +2,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -22,7 +22,7 @@ include_spip('inc/filtres_images_lib_mini');
  *  - sont chainables les unes derrieres les autres dans toutes les combinaisons possibles
  */
 
-// http://code.spip.net/@couleur_extraire
+// https://code.spip.net/@couleur_extraire
 function couleur_extraire($img, $x = 10, $y = 6) {
 	include_spip('filtres/images_lib');
 
@@ -30,7 +30,7 @@ function couleur_extraire($img, $x = 10, $y = 6) {
 }
 
 
-// http://code.spip.net/@couleur_web
+// https://code.spip.net/@couleur_web
 function couleur_web($couleur) {
 	include_spip('filtres/images_lib');
 	$rvb = _couleur_hex_to_dec($couleur);
@@ -40,7 +40,7 @@ function couleur_web($couleur) {
 	return _couleur_dec_to_hex($rvb['red'], $rvb['green'], $rvb['blue']);
 }
 
-// http://code.spip.net/@couleur_4096
+// https://code.spip.net/@couleur_4096
 function couleur_4096($couleur) {
 	$r = (substr($couleur, 0, 1));
 	$v = (substr($couleur, 2, 1));
@@ -50,7 +50,7 @@ function couleur_4096($couleur) {
 }
 
 
-// http://code.spip.net/@couleur_extreme
+// https://code.spip.net/@couleur_extreme
 function couleur_extreme($couleur, $limite = 0.5) {
 	// force la couleur au noir ou au blanc le plus proche
 	// -> donc couleur foncee devient noire
@@ -82,7 +82,7 @@ function couleur_extreme($couleur, $limite = 0.5) {
 	return $couleur_texte;
 }
 
-// http://code.spip.net/@couleur_inverser
+// https://code.spip.net/@couleur_inverser
 function couleur_inverser($couleur) {
 	$couleurs = _couleur_hex_to_dec($couleur);
 	$red = 255 - $couleurs["red"];
@@ -94,7 +94,7 @@ function couleur_inverser($couleur) {
 	return $couleur;
 }
 
-// http://code.spip.net/@couleur_foncer_si_claire
+// https://code.spip.net/@couleur_foncer_si_claire
 function couleur_foncer_si_claire($couleur, $seuil = 122) {
 	// ne foncer que les couleurs claires
 	// utile pour ecrire sur fond blanc, 
@@ -115,7 +115,7 @@ function couleur_foncer_si_claire($couleur, $seuil = 122) {
 	}
 }
 
-// http://code.spip.net/@couleur_eclaircir_si_foncee
+// https://code.spip.net/@couleur_eclaircir_si_foncee
 function couleur_eclaircir_si_foncee($couleur, $seuil = 123) {
 	$couleurs = _couleur_hex_to_dec($couleur);
 	$red = $couleurs["red"];
@@ -133,18 +133,14 @@ function couleur_eclaircir_si_foncee($couleur, $seuil = 123) {
 	}
 }
 
-// http://code.spip.net/@couleur_saturation
+// https://code.spip.net/@couleur_saturation
 function couleur_saturation($couleur, $val) {
-	if ($couleur == "ffffff") {
-		$couleur = "eeeeee";
-	}
-
 	$couleurs = _couleur_hex_to_dec($couleur);
 	$r = 255 - $couleurs["red"];
 	$g = 255 - $couleurs["green"];
 	$b = 255 - $couleurs["blue"];
 
-	$max = max($r, $g, $b);
+	$max = max($r, $g, $b, 1);
 
 	$r = 255 - $r / $max * 255 * $val;
 	$g = 255 - $g / $max * 255 * $val;
@@ -156,7 +152,7 @@ function couleur_saturation($couleur, $val) {
 
 }
 
-// http://code.spip.net/@couleur_luminance
+// https://code.spip.net/@couleur_luminance
 function couleur_luminance($couleur, $val) {
 	include_spip('filtres/images_lib');
 

@@ -2,7 +2,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -290,7 +290,7 @@ function _couleur_hsl2rgb($H, $S, $L) {
 // renvoit sous la forme hexadecimale ("F26C4E" par exemple).
 // Par defaut, la couleur choisie se trouve un peu au-dessus du centre de l'image.
 // On peut forcer un point en fixant $x et $y, entre 0 et 20.
-// http://code.spip.net/@image_couleur_extraire
+// https://code.spip.net/@image_couleur_extraire
 
 function _image_couleur_extraire($img, $x = 10, $y = 6) {
 	static $couleur_extraite = array();

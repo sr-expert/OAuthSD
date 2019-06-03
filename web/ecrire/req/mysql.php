@@ -3,7 +3,7 @@
 /* *************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -44,9 +44,17 @@ function req_mysql_dist($host, $port, $login, $pass, $db = '', $prefixe = '') {
 	if (!charger_php_extension('mysqli')) {
 		return false;
 	}
-	if ($port) {
+
+	// si port est fourni mais pas host, c'est un socket -> compat avec vieille syntaxe de mysql_connect() et anciens fichiers connect.php
+	if (
+		$port and !is_numeric($socket = $port)
+		and (!$host or $host=='localhost')) {
+		$link = @mysqli_connect($host, $login, $pass, '', null, $socket);
+	}
+	elseif ($port) {
 		$link = @mysqli_connect($host, $login, $pass, '', $port);
-	} else {
+	}
+	else {
 		$link = @mysqli_connect($host, $login, $pass);
 	}
 
@@ -238,7 +246,7 @@ function spip_mysql_query($query, $serveur = '', $requeter = true) {
 			$debug .= "BOUCLE$id @ " . $infos[0] . " | ";
 		}
 		$debug .= $_SERVER['REQUEST_URI'] . ' + ' . $GLOBALS['ip'];
-		$debug = ' /* ' . mysqli_real_escape_string(str_replace('*/', '@/', $debug)) . ' */';
+		$debug = ' /* ' . mysqli_real_escape_string($link, str_replace('*/', '@/', $debug)) . ' */';
 	}
 
 	$r = mysqli_query($link, $query . $debug);

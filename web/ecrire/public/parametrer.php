@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -224,18 +224,38 @@ function public_parametrer_dist($fond, $contexte = '', $cache = '', $connect = '
 
 
 /**
- * si le champ virtuel est non vide c'est une redirection.
+ * Si le champ virtuel est non vide c'est une redirection.
  * avec un eventuel raccourci Spip
+ *
  * si le raccourci a un titre il sera pris comme corps du 302
  *
- * http://code.spip.net/@tester_redirection
- *
+ * @uses public_tester_redirection_dist()
  * @param string $fond
  * @param array $contexte
  * @param string $connect
  * @return array|bool
  */
 function tester_redirection($fond, $contexte, $connect) {
+	static $tester_redirection = null;
+	if (is_null($tester_redirection)) {
+		$tester_redirection = charger_fonction('tester_redirection', 'public');
+	}
+	return $tester_redirection($fond, $contexte, $connect);
+}
+
+
+/**
+ * Si le champ virtuel est non vide c'est une redirection.
+ * avec un eventuel raccourci Spip
+ *
+ * si le raccourci a un titre il sera pris comme corps du 302
+ *
+ * @param string $fond
+ * @param array $contexte
+ * @param string $connect
+ * @return array|bool
+ */
+function public_tester_redirection_dist($fond, $contexte, $connect) {
 	if ($fond == 'article'
 		and $id_article = intval($contexte['id_article'])
 	) {

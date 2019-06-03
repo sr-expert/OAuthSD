@@ -1,7 +1,7 @@
 <paquet
 	prefix="spip"
 	categorie="outil"
-	version="3.1.3"
+	version="3.1.10"
 	etat="stable"
 	compatibilite="];["
 	schema="21742"
@@ -59,6 +59,7 @@
 	<pipeline nom="calculer_rubriques" action="" />
 	<pipeline nom="configurer_liste_metas" action="" />
 	<pipeline nom="compter_contributions_auteur" action="" />
+	<pipeline nom="declarer_hosts_distants" action="" />
 	<pipeline nom="declarer_filtres_squelettes" action="" />
 	<pipeline nom="declarer_tables_interfaces" action="" />
 	<pipeline nom="declarer_tables_objets_sql" action="" />
@@ -76,6 +77,7 @@
 	<pipeline nom="formulaire_charger" action="cvtmulti_formulaire_charger" inclure="inc/cvt_multietapes.php" />
 	<pipeline nom="formulaire_charger" action="cvtconf_formulaire_charger" inclure="inc/cvt_configurer.php" />
 	<pipeline nom="formulaire_charger" action="cvtautosave_formulaire_charger" inclure="inc/cvt_autosave.php" />
+	<pipeline nom="formulaire_receptionner" action="" />
 	<pipeline nom="formulaire_verifier" action="cvtmulti_formulaire_verifier" inclure="inc/cvt_multietapes.php" />
 	<pipeline nom="formulaire_traiter" action="cvtconf_formulaire_traiter" inclure="inc/cvt_configurer.php" />
 	<pipeline nom="formulaire_traiter" action="cvtautosave_formulaire_traiter" inclure="inc/cvt_autosave.php" />

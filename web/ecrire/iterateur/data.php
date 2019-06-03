@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -636,7 +636,7 @@ function inc_object_to_array($object) {
  * @return array|bool
  */
 function inc_yql_to_array_dist($u) {
-	define('_YQL_ENDPOINT', 'http://query.yahooapis.com/v1/public/yql?&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&q=');
+	define('_YQL_ENDPOINT', 'https://query.yahooapis.com/v1/public/yql?&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&q=');
 	$v = recuperer_url($url = _YQL_ENDPOINT . urlencode($u) . '&format=json');
 	if (!$v['page']
 		or !$w = json_decode($v['page'], true)
@@ -813,7 +813,7 @@ function inc_ls_to_array_dist($u) {
 				unset($b[$k]);
 			}
 		}
-		$b['file'] = basename($v);
+		$b['file'] = preg_replace('`/$`','',$v) ;
 		$v = array_merge(
 			pathinfo($v),
 			$b

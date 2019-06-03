@@ -113,7 +113,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_admin_plugin_verrouille' => 'Cette page liste les plugins actifs et verrouillés (placés dans le répertoire <code>@dir_plugins_dist@</code>).
 	Si vous souhaitez les désactiver,
 	veuillez contacter le webmestre du site,
-	ou vous reporter <a href="http://programmer.spip.net/repertoire_plugins-dist">à la documentation</a>.',
+	ou vous reporter <a href="https://programmer.spip.net/repertoire_plugins-dist">à la documentation</a>.',
 	'info_adresse_spipzone' => 'SPIP-Zone - Plugins',
 	'info_ajouter_depot' => 'En ajoutant des dépôts à votre base, vous aurez la possiblité d’obtenir des informations et d’effectuer des recherches sur tous les paquets hébergés par les dépôts ajoutés.<br />Un dépôt est décrit par un fichier XML contenant les informations sur le dépôt et sur tous ses paquets.',
 	'info_aucun_depot' => 'aucun dépôt',

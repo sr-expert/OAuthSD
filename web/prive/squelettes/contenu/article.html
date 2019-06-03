@@ -17,8 +17,10 @@
 	[<h2 class='soustitre #EDIT{soustitre}'>(#SOUSTITRE)</h2>]
 ],simple fiche_objet})]
 [(#REM|changer_typo)]
+#SET{options,#ARRAY}
+[(#STATUT|=={prop}|oui)[(#SET{options,[(#ARRAY{label_date,<:texte_date_publication_objet:>})]})] ]
 <div class="ajax">
-	#FORMULAIRE_DATER{article,#ID_ARTICLE}
+	#FORMULAIRE_DATER{article,#ID_ARTICLE,'',#GET{options}}
 </div>
 
 <div class="ajax">

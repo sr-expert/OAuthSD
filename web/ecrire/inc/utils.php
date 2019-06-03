@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -119,7 +119,7 @@ function include_once_check($file) {
 
 		return true;
 	}
-	$crash = (isset($GLOBALS['message_crash_plugins']) ? unserialize($GLOBALS['message_crash_plugins']) : '');
+	$crash = (isset($GLOBALS['meta']['message_crash_plugins']) ? unserialize($GLOBALS['meta']['message_crash_plugins']) : '');
 	$crash = ($crash ? $crash : array());
 	$crash[$file] = true;
 	ecrire_meta('message_crash_plugins', serialize($crash));
@@ -643,7 +643,7 @@ function self($amp = '&amp;', $root = false) {
 	include_spip('inc/filtres_mini');
 	$url = spip_htmlspecialchars($url);
 	
-	$url = str_replace(array('[', ']'), array('%5B', '%5D'), $url);
+	$url = str_replace(array("'", '"', '<', '[', ']'), array('%27', '%22', '%3C', '%5B', '%5D'), $url);
 
 	// &amp; ?
 	if ($amp != '&amp;') {
@@ -700,12 +700,13 @@ function test_plugin_actif($plugin) {
  * @param array $options
  *     - string class : nom d'une classe a ajouter sur un span pour encapsuler la chaine
  *     - bool force : forcer un retour meme si la chaine n'a pas de traduction
+ *     - bool sanitize : nettoyer le html suspect dans les arguments
  * @return string
  *     Texte
  */
 function _T($texte, $args = array(), $options = array()) {
 	static $traduire = false;
-	$o = array('class' => '', 'force' => true);
+	$o = array('class' => '', 'force' => true, 'sanitize' => true);
 	if ($options) {
 		// support de l'ancien argument $class
 		if (is_string($options)) {
@@ -748,7 +749,7 @@ function _T($texte, $args = array(), $options = array()) {
 
 	}
 
-	return _L($text, $args, $o['class']);
+	return _L($text, $args, $o);
 
 }
 
@@ -769,17 +770,42 @@ function _T($texte, $args = array(), $options = array()) {
  *     Texte
  * @param array $args
  *     Couples (variable => valeur) à transformer dans le texte
- * @param string|null $class
- *     Encapsule les valeurs dans un span avec cette classe si transmis.
+ * @param array $options
+ *     - string class : nom d'une classe a ajouter sur un span pour encapsuler la chaine
+ *     - bool sanitize : nettoyer le html suspect dans les arguments
  * @return string
  *     Texte
  */
-function _L($text, $args = array(), $class = null) {
+function _L($text, $args = array(), $options = array()) {
 	$f = $text;
+	$defaut_options = array(
+		'class' => null,
+		'sanitize' => true,
+	);
+	// support de l'ancien argument $class
+	if ($options and is_string($options)) {
+		$options = array('class' => $options);
+	}
+	if (is_array($options)) {
+		$options += $defaut_options;
+	} else {
+		$options = $defaut_options;
+	}
+
 	if (is_array($args)) {
+		if (!function_exists('interdire_scripts')) {
+			include_spip('inc/texte');
+		}
+		if (!function_exists('echapper_html_suspect')) {
+			include_spip('inc/texte_mini');
+		}
 		foreach ($args as $name => $value) {
-			if ($class) {
-				$value = "<span class='$class'>$value</span>";
+			if ($options['sanitize']) {
+				$value = echapper_html_suspect($value);
+				$value = interdire_scripts($value, -1);
+			}
+			if (!empty($options['class'])) {
+				$value = "<span class='".$options['class']."'>$value</span>";
 			}
 			$t = str_replace("@$name@", $value, $text);
 			if ($text !== $t) {
@@ -794,7 +820,7 @@ function _L($text, $args = array(), $class = null) {
 		}
 	}
 
-	if (($GLOBALS['test_i18n'] or (_request('var_mode') == 'traduction')) and $class === null) {
+	if (($GLOBALS['test_i18n'] or (_request('var_mode') == 'traduction')) and is_null($options['class'])) {
 		return "<span class=debug-traduction-erreur>$text</span>";
 	} else {
 		return $text;
@@ -1509,6 +1535,12 @@ function find_all_in_path($dir, $pattern, $recurs = false) {
 	$liste_fichiers = array();
 	$maxfiles = 10000;
 
+	// cas borderline si dans mes_options on appelle redirige_par_entete qui utilise _T et charge un fichier de langue
+	// on a pas encore inclus flock.php
+	if (!function_exists('preg_files')) {
+		include_once _ROOT_RESTREINT . 'inc/flock.php';
+	}
+
 	// Parcourir le chemin
 	foreach (creer_chemin() as $d) {
 		$f = $d . $dir;
@@ -1754,15 +1786,21 @@ function url_de_base($profondeur = null) {
 		return $url[$profondeur];
 	}
 
-	$http = (
-		(isset($_SERVER["SCRIPT_URI"]) and
-			substr($_SERVER["SCRIPT_URI"], 0, 5) == 'https')
-		or (isset($_SERVER['HTTPS']) and
-			test_valeur_serveur($_SERVER['HTTPS']))
-	) ? 'https' : 'http';
+	$http = 'http';
+	if (
+		isset($_SERVER["SCRIPT_URI"])
+		and substr($_SERVER["SCRIPT_URI"], 0, 5) == 'https'
+	) {
+		$http = 'https';
+	} elseif (
+		isset($_SERVER['HTTPS'])
+		and test_valeur_serveur($_SERVER['HTTPS'])
+	) {
+		$http = 'https';
+	} 
 
 	// note : HTTP_HOST contient le :port si necessaire
-	$host = $_SERVER['HTTP_HOST'];
+	$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
 	// si on n'a pas trouvé d'hôte du tout, en dernier recours on utilise adresse_site comme fallback
 	if (is_null($host) and isset($GLOBALS['meta']['adresse_site'])) {
 		$host = $GLOBALS['meta']['adresse_site'];
@@ -1793,8 +1831,8 @@ function url_de_base($profondeur = null) {
 		if (isset($_SERVER['REQUEST_URI'])) {
 			$GLOBALS['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
 		} else {
-			$GLOBALS['REQUEST_URI'] = $_SERVER['PHP_SELF'];
-			if ($_SERVER['QUERY_STRING']
+			$GLOBALS['REQUEST_URI'] = (php_sapi_name() !== 'cli') ? $_SERVER['PHP_SELF'] : '';
+			if (!empty($_SERVER['QUERY_STRING'])
 				and !strpos($_SERVER['REQUEST_URI'], '?')
 			) {
 				$GLOBALS['REQUEST_URI'] .= '?' . $_SERVER['QUERY_STRING'];
@@ -1820,6 +1858,8 @@ function url_de_($http, $host, $request, $prof = 0) {
 	$prof = max($prof, 0);
 
 	$myself = ltrim($request, '/');
+	# supprimer la chaine de GET
+	list($myself) = explode('?', $myself);
 	// vieux mode HTTP qui envoie après le nom de la methode l'URL compléte
 	// protocole, "://", nom du serveur avant le path dans _SERVER["REQUEST_URI"]
 	if (strpos($myself,'://') !== false) {
@@ -1830,8 +1870,6 @@ function url_de_($http, $host, $request, $prof = 0) {
 		array_shift($myself);
 		$myself = implode('/',$myself);
 	}
-	# supprimer la chaine de GET
-	list($myself) = explode('?', $myself);
 	$url = join('/', array_slice(explode('/', $myself), 0, -1 - $prof)) . '/';
 
 	$url = $http . '://' . rtrim($host, '/') . '/' . ltrim($url, '/');
@@ -2397,7 +2435,7 @@ function spip_initialisation_core($pi = null, $pa = null, $ti = null, $ta = null
 	if (isset($_SERVER['REQUEST_URI'])) {
 		$GLOBALS['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
 	} else {
-		$GLOBALS['REQUEST_URI'] = $_SERVER['PHP_SELF'];
+		$GLOBALS['REQUEST_URI'] = (php_sapi_name() !== 'cli') ? $_SERVER['PHP_SELF'] : '';
 		if (!empty($_SERVER['QUERY_STRING'])
 			and !strpos($_SERVER['REQUEST_URI'], '?')
 		) {
@@ -2657,8 +2695,8 @@ function init_var_mode() {
 				} elseif (in_array('calcul', $var_mode)) {
 					define('_VAR_MODE', 'calcul');
 				}
-				$var_mode = array_diff($var_mode, array('calcul', 'recalcul'));
 			}
+			$var_mode = array_diff($var_mode, array('calcul', 'recalcul'));
 			if ($var_mode) {
 				include_spip('inc/autoriser');
 				// autoriser preview si preview seulement, et sinon autoriser debug

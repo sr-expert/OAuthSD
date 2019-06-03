@@ -3,7 +3,7 @@
 /* *************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -230,6 +230,14 @@ function _image_valeurs_trans($img, $effet, $forcer_format = false, $fonction_cr
 		return false;
 	}
 
+	// les images calculees dependent du chemin du fichier source
+	// pour une meme image source et un meme filtre on aboutira a 2 fichiers selon si l'appel est dans le public ou dans le prive
+	// ce n'est pas totalement optimal en terme de stockage, mais chaque image est associee a un fichier .src
+	// qui contient la methode de reconstrucion (le filtre + les arguments d'appel) et les arguments different entre prive et public
+	// la mise en commun du fichier image cree donc un bug et des problemes qui necessiteraient beaucoup de complexite de code
+	// alors que ca concerne peu de site au final
+	// la release de r23632+r23633+r23634 a provoque peu de remontee de bug attestant du peu de sites impactes
+	$identifiant = $fichier;
 
 	// cas general :
 	// on a un dossier cache commun et un nom de fichier qui varie avec l'effet
@@ -248,9 +256,9 @@ function _image_valeurs_trans($img, $effet, $forcer_format = false, $fonction_cr
 			// on garde la terminaison initiale car image simplement copiee
 			// et on postfixe son nom avec un md5 du path
 			$terminaison_dest = $terminaison;
-			$fichier_dest .= '-' . substr(md5("$fichier"), 0, 5);
+			$fichier_dest .= '-' . substr(md5("$identifiant"), 0, 5);
 		} else {
-			$fichier_dest .= '-' . substr(md5("$fichier-$effet"), 0, 5);
+			$fichier_dest .= '-' . substr(md5("$identifiant-$effet"), 0, 5);
 		}
 		$cache = sous_repertoire(_DIR_VAR, $cache);
 		$cache = sous_repertoire($cache, $effet);
@@ -260,7 +268,7 @@ function _image_valeurs_trans($img, $effet, $forcer_format = false, $fonction_cr
 				$terminaison_dest = $fmt;
 			}*/
 	} else {
-		$fichier_dest = md5("$fichier-$effet");
+		$fichier_dest = md5("$identifiant-$effet");
 		$cache = sous_repertoire(_DIR_VAR, $cache);
 		$cache = sous_repertoire($cache, substr($fichier_dest, 0, 2));
 		$fichier_dest = substr($fichier_dest, 2);
@@ -961,7 +969,9 @@ function _image_creer_vignette($valeurs, $maxWidth, $maxHeight, $process = 'AUTO
 		if (!defined('_CONVERT_COMMAND')) {
 			define('_CONVERT_COMMAND', 'convert');
 		} // Securite : mes_options.php peut preciser le chemin absolu
-		define('_RESIZE_COMMAND', _CONVERT_COMMAND . ' -quality ' . _IMG_CONVERT_QUALITE . ' -resize %xx%y! %src %dest');
+		if (!defined('_RESIZE_COMMAND')) {
+			define('_RESIZE_COMMAND', _CONVERT_COMMAND . ' -quality ' . _IMG_CONVERT_QUALITE . ' -resize %xx%y! %src %dest');
+		}
 		$vignette = $destination . "." . $format_sortie;
 		$commande = str_replace(
 			array('%x', '%y', '%src', '%dest'),

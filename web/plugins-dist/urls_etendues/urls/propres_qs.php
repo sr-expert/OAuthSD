@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -37,7 +37,7 @@ if (!defined('_terminaison_urls_propres')) {
 
 defined('_debut_urls_propres') || define('_debut_urls_propres', './?');
 
-// http://code.spip.net/@urls_propres_qs_dist
+// https://code.spip.net/@urls_propres_qs_dist
 function urls_propres_qs_dist($i, &$entite, $args = '', $ancre = '') {
 	$f = charger_fonction('propres', 'urls');
 

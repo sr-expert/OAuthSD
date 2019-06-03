@@ -3,7 +3,7 @@
 /* *************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -274,7 +274,7 @@ function spip_sqlite_alter($query, $serveur = '', $requeter = true) {
 				if (!_sqlite_modifier_table(
 					$table,
 					array($colonne_origine => ""),
-					'',
+					array(),
 					$serveur)
 				) {
 					return false;
@@ -326,7 +326,7 @@ function spip_sqlite_alter($query, $serveur = '', $requeter = true) {
 					// artillerie lourde pour sqlite2 !
 				} else {
 					$table_dest = trim(substr($do, 9));
-					if (!_sqlite_modifier_table(array($table => $table_dest), '', '', $serveur)) {
+					if (!_sqlite_modifier_table(array($table => $table_dest), '', array(), $serveur)) {
 						spip_log("SQLite : Erreur ALTER TABLE / RENAME : $query", 'sqlite.' . _LOG_ERREUR);
 
 						return false;
@@ -2627,17 +2627,20 @@ function _sqlite_requete_create(
 	// il faut passer par des create index
 	// Il gere par contre primary key !
 	// Soit la PK est definie dans les cles, soit dans un champs
-	$c = ""; // le champ de cle primaire
-	if (!isset($cles[$pk = "PRIMARY KEY"]) or !$c = $cles[$pk]) {
-		foreach ($champs as $k => $v) {
-			if (false !== stripos($v, $pk)) {
-				$c = $k;
-				// on n'en a plus besoin dans field, vu que defini dans key
-				$champs[$k] = preg_replace("/$pk/is", '', $champs[$k]);
-				break;
-			}
+	// soit faussement dans les 2 (et dans ce cas, il faut l’enlever à un des 2 endroits !)
+	$pk = "PRIMARY KEY";
+	// le champ de cle primaire
+	$c = !empty($cles[$pk]) ? $cles[$pk] : '';
+
+	foreach ($champs as $k => $v) {
+		if (false !== stripos($v, $pk)) {
+			$c = $k;
+			// on n'en a plus besoin dans field, vu que defini dans key
+			$champs[$k] = preg_replace("/$pk/is", '', $champs[$k]);
+			break;
 		}
 	}
+
 	if ($c) {
 		$keys = "\n\t\t$pk ($c)";
 	}

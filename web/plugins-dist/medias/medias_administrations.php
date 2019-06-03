@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -169,6 +169,15 @@ function medias_upgrade($nom_meta_base_version, $version_cible) {
 		// ajout de ics + vcf
 		array('creer_base_types_doc')
 	);
+	$maj['1.2.8'] = array(
+		// plus de place dans les crédits
+		array('sql_alter', "TABLE spip_documents CHANGE credits credits text DEFAULT '' NOT NULL"),
+	);
+	$maj['1.2.10'] = array(
+		// 1.2.9 n'était pas suffisant grml'
+		array('medias_maj_date_publication_documents'),
+		array('medias_check_statuts', true)
+	);
 	include_spip('base/upgrade');
 	include_spip('base/medias');
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
@@ -201,6 +210,14 @@ function medias_peuple_media_document($champ_media = "media_defaut") {
 			return;
 		}
 	}
+}
+
+/**
+ * Maj des date de publication des documents cf ticket #3329, z104221
+ */
+function medias_maj_date_publication_documents() {
+	sql_update('spip_documents', array('statut' => '0'), 'date_publication > ' . sql_quote('2017-01-01 00:00:00'));
+	sql_update('spip_documents', array('statut' => '0'), 'date_publication = ' . sql_quote('1970-01-01 01:33:58'));
 }
 
 /*

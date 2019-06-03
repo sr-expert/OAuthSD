@@ -30,7 +30,7 @@ var mediaboxInit = function() {
 
 	if (box_settings.tt_img) {
 		// selectionner tous les liens vers des images
-		jQuery("a[type=\'image/jpeg\'],a[type=\'image/png\'],a[type=\'image/gif\']",this).not('.hasbox')
+		jQuery("a[type=\'image/jpeg\'],a[type=\'image/png\'],a[type=\'image/gif\']", this).not('.hasbox')
 		.attr("onclick","") // se debarrasser du onclick de SPIP
 		.colorbox(options) // activer la box
 		.addClass("hasbox") // noter qu\'on l\'a vue
@@ -69,6 +69,8 @@ if (typeof(box_settings)!='undefined')
 		var cbox_options = {
 			overlayClose: true,
 			iframe: false,
+			transition:box_settings.trans,
+			speed:box_settings.speed,
 			maxWidth:box_settings.maxW,
 			maxHeight:box_settings.maxH,
 			minWidth:box_settings.minW,
@@ -85,7 +87,7 @@ if (typeof(box_settings)!='undefined')
 			onClosed: (options && options.onClose) || null
 		};
 
-		if (!this.length)
+		if (this === jQuery.fn)
 			return $.colorbox($.extend(cbox_options,options));
 		else
 			return this.colorbox($.extend(cbox_options,options));
@@ -93,6 +95,7 @@ if (typeof(box_settings)!='undefined')
 	$.mediaboxClose = function () {$.fn.colorbox.close();};
 
 	// API modalbox
+	$.mediabox = function(options) { return jQuery.fn.mediabox(options);}
 	$.modalbox = function (href, options) {$.fn.mediabox($.extend({href:href,inline:href.match(/^#/)?true:false,overlayClose:true},options));};
 	$.modalboxload = function (url, options) { $.modalbox(url,options); };
 	$.modalboxclose = $.mediaboxClose;

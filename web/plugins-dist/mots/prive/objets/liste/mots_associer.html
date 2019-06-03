@@ -20,7 +20,7 @@
 			]
 		]
 		[(#GET{total}|<{#GET{_MAX_MOTS_LISTE}}|non)
-			[(#INCLURE{fond=prive/objets/liste/mots_associer-recherche,env,exclus=#GET{exclus},id_groupe=#ID_GROUPE,unseul=#UNSEUL})]
+			[(#INCLURE{fond=prive/objets/liste/mots_associer-recherche,env,exclus=#GET{exclus},id_groupe=#ID_GROUPE,unseul=#UNSEUL,par=points})]
 		]
 	</li>
 	]</BOUCLE_groupes>

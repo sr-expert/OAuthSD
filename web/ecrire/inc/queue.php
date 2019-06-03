@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -641,11 +641,15 @@ function queue_affichage_cron() {
 				$errno, $errstr, 1);
 
 			if ($fp) {
+				$host_sent = $parts['host'];
+				if (isset($parts['port']) and $parts['port'] !== $port) {
+					$host_sent .= ':' . $parts['port'];
+				}
 				$timeout = 200; // ms
 				stream_set_timeout($fp, 0, $timeout * 1000);
 				$query = $parts['path'] . ($parts['query'] ? "?" . $parts['query'] : "");
 				$out = "GET " . $query . " HTTP/1.1\r\n";
-				$out .= "Host: " . $parts['host'] . "\r\n";
+				$out .= "Host: " . $host_sent . "\r\n";
 				$out .= "Connection: Close\r\n\r\n";
 				fwrite($fp, $out);
 				spip_timer('read');
@@ -697,10 +701,11 @@ function queue_affichage_cron() {
 		return $texte;
 	}
 
-	// en derniere solution, on insere une image background dans la page
-	$texte = '<!-- SPIP-CRON --><div style="background-image: url(\'' .
-		generer_url_action('cron') .
-		'\');"></div>';
+	// en derniere solution, on insere un appel xhr non bloquant ou une image background dans la page si pas de JS
+	$url_cron = generer_url_action('cron');
+	$texte = '<!-- SPIP-CRON -->'
+	  . "<script>setTimeout(function(){var xo = new XMLHttpRequest();xo.open('GET', '$url_cron', true);xo.send('');},100);</script>"
+	  . "<noscript><div style=\"background-image: url('$url_cron');\"></div></noscript>";
 
 	return $texte;
 }

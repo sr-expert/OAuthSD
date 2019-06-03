@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -461,7 +461,7 @@ function my_strtotime($la_date, $lang = null) {
 
 // A partir d'un <dc:subject> ou autre essayer de recuperer
 // le mot et son url ; on cree <a href="url" rel="tag">mot</a>
-// http://code.spip.net/@creer_tag
+// https://code.spip.net/@creer_tag
 function creer_tag($mot, $type, $url) {
 	if (!strlen($mot = trim($mot))) {
 		return '';
@@ -478,7 +478,7 @@ function creer_tag($mot, $type, $url) {
 }
 
 
-// http://code.spip.net/@ajouter_tags
+// https://code.spip.net/@ajouter_tags
 function ajouter_tags($matches, $item) {
 	include_spip('inc/filtres');
 	$tags = array();
@@ -552,7 +552,7 @@ function ajouter_tags($matches, $item) {
 
 
 // Lit contenu des blocs [[CDATA]] dans un flux
-// http://code.spip.net/@cdata_echappe_retour
+// https://code.spip.net/@cdata_echappe_retour
 function cdata_echappe(&$rss, &$echappe_cdata) {
 	$echappe_cdata = array();
 	if (preg_match_all(',<!\[CDATA\[(.*)]]>,Uims', $rss,
@@ -574,7 +574,7 @@ function cdata_echappe(&$rss, &$echappe_cdata) {
 }
 
 // Retablit le contenu des blocs [[CDATA]] dans une chaine ou un tableau
-// http://code.spip.net/@cdata_echappe_retour
+// https://code.spip.net/@cdata_echappe_retour
 function cdata_echappe_retour(&$x, &$echappe_cdata) {
 	if (is_string($x)) {
 		if (strpos($x, '&lt;') !== false){

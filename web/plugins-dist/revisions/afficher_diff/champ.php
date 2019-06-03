@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -50,7 +50,7 @@ function afficher_diff_champ_dist($champ, $old, $new, $format = 'diff') {
 
 
 /**
- * http://code.spip.net/@afficher_para_modifies
+ * https://code.spip.net/@afficher_para_modifies
  *
  * @param string $texte
  * @param bool $court

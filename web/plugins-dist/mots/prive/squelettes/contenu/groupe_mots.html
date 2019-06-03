@@ -22,7 +22,7 @@
 ]<//B_cpt_mot>
 <INCLURE{fond=prive/objets/liste/mots-admin,id_groupe,par=multi titre,ajax,env} />
 [(#AUTORISER{creer,mot,'','',#ARRAY{id_groupe,#ID_GROUPE}})
-	[(#URL_ECRIRE{mot_edit,new=oui&id_groupe=#ID_GROUPE}|parametre_url{redirect,#SELF}
+	[(#URL_ECRIRE{mot_edit,new=oui&id_groupe=#ID_GROUPE}|parametre_url{redirect,[(#EVAL{defined('_MOTS_CREATION_RETOUR_MOT_CREE')}|?{'',#SELF})]}
 		|icone_verticale{<:mots:icone_creation_mots_cles:>,mot-24.png,new,right})]
 ]
 

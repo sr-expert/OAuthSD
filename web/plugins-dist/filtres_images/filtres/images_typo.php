@@ -2,7 +2,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -20,7 +20,7 @@ include_spip('inc/filtres_images_mini');
 // Image typographique
 // Fonctions pour l'arabe
 
-// http://code.spip.net/@rtl_mb_ord
+// https://code.spip.net/@rtl_mb_ord
 function rtl_mb_ord($char) {
 
 	if (($c = ord($char)) < 216) {
@@ -37,7 +37,7 @@ function rtl_mb_ord($char) {
 }
 
 
-// http://code.spip.net/@rtl_reverse
+// https://code.spip.net/@rtl_reverse
 function rtl_reverse($mot, $rtl_global) {
 	$rtl_prec = $rtl_global;
 
@@ -110,7 +110,7 @@ function rtl_reverse($mot, $rtl_global) {
 }
 
 
-// http://code.spip.net/@rtl_visuel
+// https://code.spip.net/@rtl_visuel
 function rtl_visuel($texte, $rtl_global) {
 	// hebreu + arabe: 54928 => 56767
 	// hebreu + presentation A: 15707294 => 15710140
@@ -505,7 +505,7 @@ function rtl_visuel($texte, $rtl_global) {
 }
 
 
-// http://code.spip.net/@printWordWrapped
+// https://code.spip.net/@printWordWrapped
 function printWordWrapped(
 	$image,
 	$top,
@@ -658,7 +658,7 @@ function printWordWrapped(
 //array imagefttext ( resource image, float size, float angle, int x, int y, int col, string font_file, string text [, array extrainfo] )
 //array imagettftext ( resource image, float size, float angle, int x, int y, int color, string fontfile, string text )
 
-// http://code.spip.net/@produire_image_typo
+// https://code.spip.net/@produire_image_typo
 function produire_image_typo() {
 	/*
 	arguments autorises:

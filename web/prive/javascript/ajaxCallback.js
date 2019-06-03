@@ -37,6 +37,9 @@ if(!jQuery.spip.load_handlers) {
 	// intercept jQuery.fn.load
 	jQuery.spip.intercepted.load = jQuery.fn.load;
 	jQuery.fn.load = function( url, params, callback ) {
+		if ( typeof url !== "string") {
+			return jQuery.spip.intercepted.load.apply( this, arguments );
+		}
 
 		callback = callback || function(){};
 
@@ -49,6 +52,7 @@ if(!jQuery.spip.load_handlers) {
 				params = null;
 			}
 		}
+		params = jQuery.extend(params, {triggerAjaxLoad:false}); // prevent $.ajax to triggerAjaxLoad
 		var callback2 = function() {jQuery.spip.log('jQuery.load');jQuery.spip.triggerAjaxLoad(this);callback.apply(this,arguments);};
 		return jQuery.spip.intercepted.load.apply(this,[url, params, callback2]);
 	};
@@ -75,29 +79,44 @@ if(!jQuery.spip.load_handlers) {
 
 	// intercept jQuery.ajax
 	jQuery.spip.intercepted.ajax = jQuery.ajax;
-	jQuery.ajax = function(type) {
-		var s = jQuery.extend(true, {}, jQuery.ajaxSettings, type);
+	jQuery.ajax = function(url, settings) {
+		if (typeof settings == 'undefined') {
+			settings = {};
+			if (typeof url == 'object') {
+				settings = url;
+				url = null;
+			}
+		}
+		if (typeof url == 'string') {
+			settings['url'] = url;
+		}
+		// if triggerAjaxLoad is prevented, finish without faking callback
+		if (settings.data && settings.data['triggerAjaxLoad'] === false) {
+			settings.data['triggerAjaxLoad'] = null;
+			return jQuery.spip.intercepted.ajax(settings);
+		}
+		var s = jQuery.extend(true, {}, jQuery.ajaxSettings, settings);
 		var callbackContext = s.context || s;
 		try {
 			if (jQuery.ajax.caller==jQuery.spip.intercepted.load || jQuery.ajax.caller==jQuery.spip.intercepted.ajaxSubmit)
-				return jQuery.spip.intercepted.ajax(type);
+				return jQuery.spip.intercepted.ajax(settings);
 		}
 		catch (err){}
 		var orig_complete = s.complete || function() {};
-		type.complete = function(res,status) {
+		settings.complete = function(res,status) {
 			// Do not fire OnAjaxLoad if the dataType is not html
-			var dataType = type.dataType;
+			var dataType = settings.dataType;
 			var ct = (res && (typeof res.getResponseHeader == 'function'))
 				? res.getResponseHeader("content-type"): '';
 			var xml = !dataType && ct && ct.indexOf("xml") >= 0;
 			orig_complete.call( callbackContext, res, status);
-			if(!dataType && !xml || dataType == "html") {
+			if((!dataType && !xml) || dataType == "html") {
 				jQuery.spip.log('jQuery.ajax');
 				if (typeof s.onAjaxLoad=="undefined" || s.onAjaxLoad!=false)
 					jQuery.spip.triggerAjaxLoad(s.ajaxTarget?s.ajaxTarget:document);
 			}
 		};
-		return jQuery.spip.intercepted.ajax(type);
+		return jQuery.spip.intercepted.ajax(settings);
 	};
 
 }
@@ -230,7 +249,9 @@ jQuery.fn.formulaire_dyn_ajax = function(target) {
 			beforeSubmit: function(){
 				// memoriser le bouton clique, en cas de repost non ajax
 				leclk = leform.clk;
+				var scrollwhensubmit_button = true;
 				if (leclk) {
+					scrollwhensubmit_button = !jQuery(leclk).is('.noscroll');
 					var n = leclk.name;
 					if (n && !leclk.disabled && leclk.type == "image") {
 						leclk_x = leform.clk_x;
@@ -240,8 +261,9 @@ jQuery.fn.formulaire_dyn_ajax = function(target) {
 				jQuery(cible).wrap('<div />');
 				cible = jQuery(cible).parent();
 				jQuery(cible).closest('.ariaformprop').animateLoading();
-				if (scrollwhensubmit)
+				if (scrollwhensubmit && scrollwhensubmit_button) {
 					jQuery(cible).positionner(false,false);
+				}
 			},
 			error: onError,
 			success: function(c, status, xhr , $form){
@@ -729,11 +751,15 @@ jQuery.fn.ajaxbloc = function() {
 		jQuery('form.bouton_action_post.ajax', this).not('.noajax,.bind-ajax').each(function(){
 			var leform = this;
 			var url = jQuery(this).attr('action').split('#');
+			var scrollwhensubmit = (!jQuery(this).is('.noscroll') && !jQuery('.submit',this).is('.noscroll'));
 			jQuery(this)
 			.prepend("<input type='hidden' name='var_ajax' value='1' /><input type='hidden' name='var_ajax_env' value='"+(ajax_env)+"' />"+(url[1]?"<input type='hidden' name='var_ajax_ancre' value='"+url[1]+"' />":""))
 			.ajaxForm({
 				beforeSubmit: function(){
-					jQuery(blocfrag).animateLoading().positionner(false);
+					jQuery(blocfrag).animateLoading();
+					if (scrollwhensubmit) {
+						jQuery(blocfrag).positionner(false);
+					}
 				},
 				onAjaxLoad:false,
 				success: function(c){

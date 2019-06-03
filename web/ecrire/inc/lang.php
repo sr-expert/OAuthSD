@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -394,6 +394,15 @@ function utiliser_langue_visiteur() {
 
 
 /**
+ * Verifier qu'une chaine suceptible d'etre un nom de langue a le bon format
+ * @param string $chaine
+ * @return int
+ */
+function match_langue($chaine) {
+	return preg_match('/^[a-z]{2,3}(_[a-z]{2,3}){0,2}$/', $chaine);
+}
+
+/**
  * Initialisation des listes de langues
  *
  * Initialise les métas :
@@ -414,10 +423,12 @@ function init_langues() {
 	$tout = array();
 	if (!$all_langs) {
 		// trouver tous les modules lang/spip_xx.php
-		$modules = find_all_in_path("lang/", "/spip_([a-z_]+)\.php[3]?$");
+		$modules = find_all_in_path("lang/", "/spip_([a-z_]+)\.php$");
 		foreach ($modules as $name => $path) {
-			if (preg_match(',^spip_([a-z_]+)\.php[3]?$,', $name, $regs)) {
-				$tout[] = $regs[1];
+			if (preg_match(',^spip_([a-z_]+)\.php$,', $name, $regs)) {
+				if (match_langue($regs[1])) {
+					$tout[] = $regs[1];
+				}
 			}
 		}
 		sort($tout);

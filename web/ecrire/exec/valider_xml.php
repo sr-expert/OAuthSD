@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -122,15 +122,20 @@ function valider_xml_ok($url, $req_ext, $limit, $rec, $process = true) {
 					$ext = 'html';
 				}
 			}
-			if ($files) {
-				$res = valider_dir($files, $ext, $url);
-				list($err, $res) = valider_resultats($res, $ext === 'html');
-				$err = ' (' . $err . '/' . count($files) . ')';
-			} else {
-				$res = _T('texte_vide');
-				$err = '';
+			if ($process) {
+				if ($files) {
+					$res = valider_dir($files, $ext, $url);
+					list($err, $res) = valider_resultats($res, $ext === 'html');
+					$err = ' (' . $err . '/' . count($files) . ')';
+				} else {
+					$res = _T('texte_vide');
+					$err = '';
+				}
+				$bandeau = $dir . '*' . $ext . $err;
 			}
-			$bandeau = $dir . '*' . $ext . $err;
+			else {
+				$url_aff = entites_html($url);
+			}
 		} else {
 			if (preg_match('@^((?:[.]/)?[^?]*)[?]([0-9a-z_]+)=([^&]*)(.*)$@', $url, $r)) {
 				list(, $server, $dir, $script, $args) = $r;

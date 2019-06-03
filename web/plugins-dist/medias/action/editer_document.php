@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -194,9 +194,8 @@ function document_instituer($id_document, $champs = array()) {
 		$trouver_table = charger_fonction('trouver_table', 'base');
 		$res = sql_select('id_objet,objet', 'spip_documents_liens',
 			"objet!='document' AND id_document=" . intval($id_document));
-		// dans 10 ans, ca nous fera un bug a corriger vers 2018
-		// penser a ouvrir un ticket d'ici la :p
-		$date_publication = time() + 10 * 365 * 24 * 3600;
+		// On aura 19 jours 3h14 et 7 secondes pour corriger en 2038 (limitation de la représentation POSIX du temps sur les 32 bits)
+		$date_publication = strtotime('2038-01-01 00:00:00');
 		include_spip('base/objets');
 		while ($row = sql_fetch($res)) {
 			if (
@@ -294,10 +293,15 @@ function medias_revision_document_parents($id_document, $parents = null, $ajout 
 		}
 	}
 
-	// verifier les droits d'associer
+	// trier les objets à traiter : ne pas prendre en compte ceux qui sont déjà associés ou qu'on n'a pas le droit d'associer
 	foreach ($objets_parents as $objet => $ids) {
 		foreach ($ids as $k => $id) {
-			if (!autoriser('associerdocuments', $objet, $id)) {
+			if ((
+					isset($deja_parents[$objet])
+					and in_array($id, $deja_parents[$objet])
+				)
+				or !autoriser('associerdocuments', $objet, $id)
+			) {
 				unset($objets_parents[$objet][$k]);
 			}
 		}

@@ -4,7 +4,7 @@
 #ANCRE_PAGINATION
 <div class="liste-objets [(#ENV{objet}|objet_info{table_objet})] traductions">
 <table class='spip liste'>
-[<caption><strong class="caption">(#ENV*{titre,<:info_traductions:>})</strong></caption>]
+[<caption><strong class="caption">(#ENV*{titre,#ENV{objet}|objet_T{info_traductions}})</strong></caption>]
 	<thead>
 		<tr class='first_row'>
 			<th class='picto' scope='col'></th>
@@ -28,9 +28,9 @@
 							dir="[(#VALEUR{lang}|lang_dir)]"
 							lang="#VALEUR{lang}"><a
 							href="[(#VALEUR{id}|generer_url_entite{#ENV{objet}})]"
-							title="<:info_numero_abbreviation|attribut_html:> #VALEUR{id}">[(#RANG). ]#INFO_TITRE{#ENV{objet},#VALEUR{id}}</a></span>
+							title="<:info_numero_abbreviation|attribut_html:> #VALEUR{id}">[(#VALEUR{statut}|puce_statut{#ENV{objet}}) ][(#RANG). ]#INFO_TITRE{#ENV{objet},#VALEUR{id}}</a></span>
 				[(#EVAL{lang_select()}|vide)]
-				[(#ENV{id_trad}|=={#VALEUR{id}}|oui)<:trad_reference:>]
+				[(#ENV{id_trad}|=={#VALEUR{id}}|oui)[(#ENV*{info_trad_reference,#ENV{objet}|objet_T{trad_reference}})]]
 			</td>
 			<td class='langue'>[(#VALEUR{lang}|traduire_nom_langue)]</td>
 			<td class='id'>

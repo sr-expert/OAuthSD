@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -33,7 +33,7 @@ function metadata_image_dist($fichier) {
  * @param bool $strict
  * @return string
  */
-// http://code.spip.net/@decoder_type_image
+// https://code.spip.net/@decoder_type_image
 function decoder_type_image($type, $strict = false) {
 	switch ($type) {
 		case 1:

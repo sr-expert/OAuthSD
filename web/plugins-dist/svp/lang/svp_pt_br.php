@@ -1,6 +1,6 @@
 <?php
 // This is a SPIP language file  --  Ceci est un fichier langue de SPIP
-// extrait automatiquement de http://trad.spip.net/tradlang_module/svp?lang_cible=pt_br
+// extrait automatiquement de https://trad.spip.net/tradlang_module/svp?lang_cible=pt_br
 // ** ne pas modifier le fichier **
 
 if (!defined('_ECRIRE_INC_VERSION')) {
@@ -110,7 +110,7 @@ Você precisa confirmar esta ação.',
 	'info_admin_plugin_verrou_non' => 'Esta página lista todos os plugins não bloqueados do site, ativos ou inativos.',
 	'info_admin_plugin_verrou_tous' => 'Esta página lista todos os plugins do site.',
 	'info_admin_plugin_verrouille' => 'Esta página mostra os plugins ativos e bloqueados (localizados no diretório <code>@dir_plugins_dist@</code>).
-Se você deseja desativá-los, contate o webmaster do site, ou consulte <a href="http://programmer.spip.net/repertoire_plugins-dist">a documentação</a>.',
+Se você deseja desativá-los, contate o webmaster do site, ou consulte <a href="https://programmer.spip.net/repertoire_plugins-dist">a documentação</a>.',
 	'info_adresse_spipzone' => 'SPIP-Zone - Plugins',
 	'info_ajouter_depot' => 'Ao incluir repositórios à sua base, você terá a possibilidade de obter informações e realizar buscas em todos os pacotes hospedados nos repositórios incluídos.<br />Um repositório é descrito por um arquivo XML contendo as informações sobre o repositório e sobre todos os seus pacotes.',
 	'info_aucun_depot' => 'nenhum repositório',

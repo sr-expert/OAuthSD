@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -137,6 +137,102 @@ function copie_locale($source, $mode = 'auto', $local = null, $taille_max = null
 }
 
 /**
+ * Valider qu'une URL d'un document distant est bien distante
+ * et pas une url localhost qui permet d'avoir des infos sur le serveur
+ * inspiree de https://core.trac.wordpress.org/browser/trunk/src/wp-includes/http.php?rev=36435#L500
+ * 
+ * @param string $url
+ * @param array $known_hosts
+ *   url/hosts externes connus et acceptes
+ * @return false|string 
+ *   url ou false en cas d'echec
+ */
+function valider_url_distante($url, $known_hosts = array()) {
+	if (!function_exists('protocole_verifier')){
+		include_spip('inc/filtres_mini');
+	}
+
+	if (!protocole_verifier($url, array('http', 'https'))) {
+		return false;
+	}
+	
+	$parsed_url = parse_url($url);
+	if (!$parsed_url or empty($parsed_url['host']) ) {
+		return false;
+	}
+
+	if (isset($parsed_url['user']) or isset($parsed_url['pass'])) {
+		return false;
+	}
+
+	if (false !== strpbrk($parsed_url['host'], ':#?[]')) {
+		return false;
+	}
+
+	if (!is_array($known_hosts)) {
+		$known_hosts = array($known_hosts);
+	}
+	$known_hosts[] = $GLOBALS['meta']['adresse_site'];
+	$known_hosts[] = url_de_base();
+	$known_hosts = pipeline('declarer_hosts_distants', $known_hosts);
+
+	$is_known_host = false;
+	foreach ($known_hosts as $known_host) {
+		$parse_known = parse_url($known_host);
+		if ($parse_known
+		  and strtolower($parse_known['host']) === strtolower($parsed_url['host'])) {
+			$is_known_host = true;
+			break;
+		}
+	}
+
+	if (!$is_known_host) {
+		$host = trim($parsed_url['host'], '.');
+		if (preg_match('#^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$#', $host)) {
+			$ip = $host;
+		} else {
+			$ip = gethostbyname($host);
+			if ($ip === $host) {
+				// Error condition for gethostbyname()
+				$ip = false;
+			}
+		}
+		if ($ip) {
+			$parts = array_map('intval', explode( '.', $ip ));
+			if (127 === $parts[0] or 10 === $parts[0] or 0 === $parts[0]
+			  or ( 172 === $parts[0] and 16 <= $parts[1] and 31 >= $parts[1] )
+			  or ( 192 === $parts[0] && 168 === $parts[1] )
+			) {
+				return false;
+			}
+		}
+	}
+
+	if (empty($parsed_url['port'])) {
+		return $url;
+	}
+
+	$port = $parsed_url['port'];
+	if ($port === 80  or $port === 443  or $port === 8080) {
+		return $url;
+	}
+
+	if ($is_known_host) {
+		foreach ($known_hosts as $known_host) {
+			$parse_known = parse_url($known_host);
+			if ($parse_known
+				and !empty($parse_known['port'])
+			  and strtolower($parse_known['host']) === strtolower($parsed_url['host'])
+			  and $parse_known['port'] == $port) {
+				return $url;
+			}
+		}
+	}
+
+	return false;
+}
+
+/**
  * Preparer les donnes pour un POST
  * si $donnees est une chaine
  *  - charge a l'envoyeur de la boundariser, de gerer le Content-Type etc...
@@ -235,6 +331,31 @@ function prepare_donnees_post($donnees, $boundary = '') {
 }
 
 /**
+ * Convertir une URL dont le host est en utf8 en ascii
+ * Utilise la librairie https://github.com/phlylabs/idna-convert/tree/v0.9.1
+ * dans sa derniere version compatible toutes version PHP 5
+ * La fonction PHP idn_to_ascii depend d'un package php5-intl et est rarement disponible
+ *
+ * @param string $url_idn
+ * @return array|string
+ */
+function url_to_ascii($url_idn) {
+
+	if ($parts = parse_url($url_idn)) {
+		$host = $parts['host'];
+		if (!preg_match(',^[a-z0-9_\.\-]+$,i', $host)) {
+			include_spip('inc/idna_convert.class');
+			$IDN = new idna_convert();
+			$host_ascii = $IDN->encode($host);
+			$url_idn = explode($host, $url_idn, 2);
+			$url_idn = implode($host_ascii, $url_idn);
+		}
+	}
+
+	return $url_idn;
+}
+
+/**
  * Récupère le contenu d'une URL
  * au besoin encode son contenu dans le charset local
  *
@@ -312,6 +433,8 @@ function recuperer_url($url, $options = array()) {
 	} elseif (strncmp($url, "//", 2) == 0) {
 		$url = 'http:' . $url;
 	}
+
+	$url = url_to_ascii($url);
 
 	$result = array(
 		'status' => 0,
@@ -409,6 +532,7 @@ function recuperer_url($url, $options = array()) {
 			$result['page'] = &$res;
 			$result['length'] = strlen($result['page']);
 		}
+		$result['status'] = 200; // on a reussi, donc !
 	}
 	if (!$result['page']) {
 		return $result;
@@ -1148,8 +1272,8 @@ function init_http($method, $url, $refuse_gz = false, $referer = '', $datas = ""
 		$scheme = 'http';
 		$noproxy = '';
 	} elseif ($t['scheme'] == 'https') {
-		$scheme = 'tls';
-		$noproxy = 'tls://';
+		$scheme = 'ssl';
+		$noproxy = 'ssl://';
 		if (!isset($t['port']) || !($port = $t['port'])) {
 			$t['port'] = 443;
 		}
@@ -1248,13 +1372,13 @@ function lance_requete(
 
 	$connect = "";
 	if ($http_proxy) {
-		if (defined('_PROXY_HTTPS_VIA_CONNECT') and $scheme == "tls") {
+		if (defined('_PROXY_HTTPS_VIA_CONNECT') and in_array($scheme , array('tls','ssl'))) {
 			$path_host = (!$user ? '' : "$user@") . $host . (($port != 80) ? ":$port" : "");
 			$connect = "CONNECT " . $path_host . " $vers\r\n"
 				. "Host: $path_host\r\n"
 				. "Proxy-Connection: Keep-Alive\r\n";
 		} else {
-			$path = (($scheme == 'tls') ? 'https://' : "$scheme://")
+			$path = (in_array($scheme , array('tls','ssl')) ? 'https://' : "$scheme://")
 				. (!$user ? '' : "$user@")
 				. "$host" . (($port != 80) ? ":$port" : "") . $path;
 		}
@@ -1271,7 +1395,17 @@ function lance_requete(
 	}
 
 	if ($connect) {
-		$streamContext = stream_context_create(array('ssl' => array('verify_peer' => false, 'allow_self_signed' => true)));
+		$streamContext = stream_context_create(array(
+			'ssl' => array(
+				'verify_peer' => false,
+				'allow_self_signed' => true,
+				'SNI_enabled' => true,
+				'peer_name' => $host,
+			)
+		));
+		if (version_compare(phpversion(), '5.6', '<')) {
+			stream_context_set_option($streamContext, 'ssl', 'SNI_server_name', $host);
+		}
 		$f = @stream_socket_client("tcp://$first_host:$port", $errno, $errstr, _INC_DISTANT_CONNECT_TIMEOUT,
 			STREAM_CLIENT_CONNECT, $streamContext);
 		spip_log("Recuperer $path sur $first_host:$port par $f (via CONNECT)", "connect");
@@ -1315,8 +1449,12 @@ function lance_requete(
 
 	$site = isset($GLOBALS['meta']["adresse_site"]) ? $GLOBALS['meta']["adresse_site"] : '';
 
+	$host_port = $host;
+	if ($port != (in_array($scheme , array('tls','ssl')) ? 443 : 80)) {
+		$host_port .= ":$port";
+	}
 	$req = "$method $path $vers\r\n"
-		. "Host: $host\r\n"
+		. "Host: $host_port\r\n"
 		. "User-Agent: " . _INC_DISTANT_USER_AGENT . "\r\n"
 		. ($refuse_gz ? '' : ("Accept-Encoding: " . _INC_DISTANT_CONTENT_ENCODING . "\r\n"))
 		. (!$site ? '' : "Referer: $site/$referer\r\n")

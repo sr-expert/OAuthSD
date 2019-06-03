@@ -1,6 +1,6 @@
 <?php
 // This is a SPIP language file  --  Ceci est un fichier langue de SPIP
-// extrait automatiquement de http://trad.spip.net/tradlang_module/svp?lang_cible=uk
+// extrait automatiquement de https://trad.spip.net/tradlang_module/svp?lang_cible=uk
 // ** ne pas modifier le fichier **
 
 if (!defined('_ECRIRE_INC_VERSION')) {
@@ -108,7 +108,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_admin_plugin_actif_oui_verrou_tous' => 'Список усіх включених плагінів, встановлених і системних.',
 	'info_admin_plugin_verrou_non' => 'Список усіх плагінів, крім системних. Включені і відключені.',
 	'info_admin_plugin_verrou_tous' => 'Список усіх плагінів на сайті.',
-	'info_admin_plugin_verrouille' => 'На цій сторінці ви бачите список усіх включених і системних плагінів (встановлених в папці <code>@dir_plugins_dist@</code>). Якщо ви хочете відключити плагін - зв’яжіться з розробниками сайту або проконсультуйтеся в  <a href="http://programmer.spip.org/repertoire_plugins_dist">документації</a>.',
+	'info_admin_plugin_verrouille' => 'На цій сторінці ви бачите список усіх включених і системних плагінів (встановлених в папці <code>@dir_plugins_dist@</code>). Якщо ви хочете відключити плагін - зв’яжіться з розробниками сайту або проконсультуйтеся в  <a href="https://programmer.spip.net/repertoire_plugins_dist">документації</a>.',
 	'info_adresse_spipzone' => 'Плагіни SPIP-Zone',
 	'info_ajouter_depot' => 'Додавши репозиторій на сайт ви отримуєте можливість одержати інформацію про всі плагіни, які знаходяться в репозиторії. <br />Назва та опис плагінів містяться в  XML файлі репозиторію.',
 	'info_aucun_depot' => 'Нема репозиторію',

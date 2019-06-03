@@ -1,6 +1,6 @@
 <?php
 // This is a SPIP language file  --  Ceci est un fichier langue de SPIP
-// extrait automatiquement de http://trad.spip.net/tradlang_module/svp?lang_cible=sk
+// extrait automatiquement de https://trad.spip.net/tradlang_module/svp?lang_cible=sk
 // ** ne pas modifier le fichier **
 
 if (!defined('_ECRIRE_INC_VERSION')) {
@@ -128,7 +128,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_admin_plugin_verrouille' => 'Na tejto stránke je zoznam  aktivovaných a zamknutých zásuvných modulov (umiestnených v priečinku <code>@dir_plugins_dist@</code>).
 	Ak ich chcete deaktivovať,
 	kontaktujte webmastera stránky
-	alebo si prečítajte <a href="http://programmer.spip.org/repertoire_plugins_dist">dokumentáciu.</a>',
+	alebo si prečítajte <a href="https://programmer.spip.net/repertoire_plugins_dist">dokumentáciu.</a>',
 	'info_adresse_spipzone' => 'SPIP-Zone – Zásuvné moduly',
 	'info_ajouter_depot' => 'Ak pridáte depozitáre do svojej databázy, budete môcť o nich získať informácie a vyhľadať všetky balíky, ktoré sa v nich nachádzajú. <br />Depozitár opisuje súbor XML, v ktorom sa nachádzajú informácie o depozitári a všetkých jeho balíkoch.',
 	'info_aucun_depot' => 'žiaden depozitár',

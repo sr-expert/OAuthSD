@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -108,6 +108,10 @@ function public_stats_dist($contexte = null, $referer = null) {
 	$fichier = sous_repertoire(_DIR_TMP, 'visites') . $client_id;
 	if (lire_fichier($fichier, $content)) {
 		$content = @unserialize($content);
+	}
+	// fichier absent probablement (ou problème unserialize)
+	if (!is_array($content)) {
+		$content = array();
 	}
 
 	// 2. Plafonner le nombre de hits pris en compte pour un IP (robots etc.)

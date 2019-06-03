@@ -8,11 +8,15 @@
 <input type="text" class="text" name="recherche[#ID_GROUPE]" value="[(#ENV*{recherche}|table_valeur{#ID_GROUPE})]" />
 <input type="submit" class="submit" name="recherche[b#ID_GROUPE]" value="<:info_rechercher:>" />
 <input type="hidden" name="debutmota#ID_GROUPE" value='#ENV{debutmota#ID_GROUPE,#VAL{debutmotamota#ID_GROUPE}|_request}' />
-#SET{recherche,#ENV*{recherche}|table_valeur{#ID_GROUPE}}
+#SET{recherche,#ENV*{recherche}|table_valeur{#ID_GROUPE}|replace{","," "}}
 [(#GET{recherche}|non|et{#ENV*{recherche}|table_valeur{b#ID_GROUPE}})
 	#SET{recherche,'/./'}
 	<input type="hidden" name="recherche#EVAL{chr(91)}b#ID_GROUPE#EVAL{chr(93)}" value='x' />
 ]
+#SET{defaut_tri,#ARRAY{
+titre,1,
+points,-1
+}}
 <B_liste_mot>
 #ANCRE_PAGINATION
 <div class="liste-objets liste-objets-associer mots">

@@ -6,9 +6,9 @@
 	compatibilite="[3.1.0;3.1.*]"
 	logo="prive/themes/spip/images/breve-32.png"
 	schema="1.0.0"
->	
+>
 
-	<nom>Br&#232;ves</nom>
+	<nom>Brèves</nom>
 	<!-- Gestion des brèves dans SPIP -->
 
 	<auteur>Collectif SPIP</auteur>

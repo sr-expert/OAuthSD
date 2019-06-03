@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -21,7 +21,7 @@ function formulaires_oubli_charger_dist() {
 	return $valeurs;
 }
 
-// http://code.spip.net/@message_oubli
+// https://code.spip.net/@message_oubli
 function message_oubli($email, $param) {
 	$r = formulaires_oubli_mail($email);
 	if (is_array($r) and $r[1]) {
@@ -35,7 +35,7 @@ function message_oubli($email, $param) {
 		$msg = recuperer_fond(
 			"modeles/mail_oubli",
 			array(
-				'url_reset' => url_absolue(generer_url_public('spip_pass', "$param=$cookie"),$GLOBALS['meta']['adresse_site'])
+				'url_reset' => url_absolue(generer_url_public('spip_pass', "$param=$cookie"), $GLOBALS['meta']['adresse_site'] . '/')
 			)
 		);
 		include_spip("inc/notifications");
@@ -57,7 +57,7 @@ function formulaires_oubli_traiter_dist() {
 
 
 // fonction qu'on peut redefinir pour filtrer les adresses mail
-// http://code.spip.net/@test_oubli
+// https://code.spip.net/@test_oubli
 function test_oubli_dist($email) {
 	include_spip('inc/filtres'); # pour email_valide()
 	if (!email_valide($email)) {

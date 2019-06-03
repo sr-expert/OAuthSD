@@ -1,15 +1,15 @@
 <?php
-/*************************************************************************\
-*  SPIP, Systeme de publication pour l'internet                           *
-*                                                                         *
-*  Copyright (c) 2001-2016                                                *
-*  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
-*                                                                         *
-*  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
-*  Pour plus de details voir le fichier COPYING.txt ou l'aide en ligne.   *
-\*************************************************************************/
+/***************************************************************************\
+ *  SPIP, Systeme de publication pour l'internet                           *
+ *                                                                         *
+ *  Copyright (c) 2001-2016                                                *
+ *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
+ *                                                                         *
+ *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
+ *  Pour plus de details voir le fichier COPYING.txt ou l'aide en ligne.   *
+\***************************************************************************/
 
-/* inc/securiser_action.php
+/** inc/securiser_action.php
 * Plugin OpenID Connect client pour SPIP
 * Surcharge de la dist pour assurer l'identification par OIDC
 * Auteur : B.Degoy DnC

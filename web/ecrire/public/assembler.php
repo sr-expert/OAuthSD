@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -215,7 +215,7 @@ function calculer_contexte_implicite() {
 	}
 	$contexte_implicite = array(
 		'squelettes' => $GLOBALS['dossier_squelettes'], // devrait etre 'chemin' => $GLOBALS['path_sig'], ?
-		'host' => $_SERVER['HTTP_HOST'],
+		'host' => (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null),
 		'https' => (isset($_SERVER['HTTPS']) ? $_SERVER['HTTPS'] : ''),
 		'espace' => test_espace_prive(),
 		'marqueur' => (isset($GLOBALS['marqueur']) ? $GLOBALS['marqueur'] : ''),
@@ -672,6 +672,10 @@ function page_base_href(&$texte) {
 			$texte = $head . substr($texte, $poshead);
 			// gerer les ancres
 			$base = $_SERVER['REQUEST_URI'];
+			// pas de guillemets ni < dans l'URL qu'on insere dans le HTML
+			if (strpos($base,"'") or strpos($base,'"') or strpos($base,'<')) {
+				$base = str_replace(array("'",'"','<'),array("%27",'%22','%3C'), $base);
+			}
 			if (strpos($texte, "href='#") !== false) {
 				$texte = str_replace("href='#", "href='$base#", $texte);
 			}

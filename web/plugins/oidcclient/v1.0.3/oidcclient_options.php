@@ -10,6 +10,14 @@
 \*************************************************************************/
 
 /**
+* Plugin OpenID Connect client pour SPIP 
+* Auteur : B.Degoy DnC
+* Copyright (c) 2018 B.Degoy    
+* d'après plugin OpenID pour SPIP
+* Licence GPL (c) 2007-2012 Edouard Lafargue, Mathieu Marcillaud, Cedric Morin, Fil
+*/ 
+
+/**
 * Plugin OpenID Connect client pour SPIP
 * Auteur : B. Degoy DnC     
 * d'après plugin OpenID pour SPIP

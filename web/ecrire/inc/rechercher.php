@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -141,7 +141,7 @@ function expression_recherche($recherche, $options) {
 		$q = str_replace(array('%', '_'), array('\%', '\_'), trim($recherche));
 
 		// eviter les parentheses et autres caractères qui interferent avec pcre par la suite (dans le preg_match_all) s'il y a des reponses
-		$recherche = preg_quote($recherche);
+		$recherche = preg_quote($recherche, '/');
 		$recherche_trans = translitteration($recherche);
 		$recherche_mod = $recherche_trans;
 

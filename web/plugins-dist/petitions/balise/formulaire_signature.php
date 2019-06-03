@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -26,13 +26,13 @@ include_spip('base/abstract_sql');
 // car on doit obtenir la jointure avec la table des petitions pour verifier 
 // si une petition est attachee a l'article.
 
-// http://code.spip.net/@balise_FORMULAIRE_SIGNATURE
+// https://code.spip.net/@balise_FORMULAIRE_SIGNATURE
 function balise_FORMULAIRE_SIGNATURE($p) {
 	return calculer_balise_dynamique($p, 'FORMULAIRE_SIGNATURE', array('id_article', 'petition'));
 }
 
 // Verification des arguments (contexte + filtres)
-// http://code.spip.net/@balise_FORMULAIRE_SIGNATURE_stat
+// https://code.spip.net/@balise_FORMULAIRE_SIGNATURE_stat
 function balise_FORMULAIRE_SIGNATURE_stat($args, $context_compil) {
 
 	// pas d'id_article => erreur de contexte

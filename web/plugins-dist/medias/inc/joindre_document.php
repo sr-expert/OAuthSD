@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -79,6 +79,10 @@ function joindre_trouver_fichier_envoye() {
 		$path = _request('url');
 		if (!strlen($path) or $path == 'http://') {
 			return _T('medias:erreur_indiquez_un_fichier');
+		}
+		include_spip('inc/distant');
+		if (!valider_url_distante($path)) {
+			return _T('medias:erreur_upload_type_interdit', array('nom' => $path));
 		}
 		include_spip('action/ajouter_documents');
 		$infos = renseigner_source_distante($path);
@@ -297,7 +301,7 @@ function joindre_decrire_contenu_zip($zip) {
 }
 
 
-// http://code.spip.net/@joindre_deballes
+// https://code.spip.net/@joindre_deballes
 function joindre_deballer_lister_zip($path, $tmp_dir) {
 	include_spip('inc/pclzip');
 	$archive = new PclZip($path);
@@ -333,7 +337,7 @@ if (!function_exists('fixer_extension_document')) {
 	 * @param unknown_type $doc
 	 * @return unknown
 	 */
-// http://code.spip.net/@fixer_extension_document
+// https://code.spip.net/@fixer_extension_document
 	function fixer_extension_document($doc) {
 		$extension = '';
 		$name = $doc['name'];
@@ -356,7 +360,7 @@ if (!function_exists('fixer_extension_document')) {
 //
 // Gestion des fichiers ZIP
 //
-// http://code.spip.net/@accepte_fichier_upload
+// https://code.spip.net/@accepte_fichier_upload
 
 function accepte_fichier_upload($f) {
 	if (!preg_match(",.*__MACOSX/,", $f)
@@ -371,7 +375,7 @@ function accepte_fichier_upload($f) {
 
 # callback pour le deballage d'un zip telecharge
 # http://www.phpconcept.net/pclzip/man/en/?options-pclzip_cb_pre_extractfunction
-// http://code.spip.net/@callback_deballe_fichier
+// https://code.spip.net/@callback_deballe_fichier
 
 function callback_deballe_fichier($p_event, &$p_header) {
 	if (accepte_fichier_upload($p_header['filename'])) {

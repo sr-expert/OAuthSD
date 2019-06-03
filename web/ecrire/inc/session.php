@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -196,15 +196,14 @@ function ajouter_session($auteur) {
 			echo minipres();
 			exit;
 		}
+		// verifier et limiter le nombre maxi de sessions
+		// https://core.spip.net/issues/3807
+		lister_sessions_auteur($id_auteur);
 	}
 
 	// poser le cookie de session SPIP
 	include_spip('inc/cookie');
-	$duree = _RENOUVELLE_ALEA *
-		(!isset($auteur['cookie'])
-			? 2 : (is_numeric($auteur['cookie'])
-				? $auteur['cookie'] : 20));
-
+	$duree = definir_duree_cookie_session($auteur);
 	spip_setcookie(
 		'spip_session',
 		$_COOKIE['spip_session'],
@@ -218,6 +217,33 @@ function ajouter_session($auteur) {
 	return $_COOKIE['spip_session'];
 }
 
+/**
+ * Calcule le temps de validité en seconde du cookie de session
+ *
+ * Applique un coefficient multiplicateur à la durée de renouvellement de l'alea 
+ * (noté ensuite `dR`, valant 12h par défaut) pour déterminer la durée du cookie.
+ * 
+ * - `2 * dR`. 
+ * - `20 * dR` si le visiteur a indiqué vouloir rester connecté quelques jours 
+ *    sur le formulaire de login (la clé `cookie` vaut alors `oui`) 
+ * - `c * dR`, un coeficient défini manuellement si la clé `cookie` est numérique
+ * 
+ * @param array $auteur
+ *     Description de l'auteur
+ * @return int
+ *     Durée en secondes
+**/
+function definir_duree_cookie_session($auteur) {
+	$coef = 2;
+	if (isset($auteur['cookie'])) {
+		if (is_numeric($auteur['cookie'])) {
+			$coef = $auteur['cookie'];
+		} else {
+			$coef = 20;
+		}
+	}
+	return (int)(_RENOUVELLE_ALEA * $coef);
+}
 
 /**
  * Vérifie si le cookie spip_session indique une session valide
@@ -439,7 +465,7 @@ function actualiser_sessions($auteur, $supprimer_cles = array()) {
 	// .. mettre a jour les sessions de l'auteur cible
 	// attention au $ final pour ne pas risquer d'embarquer un .php.jeton temporaire
 	// cree par une ecriture concurente d'une session (fichier atomique temporaire)
-	$sessions = preg_files(_DIR_SESSIONS, '/' . $id_auteur . '_.*\.php$');
+	$sessions = lister_sessions_auteur($id_auteur);
 
 	// 1ere passe : lire et fusionner les sessions
 	foreach ($sessions as $session) {
@@ -483,6 +509,59 @@ function actualiser_sessions($auteur, $supprimer_cles = array()) {
 		$GLOBALS['visiteur_session'] = $sauve;
 	}
 
+}
+
+/**
+ * lister les sessions et en verifier le nombre maxi
+ * en supprimant les plus anciennes si besoin
+ * https://core.spip.net/issues/3807
+ *
+ * @param int $id_auteur
+ * @param int $nb_max
+ * @return array
+ */
+function lister_sessions_auteur($id_auteur, $nb_max = null) {
+
+	if (is_null($nb_max)) {
+		if (!defined('_NB_SESSIONS_MAX')) {
+			define('_NB_SESSIONS_MAX', 100);
+		}
+		$nb_max = _NB_SESSIONS_MAX;
+	}
+
+	// liste des sessions
+	$sessions = preg_files(_DIR_SESSIONS, '/' . $id_auteur . '_.*\.php$');
+
+	// si on en a plus que la limite, supprimer les plus vieilles
+	// si ce ne sont pas des sessions anonymes car elles sont alors chacune differentes
+	if ($id_auteur
+		and count($sessions) > $nb_max) {
+
+		// limiter le nombre de sessions ouvertes par un auteur
+		// filemtime sur les sessions
+		$sessions = array_flip($sessions);
+
+		// 1ere passe : lire les filemtime
+		foreach ($sessions as $session => $z) {
+			if ($d = @filemtime($session)
+			) {
+				$sessions[$session] = $d;
+			} else {
+				$sessions[$session] = 0;
+			}
+		}
+
+		// les plus anciennes en premier
+		asort($sessions);
+
+		$sessions = array_keys($sessions);
+		while (count($sessions) > $nb_max) {
+			$session = array_shift($sessions);
+			@unlink($session);
+		}
+	}
+
+	return $sessions;
 }
 
 
@@ -532,7 +611,7 @@ function ecrire_fichier_session($fichier, $auteur) {
 	// enregistrer les autres donnees du visiteur
 	$texte = "<" . "?php\n";
 	foreach ($auteur as $var => $val) {
-		$texte .= '$GLOBALS[\'visiteur_session\'][\'' . $var . '\'] = '
+		$texte .= '$GLOBALS[\'visiteur_session\'][' . var_export($var, true) . '] = '
 			. var_export($val, true) . ";\n";
 	}
 	$texte .= "?" . ">\n";

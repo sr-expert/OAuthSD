@@ -3,7 +3,7 @@
 /***************************************************************************\
  *  SPIP, Systeme de publication pour l'internet                           *
  *                                                                         *
- *  Copyright (c) 2001-2016                                                *
+ *  Copyright (c) 2001-2019                                                *
  *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
  *                                                                         *
  *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
@@ -63,12 +63,11 @@ function medias_post_insertion($flux) {
 
 	$objet = objet_type($flux['args']['table']);
 	$id_objet = $flux['args']['id_objet'];
+	$id_auteur = isset($GLOBALS['visiteur_session']['id_auteur']) ? $GLOBALS['visiteur_session']['id_auteur'] : 0;
 
 	include_spip('inc/autoriser');
 
-	if (autoriser('joindredocument', $objet, $id_objet)
-		and $id_auteur = intval($GLOBALS['visiteur_session']['id_auteur'])
-	) {
+	if (autoriser('joindredocument', $objet, $id_objet) and $id_auteur) {
 
 		# cf. HACK medias_affiche_gauche()
 		# rattrapper les documents associes a cet objet nouveau
@@ -346,20 +345,20 @@ function medias_boite_infos($flux) {
 function medias_revisions_chercher_label($flux) {
 	foreach (array('id_vignette', 'hauteur', 'largeur', 'mode', 'taille') as $champ) {
 		if ($flux['args']['champ'] == $champ) {
-			$flux['data'] = _T('medias:info_' . $champ);
+			$flux['data'] = 'medias:info_' . $champ;
 
 			return $flux;
 		}
 	}
 	foreach (array('fichier', 'taille', 'mode', 'credits') as $champ) {
 		if ($flux['args']['champ'] == $champ) {
-			$flux['data'] = _T('medias:label_' . $champ);
+			$flux['data'] = 'medias:label_' . $champ;
 
 			return $flux;
 		}
 	}
 	if ($flux['args']['champ'] == 'distant') {
-		$flux['data'] = $flux['data'] = _T('medias:fichier_distant');
+		$flux['data'] = $flux['data'] = 'medias:fichier_distant';
 	}
 
 	return $flux;
