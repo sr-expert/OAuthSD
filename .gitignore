@@ -12,3 +12,5 @@ oidc/identification/gangsta/error_log
 oidc/identification/ghostkeys/error_log
 oidc/includes/secret.txt
 oidc/error_log
+composer.lock
+composer.lock

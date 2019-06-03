@@ -315,29 +315,28 @@
     },
     {
         "name": "ovh/ovh",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v2.0.1",
+        "version_normalized": "2.0.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/ovh/php-ovh.git",
-            "reference": "88e67ac3aaeb9f733af6cb96b1b5bdb6e6e62073"
+            "reference": "25a97501a150dff8a7848c372b5826395aab4df2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/ovh/php-ovh/zipball/88e67ac3aaeb9f733af6cb96b1b5bdb6e6e62073",
-            "reference": "88e67ac3aaeb9f733af6cb96b1b5bdb6e6e62073",
+            "url": "https://api.github.com/repos/ovh/php-ovh/zipball/25a97501a150dff8a7848c372b5826395aab4df2",
+            "reference": "25a97501a150dff8a7848c372b5826395aab4df2",
             "shasum": ""
         },
         "require": {
             "guzzlehttp/guzzle": "^6.0"
         },
         "require-dev": {
-            "phing/phing": "^2.14",
             "phpdocumentor/phpdocumentor": "2.*",
             "phpunit/phpunit": "4.*",
-            "squizlabs/php_codesniffer": "2.*"
+            "squizlabs/php_codesniffer": "1.*"
         },
-        "time": "2018-12-05T20:35:48+00:00",
+        "time": "2016-02-10T13:16:38+00:00",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -350,6 +349,46 @@
             "BSD-3-Clause"
         ],
         "description": "Wrapper for OVH APIs"
+    },
+    {
+        "name": "ovh/php-ovh-sms",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ovh/php-ovh-sms.git",
+            "reference": "52d279e112a7da8f897745acab32a887321e03f1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/ovh/php-ovh-sms/zipball/52d279e112a7da8f897745acab32a887321e03f1",
+            "reference": "52d279e112a7da8f897745acab32a887321e03f1",
+            "shasum": ""
+        },
+        "require": {
+            "ovh/ovh": "~2.0.1"
+        },
+        "require-dev": {
+            "phpdocumentor/phpdocumentor": "2.*",
+            "phpunit/phpunit": "7.*",
+            "squizlabs/php_codesniffer": "3.*"
+        },
+        "time": "2019-01-22T11:17:39+00:00",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Ovh\\Sms\\": "src/"
+            },
+            "psr-4": {
+                "Ovh\\Sms\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "description": "SDK for OVH SMS APIs"
     },
     {
         "name": "paragonie/random_compat",

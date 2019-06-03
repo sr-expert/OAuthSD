@@ -21,6 +21,7 @@ class ComposerStaticInita35a20a49f65d34c14845ac46be529c6
         ),
         'O' => 
         array (
+            'Ovh\\Sms\\' => 8,
             'Ovh\\' => 4,
         ),
         'G' => 
@@ -39,6 +40,10 @@ class ComposerStaticInita35a20a49f65d34c14845ac46be529c6
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
+        'Ovh\\Sms\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ovh/php-ovh-sms/src',
         ),
         'Ovh\\' => 
         array (
@@ -65,6 +70,10 @@ class ComposerStaticInita35a20a49f65d34c14845ac46be529c6
     public static $prefixesPsr0 = array (
         'O' => 
         array (
+            'Ovh\\Sms\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/ovh/php-ovh-sms/src',
+            ),
             'OAuth2' => 
             array (
                 0 => __DIR__ . '/..' . '/bshaffer/oauth2-server-php/src',
