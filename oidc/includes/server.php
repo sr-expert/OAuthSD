@@ -47,7 +47,7 @@ $grantTypes = array(
 // Server configuration, including OpenID Connect, Implicit Flow et JWT Bearer
 $server_config = array(
     'enforce_state' => true,    // Always true with OAuthSD.
-    'allow_implicit' => true,
+    'allow_implicit' => ALLOW_IMPLICIT,
     'use_openid_connect' => true,
     'issuer' => OIDC_SERVER_URL,  //[dnc45a]
     //'use_jwt_access_tokens' => true,    // Attention : nécessite d'augmenter le champ access_token.    TODO: ???

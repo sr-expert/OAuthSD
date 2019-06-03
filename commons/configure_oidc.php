@@ -16,6 +16,14 @@ All rights reserved
 
 include_once(__DIR__. "/configure.php"); 
 
+/**
+* It must be considered that the OIDC server is as secure as the least secure flow that it implements.
+* Opening the possibility that the server responds to various requests 
+* (such as implicit and hybrid flows) without controlling the client application 
+* can be considered a security breach.
+*/
+define('ALLOW_IMPLICIT', true);
+
 /* Log des événements. Les événements sont considérés en fonction de leur niveau. 
 * Les événements retenus sont enregistrés en base de données (table oidc_logs) et, 
 * éventuellement, dans un fichier.
@@ -29,9 +37,8 @@ include_once(__DIR__ . '/log.php');
 */
 define('LOG_FILE', __DIR__.'/../tmp/oidc.log');    // dans oidc/tmp/
 
+
 ///// LIFETIMES /////
-
-
 
 /** ..._TOKEN_LIFETIME
 * In most situations, ID Token and SLI Cookie lifetimes should be set equal to Access Token lifetime.
