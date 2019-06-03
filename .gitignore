@@ -4,3 +4,11 @@
 **/sources/*
 *.log
 *.log
+oidc/debug.txt
+oidc/error_log
+oidc/error_log
+oidc/error_log
+oidc/identification/gangsta/error_log
+oidc/identification/ghostkeys/error_log
+oidc/includes/secret.txt
+oidc/error_log
