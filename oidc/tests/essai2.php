@@ -292,7 +292,7 @@ if ( !isset($_GET['error']) ) {
 
 } else {
     // Authorization error
-    $trace = $_SESSION['trace'];
+    $trace = @$_SESSION['trace'];
     echo $trace . "<br /><br />";
 
     exit("Authorization error : {$_GET['error']} : {$_GET['error_description']}");
