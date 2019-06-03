@@ -97,7 +97,7 @@ define('SLI_COOKIE_LIFETIME', 3 * ACCESS_TOKEN_LIFETIME);
 * who has not explicitly logout may come back to work with no need to re-authenticate.
 * Note that it has no effect on Access Token, ID Token nor SLI Cookie lifetimes.
 */
-define('SRA_REPARATION_TIME', 2 * BASE_LIFETIME);
+define('SRA_REPARATION_TIME', 3 * BASE_LIFETIME);
 
 /**[dnc10]
 What to do if prompt not defined (or Null) and user is not connected?
@@ -193,17 +193,19 @@ define('TFA_VISIBLE_APPNAME','OAuthSD Server');
 * If this is set to true, 2FA SMS will always be presented to end user after login form.
 */
 define('LOGIN_WITH_SMS', false);
-
 /** Obtain credential from :
-* https://api.ovh.com/createToken/index.cgi?GET=/sms&GET=/sms/*&PUT=/sms/*&DELETE=/sms/*&POST=/sms/
+* https://api.ovh.com/createToken/index.cgi?GET=/sms&GET=/sms/*&PUT=/sms/*&DELETE=/sms/*&POST=/sms/*
 */
-define('OVHSMSAPI_APPLICATIONKEY','Dfh5WUMbon91xtC1');
-define('OVHSMSAPI_APPLICATIONSECRET','4P2sPbiQygc6JMtXB1F3phAfs2wmD8ca');
-define('OVHSMSAPI_CONSUMER_KEY','YXBD9wjslgIpMx5DKQIgoLvA9L2vqb33');
-
+define('OVHSMSAPI_APPLICATIONKEY','etFvHkOj95N4BiEL');
+define('OVHSMSAPI_APPLICATIONSECRET','XE9RP6zI28GdbcaBwuxbkMTz8pBoOoHe');
+define('OVHSMSAPI_CONSUMER_KEY','1hDe3PPJlFdWwcvy4eFPXsBM7hShpPAw');
 /** OVH SMS API End point.
 */
 define('OVHSMSAPI_ENDPOINT','ovh-eu');
+/** API user
+* Authorized API user is set in OVH SMS account. May be subject to quota.
+*/
+define('OVHSMSAPIUSER', 'OAUTHSD');
 
 
 //// NO CHANGE NEEDED ////
