@@ -127,7 +127,7 @@ if ( $token ) {
 
     //[dnc45c] The name Claim is expected by OpenID Connect Provider Certification Test OP-claims-essential
     $moreclaims += array(
-        'name' => strtoupper($userinfo['family_name']) . ' ' . $userinfo['given_name'],   //TODO to be completed
+        'name' => strtoupper($userinfo['given_name']) . ' ' . strtoupper($userinfo['family_name']),   //TODO to be completed
     );
 
     if ( strpos($token['scope'],'address') !== false ) {    
