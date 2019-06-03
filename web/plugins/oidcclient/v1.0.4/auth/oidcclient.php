@@ -52,6 +52,7 @@ function auth_oidcclient_terminer_identifier_login($args) {
             '<center>Erreur<br/><a href="/web/spip.php?page=login">Back to login</a></center>'
         );  //[dnc17]
         //TODO: vérifier que l'HIDS est prévenu
+        session_set('loggedby');  //[dnc54a]
     }   
 
     if ( is_string($res) ) { // Erreur
@@ -63,6 +64,7 @@ function auth_oidcclient_terminer_identifier_login($args) {
 
     // sinon on loge l'auteur identifie, et on finit (redirection automatique) 
     auth_loger($res);
+    session_set('loggedby', 'oidc');  //[dnc54a]
 
     // continuer vers caller (ou redirect ???)
     include_spip('inc/session');
