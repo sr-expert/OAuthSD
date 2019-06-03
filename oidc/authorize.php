@@ -973,7 +973,7 @@ function scopes_to_grant($scopes, $client_id) {
     // Eliminate reserved scopes
     $scopes_to_retain = array();
     foreach ( $scopes as $thescope) {
-        if ( ! in_array($thescope, $reservedscopes) ) {
+        if ( ! in_array($thescope, $reservedscopes) OR $thescope === 'offline_access' ) {   //[dnc55] offline_access must be granted
             // keep this scope
             $scopes_to_retain[] = $thescope;
         }
