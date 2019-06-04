@@ -4,6 +4,7 @@
 **/sources/*
 *.log
 *.log
+/vendor
 oidc/debug.txt
 oidc/error_log
 oidc/error_log
