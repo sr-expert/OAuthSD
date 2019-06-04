@@ -6,7 +6,8 @@
         "defuse/php-encryption": "^2.0",
         "phpgangsta/googleauthenticator": "dev-master",
         "ovh/ovh": "~2.0.1",
-        "ovh/php-ovh-sms": "dev-master"
+        "ovh/php-ovh-sms": "dev-master",
+        "bdegoy/oauthsd-php":"dev-master"  
     },
     "autoload": {
         "php-encryption": {"Defuse\\": "src/"}
