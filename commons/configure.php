@@ -29,14 +29,14 @@ define('SLI_SESSION_DIR', '/home/oadnc/sessions_oauthsd'); // best place is abov
 //* MySQL
 $connection = array(
 'dsn' => 'mysql:dbname=dnc_oauth2;host=localhost',   
-'username' => 'dnc_user_oa', 
-'password' => 'oaY10CWrB9!'
+'username' => 'xxx', 
+'password' => 'xxx'
 ); //*/
 /* PostgreSQL
 $connection = array(
     'dsn' => 'pgsql:dbname=oidcdnc_server;host=localhost;port=5432', 
-    'username' => 'oidcdnc_admin', 
-    'password' => 'oidcY10CWrB9!'
+    'username' => 'xxx', 
+    'password' => 'xxx!'
 ); //*/  
 
 
