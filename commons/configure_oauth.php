@@ -1,17 +1,17 @@
 <?php
-/* configure.php
-Configuration du serveur OAuthSD.
+/* configure_oauth.php
+Configuration du serveur OAuthSD, protocole OAuth 2.0.
 
 Auteur : Bertrand Degoy 
 Copyright (c) 2016-2018 DnC  
-Tous droits réservés
+Licence GPL3
 */
 
 define('_GHOSTKEYS','1');  // don't modify
 
 //***** CONFIGURATION *****
 
-include_once(__DIR__. "/../../commons/configure.php");    
+include_once(__DIR__. "/configure.php");    
 
 // Log
 define('LOG_LEVEL', 3 ); // 3 = error + info + success, 2 = error + info, null, 0 or 1 = error only     
@@ -118,3 +118,4 @@ $supportedScopes = array(
     'phone',
 );
 
+define('OAUTHSRV_PATH', __DIR__. "/../vendor/bdegoy/oauthsd-php/src/Oa2Srv/");

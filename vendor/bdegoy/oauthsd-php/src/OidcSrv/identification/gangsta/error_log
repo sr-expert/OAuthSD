@@ -1,0 +1,8 @@
+[16-May-2019 13:09:43 UTC] PHP Fatal error:  Class 'PHPGangsta\Autoloader' not found in /home/oadnc/public_html/oidc/identification/gangsta/login_return.php on line 29
+[16-May-2019 13:10:28 UTC] PHP Notice:  Undefined index: state in /home/oadnc/public_html/oidc/identification/gangsta/login_return.php on line 62
+[16-May-2019 13:20:38 UTC] PHP Notice:  Undefined variable: response_type in /home/oadnc/public_html/oidc/identification/gangsta/login_return.php on line 159
+[16-May-2019 13:20:38 UTC] PHP Notice:  Undefined variable: client_id in /home/oadnc/public_html/oidc/identification/gangsta/login_return.php on line 160
+[16-May-2019 13:20:38 UTC] PHP Notice:  Undefined variable: scope in /home/oadnc/public_html/oidc/identification/gangsta/login_return.php on line 161
+[16-May-2019 13:29:10 UTC] PHP Notice:  Undefined variable: response_type in /home/oadnc/public_html/oidc/identification/gangsta/login_return.php on line 161
+[16-May-2019 13:29:10 UTC] PHP Notice:  Undefined variable: scope in /home/oadnc/public_html/oidc/identification/gangsta/login_return.php on line 163
+[16-May-2019 20:10:30 UTC] PHP Fatal error:  Call to undefined function that_session_start() in /home/oadnc/public_html/oidc/identification/gangsta/login_return.php on line 68

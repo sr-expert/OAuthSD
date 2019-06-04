@@ -14,7 +14,7 @@ Copyright (c) 2016-2018 DnC
 All rights reserved
 */
 
-if ( isset($_GET['state']) ) session_id($_GET['state']);      //*****
+if ( isset($_GET['state']) ) session_id($_GET['state']);
 session_start(); 
 
 header ("Content-type: image/png");

@@ -139,7 +139,7 @@ echo ('
     <h3 class="oauth login">'  
     . $texte1 .  //[dnc16]
     '</h3> 
-    <form id="'. $form_id .'" name="'. $form_id .'" method="post" action ="/oidc/identification/password/login_return.php">
+    <form id="'. $form_id .'" name="'. $form_id .'" method="post" action ="' . OIDCSRV_WEB_PATH . 'identification/password/login_return.php">
     <input type="hidden" name="return_from" value="'. $form_id .'">
     <input type="hidden" name="response_type" value="' . $response_type . '">
     <input type="hidden" name="client_id" value="' . $client_id . '">

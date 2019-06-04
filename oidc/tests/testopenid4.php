@@ -28,14 +28,14 @@ $introspection_endpoint = 'https://oa.dnc.global/introspect';
 $userinfo_endpoint = 'https://oa.dnc.global/userinfo';
 
 //*** End of configuration ***
-
-require_once __DIR__.'/../../oidc/includes/utils.php';     //*****
+  
+require_once OIDCSRV_ROOT_PATH . 'includes/utils.php'; 
 
 ini_set('display_errors', 1);
 
 // Set session
 //*
-session_save_path('/home/oadnc/sessions_oauthsd');           //*****
+session_save_path('/home/oadnc/sessions_oauthsd');          
 session_name('oauthsd'); 
 session_start();
 

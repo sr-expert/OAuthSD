@@ -1,6 +1,6 @@
 2019/05/26
 ServiceBot
-https://github.com/service-bot/servicebot
+https://githuhb.com/service-bot/servicebot
 
 *** Stripe ***
 Stripe : ouverture d'un compte

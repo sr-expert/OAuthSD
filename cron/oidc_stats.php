@@ -7,7 +7,7 @@ Une fois encore : il faut des temps UTC !
 
 Auteur : Bertrand Degoy 
 Copyright (c) 2019 DnC  
-Tous droits réservés
+Licence GPL3
 */     
 
 //* N'accepter que l'appel par la tâche cron

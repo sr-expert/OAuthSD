@@ -11,6 +11,8 @@ Copyright (c) 2016-2018 DnC
 All rights reserved
 */
 
+//DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG
+
 if ( !defined('__AUTHORIZE') ) die();
 
 // Prepare data
@@ -120,7 +122,7 @@ if ( file_exists('my.css') ) { //[dnc37]
     }
         
     echo ('    
-                <form id="'. $form_id .'" name="'. $form_id .'" method="post" action ="/oidc/identification/ghostkeys/login_return.php">
+                <form id="'. $form_id .'" name="'. $form_id .'" method="post" action ="' . OIDCSRV_WEB_PATH . 'identification/ghostkeys/login_return.php">
                     <input type="hidden" name="return_from" value="'. $form_id .'">
                     <input type="hidden" name="response_type" value="' . $response_type . '">
                     <input type="hidden" name="client_id" value="' . $client_id . '">
@@ -161,7 +163,7 @@ if ( file_exists('my.css') ) { //[dnc37]
                     </div>
 
                     <div id="ghostkeys" class="editer">
-                        <img src="/oidc/identification/ghostkeys/gkeys.php?state=' . $state . '" usemap="#map" border="0" />
+                        <img src="' . OIDCSRV_WEB_PATH . 'identification/ghostkeys/gkeys.php?state=' . $state . '" usemap="#map" border="0" />
                         <map name="map" id="map">
                         <area shape="rect" coords="0,0,30,30" href="#" onclick="javascript :bloc(\'' . $tab[0] . '\')" />
                         <area shape="rect" coords="0,30,30,60" href="#" onclick="javascript :bloc(\'' . $tab[1] . '\')" />

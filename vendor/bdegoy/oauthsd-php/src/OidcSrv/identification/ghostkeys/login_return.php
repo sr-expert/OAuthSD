@@ -18,11 +18,11 @@ All rights reserved
 //DebugBreak();   //DEBUG
 
 // Autoloading by Composer
-require_once '../../../vendor/autoload.php';
+require_once __DIR__ . '/../../../../../../autoload.php';
 OAuth2\Autoloader::register(); 
 
 // Server configuration
-require_once '../../../commons/configure_oidc.php';
+require_once '../../../../../../../commons/configure_oidc.php';
 require_once '../../includes/utils.php'; 
 
 // Some initialization

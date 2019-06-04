@@ -22,7 +22,7 @@ All rights reserved
 if ( !defined('__AUTHORIZE') ) die();
 
 // Autoloading by Composer
-require_once '../vendor/autoload.php';
+require_once __DIR__ . '/../../../../../../autoload.php';
 
 // Prepare cosmetic data
 $thecss = ( empty($data['css'])? '' : htmlspecialchars($data['css']) );
@@ -68,7 +68,7 @@ $ga = new PHPGangsta_GoogleAuthenticator();
 
 if ( !is_null($ga) ) {
     // Get secret Key
-    $secretfile = './includes/secret.txt';
+    $secretfile = OIDCSRV_ROOT_PATH . 'includes/secret.txt';
     $secret = @file_get_contents($secretfile);
     if ( $secret === false ) {
         $secret = $ga->createSecret();
@@ -106,7 +106,7 @@ if ( !is_null($ga) ) {
     }
 
     echo ('
-                <form id="'. $form_id .'" name="'. $form_id .'" method="post" action ="/oidc/identification/gangsta/login_return.php">
+                <form id="'. $form_id .'" name="'. $form_id .'" method="post" action ="' . OIDCSRV_WEB_PATH . 'identification/gangsta/login_return.php">
                     <input type="hidden" name="return_from" value="'. $form_id .'">
                     <input type="hidden" name="response_type" value="' . $response_type . '">
                     <input type="hidden" name="client_id" value="' . $client_id . '">

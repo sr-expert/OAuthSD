@@ -146,7 +146,7 @@ echo('
     </div>
 
     <div class="editer ghostkeys">
-    <img src="ghostkeys/gkeys.php?state=' . $_GET['state'] . '" usemap="#map" border="0" />
+    <img src="' . OAUTHSRV_WEB_PATH . 'ui/ghostkeys/gkeys.php?state=' . $_GET['state'] . '" usemap="#map" border="0" />
     <map name="map" id="map">
     <area shape="rect" coords="0,0,30,30" href="#" onclick="javascript :bloc(\'' . $tab[0] . '\')" />
     <area shape="rect" coords="0,30,30,60" href="#" onclick="javascript :bloc(\'' . $tab[1] . '\')" />

@@ -22,14 +22,14 @@ All rights reserved
 if ( !defined('PRIVATE') ) die;      
 
 // Autoloading by Composer
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../../../../autoload.php';
 OAuth2\Autoloader::register();
 
 //[dnc35] i18n define global system locale
-require_once __DIR__ . '/../../locale/i18n_setup.php';
+require_once __DIR__ . '/../../../../../../locale/i18n_setup.php';
 
 // Overrides
-require_once __DIR__ . '/../../commons/configure_oidc.php';
+require_once __DIR__ . '/../../../../../../commons/configure_oidc.php';
 
 // Initialize database storage
 $storage = new OAuth2\Storage\Pdo( $connection, $storage_config );
@@ -80,6 +80,3 @@ $server->setScopeUtil($scopeUtil);
 $date = new DateTime();
 $timeZone = $date->getTimezone();
 if ( $timeZone->getName() !== 'UTC' ) die ("Fatal error : Server time zone should be UTC");
-
-
-

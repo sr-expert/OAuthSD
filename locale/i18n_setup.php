@@ -57,13 +57,13 @@ if ( isset($_GET['lang']) ) {
     }
 }
 
-if ( is_null($lang) ) $lang = 'fr_FR';
+if ( @is_null($lang) ) $lang = 'fr_FR';    // @ avoids sending headers on error ???
 
 // define the global system locale given the found language
-putenv("LANG=$lang");
+@putenv("LANG=$lang");
 
 // useful for date functions (LC_TIME) or money formatting (LC_MONETARY) ...
-setlocale(LC_ALL, $lang);
+@setlocale(LC_ALL, $lang);
 
 // Gettext look for ../locales/<lang>/LC_MESSAGES/main.mo
 bindtextdomain('main', '../locale');

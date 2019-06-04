@@ -22,14 +22,14 @@ All rights reserved
 //DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG
 
 // Autoloading by Composer
-require_once '../../../vendor/autoload.php';
+require_once __DIR__ . '/../../../../../../autoload.php';
 // We use oauth2-server-php https://bshaffer.github.io/oauth2-server-php-docs/
 OAuth2\Autoloader::register();
 // We use PHPGangsta https://github.com/PHPGangsta/GoogleAuthenticator
 
 // Server configuration
-require_once '../../../commons/configure_oidc.php';
-require_once '../../includes/utils.php';
+require_once  __DIR__ . '/../../../../../../../commons/configure_oidc.php';
+require_once  __DIR__ . '/../../includes/utils.php';
 
 // Some initialization
 $error = null;

@@ -25,8 +25,8 @@ $server = 'oa.dnc.global';
 $token_endpoint = 'https://' . $server . '/token';
 
 define('PRIVATE', true);
-require_once __DIR__.'/../../oidc/../../commons/configure_oidc.php';         
-require_once __DIR__.'/../../oidc/includes/utils.php';
+require_once __DIR__.'/../../commons/configure_oidc.php'; 
+require_once OIDCSRV_ROOT_PATH . 'includes/server.php';     
 
 //*** End of configuration ***
 

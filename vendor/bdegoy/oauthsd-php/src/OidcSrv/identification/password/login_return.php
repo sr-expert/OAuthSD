@@ -17,12 +17,12 @@ All rights reserved
 */
 
 // Autoloading by Composer
-require_once '../../../vendor/autoload.php';
+require_once __DIR__ . '/../../../../../../autoload.php';
 OAuth2\Autoloader::register(); 
 
 // Server configuration
-require_once '../../../commons/configure_oidc.php';
-require_once '../../includes/utils.php'; 
+require_once '../../../../../../../commons/configure_oidc.php';
+require_once '../../includes/utils.php';  
 
 // Some initialization
 $error = null;
@@ -129,7 +129,7 @@ the length should be LOGIN_MIN_LENGTH chars or more.
 */
 if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
     // Convert email to login : search email in users and return username as $login.
-    $stmt = $cnx->prepare(sprintf('SELECT username FROM %s WHERE email=:login', $storage_config['user_table']));    //*****
+    $stmt = $cnx->prepare(sprintf('SELECT username FROM %s WHERE email=:login', $storage_config['user_table']));  
     $stmt->execute(compact('login'));
     $data = $stmt->fetch(\PDO::FETCH_ASSOC);
     $sub = $data['username']; 

@@ -1,14 +1,11 @@
 <?php
 /* configure.php
-Configuration du serveur OAuthSD.
+Configuration du serveur OAuthSD, protocole OIDC.
 
 OauthSD project
-This code is not an open source!
-You can not access, dispose, modify, transmit etc. this code without the written permission of DnC.
-You can only use one coded copy provided you have a particular license from DnC.
 Auteur : Bertrand Degoy 
 Copyright (c) 2016-2019 DnC  
-All rights reserved
+Licence GPL3
 */
 
 

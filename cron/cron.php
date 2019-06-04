@@ -5,8 +5,8 @@ wget -O /dev/null https://.../cron/cron.php >/dev/null 2>&1
 
 Auteur : Bertrand Degoy 
 Copyright (c) 2019 DnC  
-Tous droits réservés
-*/     //*****
+Licence GPL3
+*/  
 
 define("CRON",true);
 

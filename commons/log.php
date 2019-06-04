@@ -2,12 +2,9 @@
 /* log.php
 
 OauthSD project
-This code is not an open source!
-You can not access, dispose, modify, transmit etc. this code without the written permission of DnC.
-You can only use one coded copy provided you have a particular license from DnC.
 Auteur : Bertrand Degoy 
 Copyright (c) 2016-2018 DnC  
-All rights reserved
+Licence GPL3
 */
 
 //define('LOG_LEVEL', 3 ); // 3 = error + info + success, 2 = error + info, 1 = error only  
@@ -42,7 +39,7 @@ function __log( $title, $origin, $str = '', $client_id = 'unk', $user_id = 'unk'
     if ( empty($client_id)) $client_id = 'Unk';
     if ( empty($user_id)) $user_id = 'Unk';
 
-    require_once __DIR__.'/../oidc/includes/utils.php'; 
+    require_once __DIR__.'/../vendor/bdegoy/oauthsd-php/src/OidcSrv/includes/utils.php'; 
 
     $state = decrypt(@$_SESSION['state']); //[dnc21] will be used to chain messages in log view  [dnc33]
     $remote_addr = (string)$_SERVER['REMOTE_ADDR'];  // id.

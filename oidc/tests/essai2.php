@@ -24,8 +24,8 @@ $userinfo_endpoint = 'https://' . $server . '/userinfo';
 
 define('PRIVATE', true);
 require_once __DIR__.'/../../commons/configure_oidc.php'; 
-require_once __DIR__.'/../../oidc/includes/server.php';     
-require_once __DIR__.'/../../oidc/includes/utils.php';
+require_once OIDCSRV_ROOT_PATH . 'includes/server.php';    
+require_once OIDCSRV_ROOT_PATH . 'includes/utils.php';  
 
 
 //*** End of configuration ***

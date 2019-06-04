@@ -3,12 +3,9 @@
 Configuration values common to oauth and oidc servers.
 
 OauthSD project
-This code is not an open source!
-You can not access, dispose, modify, transmit etc. this code without the written permission of DnC.
-You can only use one coded copy provided you have a particular license from DnC.
 Auteur : Bertrand Degoy 
 Copyright (c) 2016-2019 DnC  
-All rights reserved
+Licence GPL3
 */
 
 // Error reporting (this is a demo, after all!)
@@ -42,3 +39,13 @@ $connection = array(
     'password' => 'oidcY10CWrB9!'
 ); //*/  
 
+
+//// NO CHANGE NEEDED ////
+
+// Where is the middleware from bdegoy
+define('SOFT_PATH', '/vendor/bdegoy/oauthsd-php/src/');
+// Paths from webroot and server root
+@define('OAUTHSRV_WEB_PATH', SOFT_PATH . 'Oa2Srv/');    // may be already defined, @ avoids sending headers
+define('OAUTHSRV_ROOT_PATH', __DIR__ . '/..' . OAUTHSRV_WEB_PATH);
+@define('OIDCSRV_WEB_PATH', SOFT_PATH . 'OidcSrv/');    // may be already defined, @ avoids sending headers
+define('OIDCSRV_ROOT_PATH', __DIR__ . '/..' . OIDCSRV_WEB_PATH);

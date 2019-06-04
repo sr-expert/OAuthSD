@@ -6,7 +6,8 @@ See : http://bshaffer.github.io/oauth2-server-php-docs/overview/openid-connect/
 
 // Include our OAuth2 Server object
 define('PRIVATE', true);
-require_once __DIR__.'/../../oidc/includes/server.php';
+require_once __DIR__.'/../../commons/configure_oidc.php'; 
+require_once OIDCSRV_ROOT_PATH . 'includes/server.php';    
 
 // create a request object to mimic an authorization code request
 /*

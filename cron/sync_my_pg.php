@@ -227,5 +227,3 @@ if ( $stmt->execute() === false ) {
     }
 
 }
-
-$void = 1;    // stoooop!

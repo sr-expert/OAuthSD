@@ -278,7 +278,7 @@ class Response implements ResponseInterface
     public function send($format = 'json')
     {
         // headers have already been sent by the developer
-        if (headers_sent()) {
+        if (headers_sent($file, $line)) {    //DEBUG
             return;
         }
 
