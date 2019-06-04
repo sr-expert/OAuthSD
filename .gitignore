@@ -14,3 +14,6 @@ oidc/includes/secret.txt
 oidc/error_log
 composer.lock
 composer.lock
+cron/error_log
+error_log
+oauth/error_log
