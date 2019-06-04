@@ -1,2 +1,0 @@
-[27-Jan-2019 22:27:06 UTC] PHP Warning:  Module 'dbg' already loaded in Unknown on line 0
-[27-Jan-2019 22:27:10 UTC] PHP Fatal error:  Interface 'OAuth2\OpenID\ResponseType\IdTokenInterface' not found in /home/oadnc/public_html/vendor/bshaffer/oauth2-server-php/src/OAuth2/OpenID/ResponseType/IdToken.php on line 11
