@@ -112,7 +112,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'username_exists' => 'This username or username already exists, please create another one',
     'username_mauvais' => 'A nickname must be limited to letters and numbers without spaces or special characters.',
     
-    'vous_etes_ici' => 'You have arrived here because you requested signin on an application that delegates user authentication to OAuth Server by DnC. <br/>
+    'vous_etes_ici' => 'You arrived here because you requested signin on an application that delegates user authentication to OAuth Server by DnC. <br/>
      The information requested from you is stored on the authentication server. It is transferred to applications under your control. It is used by these applications to identify you and allow you to access different features. It remains private. <br/>
      With OAuth Server by DnC, passwords can not be intercepted when they are entered, do not circulate on the Internet, are not saved anywhere!',
     'vos_identifiants' => 'Your identifiers',
