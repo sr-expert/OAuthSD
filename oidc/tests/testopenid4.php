@@ -28,7 +28,7 @@ $introspection_endpoint = 'https://oa.dnc.global/introspect';
 $userinfo_endpoint = 'https://oa.dnc.global/userinfo';
 
 //*** End of configuration ***
-  
+
 require_once OIDCSRV_ROOT_PATH . 'includes/utils.php'; 
 
 ini_set('display_errors', 1);

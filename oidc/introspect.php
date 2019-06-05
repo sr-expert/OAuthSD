@@ -11,5 +11,5 @@ Copyright (c) 2016-2018 DnC
 Licence GPLv3
 */
 
-define('OIDCSRV_WEB_PATH', '/../vendor/bdegoy/oauthsd-php/src/OidcSrv/');
-include_once __DIR__. OIDCSRV_WEB_PATH . 'introspect.php';
+include_once __DIR__. '/../commons/configure.php';
+include_once OIDCSRV_ROOT_PATH . 'introspect.php';

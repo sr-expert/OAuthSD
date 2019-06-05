@@ -10,6 +10,8 @@ Licence GPL3
 //define('LOG_LEVEL', 3 ); // 3 = error + info + success, 2 = error + info, 1 = error only  
 
 if ( !defined('PRIVATE') ) return;
+ 
+require_once OIDCSRV_ROOT_PATH . 'includes/utils.php';
 
 function log_info( $where, $str = '', $client_id, $user_id, $errnum, $weight, $cnx) {                      
     // simple information
@@ -38,10 +40,9 @@ function __log( $title, $origin, $str = '', $client_id = 'unk', $user_id = 'unk'
 
     if ( empty($client_id)) $client_id = 'Unk';
     if ( empty($user_id)) $user_id = 'Unk';
-
-    require_once __DIR__.'/../vendor/bdegoy/oauthsd-php/src/OidcSrv/includes/utils.php'; 
-
+    
     $state = decrypt(@$_SESSION['state']); //[dnc21] will be used to chain messages in log view  [dnc33]
+    
     $remote_addr = (string)$_SERVER['REMOTE_ADDR'];  // id.
 
     if ( !is_null(@$_SERVER['HTTP_ORIGIN']) OR @$_SERVER['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest" ) {  //[dnc36]
