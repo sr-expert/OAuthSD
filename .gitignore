@@ -4,7 +4,6 @@
 **/sources/*
 *.log
 *.log
-/vendor
 oidc/debug.txt
 oidc/error_log
 oidc/error_log
@@ -18,3 +17,4 @@ composer.lock
 cron/error_log
 error_log
 oauth/error_log
+**/uncrypted/
