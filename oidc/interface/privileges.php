@@ -6,6 +6,11 @@
 * @param string $client_id : application cliente passée aux contrôleurs Authorize et Token,
 * @param string $scope : les scopes passés au contrôleur Authorize, 
 * @param mixed $cnx : objet PDO connecteur à la base de données.
+* 
+* OauthSD project
+* Auteur : Bertrand Degoy 
+* Copyright (c) 2016-2018 DnC  
+* Licence GPLv3
 */
 function interscope( $user_id, $client_id, $scope, $cnx ) {
  
