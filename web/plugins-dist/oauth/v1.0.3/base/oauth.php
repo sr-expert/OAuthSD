@@ -167,7 +167,7 @@ function oauth_declarer_tables_objets_sql($tables) {
             'type' => 'oidc_log',
             'principale' => "oui",
             'field'=> array(
-                'id_oidc_logs'       => 'bigint(20) NOT NULL',
+                'id_oidc_logs'       => 'bigint(21) NOT NULL',
                 'remote_addr'      => 'varchar(255) NOT NULL',
                 'state'       => 'varchar(255) NULL',
                 'client_id'          => 'varchar(255) NULL',
@@ -198,9 +198,232 @@ function oauth_declarer_tables_objets_sql($tables) {
                 'refuse'   => 'texte_statut_refuse',
                 'poubelle' => 'texte_statut_poubelle',
             )
-        )    
+        )
 
     );
+
+    //[dnc56]
+    $tables['spip_access_tokens'] = array(      
+        'type' => 'access_token',
+        'principale' => "non",
+        'field'=> array(
+            'access_token'       => 'varchar(40) NOT NULL',        // attention : agrandir si JWT
+            'client_id'          => 'varchar(255) NULL',
+            'user_id'            => 'varchar(255) NOT NULL',  
+            'cip' => 'varchar(32) NULL',
+            'cfp' => 'varchar(32) NULL',
+            'maj'                => 'TIMESTAMP',
+            'expires' => 'TIMESTAMP',
+            'scope' => 'varchar(2000) NULL'
+        ),
+        'key' => array(
+            'PRIMARY KEY'        => 'access_token',
+            'KEY clientuser'         => array('client', 'user'),   //???  
+        ),
+        'titre' => '"" AS titre, "" AS lang',
+        'date' => 'maj',
+        'champs_editables'  => array('cip','cfp','maj','expires','scope'), 
+        'champs_versionnes' => array(),
+        'rechercher_champs' => array(),
+        'tables_jointures'  => array()
+    );
+    
+    $tables['spip_cloudsessions'] = array(      
+        'type' => 'cloudsession',
+        'principale' => "non",
+        'field'=> array(
+            'id_cloud_session'       => 'bigint(21) NOT NULL',     
+            'session_id'          => 'varchar(255) NULL',
+            'user_id'            => 'varchar(255) NOT NULL',  
+            'data' => 'text',
+            'maj'                => 'TIMESTAMP',
+        ),
+        'key' => array(
+            'PRIMARY KEY'        => 'id_cloud_session',
+            'KEY token'         => 'session_id',  
+        ),
+        'titre' => '"" AS titre, "" AS lang',
+        'date' => 'maj',
+        'champs_editables'  => array('data','maj'), 
+        'champs_versionnes' => array(),
+        'rechercher_champs' => array(),
+        'tables_jointures'  => array()
+    );
+    
+    $tables['spip_jti'] = array(      
+        'type' => 'jti',
+        'principale' => "non",
+        'field'=> array(
+            'id_jti'       => 'bigint(21) NOT NULL',     
+            'issuer'          => 'varchar(80) NOT NULL',
+            'subject'            => 'varchar(80) NOT NULL',  
+            'expires' => 'TIMESTAMP',
+            'jti'                => 'varchar(2000) NOT NULL',
+            'maj'                => 'TIMESTAMP'
+        ),
+        'key' => array(
+            'PRIMARY KEY'        => 'id_jti',
+            'KEY subject'         => 'subject',  
+        ),
+        'titre' => '"" AS titre, "" AS lang',
+        'date' => 'maj',
+        'champs_editables'  => array('jti','maj'), 
+        'champs_versionnes' => array(),
+        'rechercher_champs' => array(),
+        'tables_jointures'  => array()
+    );
+    
+    $tables['spip_jwt'] = array(      
+        'type' => 'jwt',
+        'principale' => "non",
+        'field'=> array(
+            'id_jwt'       => 'bigint(21) NOT NULL',     
+            'client_id'          => 'varchar(80) NOT NULL',
+            'subject'            => 'varchar(80) NULL',  
+            'public_key'                => 'varchar(2000) NOT NULL',
+            'maj'                => 'TIMESTAMP'
+        ),
+        'key' => array(
+            'PRIMARY KEY'        => 'id_jwt',
+            'KEY client'         => 'client_id',  
+        ),
+        'titre' => '"" AS titre, "" AS lang',
+        'date' => 'maj',
+        'champs_editables'  => array('jwt','maj'), 
+        'champs_versionnes' => array(),
+        'rechercher_champs' => array(),
+        'tables_jointures'  => array()
+    ); 
+    
+    $tables['spip_oidc_remote_addr'] = array(      
+        'type' => 'remote_addr',
+        'principale' => "non",
+        'field'=> array(
+            'remote_addr'       => 'varchar(64) NOT NULL',     
+            'total_weight'          => 'int(11)',
+            'status'            => 'smallint(6) DEFAULT "0" NOT NULL',  
+            'maj'                => 'TIMESTAMP'
+        ),
+        'key' => array(
+            'PRIMARY KEY'        => 'remote_addr',
+            'KEY status'         => 'status',  
+        ),
+        'titre' => '"" AS titre, "" AS lang',
+        'date' => 'maj',
+        'champs_editables'  => array('total_weight','status','maj'), 
+        'champs_versionnes' => array(),
+        'rechercher_champs' => array(),
+        'tables_jointures'  => array()
+    ); 
+    
+    $tables['spip_oidc_states'] = array(      
+        'type' => 'state',
+        'principale' => "non",
+        'field'=> array(
+            'state'       => 'varchar(256) NOT NULL',     
+            'total_weight'          => 'int(11)',
+            'status'            => 'smallint(6) DEFAULT "0" NOT NULL',  
+            'maj'                => 'TIMESTAMP'
+        ),
+        'key' => array(
+            'PRIMARY KEY'        => 'state',
+            'KEY status'         => 'status',  
+        ),
+        'titre' => '"" AS titre, "" AS lang',
+        'date' => 'maj',
+        'champs_editables'  => array('total_weight','status','maj'), 
+        'champs_versionnes' => array(),
+        'rechercher_champs' => array(),
+        'tables_jointures'  => array()
+    );
+    
+    $tables['spip_oidc_stats'] = array(      
+        'type' => 'stat',
+        'principale' => "non",
+        'field'=> array(
+            'datetime'       => 'datetime NOT NULL DEFAULT "0000-00-00 00:00:00"',     
+            'id_oidc_log'          => 'bigint(21) NOT NULL',
+            'authorize_count'            => 'bigint(21) NULL',
+            'introspect_count'            => 'bigint(21) NULL',
+            'token_count'            => 'bigint(21) NULL',
+            'authorize_ok_count'            => 'bigint(21) NULL',
+            'userinfoext_count'            => 'bigint(21) NULL',
+            'errors_count'            => 'bigint(11) NULL',  
+            'maj'                => 'TIMESTAMP'
+        ),
+        'key' => array(
+            'PRIMARY KEY'        => 'datetime'  
+        ),
+        'titre' => '"" AS titre, "" AS lang',
+        'date' => 'maj',
+        'champs_editables'  => array(), 
+        'champs_versionnes' => array(),
+        'rechercher_champs' => array(),
+        'tables_jointures'  => array()
+    );
+    
+    $tables['spip_public_keys'] = array(      
+        'type' => 'public_key',
+        'principale' => "oui",
+        'field'=> array(
+            'id_public_key'       => 'datetime NOT NULL DEFAULT "0000-00-00 00:00:00"',     
+            'client_id'          => 'varchar(80) NOT NULL',
+            'id_client'            => 'bigint(21) NOT NULL',
+            'public_key'            => 'varchar(4096) NOT NULL',
+            'private_key'            => 'varchar(4096) NOT NULL',
+            'encryption_algorithm'            => 'varchar(100) NOT NULL',
+            'maj'                => 'TIMESTAMP'
+        ),
+        'key' => array(
+            'PRIMARY KEY'        => 'id_public_key',
+            'KEY client_idx'         => 'client_id',
+            'KEY id_client'         => 'id_client',  
+        ),
+        'titre' => '"" AS titre, "" AS lang',
+        'date' => 'maj',
+        'champs_editables'  => array('public_key','private_key','encryption_algorithm','maj'), 
+        'champs_versionnes' => array(),
+        'rechercher_champs' => array(),
+        'tables_jointures'  => array(),
+        'statut_textes_instituer' => array(
+            'prepa'    => 'texte_statut_en_cours_redaction',
+            'prop'     => 'texte_statut_propose_evaluation',
+            'publie'   => 'texte_statut_publie',
+            'refuse'   => 'texte_statut_refuse',
+            'poubelle' => 'texte_statut_poubelle',
+        ),
+        'statut'=> array(
+            array(
+                'champ'     => 'statut',
+                'publie'    => 'publie',
+                'previsu'   => 'publie,prop,prepa',
+                'post_date' => 'date', 
+                'exception' => array('statut','tout')
+            )
+        ),
+        'texte_changer_statut' => 'client:texte_changer_keys', 
+    ); 
+    
+    $tables['spip_scopes'] = array(      
+        'type' => 'scope',
+        'principale' => "non",
+        'field'=> array(
+            'scope'       => 'varchar(80) NOT NULL',     
+            'is_default'            => 'bigint(1) NULL',
+            'scope_description'            => 'bigint(21) NULL',
+            'token_count'            => 'text NULL', 
+            'maj'                => 'TIMESTAMP'
+        ),
+        'key' => array(
+            'PRIMARY KEY'        => 'scope'  
+        ),
+        'titre' => '"" AS titre, "" AS lang',
+        'date' => 'maj',
+        'champs_editables'  => array('scope','is_default','scope_description','maj'), 
+        'champs_versionnes' => array(),
+        'rechercher_champs' => array(),
+        'tables_jointures'  => array()
+    );                                                                                                 
 
     return $tables;
 }
