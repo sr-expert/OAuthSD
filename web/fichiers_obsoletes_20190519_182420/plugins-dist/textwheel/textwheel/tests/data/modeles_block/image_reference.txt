@@ -1,3 +1,0 @@
-<http://www.spip.net/IMG/siteon0.jpg>
-
-<img src="http://www.spip.net/IMG/siteon0.jpg" alt="<textwheel1|block>" />
