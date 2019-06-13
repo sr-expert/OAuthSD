@@ -70,7 +70,7 @@ define('NEEDS_OPENID_SCOPE', false);
 * and will return 'Forbidden'.
 * If set to false, OAuthSD follows standard process checking nonce.
 * Checking UFP as nonce can only be used within a corporate realm where client applications
-* elaborates UFP and send it as nonce. Since UFP check happends right at the beginning 
+* elaborates UFP and send it as nonce. Since UFP check happens right at the beginning 
 * of the authorization process, it helps mitigate DDOS and Man-in-the-middle attacks.
 * This parameter act only on Authorize. UFP is checked by OAuthSD at different steps. 
 * [dnc8]
@@ -158,7 +158,7 @@ define ('PRTG', false);
 define ('PRTG_TOTAL_REQUESTS', true);
 
 /** [dnc6] Allow  "jku" (JWK Set URL) claim in JWT header.
-'ku' claim will pass OIDC_SERVER_URL . '/oidc/jwks.json',
+'jku' claim will pass OIDC_SERVER_URL . '/oidc/jwks.json',
 */ 
 define('JKU_IN_JWT_HEADER', true);
 

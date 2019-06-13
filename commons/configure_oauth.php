@@ -52,11 +52,11 @@ define('NEEEDS_OPENID_SCOPE', false);
 /**  CHECK_NONCE_AS_UFP
 * Set to true to force checking nonce as a User FingerPrint (UFP). False is standard.
 * If set to true, OAuthSD is expecting a UFP as nonce. If an ordinary nonce is 
-* passed in Authorize request, such a random string, OAuthSD will refuse authorization 
+* passed in Authorize request, such as a random string, OAuthSD will refuse authorization 
 * and will return 'Forbidden'.
 * If set to false, OAuthSD follows standard process checking nonce.
 * Checking UFP as nonce can only be used within a corporate realm where client applications
-* elaborates UFP and send it as nonce. Since UFP check happends right at the beginning 
+* elaborates UFP and send it as nonce. Since UFP check happens right at the beginning 
 * of the authorization process, it adds security against DDOS and Man-in-the-middle attacks.
 * This parameter act only on Authorize. UFP is checked by OAuthSD at different steps. 
 * [dnc8] 
@@ -98,7 +98,7 @@ define ('PRTG', true);
 define ('PRTG_TOTAL_REQUESTS', true);
 
 /** [dnc6] Allow  "jku" (JWK Set URL) claim in JWT header.
-'ku' claim will pass OIDC_SERVER_URL . '/oidc/jwks.json',
+'jku' claim will pass OIDC_SERVER_URL . '/oidc/jwks.json',
 */ 
 define('JKU_IN_JWT_HEADER', true);
 
