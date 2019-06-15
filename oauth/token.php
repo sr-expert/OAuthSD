@@ -12,4 +12,5 @@ Copyright (c) 2016-2018 DnC
 Licence GPLv3
 */
 
-include( OAUTHSRV_ROOT_PATH . 'token.php');
+include_once __DIR__. '/../commons/configure.php';
+include( OAUTHSRV_ROOT_PATH . '/token.php');
