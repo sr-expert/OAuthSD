@@ -12,4 +12,4 @@ Copyright (c) 2016-2018 DnC
 Licence GPLv3
 */
 
-include( OAUTHSRV_PATH . 'session.php');
+include( OAUTHSRV_ROOT_PATH . 'session.php');

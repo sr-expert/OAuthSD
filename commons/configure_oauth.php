@@ -44,35 +44,10 @@ $storage_config = array(
 
 //***** OPTIONS *****
 
-/** NEEDS_OPENID_SCOPE      
-* If true, all calls to Othaurize should have scope openid.
-*/
-define('NEEEDS_OPENID_SCOPE', false);
-
-/**  CHECK_NONCE_AS_UFP
-* Set to true to force checking nonce as a User FingerPrint (UFP). False is standard.
-* If set to true, OAuthSD is expecting a UFP as nonce. If an ordinary nonce is 
-* passed in Authorize request, such as a random string, OAuthSD will refuse authorization 
-* and will return 'Forbidden'.
-* If set to false, OAuthSD follows standard process checking nonce.
-* Checking UFP as nonce can only be used within a corporate realm where client applications
-* elaborates UFP and send it as nonce. Since UFP check happens right at the beginning 
-* of the authorization process, it adds security against DDOS and Man-in-the-middle attacks.
-* This parameter act only on Authorize. UFP is checked by OAuthSD at different steps. 
-* [dnc8] 
-*/
-define('CHECK_NONCE_AS_UFP', false);       //ufp
-
-/** [dnc9] Enable Single Login Identification? 
-* Will be effictive only if client application was registered with scope 'sli'.
-*/
-define('ENABLE_SLI', true);
-
-/** SLI cookie lifetime.
-* SLI cookie is refreshed with this value each time authorize is called. 
-* So it is the duration of cookie survival after last authorize request.
-*/
-define('SLI_COOKIE_LIFETIME', 3600);
+/** Login/password options */
+define ('PSWD_LENGTH', 9);      // Password exact length
+define ('LOGIN_MIN_LENGTH',6);  // Login min length
+define ('FORCE_EMAIL', FALSE);  // If TRUE, login should be an e-mail adress. If FALSE, login may be a pseudo or an email.
 
 /** [dnc14] Check client IP if registered.
 * client_ip, if static, may be defined when registering client application.
@@ -82,30 +57,6 @@ define('SLI_COOKIE_LIFETIME', 3600);
 * This parameter act only on token controller.  
 */
 define('CHECK_CLIENT_IP', false);
-
-/** PRTG
-* True to allow prtg tracking.
-* See /oidc/prtg/oauthsd_prtg.txt  
-*/
-define ('PRTG', true);
-/**
-* Allow traking of all requests?
-* If true, all requests including skiddie's will be tracked.
-* This induce server load and makes it sensitive to deny of service attacks.
-* Keep it true, unless induced load proves to make DDOS attacks successful.  
-* if false, tracking begins after request validation.
-*/
-define ('PRTG_TOTAL_REQUESTS', true);
-
-/** [dnc6] Allow  "jku" (JWK Set URL) claim in JWT header.
-'jku' claim will pass OIDC_SERVER_URL . '/oidc/jwks.json',
-*/ 
-define('JKU_IN_JWT_HEADER', true);
-
-/** [dnc6] Allow  "jwk" (JWK URL) claim in JWT header. 
-* 'jwk' claim will pass OIDC_SERVER_URL . '/oidc/jwks/' . $payload['kid'] . '.json'
-*/ 
-define('JWK_IN_JWT_HEADER', false);   // Allow JWK or JKU, not both. In case both are true, JWK has precedence.
 
 /* Suported Scopes
 */
@@ -117,5 +68,3 @@ $supportedScopes = array(
     'address',
     'phone',
 );
-
-define('OAUTHSRV_PATH', __DIR__. "/../vendor/bdegoy/oauthsd-php/src/Oa2Srv/");

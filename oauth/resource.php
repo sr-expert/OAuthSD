@@ -12,4 +12,4 @@ Copyright (c) 2016-2018 DnC
 Licence GPLv3
 */
 
-include( OAUTHSRV_PATH . 'resource.php');
+include_once OAUTHSRV_ROOT_PATH . 'resource.php');
