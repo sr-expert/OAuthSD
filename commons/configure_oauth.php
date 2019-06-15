@@ -49,6 +49,17 @@ define ('PSWD_LENGTH', 9);      // Password exact length
 define ('LOGIN_MIN_LENGTH',6);  // Login min length
 define ('FORCE_EMAIL', FALSE);  // If TRUE, login should be an e-mail adress. If FALSE, login may be a pseudo or an email.
 
+/** [dnc6] Allow  "jku" (JWK Set URL) claim in JWT header.
+'jku' claim will pass OIDC_SERVER_URL . '/oidc/jwks.json',
+*/ 
+define('JKU_IN_JWT_HEADER', true);
+
+/** [dnc6] Allow  "jwk" (JWK URL) claim in JWT header. 
+* 'jwk' claim will pass OIDC_SERVER_URL . '/oidc/jwks/' . $payload['kid'] . '.json'
+*/ 
+define('JWK_IN_JWT_HEADER', false);   // Allow JWK or JKU, not both. In case both are true, JWK has precedence.
+
+
 /** [dnc14] Check client IP if registered.
 * client_ip, if static, may be defined when registering client application.
 * If defined, client_ip is compared to $_SERVER['REMOTE_ADDR'].
