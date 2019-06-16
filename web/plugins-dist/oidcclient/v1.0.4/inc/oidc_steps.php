@@ -1,11 +1,18 @@
 <?php
-/**
-* Plugin OIDC pour SPIP
-* doc : https://oa.dnc.global
-* 
-* Auteur : B. Degoy DnC SARL bertrand@degoy.com    
-* Copyright (c) 2018 DnC B.Degoy
-* Tous droits réservés
+/*************************************************************************\
+*  SPIP, Systeme de publication pour l'internet                           *
+*                                                                         *
+*  Copyright (c) 2001-2016                                                *
+*  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
+*                                                                         *
+*  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
+*  Pour plus de details voir le fichier COPYING.txt ou l'aide en ligne.   *
+\*************************************************************************/ 
+ 
+/* Plugin OpenID Connect client pour SPIP
+Auteur : B.Degoy
+Copyright (c) 2018 DnC
+Licence GPL v3.0
 */
 
 /**

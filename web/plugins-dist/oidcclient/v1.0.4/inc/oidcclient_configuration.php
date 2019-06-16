@@ -12,6 +12,7 @@
 /* Plugin OpenID Connect client pour SPIP - Configuration 
 Auteur : B.Degoy
 Copyright (c) 2018 DnC
+Licence GPL v3.0
 */
 
 include_spip('inc/config');

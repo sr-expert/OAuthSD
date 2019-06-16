@@ -14,6 +14,7 @@
 * Surcharge de la dist pour assurer l'identification par OIDC
 * Auteur : B.Degoy DnC
 * Copyright (c) 2018 B.Degoy
+* Licence GPL v3.0
 */
 
 /**

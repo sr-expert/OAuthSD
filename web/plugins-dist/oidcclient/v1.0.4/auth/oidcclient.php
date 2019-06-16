@@ -13,6 +13,7 @@
 * Plugin OpenID Connect client pour SPIP
 * Auteur : B.Degoy DnC
 * Copyright (c) 2018 B.Degoy
+* licence GPL v3.0
 */
 
 if (!defined('_ECRIRE_INC_VERSION')) {
