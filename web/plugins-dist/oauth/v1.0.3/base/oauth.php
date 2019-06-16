@@ -207,7 +207,7 @@ function oauth_declarer_tables_objets_sql($tables) {
         'type' => 'access_token',
         'principale' => "non",
         'field'=> array(
-            'access_token'       => 'varchar(40) NOT NULL',        // attention : agrandir si JWT
+            'access_token'       => 'varchar(1000) NOT NULL',        //[dnc57] : porté de 40 à 1000
             'client_id'          => 'varchar(255) NULL',
             'user_id'            => 'varchar(255) NOT NULL',  
             'cip' => 'varchar(32) NULL',
