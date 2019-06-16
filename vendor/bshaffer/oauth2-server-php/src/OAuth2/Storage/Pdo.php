@@ -199,7 +199,7 @@ OpenIDAuthorizationCodeInterface
     {
         // convert expires to datestring
         $expires = date('Y-m-d H:i:s', $expires);
-
+       
         $user_id = (is_array($userinfo)? $userinfo['user_id'] : $userinfo);   //[dnc49]
 
         // if it exists, update it.
@@ -679,6 +679,11 @@ OpenIDAuthorizationCodeInterface
     * @param string $dbName
     * @return string
     */
+    
+/*[dnc57] 2019/06/16 - Bug : Le flux client credentials produit un access_token de type JWT (et pourquoi donc ???).
+Le champ access_token de la table access_tokens est trop court pour un JWT. Le token se trouve tronqué et on obtient une erreur d'index primaire dupliqué (parce que le JWT a toujours le même header).
+Porté la longeur de 40 à 1000 (longueur maximale d'une clé d'index). 
+*/
     public function getBuildSql($dbName = 'oauth2_server_php')
     {
         $sql = "
@@ -693,7 +698,7 @@ OpenIDAuthorizationCodeInterface
         );
 
         CREATE TABLE {$this->config['access_token_table']} (
-        access_token         VARCHAR(40)    NOT NULL,
+        access_token         VARCHAR(1000)    NOT NULL,    
         client_id            VARCHAR(80)    NOT NULL,
         user_id              VARCHAR(80),
         expires              TIMESTAMP      NOT NULL,

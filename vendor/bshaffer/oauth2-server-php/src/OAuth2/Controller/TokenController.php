@@ -84,6 +84,8 @@ class TokenController implements TokenControllerInterface
      */
     public function handleTokenRequest(RequestInterface $request, ResponseInterface $response)
     {
+        
+        //DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG
         if ($token = $this->grantAccessToken($request, $response)) {
             // @see http://tools.ietf.org/html/rfc6749#section-5.1
             // server MUST disable caching in headers when tokens are involved
