@@ -44,6 +44,19 @@ $storage_config = array(
 
 //***** OPTIONS *****
 
+/**
+* It must be considered that the Oauth server is as secure as the least secure flow that it implements.
+* Opening the possibility that the server responds to various requests 
+* (such as implicit and hybrid flows) without controlling the client application 
+* can be considered a security breach.
+*/
+define('ALLOW_IMPLICIT', true);
+
+/** USE_JWT_ACCESS_TOKENS
+* If sert to true, access token is issued as JWT. Is it pertinent with OpenID Connect ?
+*/
+define('USE_JWT_ACCESS_TOKENS', false);
+
 /** Login/password options */
 define ('PSWD_LENGTH', 9);      // Password exact length
 define ('LOGIN_MIN_LENGTH',6);  // Login min length

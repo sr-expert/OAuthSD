@@ -14,12 +14,17 @@ Licence GPL3
 include_once(__DIR__. "/configure.php"); 
 
 /**
-* It must be considered that the OIDC server is as secure as the least secure flow that it implements.
+* It must be considered that the Oauth server is as secure as the least secure flow that it implements.
 * Opening the possibility that the server responds to various requests 
 * (such as implicit and hybrid flows) without controlling the client application 
 * can be considered a security breach.
 */
 define('ALLOW_IMPLICIT', true);
+
+/** USE_JWT_ACCESS_TOKENS
+* If sert to true, access token is issued as JWT. Is it pertinent with OpenID Connect ?
+*/
+define('USE_JWT_ACCESS_TOKENS', false);
 
 /* Log des événements. Les événements sont considérés en fonction de leur niveau. 
 * Les événements retenus sont enregistrés en base de données (table oidc_logs) et, 
