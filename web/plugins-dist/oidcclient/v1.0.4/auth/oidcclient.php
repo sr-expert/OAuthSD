@@ -50,8 +50,8 @@ function auth_oidcclient_terminer_identifier_login($args) {
     if ( empty($res) ) { // Probablement échec de la validation du token, ne pas en dire plus à l'end-user
         include_spip('inc/minipres');
         echo minipres($error, 
-            '<center>Erreur<br/><a href="/web/spip.php?page=login">Back to login</a></center>'
-        );  //[dnc17]
+            '<center>Erreur<br/><a href="?page=login">Back to login</a></center>'
+        );  //[dnc17] [1]
         //TODO: vérifier que l'HIDS est prévenu
         session_set('loggedby');  //[dnc54a]
     }   

@@ -87,8 +87,8 @@ function inc_securiser_action_dist($action = '', $arg = '', $redirect = "", $mod
                     if ( ! empty($userinfo['error']) ) {     
                         // Erreur générée à l'étape 2 d'OIDC 1 : montrer à l'end-user
                         echo minipres($error, 
-                            '<center>' . $userinfo['error'] . '<br/><a href="/web/spip.php?page=login">' . _T('oidcclient:retour_login') . '</a></center>'
-                        );   //[dnc17]
+                            '<center>' . $userinfo['error'] . '<br/><a href="?page=login">' . _T('oidcclient:retour_login') . '</a></center>'
+                        );   //[dnc17] [1]
 
                     } else {
 
@@ -120,8 +120,8 @@ function inc_securiser_action_dist($action = '', $arg = '', $redirect = "", $mod
                                 spip_log( $error,_LOG_ERREUR);  
                                 echo minipres($error,
                                     _T('oidcclient:login_pas_lie_msg') . '<br/>' . 
-                                    '<center><br/><a href="/web/spip.php?page=login">' . _T('oidcclient:retour_login') . '</a></center>'
-                                ); //[dnc17]
+                                    '<center><br/><a href="?page=login">' . _T('oidcclient:retour_login') . '</a></center>'
+                                ); //[dnc17] [1]
 
                             }
                             // Ok
@@ -131,14 +131,14 @@ function inc_securiser_action_dist($action = '', $arg = '', $redirect = "", $mod
                         } else {
                             // login is empty
                             echo minipres($error, 
-                                '<center>' . _T('oidcclient:null_login') . '<br/><a href="/web/spip.php?page=login">' . _T('oidcclient:retour_login') . '</a></center>'
-                            );   //[dnc17]
+                                '<center>' . _T('oidcclient:null_login') . '<br/><a href="?page=login">' . _T('oidcclient:retour_login') . '</a></center>'
+                            );   //[dnc17] [1]
                         }
                     }
                 } else {
                     echo minipres($error, 
-                        '<center>' . _T('oidcclient:general_error') . '<br/><a href="/web/spip.php?page=login">' . _T('oidcclient:retour_login') . '</a></center>'
-                    ); //[dnc17]
+                        '<center>' . _T('oidcclient:general_error') . '<br/><a href="?page=login">' . _T('oidcclient:retour_login') . '</a></center>'
+                    ); //[dnc17] [1]
                     exit;  
                 }
 
@@ -146,8 +146,8 @@ function inc_securiser_action_dist($action = '', $arg = '', $redirect = "", $mod
                 // Erreur générée à l'étape 1 d'OIDC 1 : montrer à l'end-user
                 include_spip('inc/minipres');
                 echo minipres($error, 
-                    '<center>' . _request('error_description') . '<br/><a href="/web/spip.php?page=login">' . _T('oidcclient:retour_login') . '</a></center>'
-                );  //[dnc17]
+                    '<center>' . _request('error_description') . '<br/><a href="?page=login">' . _T('oidcclient:retour_login') . '</a></center>'
+                );  //[dnc17] [1]
                 exit;     
             }
 
@@ -159,8 +159,8 @@ function inc_securiser_action_dist($action = '', $arg = '', $redirect = "", $mod
                 // erreur générale
                 include_spip('inc/minipres');
                 echo minipres(_T('oidcclient:oidc_authentication_error'), 
-                    '<center><br/><a href="/web/spip.php?page=login">' . _T('oidcclient:retour_login') . '</a></center>'
-                );  //[dnc17]
+                    '<center><br/><a href="?page=login">' . _T('oidcclient:retour_login') . '</a></center>'
+                );  //[dnc17] [1]
                 exit;
             }
 

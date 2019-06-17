@@ -6,6 +6,7 @@ Voyez :
 - https://github.com/bdegoy/oidcclient
 
 2019/02/13 - //[3.2] inc/securiser_action.php : version pour SPIP 3.2.??? => v1.0.4
+2019/06/17 _ [1] - Bug : toujours adopter un chemin relatif.
 
 Auteur : B.Degoy DnC
 Copyright (c) 2018-2019 B.Degoy
