@@ -14,9 +14,10 @@ function create_and_save_pkeys( $id_client, $client_id ) {
     if ( empty($key_row) ) {      
         
         // Créer une paire de clé publique/privée avec RS256 
+
         $config = array(
             "digest_alg" => "sha256",            // Vu de JWT, correspond au défaut : RS256
-            "private_key_bits" => 4096,
+            //[dnc58] "private_key_bits" => 4096,
             "private_key_type" => OPENSSL_KEYTYPE_RSA,
         );
         // Create the private and public key
