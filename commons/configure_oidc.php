@@ -37,7 +37,7 @@ include_once(__DIR__ . '/log.php');
 * En fonction de la charge, il peut être utile de désigner un disque SSD ou même de 
 * ne pas enregistrer les messages dans un fichier en indiquant une valeur nulle (empty).
 */
-define('LOG_FILE', __DIR__.'/../tmp/oidc.log');    // dans oidc/tmp/
+define('LOG_FILE', __DIR__.'/../oidc/tmp/oidc.log');    // dans oidc/tmp/
 
 
 ///// LIFETIMES /////

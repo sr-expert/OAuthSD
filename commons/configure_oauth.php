@@ -18,7 +18,7 @@ define('LOG_LEVEL', 3 ); // 3 = error + info + success, 2 = error + info, null, 
 // où trouver le fichier avec les fonctions log_error() et log_info ?
 include_once(__DIR__ . '/log.php');    
 // dans quel fichier inscrire les messages ?
-define('LOG_FILE', __DIR__.'/../tmp/oauth.log');    // dans oauth/tmp/
+define('LOG_FILE', __DIR__.'/../oauth/tmp/oauth.log');    // dans oauth/tmp/
 
 // Storage configuration     
 $storage_config = array(
