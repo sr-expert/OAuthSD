@@ -257,14 +257,14 @@ function oauth_authorize($token) {
         }
 
     }
-
+    
     if ( $Ok AND isset($_SERVER["HTTP_REFERER"]) ) {
         $urlParts = parse_url($_SERVER["HTTP_REFERER"]);
         if ( $urlParts['host'] !== $_SERVER["HTTP_HOST"] ) {
             // CORS : autoriser l'origine
-            $issuer = $urlParts['scheme'] . "://" . $urlParts['host'];
+            $apphost = $urlParts['scheme'] . "://" . $urlParts['host'];
             include_spip('inc/headers');    
-            header('Access-Control-Allow-Origin', $issuer);
+            header('Access-Control-Allow-Origin', $apphost);
         }
     }
 
