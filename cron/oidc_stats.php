@@ -39,7 +39,8 @@ if ( is_null($last)) {
     $last = strtotime(date('Y-m-d')); 
 }
 $time = strtotime($last) + 60;
-while ( !is_null($time) AND $time < time() ) {        // on rattrappe le temps présent    
+while ( !is_null($time) AND $time < time() ) {        // on rattrappe le temps présent 
+    sleep(1); // attendre 1s pour éviter la surcharge en cas de gros retard     
     $datetime = date('Y-m-d H:i:s', $time); // datetime minute ronde 
     insert_one_minute( $datetime );
     $time = $time + 60;  // minute par minute
