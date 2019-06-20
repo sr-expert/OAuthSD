@@ -76,7 +76,15 @@ RewriteRule ^(.*)(\.html)$ /web/$1$2 [QSA,L,R=301]
 #RewriteRule ^/spip.php\?page=(.*)$ /web/spip.php?page=$1 [QSA,L,R=301]    # ne fonctionne pas !!!
 RewriteRule ^/\?page=(.*)$ /web/spip.php?page=$1 [QSA,L,R=301]
 
-
+###
+# Fichiers "standards" (si absents de la racine)
+#
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^favicon[.]ico$      /web/spip.php?page=favicon.ico [QSA,L]
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^sitemap[.]xml$      /web/spip.php?page=sitemap.xml [QSA,L]
 
 
 

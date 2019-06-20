@@ -24,14 +24,14 @@
 # Calcule automatiquememt le RewriteBase (qui permet de faire fonctionner
 # les belles URLs). De la sorte, un meme site peut etre affiche en racine
 # ou dans un sous repertoire sans devoir modifier la ligne RewriteBase.
-RewriteCond %{REQUEST_URI}::$1 ^(/.+)/(.*)::\2$
-RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^(.*) - [E=BASE:%1]
+#RewriteCond %{REQUEST_URI}::$1 ^(/.+)/(.*)::\2$
+#RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+#RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+#RewriteRule ^(.*) - [E=BASE:%1]
 
 # En alternative aux 2 lignes precedentes (a commenter dans ce cas),
 # vous pouvez indiquer un RewriteBase specifique
-#RewriteBase /web
+RewriteBase /web
 
 # SPIP version 'php' - si vous avez d'anciennes adresses en '.php[3]',
 # supprimez le '#' sur les lignes qui suivent pour rediriger les acces

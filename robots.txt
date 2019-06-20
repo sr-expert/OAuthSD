@@ -1,0 +1,38 @@
+# robots.txt
+# @url: https://oa.dnc.global
+# @generator: SPIP 3.1.10 [24286]
+# @template: plugins/auto/entravaux/v3.1.32/robots.txt.html
+
+User-agent: *
+Allow: /web/local/cache-css/
+Allow: /web/local/cache-js/
+Disallow: /.github
+Disallow: /.well-known
+Disallow: /cgi-bin
+Disallow: /commons
+Disallow: /cron
+Disallow: /doc
+Disallow: /jwks
+Disallow: /locale
+Disallow: /oauth
+Disallow: /oidc
+Disallow: /sources
+Disallow: /vendor
+Disallow: /web/local/
+Disallow: /web/ecrire/
+Disallow: /web/lib/
+Disallow: /web/plugins/
+Disallow: /web/plugins-dist/
+Disallow: /web/prive/
+Disallow: /web/squelettes-dist/
+Disallow: /web/squelettes/
+Disallow: /web/oembed.api/
+Disallow: /web/spip.php?action=*
+Disallow: /web/spip.php?page=login*
+
+Sitemap: https://oa.dnc.global/web/sitemap.xml
+
+User-agent: bingbot
+Crawl-delay: 1
+
+ 
