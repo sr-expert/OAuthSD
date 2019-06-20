@@ -18,3 +18,5 @@ cron/error_log
 error_log
 oauth/error_log
 **/uncrypted/
+cron/error_log
+cron/error_log
