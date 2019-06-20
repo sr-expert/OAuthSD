@@ -56,7 +56,7 @@ require __DIR__ . '/../vendor/autoload.php';
 OAuth2\Autoloader::register(); 
 
 // Server configuration
-require_once __DIR__ . '/../oidc/includes/configure.php';
+include_once __DIR__. '/../commons/configure.php';
 
 // Bases de données à synchroniser :
 // connection est la base du serveur, locale (définie par configure.php)
