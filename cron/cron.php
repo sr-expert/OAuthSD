@@ -20,7 +20,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 OAuth2\Autoloader::register(); 
 
 // Server configuration (OIDC)
-require_once __DIR__ . '/../oidc/includes/configure.php';
+include_once __DIR__. '/../commons/configure_oidc.php';
 
 
 // Synchroniser les données avec Supervision
