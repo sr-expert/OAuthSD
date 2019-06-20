@@ -20,39 +20,38 @@ OAuth2\Autoloader::register();
 // Server configuration (OIDC)
 include_once __DIR__. '/../commons/configure_oidc.php';
 
-// connection est la base du serveur, locale (définie par configure.php)
+//DebugBreak("435347910947900005@127.0.0.1;d=1");  //DEBUG
+
+// connection locale (définie par configure.php)
 $cnx = new \PDO($connection['dsn'], $connection['username'], $connection['password']);   // MySQL
 
 // Déterminer le datetime de la dernière entrée dans la table
 $stmt = $cnx->prepare(sprintf("SELECT * FROM %s ORDER BY datetime DESC LIMIT 1", $storage_config['oidc_stat_table']));
 $stmt->execute();
 $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-$last = @$result['datetime'];  // timestamp
+$last = strtotime(@$result['datetime']);  // timestamp
 if ( is_null($last)) {
-    // La table est vide,
-    /* démarrer au début des logs.
-    $stmt = $cnx->prepare(sprintf("SELECT datetime FROM %s ORDER BY datetime LIMIT 1", $storage_config['logs_table']));
-    $stmt->execute();
-    $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-    $last = strtotime($result['datetime']);  */
-    // démarrer ce jour à 0h
-    $last = strtotime(date('Y-m-d')); 
+    // La table est vide, démarrer ce jour à 0h
+    $last = strtotime(date('Y-m-d'));  // timestamp
 }
-$time = strtotime($last) + 60;
+if ( time() - $last > 86400 * 2 ) {
+    // en cas de gros retard ne pas remonter plus de 2 jours
+    $last = time() - 86400 * 2;  // timestamp
+}
+$time = $last + 60;   // timestamp
 while ( !is_null($time) AND $time < time() ) {        // on rattrappe le temps présent 
-    sleep(1); // attendre 1s pour éviter la surcharge en cas de gros retard     
-    $datetime = date('Y-m-d H:i:s', $time); // datetime minute ronde 
+    usleep(100000); // attendre 100ms pour éviter la surcharge en cas de gros retard     
+    $datetime = date('Y-m-d H:i', $time); // datetime minute ronde 
     insert_one_minute( $datetime );
     $time = $time + 60;  // minute par minute
 } 
-
 
 function insert_one_minute( $datetime ) {
     global $cnx, $storage_config;
 
     // Sélectionner les entrées de log de la minute passée  
-    if ( is_null($datetime) ) $datetime = date("Y-m-d H:i");  // timestamp minute ronde
-    $precedente =  date("Y-m-d H:i", strtotime($datetime ) - 60);   
+    if ( is_null($datetime) ) $datetime = date("Y-m-d H:i");  // datetime minute ronde
+    $precedente =  date("Y-m-d H:i", strtotime($datetime ) - 60);   // datetime minute ronde
     $stmt = $cnx->prepare(sprintf("SELECT * FROM %s WHERE datetime >:precedente AND datetime <=:datetime ORDER BY datetime DESC", $storage_config['oidc_log_table']));
     $stmt->execute(compact('precedente','datetime'));
     $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
